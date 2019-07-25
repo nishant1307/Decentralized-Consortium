@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-
+import web3 from '../web3';
 function MadeWithLove() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -56,6 +56,26 @@ const useStyles = makeStyles(theme => ({
 
 export default function Login() {
   const classes = useStyles();
+  const [password, setPassword] = useState('');
+  const [keystore, setKeystore] = useState('');
+
+  useEffect(()=>{
+    let temp = localStorage.getItem("keyStore");
+    if(temp === null){
+      alert("No account Found!")
+      window.location.href = '/signup'
+    }else{
+      setKeystore(JSON.parse(temp));
+      console.log(JSON.parse(temp));
+    }
+  },[])
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    let key = await web3.eth.accounts.decrypt(keystore, password)
+    sessionStorage.setItem("privateKey",JSON.stringify(key))
+}
+
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -76,10 +96,10 @@ export default function Login() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Address"
               name="email"
-              autoComplete="email"
-              autoFocus
+              value={'0x' +keystore.address}
+              disabled={true}
             />
             <TextField
               variant="outlined"
@@ -91,35 +111,31 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              onChange={(e) => {
+                setPassword(e.target.value)
+            }}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              className={classes.submit}
-            >
+              onClick={handleSignup}
+              >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="/recover" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
-            <Box mt={5}>
-              <MadeWithLove />
-            </Box>
           </form>
         </div>
       </Grid>
