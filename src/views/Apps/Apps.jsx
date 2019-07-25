@@ -25,7 +25,7 @@ import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3';
 import {registryABI} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, "0x3e0f1d097813cd4a7c50c1668f715b252893a11d");
+const registryContract = new web3.eth.Contract(registryABI, "0x4e37a167789d1f4524223cd7a7244da562ba4318");
 
 const Apps = (props) => {
 

@@ -26,7 +26,7 @@ import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3';
 import {registryABI} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, "0x3e0f1d097813cd4a7c50c1668f715b252893a11d");
+const registryContract = new web3.eth.Contract(registryABI, "0x4e37a167789d1f4524223cd7a7244da562ba4318");
 
 const Dashboard = (props) => {
 
@@ -55,28 +55,30 @@ const Dashboard = (props) => {
     <div>
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
-          <Link to="/dashboard/projects"><Card>
-            <CardHeader color="warning" stats icon>
-              <CardIcon color="warning">
-                <Icon>content_copy</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}>Projects</p>
-              <h3 className={classes.cardTitle}>
-                {projects.length}
-              </h3>
-            </CardHeader>
-            <CardFooter stats>
+          <Card>
+            <Link to="/dashboard/projects">
+              <CardHeader color="warning" stats icon>
+                <CardIcon color="warning">
+                  <Icon>content_copy</Icon>
+                </CardIcon>
+                <p className={classes.cardCategory}>Projects</p>
+                <h3 className={classes.cardTitle}>
+                  {projects.length}
+                </h3>
+              </CardHeader>
+            </Link>
+            <Link to="/dashboard/createProject"><CardFooter stats>
               <div className={classes.stats}>
                 <Icon>add</Icon>
                 <a href="#pablo" onClick={e => e.preventDefault()}>
                   Create new Project
                 </a>
               </div>
-            </CardFooter>
-          </Card></Link>
+            </CardFooter></Link>
+          </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
-          <Card>
+          <Link to="/dashboard/partners"><Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <Accessibility />
@@ -90,7 +92,7 @@ const Dashboard = (props) => {
                 Just Updated
               </div>
             </CardFooter>
-          </Card>
+          </Card></Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>

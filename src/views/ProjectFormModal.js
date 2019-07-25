@@ -3,13 +3,13 @@ import {Alert, Button, Card, CardBody, CardHeader, Form, FormFeedback, FormGroup
 import axios from "axios";
 
 import { connect } from 'react-redux';
-import { createNewProject, closeProjectModal } from '../actions/userActions';
+import { createNewProject, closeProjectModal } from 'actions/userActions';
 import useForm from 'react-hook-form'
 
 import * as Yup from 'yup';
-import { industryList } from '../dataset/industries';
-import { functionalRoles } from '../dataset/functionalRoles';
-import { renderFromArray } from '../utils';
+import { industryList } from 'dataset/industries';
+import { functionalRoles } from 'dataset/functionalRoles';
+import { renderFromArray } from 'utils';
 
 function ProjectFormModal(props) {
 
@@ -96,6 +96,11 @@ function ProjectFormModal(props) {
 
   return (
     <div className="animated fadeIn">
+    Hello
+    <CardBody>
+      Hello
+    </CardBody>
+    <Alert>Hey</Alert>
       {!isReadyForProject &&
         <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
           <ModalHeader toggle={toggle}><strong>Please wait till your account gets registered on the Open Registry</strong></ModalHeader>
@@ -112,7 +117,7 @@ function ProjectFormModal(props) {
       {isReadyForProject &&
         <Row>
           <Col>
-            <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
+            <Modal isOpen={true} toggle={toggle} className={props.className}>
               <Form  onSubmit={handleSubmit(onSubmitForm)} className="form-horizontal">
                 <ModalHeader toggle={toggle}><strong>New Project Form</strong></ModalHeader>
                 <ModalBody>

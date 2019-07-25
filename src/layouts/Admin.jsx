@@ -10,7 +10,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Navbar from "components/Navbars/Navbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-
+import Page404 from "views/ErrorPages/Page404.js";
 import sidebarRoutes from "sidebarRoutes.js";
 import routes from "routes.js"
 import web3 from "../web3.js";
@@ -34,6 +34,7 @@ const switchRoutes = (
       }
       return null;
     })}
+    <Route component= {Page404} />
   </Switch>
 );
 
