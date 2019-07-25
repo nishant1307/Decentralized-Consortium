@@ -7,9 +7,12 @@
   "dependencies": {
     "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.2.1",
+    "bip39": "^3.0.2",
     "chartist": "0.10.1",
     "classnames": "2.2.6",
+    "ethereumjs-wallet": "^0.6.3",
     "history": "4.9.0",
+    "jspdf": "^1.5.3",
     "perfect-scrollbar": "1.4.0",
     "prop-types": "15.7.2",
     "react": "16.8.6",
