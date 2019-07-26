@@ -20,9 +20,9 @@ import isEmpty from '../is-empty';
 const initialState = {
   user: '',
   organization: '',
-  projectCount: '',
-  deviceCount: '',
-  thingCount: '',
+  projectCount: 0,
+  deviceCount: 0,
+  thingCount: 0,
   userInfoLoader: true,
   projectModalOpen: false,
   deviceModalOpen: false,
@@ -87,7 +87,7 @@ export default function (state = initialState, action) {
         ...state,
         projectCount: state.projectCount + 1,
         projectModalOpen: false,
-        notificationList: [...state.notificationList, "New Project Created. Contract Address is "+action.payload.tokenContractAddress]
+        notificationList: [...state.notificationList, "New Project "+action.payload + " created"]
       }
       break;
     case NEW_DEVICE_CREATED:

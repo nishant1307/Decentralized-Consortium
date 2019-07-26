@@ -18,12 +18,14 @@ import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
 // core components
+import { connect } from 'react-redux';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
 
 class AdminNavbarLinks extends React.Component {
+
   state = {
     openNotifcation: false,
     openProfile: false
@@ -46,9 +48,21 @@ class AdminNavbarLinks extends React.Component {
     }
     this.setState({ openProfile: false });
   };
+
   render() {
-    const { classes } = this.props;
+    const { classes, user } = this.props;
     const { openNotifcation, openProfile } = this.state;
+    let notificationListRender = [];
+    user.notificationList.forEach(notification => {
+      notificationListRender.push (
+        <MenuItem
+          onClick={this.handleCloseNotification}
+          className={classes.dropdownItem}
+        >
+          {notification}
+        </MenuItem>
+      );
+    })
     return (
       <div>
         <div className={classes.searchWrapper}>
@@ -93,7 +107,7 @@ class AdminNavbarLinks extends React.Component {
             className={classes.buttonLink}
           >
             <Notifications className={classes.icons} />
-            <span className={classes.notifications}>5</span>
+            <span className={classes.notifications}>{user.notificationList.length>0 && user.notificationList.length}</span>
             <Hidden mdUp implementation="css">
               <p onClick={this.handleClick} className={classes.linkText}>
                 Notification
@@ -123,36 +137,7 @@ class AdminNavbarLinks extends React.Component {
                 <Paper>
                   <ClickAwayListener onClickAway={this.handleCloseNotification}>
                     <MenuList role="menu">
-                      <MenuItem
-                        onClick={this.handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        Mike John responded to your email
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        You have 5 new tasks
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        You{"'"}re now friend with Andrew
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        Another Notification
-                      </MenuItem>
-                      <MenuItem
-                        onClick={this.handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        Another One
-                      </MenuItem>
+                      {notificationListRender}
                     </MenuList>
                   </ClickAwayListener>
                 </Paper>
@@ -235,5 +220,11 @@ class AdminNavbarLinks extends React.Component {
 AdminNavbarLinks.propTypes = {
   classes: PropTypes.object
 };
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+    errors: state.errors,
+    user: state.user
+})
 
-export default withStyles(headerLinksStyle)(AdminNavbarLinks);
+
+export default connect(mapStateToProps)(withStyles(headerLinksStyle)(AdminNavbarLinks));

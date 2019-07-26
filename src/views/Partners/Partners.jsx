@@ -20,8 +20,8 @@ import CardBody from "components/Card/CardBody.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3';
-import {registryABI} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, "0x4e37a167789d1f4524223cd7a7244da562ba4318");
+import {registryABI, registryAddress} from '../../utils';
+const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 const Partners = (props) => {
 

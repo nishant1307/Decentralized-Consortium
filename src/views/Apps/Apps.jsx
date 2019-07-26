@@ -68,6 +68,23 @@ const Apps = (props) => {
             </CardFooter>
           </Card>
         </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <Accessibility />
+              </CardIcon>
+              <p className={classes.cardCategory}>Explorer</p>
+              <h3 className={classes.cardTitle}>2</h3>
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                <Update />
+                Just Updated
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
       </GridContainer>
     </div>
   );

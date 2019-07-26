@@ -3,20 +3,20 @@ import {Alert, Button, Card, CardBody, CardHeader, Form, FormFeedback, FormGroup
 import axios from "axios";
 
 import { connect } from 'react-redux';
-import { createNewProject, closeProjectModal } from 'actions/userActions';
+import { createNewProject, closeProjectModal } from '../actions/userActions';
 import useForm from 'react-hook-form'
 
 import * as Yup from 'yup';
-import { industryList } from 'dataset/industries';
-import { functionalRoles } from 'dataset/functionalRoles';
-import { renderFromArray } from 'utils';
-
+import { industryList } from '../dataset/industries';
+import { functionalRoles } from '../dataset/functionalRoles';
+import { renderFromArray } from '../utils';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function ProjectFormModal(props) {
 
   const initialState = {
     modal: false,
     industry: '',
-    subIndustry: '',
+    functionalRoles: '',
     isLoading: false,
     isReadyForProject: true
   }
@@ -65,23 +65,23 @@ function ProjectFormModal(props) {
       isLoading: true
     }));
     const { name, description } = data;
-    props.createNewProject({ name: name, description: description, industry: state.industry, subIndustry: state.subIndustry, tokenName: name, tokenSymbol: name, organizationName: props.user.organization.organizationName });
+    props.createNewProject({ name: name, description: description, industry: state.industry, functionalRoles: state.functionalRoles, tokenName: name, tokenSymbol: name, organizationName: props.user.organization.organizationName });
   }
 
-  useEffect(() => {
-    axios.post("/api/dashboard/checkRegistration", {})
-      .then(res => {
-        if (res.data)
-          setState(state => ({ ...state, isReadyForProject: res.data, isLoading: false }));
-        else
-          setState(state => ({ ...state, isReadyForProject: res.data, isLoading: true }));
-      })
-      .catch(err => {
-        // console.log(err);
-        setState(state => ({ ...state, isReadyForProject: false, isLoading: true }));
-      })
-
-  }, [])
+  // useEffect(() => {
+  //   axios.post("/api/dashboard/checkRegistration", {})
+  //     .then(res => {
+  //       if (res.data)
+  //         setState(state => ({ ...state, isReadyForProject: res.data, isLoading: false }));
+  //       else
+  //         setState(state => ({ ...state, isReadyForProject: res.data, isLoading: true }));
+  //     })
+  //     .catch(err => {
+  //       // console.log(err);
+  //       setState(state => ({ ...state, isReadyForProject: false, isLoading: true }));
+  //     })
+  //
+  // }, [])
 
   const { isLoading, isReadyForProject } = state;
   let button;
@@ -96,11 +96,6 @@ function ProjectFormModal(props) {
 
   return (
     <div className="animated fadeIn">
-    Hello
-    <CardBody>
-      Hello
-    </CardBody>
-    <Alert>Hey</Alert>
       {!isReadyForProject &&
         <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
           <ModalHeader toggle={toggle}><strong>Please wait till your account gets registered on the Open Registry</strong></ModalHeader>
@@ -117,7 +112,7 @@ function ProjectFormModal(props) {
       {isReadyForProject &&
         <Row>
           <Col>
-            <Modal isOpen={true} toggle={toggle} className={props.className}>
+            <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
               <Form  onSubmit={handleSubmit(onSubmitForm)} className="form-horizontal">
                 <ModalHeader toggle={toggle}><strong>New Project Form</strong></ModalHeader>
                 <ModalBody>
@@ -183,17 +178,17 @@ function ProjectFormModal(props) {
                     <Col xs="12" md="9">
                       <Input type="select"
                         placeholder="Functional Roles"
-                        name="subIndustry"
-                        valid={!errors.subIndustry}
-                        invalid={errors.subIndustry}
+                        name="functionalRoles"
+                        valid={!errors.functionalRoles}
+                        invalid={errors.functionalRoles}
                         required
-                        value={state.subIndustry}
+                        value={state.functionalRoles}
                         onChange={handleChange}
                        >
                         <option value="0">Please select</option>
                         {renderFromArray(functionalRoles)}
                       </Input>
-                      <FormFeedback>{errors.subIndustry}</FormFeedback>
+                      <FormFeedback>{errors.functionalRoles}</FormFeedback>
                       <FormText color="muted">What functional role does your project cover?</FormText>
                     </Col>
                   </FormGroup>

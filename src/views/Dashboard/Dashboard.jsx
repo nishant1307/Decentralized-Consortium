@@ -13,6 +13,7 @@ import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
 import Accessibility from "@material-ui/icons/Accessibility";
+import { connect } from 'react-redux';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -22,11 +23,14 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import ProjectFormModal from "views/ProjectFormModal.js";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3';
-import {registryABI} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, "0x4e37a167789d1f4524223cd7a7244da562ba4318");
+import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
+
+import {registryABI, registryAddress} from '../../utils';
+const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 const Dashboard = (props) => {
 
@@ -41,13 +45,15 @@ const Dashboard = (props) => {
         projectList[index] = ([
           projectData["projectID"],
           projectData["name"],
-          projectData["description"]
+          projectData["description"],
+          projectData["industry"],
+          projectData["functionalRoles"]
         ])
       })
       console.log(projectList);
       setProjects(projectList)
     })
-  }, []);
+  }, [props.user.projectCount]);
 
   const {classes} = props;
 
@@ -67,14 +73,14 @@ const Dashboard = (props) => {
                 </h3>
               </CardHeader>
             </Link>
-            <Link to="/dashboard/createProject"><CardFooter stats>
+            <CardFooter stats onClick= {props.openProjectModal}>
               <div className={classes.stats}>
                 <Icon>add</Icon>
                 <a href="#pablo" onClick={e => e.preventDefault()}>
                   Create new Project
                 </a>
               </div>
-            </CardFooter></Link>
+            </CardFooter>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
@@ -128,6 +134,23 @@ const Dashboard = (props) => {
             </CardFooter>
           </Card></Link>
         </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Link to="/dashboard/apps"><Card>
+            <CardHeader color="danger" stats icon>
+              <CardIcon color="danger">
+                <Icon>people</Icon>
+              </CardIcon>
+              <p className={classes.cardCategory}>People</p>
+              <h3 className={classes.cardTitle}>2</h3>
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                <LocalOffer />
+                Tracked from Github
+              </div>
+            </CardFooter>
+          </Card></Link>
+        </GridItem>
       </GridContainer>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
@@ -143,13 +166,14 @@ const Dashboard = (props) => {
             <CardBody>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["ID", "Name", "Description"]}
+                tableHead={["ID", "Name", "Description", "Industry", "FunctionalRoles"]}
                 tableData={projects}
               />
             </CardBody>
           </Card>
         </GridItem>
       </GridContainer>
+      <ProjectFormModal/>
     </div>
   );
 }
@@ -158,4 +182,10 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Dashboard);
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+    errors: state.errors,
+    user: state.user
+})
+
+export default connect(mapStateToProps, {openProjectModal, openDeviceModal, openThingModal})(withStyles(dashboardStyle)(Dashboard));
