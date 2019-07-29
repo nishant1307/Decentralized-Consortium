@@ -8,6 +8,7 @@ import Admin from "layouts/Admin.jsx";
 import Page404 from "views/ErrorPages/Page404.js";
 import Login from "views/Login.jsx";
 import Signup from "views/Signup.jsx";
+import Register from "views/Register/Register.js";
 import RecoverAccount from "views/RecoverAccount.jsx";
 import RegisterOrganization from "views/RegisterOrganization";
 import { Provider } from 'react-redux';
@@ -27,6 +28,7 @@ ReactDOM.render(
             <Route path="/dashboard" component={Admin} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/register" component={Register} />
             <Route path="/recover" component={RecoverAccount} />
             <Route path="/registerOrganization" component ={RegisterOrganization} />
             <Route component={Page404}/>

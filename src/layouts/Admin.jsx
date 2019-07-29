@@ -12,12 +12,15 @@ import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import Page404 from "views/ErrorPages/Page404.js";
 import sidebarRoutes from "sidebarRoutes.js";
-import routes from "routes.js"
-import web3 from "../web3.js";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/logo.png";
+import routes from "routes.js"
+import web3 from "../web3.js";
+import {registryABI, registryAddress} from '../utils';
+const registryContract = new web3.eth.Contract(registryABI, registryAddress);
+
 let ps;
 
 const switchRoutes = (
@@ -56,6 +59,19 @@ class Dashboard extends React.Component {
       ps = new PerfectScrollbar(this.mainPanel.current);
     }
     window.addEventListener("resize", this.resizeFunction);
+
+    registryContract.methods.getUserOrganizationDetails().call({
+      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
+    }).then(res => {
+      console.log(res[0]["userAddress"]);
+      console.log("Checking", (res[0]["userAddress"]==="0x0000000000000000000000000000000000000000"));
+      if(res[0]["userAddress"]==="0x0000000000000000000000000000000000000000"){
+        this.props.history.push("/register");
+      }
+      else {
+
+      }
+    })
   }
 
   componentDidUpdate(e) {

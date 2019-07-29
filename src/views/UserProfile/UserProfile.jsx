@@ -17,8 +17,8 @@ import CardFooter from "components/Card/CardFooter.jsx";
 
 import avatar from "assets/img/faces/marc.jpg";
 import web3 from '../../web3';
-import {registryABI} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, "0x3e0f1d097813cd4a7c50c1668f715b252893a11d");
+import {registryABI, registryAddress} from '../../utils';
+const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
