@@ -1,231 +1,382 @@
 import web3 from './web3';
-
-const address = '0x6cb153ff4b1022d86b90fc2554ce3fe8cd3360f9';
+const address = '0x7b5ca4a76fa90a157f72b8dee0ac7b09aff77c9f';
 const abi =[
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"name": "projectID",
-				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "description",
-				"type": "string"
-			},
-			{
-				"name": "industry",
-				"type": "string"
-			},
-			{
-				"name": "functionalRoles",
-				"type": "string"
-			}
-		],
-		"name": "addNewProject",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "projectID",
-				"type": "string"
-			},
-			{
-				"name": "organizationID",
-				"type": "string"
-			}
-		],
-		"name": "addOrganizationToProject",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "latitude",
-				"type": "uint128"
-			},
-			{
-				"name": "longitude",
-				"type": "uint128"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "addProjectLocation",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "closeProject",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "email",
-				"type": "string"
-			}
-		],
-		"name": "editUserEmail",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "city",
-				"type": "string"
-			},
-			{
-				"name": "country",
-				"type": "string"
-			},
-			{
-				"name": "zipcode",
-				"type": "string"
-			}
-		],
-		"name": "setOrganization",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
-				"name": "orgType",
-				"type": "string"
-			}
-		],
-		"name": "setOrganizationType",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "userID",
-				"type": "string"
-			},
-			{
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
-				"name": "firstName",
-				"type": "string"
-			},
-			{
-				"name": "lastName",
-				"type": "string"
-			},
-			{
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"name": "phoneNumber",
-				"type": "string"
-			},
-			{
-				"name": "role",
-				"type": "uint8"
-			}
-		],
-		"name": "setUser",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
+		"name": "acceptOwnership",
+		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "addMetadataAdder",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "addMinter",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "approve",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "burn",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"name": "certificateURLs",
+				"type": "string[]"
+			},
+			{
+				"name": "ipfsHash",
+				"type": "string[]"
+			},
+			{
+				"name": "quantity",
+				"type": "uint256"
+			},
+			{
+				"name": "thingBrand",
+				"type": "string"
+			},
+			{
+				"name": "thingDescription",
+				"type": "string"
+			},
+			{
+				"name": "thingName",
+				"type": "string"
+			},
+			{
+				"name": "thingStory",
+				"type": "string"
+			},
+			{
+				"name": "thingValue",
+				"type": "string"
+			}
+		],
+		"name": "MintWithDetails",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "renounceMetadataAdder",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "renounceMinter",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"name": "metadata",
+				"type": "string"
+			}
+		],
+		"name": "setAdditionalDetails",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "MinterAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "MinterRemoved",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "MetadataAdderAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "MetadataAdderRemoved",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "approved",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "ApprovalForAll",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipRenounced",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getAllOrganizations",
+		"inputs": [
+			{
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "_tokensOfOwner",
 		"outputs": [
 			{
-				"components": [
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
-						"type": "string"
-					}
-				],
 				"name": "",
-				"type": "tuple[]"
+				"type": "string[]"
 			}
 		],
 		"payable": false,
@@ -234,137 +385,13 @@ const abi =[
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getAllUsers",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"name": "userID",
-						"type": "string"
-					},
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
-						"type": "string"
-					},
-					{
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
-				"name": "projectID",
-				"type": "string"
+				"name": "owner",
+				"type": "address"
 			}
 		],
-		"name": "getConsortiumOrganizations",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
-						"type": "string"
-					}
-				],
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMyProjects",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "projectID",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"name": "description",
-						"type": "string"
-					},
-					{
-						"name": "industry",
-						"type": "string"
-					},
-					{
-						"name": "functionalRoles",
-						"type": "string"
-					},
-					{
-						"name": "projectStatus",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMyProjectsCount",
+		"name": "balanceOf",
 		"outputs": [
 			{
 				"name": "",
@@ -379,33 +406,68 @@ const abi =[
 		"constant": true,
 		"inputs": [
 			{
-				"name": "organizationID",
+				"name": "tokenId",
 				"type": "string"
 			}
 		],
-		"name": "getOrganizationDetails",
+		"name": "getApproved",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "getDeviceDetails",
 		"outputs": [
 			{
 				"components": [
 					{
-						"name": "organizationID",
+						"name": "certificateURLs",
+						"type": "string[]"
+					},
+					{
+						"name": "ipfsHash",
+						"type": "string[]"
+					},
+					{
+						"name": "quantity",
+						"type": "uint256"
+					},
+					{
+						"name": "thingBrand",
 						"type": "string"
 					},
 					{
-						"name": "name",
+						"name": "thingDescription",
 						"type": "string"
 					},
 					{
-						"name": "city",
+						"name": "thingName",
 						"type": "string"
 					},
 					{
-						"name": "country",
+						"name": "thingStory",
 						"type": "string"
 					},
 					{
-						"name": "zipcode",
+						"name": "thingValue",
 						"type": "string"
+					},
+					{
+						"name": "timeStamp",
+						"type": "uint256"
 					}
 				],
 				"name": "",
@@ -420,294 +482,38 @@ const abi =[
 		"constant": true,
 		"inputs": [
 			{
-				"name": "orgType",
-				"type": "string"
-			}
-		],
-		"name": "getPartnersByType",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
-						"type": "string"
-					}
-				],
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "getProjectDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "projectID",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"name": "description",
-						"type": "string"
-					},
-					{
-						"name": "industry",
-						"type": "string"
-					},
-					{
-						"name": "functionalRoles",
-						"type": "string"
-					},
-					{
-						"name": "projectStatus",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "getProjectLocations",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "registrant",
-						"type": "address"
-					},
-					{
-						"name": "latitude",
-						"type": "uint128"
-					},
-					{
-						"name": "longitude",
-						"type": "uint128"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					}
-				],
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUserDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"name": "userID",
-						"type": "string"
-					},
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
-						"type": "string"
-					},
-					{
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "userID",
-				"type": "string"
-			}
-		],
-		"name": "getUserFromUserID",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"name": "userID",
-						"type": "string"
-					},
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
-						"type": "string"
-					},
-					{
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUserOrganizationDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"name": "userID",
-						"type": "string"
-					},
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
-						"type": "string"
-					},
-					{
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple"
+				"name": "owner",
+				"type": "address"
 			},
 			{
-				"components": [
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
-						"type": "string"
-					}
-				],
+				"name": "operator",
+				"type": "address"
+			}
+		],
+		"name": "isApprovedForAll",
+		"outputs": [
+			{
 				"name": "",
-				"type": "tuple"
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "isMinter",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -727,6 +533,119 @@ const abi =[
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "interfaceId",
+				"type": "bytes4"
+			}
+		],
+		"name": "supportsInterface",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenByIndex",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "index",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenOfOwnerByIndex",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "tokenURI",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalSupply",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
-];
+]
 export default new web3.eth.Contract(abi, address);
