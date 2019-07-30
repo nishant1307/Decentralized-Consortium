@@ -13,6 +13,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import web3 from '../web3';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Snackbar from '@material-ui/core/Snackbar';
 function MadeWithLove() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -58,28 +61,67 @@ export default function Login() {
   const classes = useStyles();
   const [password, setPassword] = useState('');
   const [keystore, setKeystore] = useState('');
+  const [open, setOpen] = useState(false);
 
-  useEffect(()=>{
+
+  function handleClose(event, reason) {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  }
+
+  useEffect(() => {
     let temp = localStorage.getItem("keyStore");
-    if(temp === null){
+    if (temp === null) {
       alert("No account Found!")
       window.location.href = '/signup'
-    }else{
+    } else {
       setKeystore(JSON.parse(temp));
       console.log(JSON.parse(temp));
     }
-  },[])
+  }, [])
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    let key = await web3.eth.accounts.decrypt(keystore, password)
-    sessionStorage.setItem("privateKey",JSON.stringify(key))
-}
+    try {
+      let key = await web3.eth.accounts.decrypt(keystore, password)
+      sessionStorage.setItem("privateKey", JSON.stringify(key))
+    } catch{
+      console.log("err");
+      setOpen(true);
+
+    }
+  }
 
 
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Your password is invalid. Please try again.</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            className={classes.close}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
@@ -98,7 +140,7 @@ export default function Login() {
               id="email"
               label="Address"
               name="email"
-              value={'0x' +keystore.address}
+              value={'0x' + keystore.address}
               disabled={true}
             />
             <TextField
@@ -113,7 +155,7 @@ export default function Login() {
               autoComplete="current-password"
               onChange={(e) => {
                 setPassword(e.target.value)
-            }}
+              }}
             />
             <Button
               type="submit"
@@ -121,7 +163,7 @@ export default function Login() {
               variant="contained"
               color="primary"
               onClick={handleSignup}
-              >
+            >
               Sign In
             </Button>
             <Grid container>
