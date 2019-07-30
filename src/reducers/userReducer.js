@@ -11,6 +11,8 @@ import {
   CLOSE_DEVICE_MODAL,
   OPEN_THING_MODAL,
   CLOSE_THING_MODAL,
+  OPEN_LOCATION_MODAL,
+  CLOSE_LOCATION_MODAL,
   FETCH_NOTIFICATION,
   EDIT_PROFILE,
   GET_SUBSCRIPTION
@@ -27,6 +29,7 @@ const initialState = {
   projectModalOpen: false,
   deviceModalOpen: false,
   thingModalOpen: false,
+  locationModalOpen: false,
   notificationList: [],
   projectList: [],
   subscription: ''
@@ -82,6 +85,18 @@ export default function (state = initialState, action) {
         thingModalOpen: false
       }
       break;
+      case OPEN_LOCATION_MODAL:
+        return {
+          ...state,
+          locationModalOpen: true
+        }
+        break;
+      case CLOSE_LOCATION_MODAL:
+        return {
+          ...state,
+          locationModalOpen: false
+        }
+        break;
     case NEW_PROJECT_CREATED:
       return {
         ...state,

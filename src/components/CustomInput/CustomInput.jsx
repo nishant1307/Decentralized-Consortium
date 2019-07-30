@@ -26,8 +26,6 @@ function CustomInput({ ...props }) {
     defaultValue
   } = props;
 
-  const [forceUpdate, setForceUpdate] = useState(0)
-
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
     [" " + classes.labelRootSuccess]: success && !error

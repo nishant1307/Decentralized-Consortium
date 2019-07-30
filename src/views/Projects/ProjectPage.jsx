@@ -18,13 +18,18 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3';
-import {registryABI} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, "0x3e0f1d097813cd4a7c50c1668f715b252893a11d");
+import {registryABI, registryAddress} from '../../utils';
+import { connect } from 'react-redux';
+import { openLocationModal, closeLocationModal } from 'actions/userActions';
+import LocationFormModal from "views/LocationFormModal";
+const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 const ProjectPage = (props) => {
 
   const {classes} = props;
 
+  const locationPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/location";
+  const partnerPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/partners";
   return (
     <div>
       <GridContainer>
@@ -47,6 +52,7 @@ const ProjectPage = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
+          <Link to={partnerPageURL}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <Icon>work</Icon>
@@ -54,6 +60,7 @@ const ProjectPage = (props) => {
               <p className={classes.cardCategory}></p>
               <h4 className={classes.cardTitle}>Partners</h4>
             </CardHeader>
+          </Link>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Icon>forward</Icon>
@@ -63,8 +70,8 @@ const ProjectPage = (props) => {
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
-          <Link to="/dashboard/maps">
           <Card>
+            <Link to={locationPageURL}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <Icon>location_city</Icon>
@@ -72,14 +79,14 @@ const ProjectPage = (props) => {
               <p className={classes.cardCategory}></p>
               <h4 className={classes.cardTitle}>Location</h4>
             </CardHeader>
-            <CardFooter stats>
+            </Link>
+            <CardFooter stats onClick= {props.openLocationModal}>
               <div className={classes.stats}>
-                <Icon>forward</Icon>
-                Description
+                <Icon>add</Icon>
+                Add new Location
               </div>
             </CardFooter>
           </Card>
-          </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
@@ -133,6 +140,7 @@ const ProjectPage = (props) => {
           </Card>
         </GridItem>
       </GridContainer>
+      <LocationFormModal projectID= {props.match.params.projectID}/>
     </div>
   );
 }
@@ -141,4 +149,10 @@ ProjectPage.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(ProjectPage);
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { openLocationModal, closeLocationModal })(withStyles(dashboardStyle)(ProjectPage));

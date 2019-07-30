@@ -3,14 +3,14 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
 } from "react-google-maps";
 
 const CustomSkinMap = withScriptjs(
-  withGoogleMap(() => (
+  withGoogleMap((props) => (
     <GoogleMap
-      defaultZoom={13}
-      defaultCenter={{ lat: 40.748817, lng: -73.985428 }}
+      defaultZoom={8}
+      defaultCenter={props.defaultCenter}
       defaultOptions={{
         scrollwheel: false,
         zoomControl: true,
@@ -76,18 +76,22 @@ const CustomSkinMap = withScriptjs(
         ]
       }}
     >
-      <Marker position={{ lat: 40.748817, lng: -73.985428 }} />
+    {props.markerList.map((marker, index) => {
+      return (<Marker position={marker} key={index}/>)
+    })}
     </GoogleMap>
   ))
 );
 
-function Maps() {
+const Maps = (props) => {
   return (
     <CustomSkinMap
       googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnMr_u0nhQ-pXi_PH8HeaDB4hoPD1sdxk"
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `100vh` }} />}
       mapElement={<div style={{ height: `100%` }} />}
+      markerList={props.markerList}
+      defaultCenter={props.center}
     />
   );
 }

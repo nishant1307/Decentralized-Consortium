@@ -13,6 +13,8 @@ import {
   CLOSE_DEVICE_MODAL,
   OPEN_THING_MODAL,
   CLOSE_THING_MODAL,
+  OPEN_LOCATION_MODAL,
+  CLOSE_LOCATION_MODAL,
   CREATE_NEW_NOTIFICATION,
   FETCH_NOTIFICATION,
   EDIT_PROFILE,
@@ -89,6 +91,20 @@ export const closeThingModal = () => dispatch => {
   });
 };
 
+export const openLocationModal = () => dispatch => {
+  dispatch({
+    type: OPEN_LOCATION_MODAL,
+    payload: ""
+  });
+};
+
+export const closeLocationModal = () => dispatch => {
+  dispatch({
+    type: CLOSE_LOCATION_MODAL,
+    payload: ""
+  });
+};
+
 export const createNewProject = projectDetails => dispatch => {
   var transaction = {
     "to": registryAddress,
@@ -112,6 +128,48 @@ export const createNewProject = projectDetails => dispatch => {
             dispatch({
               type: NEW_PROJECT_CREATED,
               payload: projectDetails.name
+            });
+          }
+        }
+      })
+    .on('error', async function(error) {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error
+      });
+    })
+  })
+  .catch(err => {
+    console.log(err);
+    dispatch({
+      type: GET_ERRORS,
+      payload: "Error Occured While Creating New Project."
+    });
+  });
+};
+
+export const addNewLocation = locationDetails => dispatch => {
+  var transaction = {
+    "to": registryAddress,
+    "data": registryContract.methods.addProjectLocation(
+      locationDetails.latitude,
+      locationDetails.longitude,
+      locationDetails.name,
+      locationDetails.projectID,
+    ).encodeABI()
+  };
+
+  // web3.eth.estimateGas(transaction).then(gasLimit => {
+  transaction["gasLimit"] = 2000000;
+  web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF")
+  .then(res => {
+    web3.eth.sendSignedTransaction(res.rawTransaction)
+    .on('confirmation', async function(confirmationNumber, receipt) {
+        if (confirmationNumber == 1) {
+          if (receipt.status == true) {
+            dispatch({
+              type: NEW_PROJECT_CREATED,
+              payload: locationDetails.name
             });
           }
         }

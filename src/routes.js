@@ -1,13 +1,13 @@
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
-import Maps from "views/Maps/Maps.jsx";
+import ProjectLocation from "views/Maps/ProjectLocation.jsx";
 import Apps from "views/Apps/Apps.jsx";
 import Projects from "views/Projects/Projects.jsx";
 import ProjectPage from "views/Projects/ProjectPage.jsx";
 import Partners from "views/Partners/Partners.jsx";
 import PricingPage from "views/Pricing/PricingPage.js";
-
+import ProjectPartners from "views/Partners/ProjectPartners.jsx";
 const dashboardRoutes = [
   {
     path: "/home",
@@ -19,12 +19,6 @@ const dashboardRoutes = [
     path: "/user",
     name: "User Profile",
     component: UserProfile,
-    layout: "/dashboard"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    component: Maps,
     layout: "/dashboard"
   },
   {
@@ -43,6 +37,18 @@ const dashboardRoutes = [
     path: "/projects/:projectID",
     name: "Projects",
     component: ProjectPage,
+    layout: "/dashboard"
+  },
+  {
+    path: "/projects/:projectID/location",
+    name: "Project Locations",
+    component: ProjectLocation,
+    layout: "/dashboard"
+  },
+  {
+    path: "/projects/:projectID/partners",
+    name: "Project Partners",
+    component: ProjectPartners,
     layout: "/dashboard"
   },
   {

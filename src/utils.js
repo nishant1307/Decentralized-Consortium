@@ -8,7 +8,7 @@ export const renderFromArray = array => {
   return render;
 }
 
-export const registryAddress = "0x6cb153ff4b1022d86b90fc2554ce3fe8cd3360f9";
+export const registryAddress = "0xec972e6a006e35fa0ae02cf0284233c144bc8c63";
 
 export const registryABI = [
 	{
@@ -64,11 +64,11 @@ export const registryABI = [
 		"inputs": [
 			{
 				"name": "latitude",
-				"type": "uint128"
+				"type": "string"
 			},
 			{
 				"name": "longitude",
-				"type": "uint128"
+				"type": "string"
 			},
 			{
 				"name": "name",
@@ -529,11 +529,11 @@ export const registryABI = [
 					},
 					{
 						"name": "latitude",
-						"type": "uint128"
+						"type": "string"
 					},
 					{
 						"name": "longitude",
-						"type": "uint128"
+						"type": "string"
 					},
 					{
 						"name": "name",

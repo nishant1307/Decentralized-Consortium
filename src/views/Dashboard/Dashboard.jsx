@@ -24,6 +24,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import ProjectFormModal from "views/ProjectFormModal.js";
+import RegisterThingModal from "views/RegisterThingModal.js";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3';
@@ -76,9 +77,7 @@ const Dashboard = (props) => {
             <CardFooter stats onClick= {props.openProjectModal}>
               <div className={classes.stats}>
                 <Icon>add</Icon>
-                <a href="#pablo" onClick={e => e.preventDefault()}>
                   Create new Project
-                </a>
               </div>
             </CardFooter>
           </Card>
@@ -109,11 +108,11 @@ const Dashboard = (props) => {
               <p className={classes.cardCategory}>Products</p>
               <h3 className={classes.cardTitle}>10</h3>
             </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <DateRange />
-                Last 24 Hours
-              </div>
+            <CardFooter stats onClick= {props.openThingModal}>
+            <div className={classes.stats}>
+              <Icon>add</Icon>
+                Create new Product
+            </div>
             </CardFooter>
           </Card>
         </GridItem>
@@ -174,6 +173,7 @@ const Dashboard = (props) => {
         </GridItem>
       </GridContainer>
       <ProjectFormModal/>
+      <RegisterThingModal />
     </div>
   );
 }
