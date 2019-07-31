@@ -1,5 +1,5 @@
 // authentication.js
-
+import uuidv1 from 'uuid/v1';
 import axios from "axios";
 import {
   GET_ERRORS,
@@ -163,32 +163,32 @@ export const addNewLocation = locationDetails => dispatch => {
   // web3.eth.estimateGas(transaction).then(gasLimit => {
   transaction["gasLimit"] = 2000000;
   web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF")
-  .then(res => {
-    web3.eth.sendSignedTransaction(res.rawTransaction)
-    .on('confirmation', async function(confirmationNumber, receipt) {
-        if (confirmationNumber == 1) {
-          if (receipt.status == true) {
-            dispatch({
-              type: NEW_PROJECT_CREATED,
-              payload: locationDetails.name
-            });
+    .then(res => {
+      web3.eth.sendSignedTransaction(res.rawTransaction)
+        .on('confirmation', async function (confirmationNumber, receipt) {
+          if (confirmationNumber == 1) {
+            if (receipt.status == true) {
+              dispatch({
+                type: NEW_PROJECT_CREATED,
+                payload: locationDetails.name
+              });
+            }
           }
-        }
-      })
-    .on('error', async function(error) {
+        })
+        .on('error', async function (error) {
+          dispatch({
+            type: GET_ERRORS,
+            payload: error
+          });
+        })
+    })
+    .catch(err => {
+      console.log(err);
       dispatch({
         type: GET_ERRORS,
-        payload: error
+        payload: "Error Occured While Creating New Project."
       });
-    })
-  })
-  .catch(err => {
-    console.log(err);
-    dispatch({
-      type: GET_ERRORS,
-      payload: "Error Occured While Creating New Project."
     });
-  });
 };
 
 export const createNewDevice = deviceDetails => dispatch => {
@@ -217,73 +217,59 @@ export const createNewDevice = deviceDetails => dispatch => {
 };
 
 export const createNewThing = thingDetails => dispatch => {
-  //
-  // var batch = new web3.BatchRequest();
-  // checkTotalTokenSupply("0x6cb153ff4b1022d86b90fc2554ce3fe8cd3360f9").then((totalSupply) => {
-  //   let from = parseInt(totalSupply) + 1;
-  //   let to = from + parseInt(deviceDetails.number) - 1;
-  //   console.log("From is", from);
-  //   console.log("To is", to);
-  //   web3.eth.getTransactionCount("0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200").then((nonce) => {
-  //     console.log("nonce", nonce, deviceDetails.deviceURN);
-  //     var count = 0
-  //     for (var i = from; i <= to; i++ , nonce++) {
-  //       var transaction = {
-  //         "nonce": nonce,
-  //         "to": "0x6cb153ff4b1022d86b90fc2554ce3fe8cd3360f9",
-  //         "data": productContract.methods.MintWithDetails(
-  //           "0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200",
-  //           deviceDetails.deviceURN[count],
-  //           deviceDetails.selectedProject,
-  //           deviceDetails.tokenURI.communicationProtocol,
-  //           deviceDetails.tokenURI.dataProtocol,
-  //           deviceDetails.tokenURI.deviceType,
-  //           deviceDetails.tokenURI.sensor,
-  //         ).encodeABI()
-  //       };
-  //       // let gasLimit = await web3.eth.estimateGas(transaction);
-  //       transaction["gasLimit"] = 300000;
-  //       web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF").then((result) => {
-  //         console.log("Adding", i, count, deviceDetails.deviceURN[count]);
-  //         batch.add(web3.eth.sendSignedTransaction.request(result.rawTransaction
-  //           , (receipt) => {
-  //             console.log(receipt);
-  //             if (receipt) {
-  //               let tx = null;
-  //               while (tx == null) {
-  //                 web3.eth.getTransactionReceipt(receipt).then(res => {
-  //                   tx = res;
-  //                 })
-  //               }
-  //               if (tx.status) {
-  //                 console.log("Thing created successsfully");
-  //                 dispatch({
-  //                   type: NEW_THING_CREATED,
-  //                   payload: 1
-  //                 });
-  //               } else {
-  //                 console.log("EVM reverted");
-  //                 dispatch({
-  //                   type: GET_ERRORS,
-  //                   payload: { thingError: { message: 'Error Occured While Creating New Thing.' } }
-  //                 });
-  //               }
-  //             } else if (err) {
-  //               console.log("Device could not be created", err);
-  //               dispatch({
-  //                 type: GET_ERRORS,
-  //                 payload: { thingError: { message: 'Error Occured While Creating New Thing.' } }
-  //               });
-  //             }
-  //           }
-  //         ));
-  //         count++;
-  //       })
-  //     }
-  //     console.log(batch);
-  //     batch.execute();
-  //   })
-  // })
+  console.log(thingDetails);
+  var batch = new web3.BatchRequest();
+  checkTotalTokenSupply("0x7b5ca4a76fa90a157f72b8dee0ac7b09aff77c9f").then((totalSupply) => {
+    let from = parseInt(totalSupply) + 1;
+    let to = from + parseInt(thingDetails.quantity) - 1;
+    console.log("From is", from);
+    console.log("To is", to);
+    web3.eth.getTransactionCount("0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200").then((nonce) => {
+      console.log("nonce", nonce, uuidv1(),
+      thingDetails.certificateURLs,
+      thingDetails.ipfsHash,
+      parseInt(thingDetails.quantity),
+      thingDetails.thingBrand,
+      thingDetails.thingDescription,
+      thingDetails.thingName,
+      thingDetails.thingStory,
+      thingDetails.thingValue);
+      var count = 0
+      for (var i = from; i <= to; i++ , nonce++) {
+        var transaction = {
+          "nonce": nonce,
+          "to": "0x7b5ca4a76fa90a157f72b8dee0ac7b09aff77c9f",
+          "data": productContract.methods.MintWithDetails(
+            "0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200",
+            uuidv1(),
+            thingDetails.certificateURLs,
+            thingDetails.ipfsHash,
+            parseInt(thingDetails.quantity),
+            thingDetails.thingBrand,
+            thingDetails.thingDescription,
+            thingDetails.thingName,
+            thingDetails.thingStory,
+            thingDetails.thingValue
+          ).encodeABI()
+        };
+        // let gasLimit = await web3.eth.estimateGas(transaction);
+        transaction["gasLimit"] = 4700000;
+        web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF").then((result) => {
+          console.log("Adding", i, count);
+          batch.add(web3.eth.sendSignedTransaction(result.rawTransaction).on('receipt', (receipt) => {
+            // console.log(receipt);
+            dispatch({
+              type: NEW_THING_CREATED,
+              payload:1
+            });
+          }));
+        })
+        count++;
+      }
+      console.log(batch);
+      batch.execute();
+    })
+  })
 };
 
 export const createNewNotification = notificationDetails => dispatch => {

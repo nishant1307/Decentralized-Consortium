@@ -29,11 +29,10 @@ const RegisterThingModal = (props) => {
     validationSchema: validationSchema,
   })
 
-  const onSubmit = (data, e) => {
+  const onSubmit = (data, e) => {    
     data.claims= claims;
     data.certificateURLs = urls;
     data.ipfsHash = ipfsHash;
-    console.log(data);
     props.createNewThing(data)
     setURL([]);
     setClaims([]);
@@ -424,7 +423,7 @@ const makeAddedList = () => {
                       </FormGroup>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary" disabled={(button)} innerRef={register} >Add new Thing</Button>
+                  <Button color="primary"  innerRef={register} >Add new Thing</Button>
                 </ModalFooter>
               </Form>
               {props.errors.thingError && (<FormGroup>
