@@ -1,0 +1,34 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "123",
+    "database": "iotConekt",
+    "host": "localhost",
+    "logging": false,
+    "freezeTableName": true,
+    "operatorsAliases": false,
+    "dialect": "postgres"
+  },
+
+  "test": {
+    "username": "bgzowycf",
+    "password": "quIm8oWxqzChX8-YIDV712JVe32_INkz",
+    "database": "bgzowycf",
+    "host": "isilo.db.elephantsql.com",
+    "logging": false,
+    "freezeTableName": true,
+    "operatorsAliases": false,
+    "dialect": "postgres"
+  },
+
+  "s3":{
+    "username": "ioTConektAdmin",
+    "password": "IotConekt",
+    "database": "iotum",
+    "host": "iotconekt.ca5xcfzpgv4k.us-east-1.rds.amazonaws.com",
+    "logging": false,
+    "freezeTableName": true,
+    "operatorsAliases": false,
+    "dialect": "postgres"
+  }
+}
