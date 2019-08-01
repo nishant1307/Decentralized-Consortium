@@ -29,15 +29,21 @@ import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3';
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
-
+import productContract from '../../productContract';
 import {registryABI, registryAddress} from '../../utils';
 const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 const Dashboard = (props) => {
 
   const [projects, setProjects] = useState([]);
+  const [productCount, setProductCount] = useState(0);
 
   useEffect(() => {
+
+    productContract.methods.balanceOf("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(res=>{
+      setProductCount(res);
+      
+    })
     registryContract.methods.getMyProjects().call({
       from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
     }).then(res => {
@@ -57,7 +63,7 @@ const Dashboard = (props) => {
   }, [props.user.projectCount]);
 
   const {classes} = props;
-
+  
   return (
     <div>
       <GridContainer>
@@ -106,7 +112,7 @@ const Dashboard = (props) => {
                 <Store />
               </CardIcon>
               <p className={classes.cardCategory}>Products</p>
-              <h3 className={classes.cardTitle}>10</h3>
+              <h3 className={classes.cardTitle}>{productCount}</h3>
             </CardHeader>
             <CardFooter stats onClick= {props.openThingModal}>
             <div className={classes.stats}>
