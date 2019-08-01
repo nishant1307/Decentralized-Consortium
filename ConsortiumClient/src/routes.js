@@ -8,7 +8,13 @@ import ProjectPage from "views/Projects/ProjectPage.jsx";
 import Partners from "views/Partners/Partners.jsx";
 import PricingPage from "views/Pricing/PricingPage.js";
 import ProjectPartners from "views/Partners/ProjectPartners.jsx";
+// import DocConekt from './views/DocConekt';
 const dashboardRoutes = [
+  // {
+  //   path: "/docconekt",
+  //   component: DocConekt,
+  //   layout: "/dashboard"
+  // },
   {
     path: "/home",
     name: "Dashboard",

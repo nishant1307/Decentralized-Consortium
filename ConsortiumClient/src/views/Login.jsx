@@ -16,17 +16,7 @@ import web3 from '../web3';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
-function MadeWithLove() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Built with love by the '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI
-      </Link>
-      {' team.'}
-    </Typography>
-  );
-}
+var passworder = require('browser-passworder')
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,6 +51,7 @@ export default function Login() {
   const classes = useStyles();
   const [password, setPassword] = useState('');
   const [keystore, setKeystore] = useState('');
+  const [address, setAddress] = useState('');
   const [open, setOpen] = useState(false);
 
 
@@ -72,26 +63,26 @@ export default function Login() {
   }
 
   useEffect(() => {
-    let temp = localStorage.getItem("keyStore");
+    let address = localStorage.getItem("address");
+    let temp = localStorage.getItem("data");
     if (temp === null) {
       alert("No account Found!")
       window.location.href = '/signup'
     } else {
       setKeystore(JSON.parse(temp));
-      console.log(JSON.parse(temp));
+      setAddress(JSON.parse(address));
     }
   }, [])
+  
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    try {
-      let key = await web3.eth.accounts.decrypt(keystore, password)
-      sessionStorage.setItem("privateKey", JSON.stringify(key))
-    } catch{
-      console.log("err");
-      setOpen(true);
-
-    }
+    passworder.decrypt(password, keystore)
+      .then(function (result) {
+        sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
+      }).catch((err) => {
+        setOpen(true);
+      })
   }
 
 
@@ -140,7 +131,7 @@ export default function Login() {
               id="email"
               label="Address"
               name="email"
-              value={'0x' + keystore.address}
+              value={address.address}
               disabled={true}
             />
             <TextField

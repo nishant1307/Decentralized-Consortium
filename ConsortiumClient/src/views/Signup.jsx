@@ -14,9 +14,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 const bip39 = require('bip39')
 const etherHDkey = require('ethereumjs-wallet/hdkey')
 const jsPDF = require('jspdf');
+var passworder = require('browser-passworder')
 
 
 const useStyles = makeStyles(theme => ({
@@ -55,31 +59,64 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Signup() {
     const [password, setPassword] = useState('');
     const [checkPassword, setCheckPassword] = useState('');
-    const [error, setError] = useState(true)
+    const [error, setError] = useState(false)
     const [error2, setError2] = useState(true)
     const [modal1, setModal1] = useState(false)
 
+    const [state, setState] = React.useState({
+        checkedA: false,
+        checkedB: false,
+        checkedC: false
+    });
+
+    const handleChange = name => event => {
+        setState({ ...state, [name]: event.target.checked });
+    };
+
+    React.useEffect(() => {
+        let address = localStorage.getItem("address");
+        if (address)
+            alert("Exist account! Do you want to go to login?")
+
+    }, [])
 
     const classes = useStyles();
 
+    const OnmodalAccept = () => {
+        if (state.checkedA && state.checkedB && state.checkedC && true) {
+            const mnemonic = bip39.generateMnemonic()
+            let HDwallet = etherHDkey.fromMasterSeed(mnemonic)
+            let zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+            // console.log(zeroWallet.getAddressString(), zeroWallet.getPrivateKeyString(), keyStore);
+            // let keyStore = zeroWallet.toV3(password, [])
+            // const element = document.createElement("a");
+            // const file = new Blob([JSON.stringify(keyStore)], { type: 'text/plain' });
+            // element.href = URL.createObjectURL(file);
+            // element.download = "myFile.txt";
+            // document.body.appendChild(element); // Required for this to work in FireFox
+            // element.click();
+            // localStorage.setItem("keyStore", JSON.stringify(keyStore));
+            var doc = new jsPDF()
+            doc.text(mnemonic, 10, 10)
+            doc.save('recovery key.pdf')
+            passworder.encrypt(password, JSON.stringify({ mnemonic: mnemonic, privateKey: zeroWallet.getPrivateKeyString() }))
+                .then(function (blob) {
+                    localStorage.setItem("data", JSON.stringify(blob));
+                    localStorage.setItem("address", JSON.stringify({ address: zeroWallet.getAddressString() }));
+                })
+        } else {
+
+        }
+    }
+
     const handleSignup = async (e) => {
-        e.preventDefault();
-        const mnemonic = bip39.generateMnemonic()
-        let HDwallet = etherHDkey.fromMasterSeed(mnemonic)
-        let zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-        let keyStore = zeroWallet.toV3(password, [])
-        console.log(zeroWallet.getAddressString(), zeroWallet.getPrivateKeyString(), keyStore);
-        var doc = new jsPDF()
-        doc.text(mnemonic, 10, 10)
-        doc.save('recovery key.pdf')
-        const element = document.createElement("a");
-        const file = new Blob([JSON.stringify(keyStore)], { type: 'text/plain' });
-        element.href = URL.createObjectURL(file);
-        element.download = "myFile.txt";
-        document.body.appendChild(element); // Required for this to work in FireFox
-        element.click();
-        localStorage.setItem("keyStore", JSON.stringify(keyStore));
-        setModal1(true);
+        if (password === "" || checkPassword === "" || password !== checkPassword) {
+            setError(true);
+        }
+        else {
+            e.preventDefault();
+            setModal1(true);
+        }
     }
 
     return (
@@ -123,12 +160,13 @@ export default function Signup() {
                             label="Confirm Password"
                             name="password"
                             value={checkPassword}
+                            helperText={error ? "Please confirm your password." : ''}
                             onChange={(e) => {
                                 setCheckPassword(e.target.value);
                                 if (password === e.target.value && password !== " ") { setError(false) }
                                 else { setError(true) }
                             }}
-                            
+
                         />
                         <Button
                             onClick={handleSignup}
@@ -137,7 +175,7 @@ export default function Signup() {
                             variant="contained"
                             color="primary"
                             className={classes.submit}
-                            disabled={error}
+                            disabled={(error !== error2)}
                         >
                             Sign Up
             </Button>
@@ -155,13 +193,52 @@ export default function Signup() {
                 <DialogTitle id="alert-dialog-slide-title">{"Please take some time to understand this for your own safety. 🙏"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
-                        **Do not lose it!** It cannot be recovered if you lose it.
-    **Do not share it!** Your funds will be stolen if you use this file on a malicious/phishing site.
-    **Make a backup!** Secure it like the millions of dollars it may one day be worth.
-              </DialogContentText>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={state.checkedA}
+                                    onChange={handleChange('checkedA')}
+                                    value="checkedA"
+                                    inputProps={{
+                                        'aria-label': 'primary checkbox',
+                                    }}
+                                />
+                            }
+                            label="Do not lose it! It cannot be recovered if you lose it."
+
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={state.checkedB}
+                                    onChange={handleChange('checkedB')}
+                                    value="checkedB"
+                                    inputProps={{
+                                        'aria-label': 'primary checkbox',
+                                    }}
+                                />
+                            }
+                            label="Do not share it! Your funds will be stolen if you use this file on a malicious/phishing site."
+
+                        />
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={state.checkedC}
+                                    onChange={handleChange('checkedC')}
+                                    value="checkedC"
+                                    inputProps={{
+                                        'aria-label': 'primary checkbox',
+                                    }}
+                                />
+                            }
+                            label="Make a backup! Secure it like the millions of dollars it may one day be worth."
+                        />
+
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => { }} color="primary">
+                    <Button onClick={OnmodalAccept} color="primary">
                         Agree
           </Button>
                 </DialogActions>
