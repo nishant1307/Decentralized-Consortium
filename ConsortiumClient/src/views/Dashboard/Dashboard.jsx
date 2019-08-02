@@ -41,12 +41,10 @@ const Dashboard = (props) => {
     if (!props.auth.isAuthenticated) {
       props.history.push('/login');
     }
-  }, []);
-
     productContract.methods.balanceOf("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(res=>{
       setProductCount(res);
 
-    })
+    });
     registryContract.methods.getMyProjects().call({
       from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
     }).then(res => {
@@ -144,7 +142,7 @@ const Dashboard = (props) => {
           </Card></Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
-          <Link to="/dashboard/apps"><Card>
+          <Link to="/dashboard/people"><Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>people</Icon>

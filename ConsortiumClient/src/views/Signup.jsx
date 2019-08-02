@@ -17,7 +17,7 @@ import Slide from '@material-ui/core/Slide';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from "axios";
-    
+
 const bip39 = require('bip39')
 const etherHDkey = require('ethereumjs-wallet/hdkey')
 const jsPDF = require('jspdf');
@@ -143,6 +143,7 @@ export default function Signup() {
                             id="password"
                             label="Password"
                             name="password"
+                            type="password"
                             autoFocus
                             value={password}
                             helperText={error2 ? "Your password must be at least 8 characters long, contain at least one number and have a mixture of uppercase and lowercase letters." : ''}
@@ -160,6 +161,7 @@ export default function Signup() {
                             fullWidth
                             id="password"
                             label="Confirm Password"
+                            type="password"
                             name="password"
                             value={checkPassword}
                             helperText={error ? "Please confirm your password." : ''}
