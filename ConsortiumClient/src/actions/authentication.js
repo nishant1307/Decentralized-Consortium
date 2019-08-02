@@ -27,7 +27,7 @@ export const loginUser = (user,history) => dispatch => {
             axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":user.address , "amount": 30000000000000000000 }).then(console.log).catch(console.log)
         }
     })
-    dispatch(currentUserInfo());
+    dispatch(currentUserInfo(user.address));
     dispatch(setCurrentUser(true));
     history.push('/dashboard/home');
     //             dispatch(fetchSubscription());

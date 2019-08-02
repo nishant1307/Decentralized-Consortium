@@ -76,7 +76,7 @@ function Login(props) {
       window.location.href = '/signup'
     } else {
       setKeystore(JSON.parse(temp));
-      setAddress(JSON.parse(address));
+      setAddress(address);
     }
   }, [])
 
@@ -86,12 +86,12 @@ function Login(props) {
     passworder.decrypt(password, keystore)
       .then(function (result) {
         sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
-        props.loginUser({address:address.address,data:result},props.history);
+        props.loginUser({address:address,data:result},props.history);
       })
-      .catch((reason) => {
-        console.error(reason)
-        setOpen(true);
-      })
+      // .catch((reason) => {
+      //   console.error(reason)
+      //   setOpen(true);
+      // })
   }
 
 
@@ -140,7 +140,7 @@ function Login(props) {
               id="email"
               label="Address"
               name="email"
-              value={address.address || ''}
+              value={address || ''}
               disabled={true}
             />
             <TextField

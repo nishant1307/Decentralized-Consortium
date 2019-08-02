@@ -24,30 +24,36 @@ import {
 import { setAuthToken } from '../axiosConfig';
 import productContract from '../productContract.js'
 import registryContract from '../registryContract.js'
+import DocContract from '../DocContract';
 import { registryABI, registryAddress } from '../utils';
 const address = localStorage.getItem("address");
 const privateKey = sessionStorage.getItem('privateKey')
 export const currentUserInfo = clientToken => dispatch => {
-  productContract.methods._tokensOfOwner("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(productArray => {
-    registryContract.methods.getMyProjects().call({
-      from: "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
-    }).then(res => {
-      let projectList = [];
-      res.reverse().forEach((projectData, index) => {
-        projectList[index] = ([
-          projectData["projectID"],
-          projectData["name"],
-          projectData["description"],
-          projectData["industry"],
-          projectData["functionalRoles"]
-        ])
-      })
-      console.log({ projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList },"in");
+  console.log(clientToken);
 
-      dispatch({
-        type: CURRENT_USER_INFO,
-        payload: { projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList }
-      });
+  DocContract.methods.balanceOf(clientToken).call().then(docCount => {
+
+    productContract.methods._tokensOfOwner(clientToken).call().then(productArray => {
+      console.log(clientToken);
+
+      registryContract.methods.getMyProjects().call({
+        from: clientToken
+      }).then(res => {
+        let projectList = [];
+        res.reverse().forEach((projectData, index) => {
+          projectList[index] = ([
+            projectData["projectID"],
+            projectData["name"],
+            projectData["description"],
+            projectData["industry"],
+            projectData["functionalRoles"]
+          ])
+        })
+        dispatch({
+          type: CURRENT_USER_INFO,
+          payload: { projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList, docCount:docCount }
+        });
+      })
     })
   })
 };
@@ -118,9 +124,9 @@ export const createNewProject = projectDetails => dispatch => {
   web3.eth.getBalance(address).then((balance) => {
     if (balance > 1000000000000000000) {
       var transaction = {
-        "to": registryAddress,
+        "to": '0xec972e6a006e35fa0ae02cf0284233c144bc8c63',
         "data": registryContract.methods.addNewProject(
-          "1",
+          Math.random().toString(),
           projectDetails.name,
           projectDetails.description,
           projectDetails.industry,
@@ -129,18 +135,17 @@ export const createNewProject = projectDetails => dispatch => {
       };
 
       // web3.eth.estimateGas(transaction).then(gasLimit => {
-      transaction["gasLimit"] = 2000000;
+      transaction["gasLimit"] = 4700000;
       web3.eth.accounts.signTransaction(transaction, privateKey)
         .then(res => {
           web3.eth.sendSignedTransaction(res.rawTransaction)
-            .on('confirmation', async function (confirmationNumber, receipt) {
-              if (confirmationNumber == 1) {
-                if (receipt.status == true) {
-                  dispatch({
-                    type: NEW_PROJECT_CREATED,
-                    payload: projectDetails.name
-                  });
-                }
+            .on('receipt', async function (receipt) {
+              console.log(receipt);
+              if (receipt.status == true) {
+                dispatch({
+                  type: NEW_PROJECT_CREATED,
+                  payload: projectDetails.name
+                });
               }
             })
             .on('error', async function (error) {

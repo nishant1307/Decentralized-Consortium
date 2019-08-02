@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import Maps from "./Maps.jsx";
 import web3 from '../../web3';
-import {registryABI, registryAddress} from 'utils';
+// import {registryABI, registryAddress} from 'utils';
 import { connect } from 'react-redux';
 import LocationFormModal from "views/LocationFormModal";
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
+import registryContract from '../../registryContract';
+// const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 const ProjectLocation = props => {
 
