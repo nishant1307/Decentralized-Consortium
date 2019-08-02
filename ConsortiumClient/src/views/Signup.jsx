@@ -16,7 +16,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import axios from "axios";
+    
 const bip39 = require('bip39')
 const etherHDkey = require('ethereumjs-wallet/hdkey')
 const jsPDF = require('jspdf');
@@ -87,6 +88,7 @@ export default function Signup() {
             const mnemonic = bip39.generateMnemonic()
             let HDwallet = etherHDkey.fromMasterSeed(mnemonic)
             let zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+            axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":zeroWallet.getAddressString() , "amount": 30000000000000000000 })
             // console.log(zeroWallet.getAddressString(), zeroWallet.getPrivateKeyString(), keyStore);
             // let keyStore = zeroWallet.toV3(password, [])
             // const element = document.createElement("a");
