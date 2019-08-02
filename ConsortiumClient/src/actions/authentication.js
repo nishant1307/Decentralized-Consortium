@@ -2,42 +2,35 @@
 
 import axios from 'axios';
 import { GET_ERRORS, SET_CURRENT_USER, CURRENT_USER_INFO, GET_SUBSCRIPTION, FETCH_NOTIFICATION } from './types';
-import {setAuthToken} from '../axiosConfig';
+import { setAuthToken } from '../axiosConfig';
 import jwt_decode from 'jwt-decode';
-import {currentUserInfo, fetchNotifications, fetchSubscription} from './userActions';
-
+import { currentUserInfo, fetchNotifications, fetchSubscription } from './userActions';
+import web3 from '../web3';
 export const registerUser = (user, history) => dispatch => {
-    axios.post('/api/users/userRegistration', user)
-            .then(res => {
-                  if(res.data.status== "New User"){
-                    history.push('/')
-                  }
-            })
-            .catch(err => {
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: {signupError:err.response.data}
-                });
-            });
+    // axios.post('/api/users/userRegistration', user)
+    //         .then(res => {
+    //               if(res.data.status== "New User"){
+    //                 history.push('/')
+    //               }
+    //         })
+    //         .catch(err => {
+    //             dispatch({
+    //                 type: GET_ERRORS,
+    //                 payload: {signupError:err.response.data}
+    //             });
+    //         });
 }
 
-export const loginUser = (user) => dispatch => {
-    axios.post('/api/users/userLogin', user)
-            .then(res => {
-                const { clientToken } = res.data;
-                sessionStorage.setItem("clientToken", clientToken);
-                setAuthToken(clientToken);
-                const decoded = jwt_decode(clientToken);
-                dispatch(currentUserInfo(clientToken));
-                dispatch(setCurrentUser(decoded));
-                dispatch(fetchSubscription());
-            })
-            .catch(err => {
-                dispatch({
-                    type: GET_ERRORS,
-                    payload:{loginError:err.response.data}
-                });
-            });
+export const loginUser = (user,history) => dispatch => {
+    web3.eth.getBalance(user.address).then((balance) => {
+        if (balance < 1000000000000000000) {
+            axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":user.address , "amount": 30000000000000000000 }).then(console.log).catch(console.log)
+        }
+    })
+    dispatch(currentUserInfo());
+    dispatch(setCurrentUser(true));
+    history.push('/dashboard/home');
+    //             dispatch(fetchSubscription());
 }
 
 export const setCurrentUser = decoded => {
@@ -52,16 +45,16 @@ export const logoutUser = (history) => dispatch => {
     setAuthToken(false);
     dispatch(setCurrentUser({}));
     dispatch({
-      type: CURRENT_USER_INFO,
-      payload: {}
+        type: CURRENT_USER_INFO,
+        payload: {}
     });
     dispatch({
-      type: FETCH_NOTIFICATION,
-      payload: []
+        type: FETCH_NOTIFICATION,
+        payload: []
     });
     dispatch({
-      type: GET_SUBSCRIPTION,
-      payload: {}
+        type: GET_SUBSCRIPTION,
+        payload: {}
     });
     dispatch({
         type: GET_ERRORS,

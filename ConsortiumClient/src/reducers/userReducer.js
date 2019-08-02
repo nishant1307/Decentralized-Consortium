@@ -25,6 +25,9 @@ const initialState = {
   projectCount: 0,
   deviceCount: 0,
   thingCount: 0,
+  partners:0,
+  apps:0,
+  people:0,
   userInfoLoader: true,
   projectModalOpen: false,
   deviceModalOpen: false,
@@ -32,21 +35,24 @@ const initialState = {
   locationModalOpen: false,
   notificationList: [],
   projectList: [],
+  productList:[],
   subscription: ''
 }
 
-export default function (state = initialState, action) {
+export default function (state = initialState, action) {  
   switch (action.type) {
     case CURRENT_USER_INFO:
       return {
         ...state,
-        user: action.payload.client,
-        organization: action.payload.organization,
+        // user: action.payload.client,
+        // organization: action.payload.organization,
         projectCount: action.payload.projectCount,
-        deviceCount: action.payload.deviceCount,
+        // deviceCount: action.payload.deviceCount,
+        projectList:action.payload.projectList,
         thingCount: action.payload.thingCount,
-        etherAddress:action.payload.etherAddress,
-        userInfoLoader: false
+        productList:action.payload.productList
+        // etherAddress:action.payload.etherAddress,
+        // userInfoLoader: false
       }
       break;
     case OPEN_PROJECT_MODAL:

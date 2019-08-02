@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // react plugin for creating charts
@@ -30,40 +30,21 @@ import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardS
 import web3 from '../../web3';
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
 import productContract from '../../productContract';
-import {registryABI, registryAddress} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
+import registryContract from '../../registryContract';
 
 const Dashboard = (props) => {
-
-  const [projects, setProjects] = useState([]);
-  const [productCount, setProductCount] = useState(0);
+  console.log(props);
+  const [projects, setProjects] = useState(props.user.projectList);
+  const [productCount, setProductCount] = useState(props.user.thingCount);
 
   useEffect(() => {
+    if (!props.auth.isAuthenticated) {
+      props.history.push('/login');
+    }
+  }, []);
 
-    productContract.methods.balanceOf("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(res=>{
-      setProductCount(res);
-      
-    })
-    registryContract.methods.getMyProjects().call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
-    }).then(res => {
-      let projectList=[];
-      res.reverse().forEach((projectData, index) => {
-        projectList[index] = ([
-          projectData["projectID"],
-          projectData["name"],
-          projectData["description"],
-          projectData["industry"],
-          projectData["functionalRoles"]
-        ])
-      })
-      console.log(projectList);
-      setProjects(projectList)
-    })
-  }, [props.user.projectCount]);
+  const { classes } = props;
 
-  const {classes} = props;
-  
   return (
     <div>
       <GridContainer>
@@ -76,14 +57,14 @@ const Dashboard = (props) => {
                 </CardIcon>
                 <p className={classes.cardCategory}>Projects</p>
                 <h3 className={classes.cardTitle}>
-                  {projects.length}
+                  {props.user.projectList.length}
                 </h3>
               </CardHeader>
             </Link>
-            <CardFooter stats onClick= {props.openProjectModal}>
+            <CardFooter stats onClick={props.openProjectModal}>
               <div className={classes.stats}>
                 <Icon>add</Icon>
-                  Create new Project
+                Create new Project
               </div>
             </CardFooter>
           </Card>
@@ -95,7 +76,7 @@ const Dashboard = (props) => {
                 <Accessibility />
               </CardIcon>
               <p className={classes.cardCategory}>Partners</p>
-              <h3 className={classes.cardTitle}>2</h3>
+              <h3 className={classes.cardTitle}>{props.user.partners}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -112,11 +93,11 @@ const Dashboard = (props) => {
                 <Store />
               </CardIcon>
               <p className={classes.cardCategory}>Products</p>
-              <h3 className={classes.cardTitle}>{productCount}</h3>
+              <h3 className={classes.cardTitle}>{props.user.thingCount}</h3>
             </CardHeader>
-            <CardFooter stats onClick= {props.openThingModal}>
-            <div className={classes.stats}>
-              <Icon>add</Icon>
+            <CardFooter stats onClick={props.openThingModal}>
+              <div className={classes.stats}>
+                <Icon>add</Icon>
                 Create new Product
             </div>
             </CardFooter>
@@ -129,7 +110,7 @@ const Dashboard = (props) => {
                 <Icon>apps</Icon>
               </CardIcon>
               <p className={classes.cardCategory}>Apps</p>
-              <h3 className={classes.cardTitle}>2</h3>
+              <h3 className={classes.cardTitle}>{props.user.apps}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -146,7 +127,7 @@ const Dashboard = (props) => {
                 <Icon>people</Icon>
               </CardIcon>
               <p className={classes.cardCategory}>People</p>
-              <h3 className={classes.cardTitle}>2</h3>
+              <h3 className={classes.cardTitle}>{props.user.people}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -178,7 +159,7 @@ const Dashboard = (props) => {
           </Card>
         </GridItem>
       </GridContainer>
-      <ProjectFormModal/>
+      <ProjectFormModal />
       <RegisterThingModal />
     </div>
   );
@@ -189,9 +170,9 @@ Dashboard.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    errors: state.errors,
-    user: state.user
+  auth: state.auth,
+  errors: state.errors,
+  user: state.user
 })
 
-export default connect(mapStateToProps, {openProjectModal, openDeviceModal, openThingModal})(withStyles(dashboardStyle)(Dashboard));
+export default connect(mapStateToProps, { openProjectModal, openDeviceModal, openThingModal })(withStyles(dashboardStyle)(Dashboard));

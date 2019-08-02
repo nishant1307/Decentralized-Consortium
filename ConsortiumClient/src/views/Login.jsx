@@ -16,6 +16,9 @@ import web3 from '../web3';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
+import axios from "axios";
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/authentication';
 var passworder = require('browser-passworder')
 
 const useStyles = makeStyles(theme => ({
@@ -47,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Login() {
+function Login(props) {  
   const classes = useStyles();
   const [password, setPassword] = useState('');
   const [keystore, setKeystore] = useState('');
@@ -63,6 +66,9 @@ export default function Login() {
   }
 
   useEffect(() => {
+    if(props.auth.isAuthenticated){
+      props.history.push('/dashboard/home');
+    }
     let address = localStorage.getItem("address");
     let temp = localStorage.getItem("data");
     if (temp === null) {
@@ -73,14 +79,17 @@ export default function Login() {
       setAddress(JSON.parse(address));
     }
   }, [])
-  
+
 
   const handleSignup = async (e) => {
     e.preventDefault();
     passworder.decrypt(password, keystore)
       .then(function (result) {
         sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
-      }).catch((err) => {
+        props.loginUser({address:address.address,data:result},props.history);
+      })
+      .catch((reason) => {
+        console.error(reason)
         setOpen(true);
       })
   }
@@ -131,7 +140,7 @@ export default function Login() {
               id="email"
               label="Address"
               name="email"
-              value={address.address}
+              value={address.address || ''}
               disabled={true}
             />
             <TextField
@@ -175,3 +184,9 @@ export default function Login() {
     </Grid>
   );
 }
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps, { loginUser })(Login)

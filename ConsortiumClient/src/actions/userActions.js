@@ -1,6 +1,7 @@
 // authentication.js
 import uuidv1 from 'uuid/v1';
 import axios from "axios";
+import web3 from '../web3';
 import {
   GET_ERRORS,
   CURRENT_USER_INFO,
@@ -21,27 +22,34 @@ import {
   GET_SUBSCRIPTION
 } from "./types";
 import { setAuthToken } from '../axiosConfig';
-import web3 from "../web3.js";
 import productContract from '../productContract.js'
-
+import registryContract from '../registryContract.js'
 import { registryABI, registryAddress } from '../utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
-
+const address = localStorage.getItem("address");
+const privateKey = sessionStorage.getItem('privateKey')
 export const currentUserInfo = clientToken => dispatch => {
-  axios
-    .post("/api/dashboard/getCounts", {})
-    .then(res => {
+  productContract.methods._tokensOfOwner("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(productArray => {
+    registryContract.methods.getMyProjects().call({
+      from: "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
+    }).then(res => {
+      let projectList = [];
+      res.reverse().forEach((projectData, index) => {
+        projectList[index] = ([
+          projectData["projectID"],
+          projectData["name"],
+          projectData["description"],
+          projectData["industry"],
+          projectData["functionalRoles"]
+        ])
+      })
+      console.log({ projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList },"in");
+      
       dispatch({
         type: CURRENT_USER_INFO,
-        payload: res.data
+        payload: { projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList }
       });
     })
-    .catch(err => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
-    });
+  })
 };
 export const openProjectModal = () => dispatch => {
   dispatch({
@@ -107,46 +115,58 @@ export const closeLocationModal = () => dispatch => {
 };
 
 export const createNewProject = projectDetails => dispatch => {
-  var transaction = {
-    "to": registryAddress,
-    "data": registryContract.methods.addNewProject(
-      "1",
-      projectDetails.name,
-      projectDetails.description,
-      projectDetails.industry,
-      projectDetails.functionalRoles
-    ).encodeABI()
-  };
+  web3.eth.getBalance(address).then((balance) => {
+    if (balance > 1000000000000000000) {
+      var transaction = {
+        "to": registryAddress,
+        "data": registryContract.methods.addNewProject(
+          "1",
+          projectDetails.name,
+          projectDetails.description,
+          projectDetails.industry,
+          projectDetails.functionalRoles
+        ).encodeABI()
+      };
 
-  // web3.eth.estimateGas(transaction).then(gasLimit => {
-  transaction["gasLimit"] = 2000000;
-  web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF")
-    .then(res => {
-      web3.eth.sendSignedTransaction(res.rawTransaction)
-        .on('confirmation', async function (confirmationNumber, receipt) {
-          if (confirmationNumber == 1) {
-            if (receipt.status == true) {
+      // web3.eth.estimateGas(transaction).then(gasLimit => {
+      transaction["gasLimit"] = 2000000;
+      web3.eth.accounts.signTransaction(transaction, privateKey)
+        .then(res => {
+          web3.eth.sendSignedTransaction(res.rawTransaction)
+            .on('confirmation', async function (confirmationNumber, receipt) {
+              if (confirmationNumber == 1) {
+                if (receipt.status == true) {
+                  dispatch({
+                    type: NEW_PROJECT_CREATED,
+                    payload: projectDetails.name
+                  });
+                }
+              }
+            })
+            .on('error', async function (error) {
               dispatch({
-                type: NEW_PROJECT_CREATED,
-                payload: projectDetails.name
+                type: GET_ERRORS,
+                payload: error
               });
-            }
-          }
+            })
         })
-        .on('error', async function (error) {
+        .catch(err => {
+          console.log(err);
           dispatch({
             type: GET_ERRORS,
-            payload: error
+            payload: "Error Occured While Creating New Project."
+          });
+        });
+    } else {
+      axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address": address, "amount": 30000000000000000000 })
+        .then(res => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: "Network Error."
           });
         })
-    })
-    .catch(err => {
-      console.log(err);
-      dispatch({
-        type: GET_ERRORS,
-        payload: "Error Occured While Creating New Project."
-      });
-    });
+    }
+  })
 };
 
 export const addNewLocation = locationDetails => dispatch => {
@@ -162,7 +182,7 @@ export const addNewLocation = locationDetails => dispatch => {
 
   // web3.eth.estimateGas(transaction).then(gasLimit => {
   transaction["gasLimit"] = 2000000;
-  web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF")
+  web3.eth.accounts.signTransaction(transaction, privateKey)
     .then(res => {
       web3.eth.sendSignedTransaction(res.rawTransaction)
         .on('confirmation', async function (confirmationNumber, receipt) {
@@ -224,23 +244,23 @@ export const createNewThing = thingDetails => dispatch => {
     let to = from + parseInt(thingDetails.quantity) - 1;
     console.log("From is", from);
     console.log("To is", to);
-    web3.eth.getTransactionCount("0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200").then((nonce) => {
+    web3.eth.getTransactionCount(address).then((nonce) => {
       console.log("nonce", nonce, uuidv1(),
-      thingDetails.certificateURLs,
-      thingDetails.ipfsHash,
-      parseInt(thingDetails.quantity),
-      thingDetails.thingBrand,
-      thingDetails.thingDescription,
-      thingDetails.thingName,
-      thingDetails.thingStory,
-      thingDetails.thingValue);
+        thingDetails.certificateURLs,
+        thingDetails.ipfsHash,
+        parseInt(thingDetails.quantity),
+        thingDetails.thingBrand,
+        thingDetails.thingDescription,
+        thingDetails.thingName,
+        thingDetails.thingStory,
+        thingDetails.thingValue);
       var count = 0
       for (var i = from; i <= to; i++ , nonce++) {
         var transaction = {
           "nonce": nonce,
           "to": "0x7b5ca4a76fa90a157f72b8dee0ac7b09aff77c9f",
           "data": productContract.methods.MintWithDetails(
-            "0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200",
+            address,
             uuidv1(),
             thingDetails.certificateURLs,
             thingDetails.ipfsHash,
@@ -254,13 +274,13 @@ export const createNewThing = thingDetails => dispatch => {
         };
         // let gasLimit = await web3.eth.estimateGas(transaction);
         transaction["gasLimit"] = 4700000;
-        web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF").then((result) => {
+        web3.eth.accounts.signTransaction(transaction, privateKey).then((result) => {
           console.log("Adding", i, count);
           batch.add(web3.eth.sendSignedTransaction(result.rawTransaction).on('receipt', (receipt) => {
             // console.log(receipt);
             dispatch({
               type: NEW_THING_CREATED,
-              payload:1
+              payload: 1
             });
           }));
         })
