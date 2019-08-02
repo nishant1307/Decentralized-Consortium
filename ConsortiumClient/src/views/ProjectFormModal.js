@@ -64,9 +64,8 @@ function ProjectFormModal(props) {
       ...state,
       isLoading: true
     }));
-    const { name, description } = data;
-    console.log("Role is ", data.role);
-    // props.createNewProject({ name: name, description: description, industry: state.industry, functionalRoles: state.functionalRoles, tokenName: name, tokenSymbol: name, organizationName: props.user.organization.organizationName });
+    const { name, description, role } = data;
+    props.createNewProject({ name: name, description: description, industry: state.industry, partnerRole: role });
   }
 
   // useEffect(() => {
@@ -172,7 +171,7 @@ function ProjectFormModal(props) {
                       <FormText color="muted">What industry does your project cover?</FormText>
                     </Col>
                   </FormGroup>
-                  <FormGroup row>
+                  {/** <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="text-input">Functional Roles</Label>
                     </Col>
@@ -192,18 +191,18 @@ function ProjectFormModal(props) {
                       <FormFeedback>{errors.functionalRoles}</FormFeedback>
                       <FormText color="muted">What functional role does your project cover?</FormText>
                     </Col>
-                  </FormGroup>
+                  </FormGroup> */}
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="select">Select Role</Label>
                     </Col>
                     <Col xs="12" md="9">
                     <Label check>
-                      <Input type="radio" name="role" innerRef={register}/>{' '}
+                      <Input type="radio" name="role" innerRef={register} value={0}/>{' '}
                       Buyer
                     </Label><br/>
                     <Label check>
-                      <Input type="radio" name="role" innerRef={register}/>{' '}
+                      <Input type="radio" name="role" innerRef={register} value={1}/>{' '}
                         Seller
                       </Label>
                   </Col>

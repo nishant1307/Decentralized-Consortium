@@ -42,11 +42,12 @@ const Dashboard = (props) => {
 
     productContract.methods.balanceOf("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(res=>{
       setProductCount(res);
-      
+
     })
     registryContract.methods.getMyProjects().call({
       from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
     }).then(res => {
+      console.log(res);
       let projectList=[];
       res.reverse().forEach((projectData, index) => {
         projectList[index] = ([
@@ -54,7 +55,7 @@ const Dashboard = (props) => {
           projectData["name"],
           projectData["description"],
           projectData["industry"],
-          projectData["functionalRoles"]
+          projectData["startTime"]
         ])
       })
       console.log(projectList);
@@ -63,7 +64,7 @@ const Dashboard = (props) => {
   }, [props.user.projectCount]);
 
   const {classes} = props;
-  
+
   return (
     <div>
       <GridContainer>
@@ -171,7 +172,7 @@ const Dashboard = (props) => {
             <CardBody>
               <Table
                 tableHeaderColor="primary"
-                tableHead={["ID", "Name", "Description", "Industry", "FunctionalRoles"]}
+                tableHead={["ID", "Name", "Description", "Industry", "Start Time"]}
                 tableData={projects}
               />
             </CardBody>

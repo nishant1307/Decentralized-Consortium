@@ -114,7 +114,7 @@ export const createNewProject = projectDetails => dispatch => {
       projectDetails.name,
       projectDetails.description,
       projectDetails.industry,
-      projectDetails.functionalRoles
+      projectDetails.partnerRole
     ).encodeABI()
   };
 
