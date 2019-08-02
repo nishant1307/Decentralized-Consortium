@@ -8,13 +8,19 @@ import ProjectPage from "views/Projects/ProjectPage.jsx";
 import Partners from "views/Partners/Partners.jsx";
 import PricingPage from "views/Pricing/PricingPage.js";
 import ProjectPartners from "views/Partners/ProjectPartners.jsx";
-// import DocConekt from './views/DocConekt';
+import DocConekt from './views/DocConekt/UploadFile';
+import Wallet from './views/DocConekt/Wallet';
 const dashboardRoutes = [
-  // {
-  //   path: "/docconekt",
-  //   component: DocConekt,
-  //   layout: "/dashboard"
-  // },
+  {
+    path: "/docconekt/explore",
+    component: Wallet,
+    layout: "/dashboard"
+  },
+  {
+    path: "/docconekt/upload",
+    component: DocConekt,
+    layout: "/dashboard"
+  },
   {
     path: "/home",
     name: "Dashboard",

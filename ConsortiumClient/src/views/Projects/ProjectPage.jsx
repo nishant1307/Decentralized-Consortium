@@ -25,6 +25,7 @@ import LocationFormModal from "views/LocationFormModal";
 const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 const ProjectPage = (props) => {
+console.log(props);
 
   const {classes} = props;
 
@@ -107,17 +108,17 @@ const ProjectPage = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-            <CardHeader color="info" stats icon>
+            <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
               <CardIcon color="info">
                 <Icon>file_copy</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}></p>
-              <h4 className={classes.cardTitle}>Docs</h4>
+              <p className={classes.cardCategory}>Docs</p>
+              <h3 className={classes.cardTitle}>{props.user.docCount}</h3>
             </CardHeader>
-            <CardFooter stats>
+            <CardFooter onClick={()=>{props.history.push('/dashboard/docconekt/upload')} } stats>
               <div className={classes.stats}>
                 <Icon>forward</Icon>
-                Go to DocConekt App
+                Upload Doc on DocConekt
               </div>
             </CardFooter>
           </Card>

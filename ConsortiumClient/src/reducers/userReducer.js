@@ -22,6 +22,7 @@ import isEmpty from '../is-empty';
 const initialState = {
   user: '',
   organization: '',
+  docCount:0,
   projectCount: 0,
   deviceCount: 0,
   thingCount: 0,
@@ -50,7 +51,8 @@ export default function (state = initialState, action) {
         // deviceCount: action.payload.deviceCount,
         projectList:action.payload.projectList,
         thingCount: action.payload.thingCount,
-        productList:action.payload.productList
+        productList:action.payload.productList,
+        docCount:action.payload.docCount
         // etherAddress:action.payload.etherAddress,
         // userInfoLoader: false
       }

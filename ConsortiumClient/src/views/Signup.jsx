@@ -57,7 +57,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function Signup() {
+export default function Signup(props) {
     const [password, setPassword] = useState('');
     const [checkPassword, setCheckPassword] = useState('');
     const [error, setError] = useState(false)
@@ -105,6 +105,7 @@ export default function Signup() {
                 .then(function (blob) {
                     localStorage.setItem("data", JSON.stringify(blob));
                     localStorage.setItem("address",zeroWallet.getAddressString());
+                    props.history.push('/login')
                 })
         } else {
 

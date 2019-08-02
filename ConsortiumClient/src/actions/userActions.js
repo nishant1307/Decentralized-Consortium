@@ -24,30 +24,36 @@ import {
 import { setAuthToken } from '../axiosConfig';
 import productContract from '../productContract.js'
 import registryContract from '../registryContract.js'
+import DocContract from '../DocContract';
 import { registryABI, registryAddress } from '../utils';
 const address = localStorage.getItem("address");
 const privateKey = sessionStorage.getItem('privateKey')
-console.log(privateKey);
-
 export const currentUserInfo = clientToken => dispatch => {
-  productContract.methods._tokensOfOwner(address).call().then(productArray => {
-    registryContract.methods.getMyProjects().call({
-      from: address
-    }).then(res => {
-      let projectList = [];
-      res.reverse().forEach((projectData, index) => {
-        projectList[index] = ([
-          projectData["projectID"],
-          projectData["name"],
-          projectData["description"],
-          projectData["industry"],
-          projectData["functionalRoles"]
-        ])
+  console.log(clientToken);
+
+  DocContract.methods.balanceOf(clientToken).call().then(docCount => {
+
+    productContract.methods._tokensOfOwner(clientToken).call().then(productArray => {
+      console.log(clientToken);
+
+      registryContract.methods.getMyProjects().call({
+        from: clientToken
+      }).then(res => {
+        let projectList = [];
+        res.reverse().forEach((projectData, index) => {
+          projectList[index] = ([
+            projectData["projectID"],
+            projectData["name"],
+            projectData["description"],
+            projectData["industry"],
+            projectData["functionalRoles"]
+          ])
+        })
+        dispatch({
+          type: CURRENT_USER_INFO,
+          payload: { projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList, docCount:docCount }
+        });
       })
-      dispatch({
-        type: CURRENT_USER_INFO,
-        payload: { projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList }
-      });
     })
   })
 };
@@ -118,7 +124,7 @@ export const createNewProject = projectDetails => dispatch => {
   web3.eth.getBalance(address).then((balance) => {
     if (balance > 1000000000000000000) {
       var transaction = {
-        "to":'0xec972e6a006e35fa0ae02cf0284233c144bc8c63',
+        "to": '0xec972e6a006e35fa0ae02cf0284233c144bc8c63',
         "data": registryContract.methods.addNewProject(
           Math.random().toString(),
           projectDetails.name,
