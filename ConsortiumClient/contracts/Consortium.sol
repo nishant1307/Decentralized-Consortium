@@ -14,7 +14,18 @@ contract Storage {
         _;
     }
 
-    enum roles {orgAdmin, registrant, reader}
+    modifier onlyOrgAdmin() {
+        require(userDirectory[msg.sender].role == roles.admin );
+        _;
+    }
+    modifier userExists() {
+        require(userDirectory[msg.sender].userAddress != address(0x0));
+        _;
+    }
+
+    enum roles {admin, regular}
+
+    enum partnerRoles { buyer, seller, shipper, bank }
 
     enum status { active, inactive }
 
@@ -32,9 +43,7 @@ contract Storage {
     struct Organization {
         string organizationID;
         string name;
-        string city;
-        string country;
-        string zipcode;
+        string geocode;
     }
 
     struct Project {
@@ -42,16 +51,13 @@ contract Storage {
         string name;
         string description;
         string industry;
-        string functionalRoles;
         status projectStatus;
+        uint256 startTime;
+        uint256 endTime;
     }
 
-    struct Location {
-        address registrant;
-        uint128 latitude;
-        uint128 longitude;
-        string name;
-    }
+    // Mapping of invited users emails
+    mapping(string => Organization) invitedUsers;
 
     // User Directory
     mapping(address => User) userDirectory;
@@ -71,46 +77,55 @@ contract Storage {
     // mapping between Project ID and project Details
     mapping (string => Project) private projectRegistry;
 
-    // mapping between Project ID and its locations
-    mapping (string => Location[]) private projectLocations;
+    // mapping between ProjectId and Users
+    mapping (string => User[]) private consortium;
 
-    // mapping between ProjectId and Organizations
-    mapping (string => Organization[]) private consortium;
-
-    // mapping between OrganizationID and Projects
-    mapping (string => Project[]) private myProjects;
+    // mapping between userPublicKey and Projects
+    mapping (address => Project[]) private myProjects;
 
     // mapping between orgType and Organization
     mapping (string => Organization[]) private partners;
 
+    // mapping between projectID and user with their roles
+    mapping(string => mapping (address => partnerRoles)) projectRoles;
 
-    function setUser(string memory userID, string memory organizationID, string memory firstName, string memory lastName, string memory email, string memory phoneNumber, roles role) public {
+    function setUser(string memory userID, string memory firstName, string memory lastName, string memory email, string memory phoneNumber, address publicKey) public {
+        require(bytes(invitedUsers[email].organizationID).length > 0);
         User memory newUser = User ({
-            userAddress : msg.sender,
+            userAddress : publicKey,
             userID: userID,
-            organizationID: organizationID,
+            organizationID: invitedUsers[email].organizationID,
             firstName: firstName,
             lastName: lastName,
             email: email,
             phoneNumber: phoneNumber,
-            role: role
+            role: roles.regular
         });
 
-        userDirectory[msg.sender] = newUser;
+        userDirectory[publicKey] = newUser;
         userDirectoryFromID[userID] = newUser;
         users.push(newUser);
     }
 
-    function editUserEmail(string memory email) public {
-        User storage oldUserDetails = userDirectory[msg.sender];
-        oldUserDetails.email = email;
+    function inviteUser(string memory email) public onlyOrgAdmin() {
+        Organization storage adminOrg = organizationDirectory[userDirectory[msg.sender].organizationID];
+        invitedUsers[email] = adminOrg;
     }
 
-    function getUserDetails() public view returns (User memory) {
+    function updateOrgAdmin(address publicKey) public onlyOrgAdmin {
+        userDirectory[msg.sender].role = roles.regular;
+        userDirectory[publicKey].role == roles.admin;
+    }
+
+    function editUserEmail(string memory email) public userExists {
+        userDirectory[msg.sender].email = email;
+    }
+
+    function getUserDetails() public view userExists returns (User memory){
         return userDirectory[msg.sender];
     }
 
-    function getUserOrganizationDetails() public view returns (User memory, Organization memory) {
+    function getUserOrganizationDetails() public view userExists returns (User memory, Organization memory) {
         return (userDirectory[msg.sender], organizationDirectory[userDirectory[msg.sender].organizationID]);
     }
 
@@ -118,58 +133,60 @@ contract Storage {
         return userDirectoryFromID[userID];
     }
 
-    function setOrganization(string memory organizationID, string memory name, string memory city, string memory country, string memory zipcode) public{
+    function setOrganizationAdmin(string memory organizationID, string memory name, string memory geocode, string memory userID, string memory firstName, string memory lastName, string memory email, string memory phoneNumber, address publicKey) public onlyOwner{
         Organization memory newOrganization = Organization ({
             organizationID: organizationID,
             name: name,
-            city: city,
-            country: country,
-            zipcode: zipcode
+            geocode: geocode
         });
+        User memory newUser = User ({
+            userAddress : publicKey,
+            userID: userID,
+            organizationID: organizationID,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumber: phoneNumber,
+            role: roles.admin
+        });
+
+        userDirectory[publicKey] = newUser;
+        userDirectoryFromID[userID] = newUser;
+        users.push(newUser);
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
-        partners["regular"].push(newOrganization);
+        partners["All"].push(newOrganization);
 
     }
 
-    function addProjectLocation(uint128 latitude, uint128 longitude, string memory name, string memory projectID) public {
-        Location memory newLocation = Location ({
-            registrant: msg.sender,
-            latitude: latitude,
-            longitude: longitude,
-            name: name
-        });
-        projectLocations[projectID].push(newLocation);
-    }
 
-    function getProjectLocations(string memory projectID) public view returns(Location[] memory){
-        return projectLocations[projectID];
-    }
-
-    function setOrganizationType(string memory organizationID, string memory orgType) public {
+    function setOrganizationType(string memory organizationID, string memory orgType) public userExists {
         partners[orgType].push(organizationDirectory[organizationID]);
 
     }
 
-    function getOrganizationDetails(string memory organizationID) public view returns (Organization memory) {
+    function getOrganizationDetails(string memory organizationID) public view userExists returns (Organization memory) {
         return organizationDirectory[organizationID];
     }
 
-    function addNewProject(string memory projectID,  string memory name, string memory description, string memory industry, string memory functionalRoles) public {
+    function addNewProject(string memory projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public userExists {
         Project memory project;
         project.projectID = projectID;
         project.name = name;
         project.description = description;
         project.industry = industry;
-        project.functionalRoles = functionalRoles;
         project.projectStatus = status.active;
+        project.startTime= now;
         projectRegistry[projectID] = project;
-        myProjects[userDirectory[msg.sender].organizationID].push(project);
-        consortium[projectID].push(organizationDirectory[userDirectory[msg.sender].organizationID]);
+        myProjects[msg.sender].push(project);
+        consortium[projectID].push(userDirectory[msg.sender]);
+        projectRoles[projectID][msg.sender] = partnerRole;
     }
 
-    function closeProject(string memory projectID) public {
+    function closeProject(string memory projectID) public userExists {
         Project storage project = projectRegistry[projectID];
+        require(projectRoles[projectID][msg.sender]==partnerRoles(0));
+        project.endTime=now;
         project.projectStatus = status.inactive;
     }
 
@@ -178,20 +195,21 @@ contract Storage {
     }
 
     function getMyProjects() public view returns (Project[] memory) {
-        return myProjects[userDirectory[msg.sender].organizationID];
+        return myProjects[msg.sender];
     }
 
     function getMyProjectsCount() public view returns (uint) {
-        return myProjects[userDirectory[msg.sender].organizationID].length;
+        return myProjects[msg.sender].length;
     }
 
-    function addOrganizationToProject(string memory projectID, string memory organizationID) public {
-        Organization storage organization = organizationDirectory[organizationID];
-        consortium[projectID].push(organization);
-        myProjects[organizationID].push(projectRegistry[projectID]);
+    function addUserToProject(string memory projectID, string memory userID, partnerRoles partnerRole) public {
+        User storage user = userDirectoryFromID[userID];
+        consortium[projectID].push(user);
+        myProjects[user.userAddress].push(projectRegistry[projectID]);
+        projectRoles[projectID][msg.sender] = partnerRole;
     }
 
-    function getConsortiumOrganizations(string memory projectID) public view returns (Organization[] memory) {
+    function getConsortiumMember(string memory projectID) public view returns (User[] memory) {
         return (consortium[projectID]);
     }
 
@@ -205,5 +223,17 @@ contract Storage {
 
     function getPartnersByType(string memory orgType) public view returns (Organization[] memory) {
         return partners[orgType];
+    }
+
+    function getPartnerRole(string memory projectID, address publicKey) public view returns (partnerRoles) {
+        return projectRoles[projectID][publicKey];
+    }
+
+    function getMyRole(string memory projectID) public view returns (partnerRoles) {
+        return projectRoles[projectID][msg.sender];
+    }
+
+    function isValidUser() public view returns (bool) {
+        return (userDirectory[msg.sender].userAddress != 0x0000000000000000000000000000000000000000);
     }
 }
