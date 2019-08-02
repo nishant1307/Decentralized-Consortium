@@ -38,7 +38,30 @@ const Dashboard = (props) => {
     }
   }, []);
 
-  const { classes } = props;
+    productContract.methods.balanceOf("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(res=>{
+      setProductCount(res);
+
+    })
+    registryContract.methods.getMyProjects().call({
+      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
+    }).then(res => {
+      console.log(res);
+      let projectList=[];
+      res.reverse().forEach((projectData, index) => {
+        projectList[index] = ([
+          projectData["projectID"],
+          projectData["name"],
+          projectData["description"],
+          projectData["industry"],
+          projectData["startTime"]
+        ])
+      })
+      console.log(projectList);
+      setProjects(projectList)
+    })
+  }, [props.user.projectCount]);
+
+  const {classes} = props;
 
   return (
     <div>
