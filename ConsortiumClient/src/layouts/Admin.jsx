@@ -60,16 +60,11 @@ class Dashboard extends React.Component {
     }
     window.addEventListener("resize", this.resizeFunction);
 
-    registryContract.methods.getUserOrganizationDetails().call({
+    registryContract.methods.isValidUser().call({
       from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
     }).then(res => {
-      console.log(res[0]["userAddress"]);
-      console.log("Checking", (res[0]["userAddress"]==="0x0000000000000000000000000000000000000000"));
-      if(res[0]["userAddress"]==="0x0000000000000000000000000000000000000000"){
+      if(!res){
         this.props.history.push("/register");
-      }
-      else {
-
       }
     })
   }

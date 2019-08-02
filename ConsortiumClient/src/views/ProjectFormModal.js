@@ -65,7 +65,8 @@ function ProjectFormModal(props) {
       isLoading: true
     }));
     const { name, description } = data;
-    props.createNewProject({ name: name, description: description, industry: state.industry, functionalRoles: state.functionalRoles, tokenName: name, tokenSymbol: name, organizationName: props.user.organization.organizationName });
+    console.log("Role is ", data.role);
+    // props.createNewProject({ name: name, description: description, industry: state.industry, functionalRoles: state.functionalRoles, tokenName: name, tokenSymbol: name, organizationName: props.user.organization.organizationName });
   }
 
   // useEffect(() => {
@@ -192,6 +193,21 @@ function ProjectFormModal(props) {
                       <FormText color="muted">What functional role does your project cover?</FormText>
                     </Col>
                   </FormGroup>
+                  <FormGroup row>
+                    <Col md="3">
+                      <Label htmlFor="select">Select Role</Label>
+                    </Col>
+                    <Col xs="12" md="9">
+                    <Label check>
+                      <Input type="radio" name="role" innerRef={register}/>{' '}
+                      Buyer
+                    </Label><br/>
+                    <Label check>
+                      <Input type="radio" name="role" innerRef={register}/>{' '}
+                        Seller
+                      </Label>
+                  </Col>
+                </FormGroup>
                 </ModalBody>
                 <ModalFooter>
                   {isLoading && <div className="sk-folding-cube">

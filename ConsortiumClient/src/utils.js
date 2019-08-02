@@ -8,7 +8,7 @@ export const renderFromArray = array => {
   return render;
 }
 
-export const registryAddress = "0xec972e6a006e35fa0ae02cf0284233c144bc8c63";
+export const registryAddress = "0xecb9f65f59d42aaf48d50ba73c72f020cfc39beb";
 
 export const registryABI = [
 	{
@@ -31,8 +31,8 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"name": "functionalRoles",
-				"type": "string"
+				"name": "partnerRole",
+				"type": "uint8"
 			}
 		],
 		"name": "addNewProject",
@@ -49,37 +49,15 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"name": "organizationID",
+				"name": "userID",
 				"type": "string"
+			},
+			{
+				"name": "partnerRole",
+				"type": "uint8"
 			}
 		],
-		"name": "addOrganizationToProject",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "latitude",
-				"type": "string"
-			},
-			{
-				"name": "longitude",
-				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "addProjectLocation",
+		"name": "addUserToProject",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -117,6 +95,20 @@ export const registryABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "inviteUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "organizationID",
 				"type": "string"
 			},
@@ -125,19 +117,35 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"name": "city",
+				"name": "geocode",
 				"type": "string"
 			},
 			{
-				"name": "country",
+				"name": "userID",
 				"type": "string"
 			},
 			{
-				"name": "zipcode",
+				"name": "firstName",
 				"type": "string"
+			},
+			{
+				"name": "lastName",
+				"type": "string"
+			},
+			{
+				"name": "email",
+				"type": "string"
+			},
+			{
+				"name": "phoneNumber",
+				"type": "string"
+			},
+			{
+				"name": "publicKey",
+				"type": "address"
 			}
 		],
-		"name": "setOrganization",
+		"name": "setOrganizationAdmin",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -169,10 +177,6 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
 				"name": "firstName",
 				"type": "string"
 			},
@@ -189,11 +193,25 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"name": "role",
-				"type": "uint8"
+				"name": "publicKey",
+				"type": "address"
 			}
 		],
 		"name": "setUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "publicKey",
+				"type": "address"
+			}
+		],
+		"name": "updateOrgAdmin",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -221,15 +239,7 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
@@ -297,29 +307,41 @@ export const registryABI = [
 				"type": "string"
 			}
 		],
-		"name": "getConsortiumOrganizations",
+		"name": "getConsortiumMember",
 		"outputs": [
 			{
 				"components": [
+					{
+						"name": "userAddress",
+						"type": "address"
+					},
+					{
+						"name": "userID",
+						"type": "string"
+					},
 					{
 						"name": "organizationID",
 						"type": "string"
 					},
 					{
-						"name": "name",
+						"name": "firstName",
 						"type": "string"
 					},
 					{
-						"name": "city",
+						"name": "lastName",
 						"type": "string"
 					},
 					{
-						"name": "country",
+						"name": "email",
 						"type": "string"
 					},
 					{
-						"name": "zipcode",
+						"name": "phoneNumber",
 						"type": "string"
+					},
+					{
+						"name": "role",
+						"type": "uint8"
 					}
 				],
 				"name": "",
@@ -354,12 +376,16 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "functionalRoles",
-						"type": "string"
-					},
-					{
 						"name": "projectStatus",
 						"type": "uint8"
+					},
+					{
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"name": "endTime",
+						"type": "uint256"
 					}
 				],
 				"name": "",
@@ -388,6 +414,25 @@ export const registryABI = [
 		"constant": true,
 		"inputs": [
 			{
+				"name": "projectID",
+				"type": "string"
+			}
+		],
+		"name": "getMyRole",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"name": "organizationID",
 				"type": "string"
 			}
@@ -405,20 +450,35 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "projectID",
+				"type": "string"
+			},
+			{
+				"name": "publicKey",
+				"type": "address"
+			}
+		],
+		"name": "getPartnerRole",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -446,15 +506,7 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
@@ -495,53 +547,20 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "functionalRoles",
-						"type": "string"
-					},
-					{
 						"name": "projectStatus",
 						"type": "uint8"
+					},
+					{
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"name": "endTime",
+						"type": "uint256"
 					}
 				],
 				"name": "",
 				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "getProjectLocations",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "registrant",
-						"type": "address"
-					},
-					{
-						"name": "latitude",
-						"type": "string"
-					},
-					{
-						"name": "longitude",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					}
-				],
-				"name": "",
-				"type": "tuple[]"
 			}
 		],
 		"payable": false,
@@ -703,20 +722,26 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "isValidUser",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
