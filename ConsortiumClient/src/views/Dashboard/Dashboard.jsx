@@ -27,15 +27,10 @@ import ProjectFormModal from "views/ProjectFormModal.js";
 import RegisterThingModal from "views/RegisterThingModal.js";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import web3 from '../../web3';
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
-import productContract from '../../productContract';
-import registryContract from '../../registryContract';
 
 const Dashboard = (props) => {
-  console.log(props);
-  const [projects, setProjects] = useState(props.user.projectList);
-  const [productCount, setProductCount] = useState(props.user.thingCount);
+
 
   useEffect(() => {
     if (!props.auth.isAuthenticated) {
@@ -153,7 +148,7 @@ const Dashboard = (props) => {
               <Table
                 tableHeaderColor="primary"
                 tableHead={["ID", "Name", "Description", "Industry", "FunctionalRoles"]}
-                tableData={projects}
+                tableData={props.user.projectList}
               />
             </CardBody>
           </Card>

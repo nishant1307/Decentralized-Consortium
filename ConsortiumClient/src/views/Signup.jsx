@@ -104,7 +104,7 @@ export default function Signup() {
             passworder.encrypt(password, JSON.stringify({ mnemonic: mnemonic, privateKey: zeroWallet.getPrivateKeyString() }))
                 .then(function (blob) {
                     localStorage.setItem("data", JSON.stringify(blob));
-                    localStorage.setItem("address", JSON.stringify({ address: zeroWallet.getAddressString() }));
+                    localStorage.setItem("address",zeroWallet.getAddressString());
                 })
         } else {
 

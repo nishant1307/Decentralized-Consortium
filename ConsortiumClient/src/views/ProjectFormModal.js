@@ -1,17 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import {Alert, Button, Card, CardBody, CardHeader, Form, FormFeedback, FormGroup, Label, Input, FormText, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import { Alert, Button, Card, CardBody, CardHeader, Form, FormFeedback, FormGroup, Label, Input, FormText, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import axios from "axios";
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { createNewProject, closeProjectModal } from '../actions/userActions';
 import useForm from 'react-hook-form'
+import { makeStyles } from '@material-ui/core/styles';
 
 import * as Yup from 'yup';
 import { industryList } from '../dataset/industries';
 import { functionalRoles } from '../dataset/functionalRoles';
 import { renderFromArray } from '../utils';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+const useStyles = makeStyles(theme => ({
+  progress: {
+    margin: theme.spacing(2),
+  },
+}));
+
 function ProjectFormModal(props) {
+  const classes = useStyles();
 
   const initialState = {
     modal: false,
@@ -23,14 +32,14 @@ function ProjectFormModal(props) {
 
   const [state, setState] = useState(initialState);
 
-  const validationSchema =  Yup.object().shape({
-      name: Yup.string()
-        .min(2, `Project name has to be at least 2 characters`)
-        .required('Project name is required'),
-      description: Yup.string()
-        .min(2, `Description has to be at least 1 character`)
-        .required('Description is required')
-    })
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, `Project name has to be at least 2 characters`)
+      .required('Project name is required'),
+    description: Yup.string()
+      .min(2, `Description has to be at least 1 character`)
+      .required('Description is required')
+  })
 
 
   const { register, handleSubmit, errors } = useForm({
@@ -66,7 +75,7 @@ function ProjectFormModal(props) {
     }));
     const { name, description } = data;
     console.log("Role is ", data.role);
-    // props.createNewProject({ name: name, description: description, industry: state.industry, functionalRoles: state.functionalRoles, tokenName: name, tokenSymbol: name, organizationName: props.user.organization.organizationName });
+    props.createNewProject({ name: name, description: description, industry: state.industry, functionalRoles: state.functionalRoles, tokenName: name, tokenSymbol: name, organizationName: props.user.organization.organizationName });
   }
 
   // useEffect(() => {
@@ -87,12 +96,8 @@ function ProjectFormModal(props) {
   const { isLoading, isReadyForProject } = state;
   let button;
   if (isLoading) {
-    button = <div className="sk-folding-cube">
-      <div className="sk-cube1 sk-cube"></div>
-      <div className="sk-cube2 sk-cube"></div>
-      <div className="sk-cube4 sk-cube"></div>
-      <div className="sk-cube3 sk-cube"></div>
-    </div>;
+    button = <CircularProgress className={classes.progress} />;
+    ;
   }
 
   return (
@@ -101,12 +106,7 @@ function ProjectFormModal(props) {
         <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
           <ModalHeader toggle={toggle}><strong>Please wait till your account gets registered on the Open Registry</strong></ModalHeader>
           <ModalFooter>
-            {isLoading && <div className="sk-folding-cube">
-              <div className="sk-cube1 sk-cube"></div>
-              <div className="sk-cube2 sk-cube"></div>
-              <div className="sk-cube4 sk-cube"></div>
-              <div className="sk-cube3 sk-cube"></div>
-            </div>}
+            {isLoading && <CircularProgress className={classes.progress} />}
           </ModalFooter>
         </Modal>
       }
@@ -114,7 +114,7 @@ function ProjectFormModal(props) {
         <Row>
           <Col>
             <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
-              <Form  onSubmit={handleSubmit(onSubmitForm)} className="form-horizontal">
+              <Form onSubmit={handleSubmit(onSubmitForm)} className="form-horizontal">
                 <ModalHeader toggle={toggle}><strong>New Project Form</strong></ModalHeader>
                 <ModalBody>
                   <FormGroup row>
@@ -129,7 +129,7 @@ function ProjectFormModal(props) {
                         invalid={errors.name}
                         required
                         innerRef={register}
-                        />
+                      />
                       <FormFeedback>{errors.name}</FormFeedback>
                       <FormText color="muted">Enter a name for your Project (For example: TestProject)</FormText>
                     </Col>
@@ -146,7 +146,7 @@ function ProjectFormModal(props) {
                         invalid={errors.description}
                         required
                         innerRef={register}
-                        />
+                      />
                       <FormFeedback>{errors.description}</FormFeedback>
                       <FormText color="muted">Describe your project</FormText>
                     </Col>
@@ -164,7 +164,7 @@ function ProjectFormModal(props) {
                         required
                         value={state.industry}
                         onChange={handleChange}
-                        >
+                      >
                         <option value="0">Please select</option>
                         {renderFromArray(industryList)}
                       </Input>
@@ -185,7 +185,7 @@ function ProjectFormModal(props) {
                         required
                         value={state.functionalRoles}
                         onChange={handleChange}
-                       >
+                      >
                         <option value="0">Please select</option>
                         {renderFromArray(functionalRoles)}
                       </Input>
@@ -198,37 +198,32 @@ function ProjectFormModal(props) {
                       <Label htmlFor="select">Select Role</Label>
                     </Col>
                     <Col xs="12" md="9">
-                    <Label check>
-                      <Input type="radio" name="role" innerRef={register}/>{' '}
-                      Buyer
-                    </Label><br/>
-                    <Label check>
-                      <Input type="radio" name="role" innerRef={register}/>{' '}
+                      <Label check>
+                        <Input type="radio" name="role" innerRef={register} />{' '}
+                        Buyer
+                    </Label><br />
+                      <Label check>
+                        <Input type="radio" name="role" innerRef={register} />{' '}
                         Seller
                       </Label>
-                  </Col>
-                </FormGroup>
+                    </Col>
+                  </FormGroup>
                 </ModalBody>
                 <ModalFooter>
-                  {isLoading && <div className="sk-folding-cube">
-                    <div className="sk-cube1 sk-cube"></div>
-                    <div className="sk-cube2 sk-cube"></div>
-                    <div className="sk-cube4 sk-cube"></div>
-                    <div className="sk-cube3 sk-cube"></div>
-                  </div>}
+                  {isLoading && <CircularProgress className={classes.progress} /> }
                   {!isLoading && <Button color="primary" disabled={false} >Create Project</Button>
                   }
                 </ModalFooter>
               </Form>
               {props.errors.projectError && (<FormGroup>
-                    <Col md="12" className="center">
+                <Col md="12" className="center">
 
-              <Alert color="danger">
-                {props.errors.projectError.message}
-              </Alert>
+                  <Alert color="danger">
+                    {props.errors.projectError.message}
+                  </Alert>
 
-          </Col>
-              </FormGroup>  )
+                </Col>
+              </FormGroup>)
               }
             </Modal>
           </Col>

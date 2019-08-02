@@ -24,34 +24,22 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import web3 from '../../web3';
-import {registryABI, registryAddress} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
-
+import { connect } from 'react-redux';
 const Projects = (props) => {
-
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    registryContract.methods.getMyProjects().call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
-    }).then(res => {
-      setProjects(res);
-    })
-  }, []);
-
+  console.log(props);
+  
   const {classes} = props;
   let projectRender = [];
-  projects.forEach(project => {
+  props.user.projectList.forEach(project => {
     projectRender.push(
-      <GridItem xs={12} sm={6} md={3}>
+      <GridItem key={Math.random()} xs={12} sm={6} md={3}>
         <Link to="/dashboard/projects/1">
         <Card>
           <CardHeader color="danger" stats icon>
             <CardIcon color="danger">
               <Icon>apps</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>{project.name}</p>
+            <p className={classes.cardCategory}>{project[1]}</p>
             <h3 className={classes.cardTitle}></h3>
           </CardHeader>
           <CardFooter stats>
@@ -69,7 +57,7 @@ const Projects = (props) => {
   return (
     <div>
       <GridContainer>
-        {projectRender}
+        {projectRender.length !== 0  ? projectRender : <h3>No Data Found</h3>}
       </GridContainer>
     </div>
   );
@@ -79,4 +67,10 @@ Projects.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Projects);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+  user: state.user
+})
+export default connect(mapStateToProps) (withStyles(dashboardStyle)(Projects));
+
