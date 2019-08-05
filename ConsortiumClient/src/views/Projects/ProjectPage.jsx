@@ -36,23 +36,6 @@ console.log(props);
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Icon>people</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}></p>
-              <h4 className={classes.cardTitle}>People</h4>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Icon>forward</Icon>
-                Description
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
           <Link to={partnerPageURL}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
@@ -66,25 +49,6 @@ console.log(props);
               <div className={classes.stats}>
                 <Icon>forward</Icon>
                 Description
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <Link to={locationPageURL}>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Icon>location_city</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}></p>
-              <h4 className={classes.cardTitle}>Location</h4>
-            </CardHeader>
-            </Link>
-            <CardFooter stats onClick= {props.openLocationModal}>
-              <div className={classes.stats}>
-                <Icon>add</Icon>
-                Add new Location
               </div>
             </CardFooter>
           </Card>
