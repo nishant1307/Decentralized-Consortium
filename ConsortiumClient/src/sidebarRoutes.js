@@ -4,6 +4,7 @@ import Person from "@material-ui/icons/Person";
 import LocationOn from "@material-ui/icons/LocationOn";
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
 import TrendingUp from "@material-ui/icons/TrendingUp"
+import Add from "@material-ui/icons/Add";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
@@ -25,6 +26,13 @@ const dashboardRoutes = [
     name: "User Profile",
     icon: Person,
     component: UserProfile,
+    layout: "/dashboard"
+  },
+  {
+    path: "/projects",
+    name: "Projects",
+    icon: Add,
+    component: Projects,
     layout: "/dashboard"
   },
   {

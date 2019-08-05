@@ -7,12 +7,8 @@ import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Store from "@material-ui/icons/Store";
-import Warning from "@material-ui/icons/Warning";
-import DateRange from "@material-ui/icons/DateRange";
+
 import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
-import Accessibility from "@material-ui/icons/Accessibility";
 import {Alert} from "reactstrap";
 import ColleagueForm from "views/ColleagueForm";
 // core components
@@ -26,9 +22,8 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import web3 from '../../web3';
-import {registryABI, registryAddress} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
+import registryContract from "registryContract";
+import { connect } from 'react-redux';
 
 const People = (props) => {
 
@@ -38,7 +33,7 @@ const People = (props) => {
 
   useEffect(() => {
     registryContract.methods.getAllUsers().call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
+      from : props.auth.user.publicKey
     }).then(res => {
       setPeople(res);
     })
@@ -113,5 +108,10 @@ const People = (props) => {
 People.propTypes = {
   classes: PropTypes.object.isRequired
 };
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+  user: state.user
+})
 
-export default withStyles(dashboardStyle)(People);
+export default connect(mapStateToProps)(withStyles(dashboardStyle)(People));

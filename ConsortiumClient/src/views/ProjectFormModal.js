@@ -198,11 +198,11 @@ function ProjectFormModal(props) {
                     </Col>
                     <Col xs="12" md="9">
                       <Label check>
-                        <Input type="radio" name="role" innerRef={register} />{' '}
+                        <Input type="radio" name="role" innerRef={register} value={0}/>{' '}
                         Buyer
                     </Label><br />
                       <Label check>
-                        <Input type="radio" name="role" innerRef={register} />{' '}
+                        <Input type="radio" name="role" innerRef={register} value={1}/>{' '}
                         Seller
                       </Label>
                     </Col>

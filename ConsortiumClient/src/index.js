@@ -5,16 +5,16 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 // core components
 import Admin from "layouts/Admin.jsx";
-import Page404 from "views/ErrorPages/Page404.js";
-import Login from "views/Login.jsx";
-import Signup from "views/Signup.jsx";
-import Register from "views/Register/Register.js";
-import RecoverAccount from "views/RecoverAccount.jsx";
-import RegisterOrganization from "views/RegisterOrganization";
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
 import "assets/css/material-dashboard-react.css?v=1.7.0";
+const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
+const Login = React.lazy(() => import('views/Login.jsx'));
+const Signup = React.lazy(() => import('views/Signup.jsx'));
+const Register = React.lazy(() => import('views/Register/Register.js'));
+const RecoverAccount = React.lazy(() => import('views/RecoverAccount.jsx'));
+const RegisterOrganization = React.lazy(() => import('views/RegisterOrganization'));
 
 const loading = <div className="loader"></div>;
 

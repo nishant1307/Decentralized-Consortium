@@ -13,13 +13,11 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import Page404 from "views/ErrorPages/Page404.js";
 import sidebarRoutes from "sidebarRoutes.js";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
-
+import { connect } from 'react-redux';
+import {logoutUser} from "actions/authentication";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/logo.png";
 import routes from "routes.js"
-import web3 from "../web3.js";
-import {registryABI, registryAddress} from '../utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 let ps;
 
@@ -42,6 +40,12 @@ class Dashboard extends React.Component {
   state = {
     mobileOpen: false
   };
+
+  signOut = (e) => {
+    e.preventDefault()
+    this.props.logoutUser(this.props.history);
+  }
+
   mainPanel = React.createRef();
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
@@ -59,14 +63,6 @@ class Dashboard extends React.Component {
       ps = new PerfectScrollbar(this.mainPanel.current);
     }
     window.addEventListener("resize", this.resizeFunction);
-
-    registryContract.methods.isValidUser().call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
-    }).then(res => {
-      if(!res){
-        this.props.history.push("/register");
-      }
-    })
   }
 
   componentDidUpdate(e) {
@@ -101,6 +97,7 @@ class Dashboard extends React.Component {
           <Navbar
             routes={routes}
             handleDrawerToggle={this.handleDrawerToggle}
+            onLogout={this.signOut}
             {...rest}
           />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
@@ -121,5 +118,11 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+    errors: state.errors,
+    user: state.user
+})
 
-export default withStyles(dashboardStyle)(Dashboard);
+
+export default connect(mapStateToProps, {logoutUser})(withStyles(dashboardStyle)(Dashboard));

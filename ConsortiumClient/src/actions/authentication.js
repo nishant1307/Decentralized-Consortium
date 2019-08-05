@@ -6,6 +6,7 @@ import { setAuthToken } from '../axiosConfig';
 import jwt_decode from 'jwt-decode';
 import { currentUserInfo, fetchNotifications, fetchSubscription } from './userActions';
 import web3 from '../web3';
+import registryContract from "registryContract";
 export const registerUser = (user, history) => dispatch => {
     // axios.post('/api/users/userRegistration', user)
     //         .then(res => {
@@ -28,8 +29,22 @@ export const loginUser = (user,history) => dispatch => {
         }
     })
     dispatch(currentUserInfo(user.address));
-    dispatch(setCurrentUser(true));
-    history.push('/dashboard/home');
+
+    registryContract.methods.isValidUser().call({
+      from : user.address
+    }).then(res => {
+      if(res){
+        dispatch(setCurrentUser({publicKey: user.address}));
+        history.push('/dashboard/home');
+      }
+      else {
+        dispatch({
+            type: GET_ERRORS,
+            payload: {message: "No User Found"}
+        });
+      }
+    })
+
     //             dispatch(fetchSubscription());
 }
 
@@ -41,7 +56,7 @@ export const setCurrentUser = decoded => {
 }
 
 export const logoutUser = (history) => dispatch => {
-    sessionStorage.removeItem('clientToken');
+    sessionStorage.removeItem('privateKey');
     setAuthToken(false);
     dispatch(setCurrentUser({}));
     dispatch({

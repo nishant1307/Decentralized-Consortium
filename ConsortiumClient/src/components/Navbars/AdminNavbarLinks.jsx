@@ -200,7 +200,7 @@ class AdminNavbarLinks extends React.Component {
                       </MenuItem>
                       <Divider light />
                       <MenuItem
-                        onClick={this.handleCloseProfile}
+                        onClick={this.props.onLogout}
                         className={classes.dropdownItem}
                       >
                         Logout

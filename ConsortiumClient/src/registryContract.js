@@ -1,5 +1,5 @@
 import web3 from './web3';
-const address = '0xec972e6a006e35fa0ae02cf0284233c144bc8c63';
+const address = '0x630185c8e889031b0c93802109ce529bb43fc873';
 const abi =[
 	{
 		"constant": false,
@@ -21,8 +21,8 @@ const abi =[
 				"type": "string"
 			},
 			{
-				"name": "functionalRoles",
-				"type": "string"
+				"name": "partnerRole",
+				"type": "uint8"
 			}
 		],
 		"name": "addNewProject",
@@ -39,37 +39,15 @@ const abi =[
 				"type": "string"
 			},
 			{
-				"name": "organizationID",
-				"type": "string"
+				"name": "userAddress",
+				"type": "address"
+			},
+			{
+				"name": "partnerRole",
+				"type": "uint8"
 			}
 		],
-		"name": "addOrganizationToProject",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "latitude",
-				"type": "string"
-			},
-			{
-				"name": "longitude",
-				"type": "string"
-			},
-			{
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "addProjectLocation",
+		"name": "addUserToProject",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -107,6 +85,20 @@ const abi =[
 		"constant": false,
 		"inputs": [
 			{
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "inviteUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "organizationID",
 				"type": "string"
 			},
@@ -115,19 +107,31 @@ const abi =[
 				"type": "string"
 			},
 			{
-				"name": "city",
+				"name": "geocode",
 				"type": "string"
 			},
 			{
-				"name": "country",
+				"name": "firstName",
 				"type": "string"
 			},
 			{
-				"name": "zipcode",
+				"name": "lastName",
 				"type": "string"
+			},
+			{
+				"name": "email",
+				"type": "string"
+			},
+			{
+				"name": "phoneNumber",
+				"type": "string"
+			},
+			{
+				"name": "publicKey",
+				"type": "address"
 			}
 		],
-		"name": "setOrganization",
+		"name": "setOrganizationAdmin",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -155,14 +159,6 @@ const abi =[
 		"constant": false,
 		"inputs": [
 			{
-				"name": "userID",
-				"type": "string"
-			},
-			{
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
 				"name": "firstName",
 				"type": "string"
 			},
@@ -179,11 +175,25 @@ const abi =[
 				"type": "string"
 			},
 			{
-				"name": "role",
-				"type": "uint8"
+				"name": "publicKey",
+				"type": "address"
 			}
 		],
 		"name": "setUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "publicKey",
+				"type": "address"
+			}
+		],
+		"name": "updateOrgAdmin",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -194,6 +204,55 @@ const abi =[
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_projectID",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"name": "_by",
+				"type": "address"
+			}
+		],
+		"name": "ProjectCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_projectID",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "organizationName",
+				"type": "string"
+			},
+			{
+				"indexed": true,
+				"name": "_by",
+				"type": "address"
+			}
+		],
+		"name": "OrganizationAddedToConsortium",
+		"type": "event"
 	},
 	{
 		"constant": true,
@@ -211,15 +270,7 @@ const abi =[
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
@@ -241,10 +292,6 @@ const abi =[
 					{
 						"name": "userAddress",
 						"type": "address"
-					},
-					{
-						"name": "userID",
-						"type": "string"
 					},
 					{
 						"name": "organizationID",
@@ -287,29 +334,37 @@ const abi =[
 				"type": "string"
 			}
 		],
-		"name": "getConsortiumOrganizations",
+		"name": "getConsortiumMember",
 		"outputs": [
 			{
 				"components": [
+					{
+						"name": "userAddress",
+						"type": "address"
+					},
 					{
 						"name": "organizationID",
 						"type": "string"
 					},
 					{
-						"name": "name",
+						"name": "firstName",
 						"type": "string"
 					},
 					{
-						"name": "city",
+						"name": "lastName",
 						"type": "string"
 					},
 					{
-						"name": "country",
+						"name": "email",
 						"type": "string"
 					},
 					{
-						"name": "zipcode",
+						"name": "phoneNumber",
 						"type": "string"
+					},
+					{
+						"name": "role",
+						"type": "uint8"
 					}
 				],
 				"name": "",
@@ -344,12 +399,16 @@ const abi =[
 						"type": "string"
 					},
 					{
-						"name": "functionalRoles",
-						"type": "string"
-					},
-					{
 						"name": "projectStatus",
 						"type": "uint8"
+					},
+					{
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"name": "endTime",
+						"type": "uint256"
 					}
 				],
 				"name": "",
@@ -378,6 +437,25 @@ const abi =[
 		"constant": true,
 		"inputs": [
 			{
+				"name": "projectID",
+				"type": "string"
+			}
+		],
+		"name": "getMyRole",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"name": "organizationID",
 				"type": "string"
 			}
@@ -395,20 +473,35 @@ const abi =[
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "projectID",
+				"type": "string"
+			},
+			{
+				"name": "publicKey",
+				"type": "address"
+			}
+		],
+		"name": "getPartnerRole",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -436,15 +529,7 @@ const abi =[
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
@@ -485,53 +570,20 @@ const abi =[
 						"type": "string"
 					},
 					{
-						"name": "functionalRoles",
-						"type": "string"
-					},
-					{
 						"name": "projectStatus",
 						"type": "uint8"
+					},
+					{
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"name": "endTime",
+						"type": "uint256"
 					}
 				],
 				"name": "",
 				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "projectID",
-				"type": "string"
-			}
-		],
-		"name": "getProjectLocations",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "registrant",
-						"type": "address"
-					},
-					{
-						"name": "latitude",
-						"type": "string"
-					},
-					{
-						"name": "longitude",
-						"type": "string"
-					},
-					{
-						"name": "name",
-						"type": "string"
-					}
-				],
-				"name": "",
-				"type": "tuple[]"
 			}
 		],
 		"payable": false,
@@ -548,63 +600,6 @@ const abi =[
 					{
 						"name": "userAddress",
 						"type": "address"
-					},
-					{
-						"name": "userID",
-						"type": "string"
-					},
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
-						"type": "string"
-					},
-					{
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "userID",
-				"type": "string"
-			}
-		],
-		"name": "getUserFromUserID",
-		"outputs": [
-			{
-				"components": [
-					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"name": "userID",
-						"type": "string"
 					},
 					{
 						"name": "organizationID",
@@ -651,10 +646,6 @@ const abi =[
 						"type": "address"
 					},
 					{
-						"name": "userID",
-						"type": "string"
-					},
-					{
 						"name": "organizationID",
 						"type": "string"
 					},
@@ -693,20 +684,26 @@ const abi =[
 						"type": "string"
 					},
 					{
-						"name": "city",
-						"type": "string"
-					},
-					{
-						"name": "country",
-						"type": "string"
-					},
-					{
-						"name": "zipcode",
+						"name": "geocode",
 						"type": "string"
 					}
 				],
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "isValidUser",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -727,5 +724,6 @@ const abi =[
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+];
+
 export default new web3.eth.Contract(abi, address);

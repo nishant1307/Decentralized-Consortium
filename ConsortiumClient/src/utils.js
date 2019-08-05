@@ -224,6 +224,55 @@ export const registryABI = [
 		"type": "constructor"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_projectID",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": true,
+				"name": "_by",
+				"type": "address"
+			}
+		],
+		"name": "ProjectCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_projectID",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"name": "organizationName",
+				"type": "string"
+			},
+			{
+				"indexed": true,
+				"name": "_by",
+				"type": "address"
+			}
+		],
+		"name": "OrganizationAddedToConsortium",
+		"type": "event"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "getAllOrganizations",

@@ -28,20 +28,22 @@ import RegisterThingModal from "views/RegisterThingModal.js";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
-
+import productContract from "productContract";
+import registryContract from "registryContract";
 const Dashboard = (props) => {
 
-
+  const [productCount, setProductCount] = useState(0);
+  const [projects, setProjects] = useState([]);
   useEffect(() => {
     if (!props.auth.isAuthenticated) {
       props.history.push('/login');
     }
-    productContract.methods.balanceOf("0x0bd55a9a9cd352d501afa31ec55ec1db1158c200").call().then(res=>{
+    productContract.methods.balanceOf(props.auth.user.publicKey).call().then(res=>{
       setProductCount(res);
 
     });
     registryContract.methods.getMyProjects().call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
+      from : props.auth.user.publicKey
     }).then(res => {
       console.log(res);
       let projectList=[];
@@ -54,7 +56,6 @@ const Dashboard = (props) => {
           projectData["startTime"]
         ])
       })
-      console.log(projectList);
       setProjects(projectList)
     })
   }, [props.user.projectCount]);
@@ -63,7 +64,7 @@ const Dashboard = (props) => {
 
   return (
     <div>
-      <GridContainer>
+      {props.user && <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <Link to="/dashboard/projects">
@@ -73,7 +74,7 @@ const Dashboard = (props) => {
                 </CardIcon>
                 <p className={classes.cardCategory}>Projects</p>
                 <h3 className={classes.cardTitle}>
-                  {props.user.projectList.length}
+                  {projects.length}
                 </h3>
               </CardHeader>
             </Link>
@@ -125,8 +126,8 @@ const Dashboard = (props) => {
               <CardIcon color="danger">
                 <Icon>apps</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Apps</p>
-              <h3 className={classes.cardTitle}>{props.user.apps}</h3>
+              <p className={classes.cardCategory}></p>
+              <h3 className={classes.cardTitle}>Apps</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -153,7 +154,7 @@ const Dashboard = (props) => {
             </CardFooter>
           </Card></Link>
         </GridItem>
-      </GridContainer>
+      </GridContainer>}
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
@@ -169,7 +170,7 @@ const Dashboard = (props) => {
               <Table
                 tableHeaderColor="primary"
                 tableHead={["ID", "Name", "Description", "Industry", "FunctionalRoles"]}
-                tableData={props.user.projectList}
+                tableData={projects}
               />
             </CardBody>
           </Card>

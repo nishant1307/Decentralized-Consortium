@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {Form, FormGroup, FormText, Col, Button, Input} from 'reactstrap';
-
+import registryContract from "registryContract";
+import {registryAddress} from "utils";
+import web3 from "../web3";
 const ColleagueForm = (props) => {
   const [email, setEmail] = useState('');
 
@@ -12,16 +14,44 @@ const ColleagueForm = (props) => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    axios.post("https://www.iotconekt.com/api/dashboard/inviteColleague", { inviteEmail: email}).then(res=> {
-      if(res.data.status=="Invitation sent successsfully"){
-        setEmail('');
-        props.onColleagueFormSubmit(res.data.status)
-      }
-    }) .catch(function (error) {
-    if (error.response) {
-      props.onColleagueFormSubmit(error.response.data.message)
-    }
-  });
+    var transaction = {
+      "to": registryAddress,
+      "data": registryContract.methods.inviteUser(
+        email
+      ).encodeABI()
+    };
+    const privateKey = sessionStorage.getItem('privateKey')
+
+    // web3.eth.estimateGas(transaction).then(gasLimit => {
+    transaction["gasLimit"] = 2000000;
+    web3.eth.accounts.signTransaction(transaction, privateKey)
+      .then(res => {
+        web3.eth.sendSignedTransaction(res.rawTransaction)
+          .on('confirmation', async function (confirmationNumber, receipt) {
+            if (confirmationNumber == 1) {
+              if (receipt.status == true) {
+                axios.post("https://www.iotconekt.com/api/dashboard/inviteColleague", { inviteEmail: email})
+                .then(res=> {
+                  if(res.data.status=="Invitation sent successsfully"){
+                    setEmail('');
+                    props.onColleagueFormSubmit(res.data.status)
+                  }
+                })
+                .catch(function (error) {
+                  if (error.response) {
+                    props.onColleagueFormSubmit(error.response.data.message)
+                  }
+                });
+              }
+            }
+          })
+          .on('error', async function (error) {
+            console.log(error);
+          })
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   return(
