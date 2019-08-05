@@ -4,7 +4,7 @@ import web3 from '../../web3';
 // import {registryABI, registryAddress} from 'utils';
 import { connect } from 'react-redux';
 import LocationFormModal from "views/LocationFormModal";
-import registryContract from '../../registryContract';
+import {registryContract} from 'registryContract';
 // const registryContract = new web3.eth.Contract(registryABI, registryAddress);
 
 const ProjectLocation = props => {

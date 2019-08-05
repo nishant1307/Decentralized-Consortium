@@ -22,7 +22,7 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import registryContract from "registryContract";
+import {registryContract} from "registryContract";
 import { connect } from 'react-redux';
 
 const People = (props) => {

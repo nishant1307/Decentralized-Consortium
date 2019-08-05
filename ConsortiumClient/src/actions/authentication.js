@@ -6,7 +6,7 @@ import { setAuthToken } from '../axiosConfig';
 import jwt_decode from 'jwt-decode';
 import { currentUserInfo, fetchNotifications, fetchSubscription } from './userActions';
 import web3 from '../web3';
-import registryContract from "registryContract";
+import {registryContract} from "registryContract";
 export const registerUser = (user, history) => dispatch => {
     // axios.post('/api/users/userRegistration', user)
     //         .then(res => {
