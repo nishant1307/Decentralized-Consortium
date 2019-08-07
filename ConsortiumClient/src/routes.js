@@ -12,7 +12,13 @@ import People from "views/People/People.jsx";
 // import DocConekt from './views/DocConekt';
 import DocConekt from './views/DocConekt/UploadFile';
 import Wallet from './views/DocConekt/Wallet';
+import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
+  {
+    path: "/structured/:structuredDocId",
+    component: StructuredDoc,
+    layout: "/dashboard"
+  },
   {
     path: "/docconekt/explore",
     component: Wallet,

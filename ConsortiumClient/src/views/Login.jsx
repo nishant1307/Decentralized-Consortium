@@ -88,10 +88,10 @@ function Login(props) {
         sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
         props.loginUser({address:address,data:result},props.history);
       })
-      // .catch((reason) => {
-      //   console.error(reason)
-      //   setOpen(true);
-      // })
+      .catch((reason) => {
+        console.error(reason)
+        setOpen(true);
+      })
   }
 
 

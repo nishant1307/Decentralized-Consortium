@@ -5,7 +5,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import web3 from '../../web3';
@@ -16,9 +15,63 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Box from '@material-ui/core/Box';
+
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const uuidv1 = require('uuid/v1');
 
+const salesTypes = ["Request for Quotation",
+    "Quotation",
+    "Purchase Order",
+    "Proforma Invoice",
+    "Order Confirmation",
+    "Sales Confirmation",
+    "Sales Contract",
+    "Debit Note",
+    "Credit Note"]
+
+const shippingType = [
+    "Commercial Invoice",
+    "Packing List",
+    "Container Packing List",
+    "Packing Declaration",
+    "Verified Gross Mass Declaration",
+    "Certificate of Origin",
+    "Declaration of Origin",
+    "Packing list  Item",
+    "Shippers Letter of Instruction",
+    "Seaway / Airway Bill",
+    "Bill of Lading",
+    "Forwarding Instruction",
+    "Shipping Instruction",
+    "Importer Security Filing",
+    "Declaration",
+    "Foreign Exchange Control Form",
+    "Cargo Release Order",
+    "Bill of Entry",
+]
+
+const bankType = [
+    "Letter of Credit"
+]
+
+const mainDocType = [
+    "Sales Documents",
+    "Shipping Doccuments",
+    "Banking Doccuments"
+]
 
 const useStyles = makeStyles(theme => ({
     progress2: {
@@ -71,7 +124,41 @@ const useStyles = makeStyles(theme => ({
     title: {
         marginTop: theme.spacing(2),
     },
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
 }));
+
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
+            {...other}
+        >
+            <Box p={3}>{children}</Box>
+        </Typography>
+    );
+}
+
+
+function a11yProps(index) {
+    return {
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
+    };
+}
+
 
 function AddressForm({ parentCallback }) {
     const captureFile = (event) => {
@@ -90,9 +177,11 @@ function AddressForm({ parentCallback }) {
         parentCallback(buffer, name)
 
     };
+
+
     return (
-        <React.Fragment>
-            <Typography variant="h6" gutterBottom>
+        <div>
+            <Typography variant="h7" gutterBottom>
                 Select File to Upload
         </Typography>
             <Grid container spacing={3}>
@@ -106,7 +195,7 @@ function AddressForm({ parentCallback }) {
                     </Grid>
                 </Grid>
             </Grid>
-        </React.Fragment>
+        </div>
     );
 }
 
@@ -153,7 +242,7 @@ function Review(props) {
     );
 }
 
-export default function Checkout() {
+export default function Checkout(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [status, setStatus] = React.useState(false);
@@ -164,7 +253,20 @@ export default function Checkout() {
     const [variant, setVariant] = React.useState("");
     const [txHash, setTxHash] = React.useState("");
     const [progress, setProgress] = React.useState(0);
+    const [value, setValue] = React.useState(0);
+    const [DocType, setDocType] = React.useState(0);
+    const [subDocType, setSubDocType] = React.useState("Quotation");
 
+    const handleDocChange = name => event => {
+        if (name === "Main")
+            setDocType(Number(event.target.value))
+        else
+            setSubDocType(event.target.value)
+    };
+
+    function handleChange(event, newValue) {
+        setValue(newValue);
+    }
 
     useEffect(() => {
         function tick() {
@@ -203,6 +305,32 @@ export default function Checkout() {
         // forceUpdate();
     }
 
+    function getSubContent(count) {
+        switch (count) {
+            case 0:
+                return (salesTypes.map((data) => {
+                    return (
+                        <MenuItem value={data}>{data}</MenuItem>
+                    )
+                }));
+            case 1:
+                return (shippingType.map((data) => {
+                    return (
+                        <MenuItem value={data}>{data}</MenuItem>
+                    )
+                }));
+            case 2:
+                return (bankType.map((data) => {
+                    return (
+                        <MenuItem value={data}>{data}</MenuItem>
+                    )
+                }))
+            default:
+                throw new Error('Unknown step');
+        }
+    }
+
+
     function getStepContent(step) {
         switch (step) {
             case 0:
@@ -216,6 +344,11 @@ export default function Checkout() {
             default:
                 throw new Error('Unknown step');
         }
+    }
+
+    function handleStructured() {
+        console.log(subDocType);
+        props.history.push('/dashboard/structured/'+subDocType )
     }
 
     async function uploadFile() {
@@ -232,7 +365,7 @@ export default function Checkout() {
             // web3.eth.estimateGas(transaction).then(gasLimit => {
             // console.log(gasLimit,"gasLimit");
             transaction["gasLimit"] = 8000000;
-            web3.eth.accounts.signTransaction(transaction,privateKey).then(result => {
+            web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
                 web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
                     if (confirmationNumber == 1) {
                         if (receipt.status == true) {
@@ -265,60 +398,129 @@ export default function Checkout() {
 
     return (
         <main className={classes.layout}>
-            {/* {status && <CustomizedSnackbars status={status} message={message} variant={variant} />} */}
-            <Paper className={classes.paper}>
-                <Typography component="h1" variant="h4" align="center">
-                    File Upload
+            <div style={{
+                flexGrow: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                height: 224,
+            }}>
+                <Tabs
+                    orientation="vertical"
+                    value={value}
+                    onChange={handleChange}
+                    centered
+                >
+                    <Tab label="Unstructured document" {...a11yProps(0)} />
+                    <Tab label="Structured document" {...a11yProps(1)} />
+
+                </Tabs>
+                <TabPanel value={value} index={0}>
+                    {/* {status && <CustomizedSnackbars status={status} message={message} variant={variant} />} */}
+                    <Paper className={classes.paper}>
+                        <Typography component="h1" variant="h4" align="center">
+                            File Upload
           </Typography>
-                <Stepper activeStep={activeStep} className={classes.stepper}>
-                    {steps.map(label => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                <React.Fragment>
-                    {activeStep === steps.length ? (
+                        <Stepper activeStep={activeStep} className={classes.stepper}>
+                            {steps.map(label => (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
                         <React.Fragment>
-                            <Review hash={txHash} />
-                            {/* <Typography variant="h5" gutterBottom>
+                            {activeStep === steps.length ? (
+                                <React.Fragment>
+                                    <Review hash={txHash} />
+                                    {/* <Typography variant="h5" gutterBottom>
                 Thank you for your order.
                 </Typography>
               <Typography variant="subtitle1">
                 Your order number is #2001539. We have emailed your order confirmation, and will
                 send you an update when your order has shipped.
                 </Typography> */}
-                        </React.Fragment>
-                    ) : (
-                            <React.Fragment>
-                                {getStepContent(activeStep)}
-                                <div className={classes.buttons}>
-                                    {activeStep !== 0 && (
-                                        <Button onClick={handleBack} className={classes.button}>
-                                            Back
+                                </React.Fragment>
+                            ) : (
+                                    <React.Fragment>
+                                        {getStepContent(activeStep)}
+                                        <div className={classes.buttons}>
+                                            {activeStep !== 0 && (
+                                                <Button onClick={handleBack} className={classes.button}>
+                                                    Back
                     </Button>
-                                    )}
-                                    {activeStep === 1 && (
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={uploadFile} className={classes.button}>
-                                            Upload File
+                                            )}
+                                            {activeStep === 1 && (
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={uploadFile} className={classes.button}>
+                                                    Upload File
                      </Button>
-                                    )}
-                                    {activeStep !== 1 && (<Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={handleNext}
-                                        className={classes.button}
-                                    >
-                                        {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                                    </Button>)}
-                                </div>
-                            </React.Fragment>
-                        )}
-                </React.Fragment>
-            </Paper>
+                                            )}
+                                            {activeStep !== 1 && (<Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={handleNext}
+                                                className={classes.button}
+                                            >
+                                                {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                            </Button>)}
+                                        </div>
+                                    </React.Fragment>
+                                )}
+                        </React.Fragment>
+                    </Paper>
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <Paper className={classes.paper}>
+                        <Typography component="h1" variant="h4" align="center">
+                            Selet Document Type
+          </Typography>
+                        <br /><br /><br />
+                        <form className={classes.container}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={6} md={6}>
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel htmlFor="age-native-simple">Document Type</InputLabel>
+                                        <Select
+                                            value={DocType}
+                                            onChange={handleDocChange("Main")}
+                                            input={<Input id="mainType" />}
+                                        >
+                                            <MenuItem value={0}>{mainDocType[0]}</MenuItem>
+                                            <MenuItem value={1}>{mainDocType[1]}</MenuItem>
+                                            <MenuItem value={2}>{mainDocType[2]}</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={6} md={6}>
+                                    <FormControl className={classes.formControl}>
+                                        <InputLabel htmlFor="age-simple">Sub-Type</InputLabel>
+                                        <Select
+                                            value={subDocType}
+                                            onChange={handleDocChange("Sub")}
+                                            input={<Input id="sub-Type" />}
+                                        >
+                                            {getSubContent(DocType)}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                            </Grid>
+                        </form>
+                        <React.Fragment>
+                            <div className={classes.buttons}>
+                               <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={handleStructured}
+                                    className={classes.button}
+                                >
+                                    Next
+                                </Button>
+                            </div>
+                        </React.Fragment>
+                    </Paper>
+                </TabPanel>
+            </div>
         </main>
     );
 }
