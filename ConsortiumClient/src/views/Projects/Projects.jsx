@@ -26,26 +26,27 @@ import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
 const Projects = (props) => {
-  console.log(props);
-  
+  const projectURL = (projectID) => {
+    return "/dashboard/projects/"+ projectID;
+  }
   const {classes} = props;
   let projectRender = [];
   props.user.projectList.forEach(project => {
     projectRender.push(
-      <GridItem key={Math.random()} xs={12} sm={6} md={3}>
-        <Link to="/dashboard/projects/1">
+      <GridItem key={Math.random()} xs={12} sm={6} md={4}>
+        <Link to= {projectURL(project[0])}>
         <Card>
           <CardHeader color="danger" stats icon>
             <CardIcon color="danger">
               <Icon>apps</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>{project[1]}</p>
-            <h3 className={classes.cardTitle}></h3>
+            <p className={classes.cardCategory}>{project[0]}</p>
+            <h3 className={classes.cardTitle}>{project[1]}</h3>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>
               <LocalOffer />
-              {project.description}
+              Open
             </div>
           </CardFooter>
         </Card>
@@ -73,4 +74,3 @@ const mapStateToProps = (state) => ({
   user: state.user
 })
 export default connect(mapStateToProps) (withStyles(dashboardStyle)(Projects));
-

@@ -23,9 +23,8 @@ import {
 } from "./types";
 import { setAuthToken } from '../axiosConfig';
 import productContract from '../productContract.js'
-import registryContract from '../registryContract.js'
 import DocContract from '../DocContract';
-import { registryABI, registryAddress } from '../utils';
+import { registryABI, registryAddress, registryContract } from 'registryContract';
 const address = localStorage.getItem("address");
 const privateKey = sessionStorage.getItem('privateKey')
 export const currentUserInfo = clientToken => dispatch => {
@@ -39,19 +38,9 @@ export const currentUserInfo = clientToken => dispatch => {
       registryContract.methods.getMyProjects().call({
         from: clientToken
       }).then(res => {
-        let projectList = [];
-        res.reverse().forEach((projectData, index) => {
-          projectList[index] = ([
-            projectData["projectID"],
-            projectData["name"],
-            projectData["description"],
-            projectData["industry"],
-            projectData["functionalRoles"]
-          ])
-        })
         dispatch({
           type: CURRENT_USER_INFO,
-          payload: { projectCount: projectList.length, thingCount: productArray.length, productList: productArray, projectList: projectList, docCount:docCount }
+          payload: { projectCount: res.length, thingCount: productArray.length, productList: productArray, projectList: res, docCount:docCount }
         });
       })
     })
@@ -124,9 +113,9 @@ export const createNewProject = projectDetails => dispatch => {
   web3.eth.getBalance(address).then((balance) => {
     if (balance > 1000000000000000000) {
       var transaction = {
-        "to": '0xec972e6a006e35fa0ae02cf0284233c144bc8c63',
+        "to": registryAddress,
         "data": registryContract.methods.addNewProject(
-          Math.random().toString(),
+          uuidv1(),
           projectDetails.name,
           projectDetails.description,
           projectDetails.industry,

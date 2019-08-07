@@ -8,7 +8,7 @@ export const renderFromArray = array => {
   return render;
 }
 
-export const registryAddress = "0xecb9f65f59d42aaf48d50ba73c72f020cfc39beb";
+export const registryAddress = "0x49f892092990dedbc537029d295ab1b8cfe08355";
 
 export const registryABI = [
 	{

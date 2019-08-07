@@ -17,7 +17,7 @@ import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-
+import {connect} from "react-redux";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import web3 from '../../web3.js';
 import {registryABI, registryAddress} from 'utils';
@@ -56,10 +56,11 @@ const ProjectPartners = (props) => {
   }
 
   useEffect(() => {
-    registryContract.methods.getConsortiumOrganizations("1").call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
+    registryContract.methods.getConsortiumMember("40a6e060-b76c-11e9-a17c-b745382b2f90").call({
+      from : "0x66911a74374df86b19317f9c7f515fc18c5347c2"
     }).then(res => {
-      setPartners(res);
+      // setPartners(res);
+      console.log("response if ", res);
     })
   }, []);
 
@@ -96,4 +97,10 @@ ProjectPartners.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(ProjectPartners);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+  user: state.user
+})
+
+export default connect(mapStateToProps)(withStyles(dashboardStyle)(ProjectPartners));

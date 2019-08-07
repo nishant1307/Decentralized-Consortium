@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import {Form, FormGroup, FormText, Col, Button, Input} from 'reactstrap';
-import registryContract from "registryContract";
-import {registryAddress} from "utils";
+import {registryContract, registryAddress} from "registryContract";
 import web3 from "../web3";
 const ColleagueForm = (props) => {
   const [email, setEmail] = useState('');

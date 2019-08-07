@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Login(props) {  
+function Login(props) {
   const classes = useStyles();
   const [password, setPassword] = useState('');
   const [keystore, setKeystore] = useState('');
@@ -186,7 +186,8 @@ function Login(props) {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
+  error: state.error
 })
 
 export default connect(mapStateToProps, { loginUser })(Login)
