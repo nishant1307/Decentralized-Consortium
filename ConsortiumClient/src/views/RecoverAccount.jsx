@@ -66,6 +66,7 @@ export default function RecoverAccount() {
                 }
             } catch (err) {
                 setError(true)
+                console.log(err);
             }
 
         } else {

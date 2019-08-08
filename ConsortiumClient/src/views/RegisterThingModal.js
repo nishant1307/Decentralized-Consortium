@@ -29,7 +29,7 @@ const RegisterThingModal = (props) => {
     validationSchema: validationSchema,
   })
 
-  const onSubmit = (data, e) => {    
+  const onSubmit = (data, e) => {
     data.claims= claims;
     data.certificateURLs = urls;
     data.ipfsHash = ipfsHash;

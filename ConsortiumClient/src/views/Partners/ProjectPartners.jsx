@@ -17,17 +17,17 @@ import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import CustomLoader from 'components/Loaders/CustomLoader';
 import {connect} from "react-redux";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import web3 from '../../web3.js';
-import {registryABI, registryAddress} from 'utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
+import {registryContract} from 'registryContract';
 
 const ProjectPartners = (props) => {
 
   const [partners, setPartners] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
+    const [loader, setLoader] = useState(true);
 
   const options = [
   'Regular',
@@ -56,11 +56,11 @@ const ProjectPartners = (props) => {
   }
 
   useEffect(() => {
-    registryContract.methods.getConsortiumMember("40a6e060-b76c-11e9-a17c-b745382b2f90").call({
-      from : "0x66911a74374df86b19317f9c7f515fc18c5347c2"
+    registryContract.methods.getConsortiumMember(props.match.params.projectID).call({
+      from : props.auth.user.publicKey
     }).then(res => {
-      // setPartners(res);
-      console.log("response if ", res);
+      setLoader(false)
+      setPartners(res);
     })
   }, []);
 
@@ -79,13 +79,17 @@ const ProjectPartners = (props) => {
                 Select Partner to add to Consortium
               </p>
             </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="primary"
-                tableHead={["ID", "Name", "City", "Country", "Zipcode"]}
-                tableData={partners}
-              />
-            </CardBody>
+            {!loader?
+              partners.length>0 ?
+                <CardBody>
+                  <Table
+                    tableHeaderColor="primary"
+                    tableHead={["Public Key", "OrganizationID", "First Name", "Last Name", "Email", "Phone Number", "Role"]}
+                    tableData={partners}
+                  />
+                </CardBody>:
+                "No partners in the selected Category":
+            <CustomLoader/>}
           </Card>
         </GridItem>
       </GridContainer>

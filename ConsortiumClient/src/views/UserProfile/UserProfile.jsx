@@ -7,17 +7,16 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
+import TextField from "@material-ui/core/TextField";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
+import { connect } from 'react-redux';
 import avatar from "assets/img/faces/marc.jpg";
-import web3 from '../../web3';
-import {registryABI, registryAddress} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
+import {registryContract} from "registryContract";
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -41,14 +40,16 @@ const UserProfile = props => {
 
   const [userDetails, setUserDetails] = useState('');
   const [organizationDetails, setOrganizationDetails] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  const [email, setEmail] = useState('');
   useEffect(() => {
-    registryContract.methods.getUserOrganizationDetails().call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
-    }).then(res => {
-      console.log(res);
-      setUserDetails(res[0]);
-      setOrganizationDetails(res[1]);
-    })
+    // registryContract.methods.getUserOrganizationDetails().call({
+    //   from : localStorage.getItem("address")
+    // }).then(res => {
+    //   console.log(res);
+    //   setUserDetails(res[0]);
+    //   setOrganizationDetails(res[1]);
+    // })
   }, []);
 
   const { classes } = props;
@@ -77,7 +78,7 @@ const UserProfile = props => {
                     inputProps={{
                       disabled: true
                     }}
-                    value={organizationDetails.name}
+                    value={props.user.organization[1]}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={3}>
@@ -87,18 +88,33 @@ const UserProfile = props => {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    value={userDetails.userID}
+                    inputProps={{
+                      disabled: true
+                    }}
+                    value={props.user.user[0]}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    labelText="Email address"
-                    id="email-address"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    value={userDetails.email}
-                  />
+                  {!editMode ?
+                    <CustomInput
+                      labelText="Email address"
+                      id="email-address"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      value={props.user.user[4]}
+                    /> :
+                    <CustomInput
+                      labelText="Email address"
+                      id="email-address"
+                      formControlProps={{
+                        fullWidth: true
+                      }}
+                      placeholder={props.user.user[4]}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  }
                 </GridItem>
               </GridContainer>
               <GridContainer>
@@ -109,7 +125,7 @@ const UserProfile = props => {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    value={userDetails.firstName}
+                    value={props.user.user[2]}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={6}>
@@ -119,7 +135,7 @@ const UserProfile = props => {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    value={userDetails.lastName}
+                    value={props.user.user[3]}
                   />
                 </GridItem>
               </GridContainer>
@@ -157,7 +173,7 @@ const UserProfile = props => {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary" onClick={updateProfile}>Update Profile</Button>
+              <Button color="primary" onClick={() => setEditMode(true)}>Update Profile</Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -170,7 +186,7 @@ const UserProfile = props => {
             </CardAvatar>
             <CardBody profile>
               <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>{userDetails.firstName + " " + userDetails.lastName}</h4>
+              <h4 className={classes.cardTitle}>{props.user.user[2] + " " + props.user.user[3]}</h4>
               <p className={classes.description}>
 
               </p>
@@ -189,4 +205,10 @@ UserProfile.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(styles)(UserProfile);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+  user: state.user
+})
+
+export default connect(mapStateToProps)(withStyles(styles)(UserProfile));

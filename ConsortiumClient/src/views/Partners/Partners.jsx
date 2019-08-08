@@ -17,20 +17,19 @@ import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-
+import CustomLoader from 'components/Loaders/CustomLoader';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import web3 from '../../web3';
-import {registryABI, registryAddress} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
-
+import {registryContract} from 'registryContract';
+import { connect } from 'react-redux';
 const Partners = (props) => {
 
   const [partners, setPartners] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const options = [
-  'Regular',
+  'All',
   'Financial Institution',
   'Certification Agency',
   'Government',
@@ -47,6 +46,7 @@ const Partners = (props) => {
   }
 
   function handleMenuItemClick(event, index) {
+    setPartners([]);
     setSelectedIndex(index);
     setAnchorEl(null);
   }
@@ -56,12 +56,14 @@ const Partners = (props) => {
   }
 
   useEffect(() => {
-    registryContract.methods.getPartnersByType("regular").call({
-      from : "0x0bd55a9a9cd352d501afa31ec55ec1db1158c200"
+    setLoader(true);
+    registryContract.methods.getPartnersByType(options[selectedIndex]).call({
+      from : props.auth.user.publicKey
     }).then(res => {
+      setLoader(false)
       setPartners(res);
     })
-  }, []);
+  }, [selectedIndex]);
 
   const {classes} = props;
 
@@ -79,7 +81,7 @@ const Partners = (props) => {
           </ListItem>
       </List>
       <Menu
-          id="lock-menu"
+          id="partner-menu"
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
@@ -88,7 +90,6 @@ const Partners = (props) => {
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              disabled={index === 0}
               selected={index === selectedIndex}
               onClick={event => handleMenuItemClick(event, index)}
             >
@@ -101,19 +102,23 @@ const Partners = (props) => {
           <Card plain>
             <CardHeader plain color="primary">
               <h4 className={classes.cardTitleWhite}>
-                Regular Partners
+                Partner Category: {options[selectedIndex]}
               </h4>
               <p className={classes.cardCategoryWhite}>
                 Select Partner to add to Consortium
               </p>
             </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="primary"
-                tableHead={["ID", "Name", "City", "Country", "Zipcode"]}
-                tableData={partners}
-              />
-            </CardBody>
+            {!loader?
+              partners.length>0 ?
+                <CardBody>
+                  <Table
+                    tableHeaderColor="primary"
+                    tableHead={["ID", "Name", "Geocode"]}
+                    tableData={partners}
+                  />
+                </CardBody>:
+                "No partners in the selected Category":
+            <CustomLoader/>}
           </Card>
         </GridItem>
       </GridContainer>
@@ -125,4 +130,10 @@ Partners.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Partners);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+  user: state.user
+})
+
+export default connect(mapStateToProps)(withStyles(dashboardStyle)(Partners));

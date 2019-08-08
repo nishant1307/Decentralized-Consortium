@@ -23,9 +23,6 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import web3 from '../../web3';
-import {registryABI} from '../../utils';
-const registryContract = new web3.eth.Contract(registryABI, "0x4e37a167789d1f4524223cd7a7244da562ba4318");
 
 const Apps = (props) => {
 

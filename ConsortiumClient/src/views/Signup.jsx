@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -77,8 +78,8 @@ export default function Signup(props) {
     React.useEffect(() => {
         let address = localStorage.getItem("address");
         if (address)
-            alert("Exist account! Do you want to go to login?")
-
+            alert("You seem to already have an account. You may lose that account if you have not saved the recovery key and try to signup.")
+            // props.history.push('/login')
     }, [])
 
     const classes = useStyles();
@@ -105,7 +106,7 @@ export default function Signup(props) {
                 .then(function (blob) {
                     localStorage.setItem("data", JSON.stringify(blob));
                     localStorage.setItem("address",zeroWallet.getAddressString());
-                    props.history.push('/login')
+                    props.history.push('/register')
                 })
         } else {
 
@@ -183,7 +184,14 @@ export default function Signup(props) {
                             disabled={(error !== error2)}
                         >
                             Sign Up
-            </Button>
+                      </Button>
+                      <Grid container>
+                        <Grid item>
+                          <Link to="/login" variant="body2">
+                            {"Already have an account? Login"}
+                          </Link>
+                        </Grid>
+                      </Grid>
                     </form>
                 </div>
             </Grid>

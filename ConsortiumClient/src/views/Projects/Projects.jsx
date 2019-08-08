@@ -23,25 +23,49 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
+import CustomLoader from 'components/Loaders/CustomLoader';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
+import {registryContract} from 'registryContract';
 const Projects = (props) => {
+
+  const [projectList, setProjectList] = useState([]);
+
+  useEffect(()=> {
+    registryContract.methods.getMyProjects().call({
+      from: props.auth.user.publicKey
+    }).then(res => {
+      setProjectList(res);
+    });
+  }, []);
   const projectURL = (projectID) => {
     return "/dashboard/projects/"+ projectID;
   }
   const {classes} = props;
   let projectRender = [];
-  props.user.projectList.forEach(project => {
+  projectList.forEach(project => {
     projectRender.push(
-      <GridItem key={Math.random()} xs={12} sm={6} md={4}>
+      <GridItem key={Math.random()} xs={12} sm={6} md={3}>
         <Link to= {projectURL(project[0])}>
         <Card>
           <CardHeader color="danger" stats icon>
             <CardIcon color="danger">
               <Icon>apps</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>{project[0]}</p>
-            <h3 className={classes.cardTitle}>{project[1]}</h3>
+            <p className={classes.cardCategory} style={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis"
+            }}>
+              {project[0]}
+            </p>
+            <h3 className={classes.cardTitle} style={{
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis"
+            }}>
+              {project[1]}
+            </h3>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>
@@ -58,7 +82,9 @@ const Projects = (props) => {
   return (
     <div>
       <GridContainer>
-        {projectRender.length !== 0  ? projectRender : <h3>No Data Found</h3>}
+        {projectRender.length !== 0  ? projectRender :
+          <CustomLoader />
+        }
       </GridContainer>
     </div>
   );

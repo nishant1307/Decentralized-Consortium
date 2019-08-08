@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0xa50f10d98ceaf9acfd9770ef8e342f8ee8d67c7c';
+export const registryAddress = '0xd40a51cf8de0f5c16f49d0dc509da9a22da4465a';
 export const registryABI = [
 	{
 		"constant": false,
@@ -62,6 +62,20 @@ export const registryABI = [
 			}
 		],
 		"name": "editUserEmail",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "phoneNumber",
+				"type": "string"
+			}
+		],
+		"name": "editUserPhoneNumber",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -355,6 +369,48 @@ export const registryABI = [
 		],
 		"name": "ProductAdded",
 		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "a",
+				"type": "string"
+			},
+			{
+				"name": "b",
+				"type": "string"
+			}
+		],
+		"name": "compareStrings",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "existingEmail",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
 		"constant": true,

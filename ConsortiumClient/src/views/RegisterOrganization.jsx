@@ -29,14 +29,14 @@ import PropTypes from 'prop-types';
 
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import countryCode from 'dataset/countryCodes.js'
-
+import {registryContract} from "registryContract";
 const Register = (props) => {
 
   const [email, setEmail] = useState('');
+  const [emailChecked, setEmailChecked] = useState(false);
+  const [error, setError] = useState('');
   const [userStatus, setUserStatus] = useState('');
   const [userRegistered, setUserRegistered] = useState('');
-  const [otp, setOTP] = useState('');
-  const [otpVerified, setOTPVerified] = useState('');
   const [place, setPlace] = useState('');
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().min(2, `First name has to be at least 2 characters`).matches(/(?=.*[a-z])(?=.*[A-Z])/, 'First name must contain only A-Z uppercase or lowercase letters\n').required('First name is required'),
@@ -89,8 +89,10 @@ const Register = (props) => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    axios.post('/api/users/userOnboarding', {email: email}).then(res => {
-      setUserStatus(res.data.status);
+    registryContract.methods.existingEmail(email).call({
+      from : localStorage.getItem('address')
+    }).then(res => {
+      setUserStatus(res);
     })
   }
 
@@ -110,7 +112,7 @@ const Register = (props) => {
     })
   }
   let render;
-  if (userStatus == "") {
+  if (!emailChecked) {
     render = <div>
       <h2>Register</h2>
       <Form>
@@ -125,36 +127,14 @@ const Register = (props) => {
         <Button color="primary" type="submit" onClick={onSubmitForm} block="block">Register</Button>
       </Form>
     </div>;
-  } else if (userStatus == "User already exists") {
+  } else if (error == "Existing") {
     render = <div>
-      <h3>User Has already been Registered to the Kramaa platform</h3>
+      <h3>User Has already been Registered to the Athanium platform</h3>
       <Link to="/">
         <Button color="primary" className="mt-3" active="active" tabIndex={-1}>Proceed to Login</Button>
       </Link>
     </div>;
-  } else if (otpVerified == "") {
-    render = <div>
-      <h2>OTP</h2>
-      <Form>
-        <InputGroup className="mb-3">
-          <InputGroupAddon addonType="prepend">
-            <InputGroupText>
-              <i className="icon-user"></i>
-            </InputGroupText>
-          </InputGroupAddon>
-          <Input type="text" name="otp" value={otp} onChange={(e) => setOTP(e.target.value)} placeholder="Enter  OTP" autoComplete="username"/>
-        </InputGroup>
-        <Row>
-          <Col xs="6">
-            <Button color="primary" type="submit" className="px-4" onClick={onSubmitOTP}>Submit OTP</Button>
-          </Col>
-          <Col xs="6" className="text-right">
-            <Button color="link" className="px-0" onClick={onSubmitForm}>Resend OTP</Button>
-          </Col>
-        </Row>
-      </Form>
-    </div>;
-  } else if (userRegistered == "") {
+  } else if (error == "") {
     render = <Form onSubmit={handleSubmit(onSubmit)}>
       <h1>Register</h1>
       <p className="text-muted">Create your account</p>
@@ -510,30 +490,6 @@ const Register = (props) => {
         </InputGroupAddon>
         <Input type="text" readOnly="readOnly" name="email" value={email} placeholder="Email"/>
       </InputGroup>
-      <Row>
-        <Col xs={6}>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>
-                <i className="fa fa-lock"></i>
-              </InputGroupText>
-            </InputGroupAddon>
-            <Input type="password" name="password" innerRef={register} placeholder="Password" valid={!errors.password} invalid={errors.password}/>
-            <FormFeedback>{errors.password}</FormFeedback>
-          </InputGroup>
-        </Col>
-        <Col xs={6}>
-          <InputGroup className="mb-3">
-            <InputGroupAddon addonType="prepend">
-              <InputGroupText>
-                <i className="fa fa-lock"></i>
-              </InputGroupText>
-            </InputGroupAddon>
-            <Input type="password" name="confirmPassword" placeholder="Confirm password" innerRef={register} valid={!errors.confirmPassword} invalid={errors.confirmPassword}/>
-            <FormFeedback>{errors.confirmPassword}</FormFeedback>
-          </InputGroup>
-        </Col>
-      </Row>
       <Button color="primary" className="mr-1">{
           isSubmitting
             ? 'Wait...'
@@ -565,6 +521,8 @@ Register.propTypes = {
   auth: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({auth: state.auth, errors: state.errors});
+const mapStateToProps = state => ({
+  auth: state.auth, errors: state.errors
+});
 
 export default connect(mapStateToProps, {registerUser})(Register)

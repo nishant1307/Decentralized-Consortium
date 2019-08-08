@@ -40,7 +40,7 @@ const initialState = {
   subscription: ''
 }
 
-export default function (state = initialState, action) {  
+export default function (state = initialState, action) {
   switch (action.type) {
     case CURRENT_USER_INFO:
       return {
@@ -52,7 +52,9 @@ export default function (state = initialState, action) {
         projectList:action.payload.projectList,
         thingCount: action.payload.thingCount,
         productList:action.payload.productList,
-        docCount:action.payload.docCount
+        docCount:action.payload.docCount,
+        user: action.payload.userInfo,
+        organization: action.payload.organizationInfo
         // etherAddress:action.payload.etherAddress,
         // userInfoLoader: false
       }

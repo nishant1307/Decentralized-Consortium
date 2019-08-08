@@ -25,23 +25,34 @@ import { setAuthToken } from '../axiosConfig';
 import productContract from '../productContract.js'
 import DocContract from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
+import deviceContract from 'deviceContract';
 const address = localStorage.getItem("address");
 const privateKey = sessionStorage.getItem('privateKey')
 export const currentUserInfo = clientToken => dispatch => {
   console.log(clientToken);
 
   DocContract.methods.balanceOf(clientToken).call().then(docCount => {
+    registryContract.methods.getUserOrganizationDetails().call({
+      from : localStorage.getItem("address")
+    }).then(userOrgDetails => {
+      productContract.methods._tokensOfOwner(clientToken).call().then(productArray => {
+        console.log(clientToken);
 
-    productContract.methods._tokensOfOwner(clientToken).call().then(productArray => {
-      console.log(clientToken);
-
-      registryContract.methods.getMyProjects().call({
-        from: clientToken
-      }).then(res => {
-        dispatch({
-          type: CURRENT_USER_INFO,
-          payload: { projectCount: res.length, thingCount: productArray.length, productList: productArray, projectList: res, docCount:docCount }
-        });
+        registryContract.methods.getMyProjectsCount().call({
+          from: clientToken
+        }).then(res => {
+          dispatch({
+            type: CURRENT_USER_INFO,
+            payload: {
+              projectCount: res,
+              thingCount: productArray.length,
+              productList: productArray,
+              docCount:docCount,
+              userInfo: userOrgDetails[0],
+              organizationInfo: userOrgDetails[1]
+            }
+          });
+        })
       })
     })
   })
@@ -111,6 +122,7 @@ export const closeLocationModal = () => dispatch => {
 
 export const createNewProject = projectDetails => dispatch => {
   web3.eth.getBalance(address).then((balance) => {
+    console.log(balance);
     if (balance > 1000000000000000000) {
       var transaction = {
         "to": registryAddress,
@@ -206,28 +218,89 @@ export const addNewLocation = locationDetails => dispatch => {
 };
 
 export const createNewDevice = deviceDetails => dispatch => {
-  axios
-    .post("/api/projects/mintNewToken", deviceDetails)
-    .then(res => {
-      if (res.data.status == true) {
-        dispatch({
-          type: NEW_DEVICE_CREATED,
-          payload: deviceDetails.number
-        });
-      } else {
-        dispatch({
-          type: GET_ERRORS,
-          payload: { deviceError: { message: 'Error Occured While Creating New Device.' } }
-        });
+  // var transaction = {
+  //   "to": '0xb17afcf9cba83a8a4367adb8beeb6bdf6e439123',
+  // "data": deviceContract.methods.MintWithDetails(
+  //   "0x732a28e50270da8f81bd679abeab6dd6c8da2936",
+  //   deviceDetails.deviceURN[0],
+  //   deviceDetails.selectedProject,
+  //   deviceDetails.tokenURI.communicationProtocol,
+  //   deviceDetails.tokenURI.dataProtocol,
+  //   deviceDetails.tokenURI.deviceType,
+  //   deviceDetails.tokenURI.sensor,
+  // ).encodeABI()
+  // };
+
+  // transaction["gasLimit"] = 2000000;
+  // web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF")
+  //   .then(res => {
+  //     web3.eth.sendSignedTransaction(res.rawTransaction)
+  //       .on('receipt', function (receipt) {
+  //         if (receipt.status == true) {
+  //           dispatch({
+  //             type: NEW_DEVICE_CREATED,
+  //             payload: deviceDetails.number
+  //           });
+  //         }
+  //       })
+  //       .on('error', async function (error) {
+  //         dispatch({
+  //           type: GET_ERRORS,
+  //           payload: error
+  //         });
+  //       })
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     dispatch({
+  //       type: GET_ERRORS,
+  //       payload: "Error Occured While Creating New Project."
+  //     });
+  //   });
+
+  // batch req
+  var batch = new web3.BatchRequest();
+  checkTotalTokenSupply("0xa3917a671cfbfcf287694766e9afb428a5ffe593").then((totalSupply) => {
+    let from = parseInt(totalSupply) + 1;
+    let to = from + parseInt(deviceDetails.number) - 1;
+    // console.log("From is", from);
+    // console.log("To is", to);
+    web3.eth.getTransactionCount("0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200").then((nonce) => {
+      console.log("nonce", nonce, deviceDetails.deviceURN);
+      var count = 0
+      for (var i = from; i <= to; i++ , nonce++) {
+        console.log(deviceDetails.deviceURN[count]);
+
+        var transaction = {
+          "nonce": nonce,
+          "to": "0xa3917a671cfbfcf287694766e9afb428a5ffe593",
+          "data": deviceContract.methods.MintWithDetails(
+            "0x0Bd55A9A9cd352D501afa31Ec55ec1db1158c200",
+            deviceDetails.deviceURN[count],
+            deviceDetails.selectedProject,
+            deviceDetails.tokenURI.communicationProtocol,
+            deviceDetails.tokenURI.dataProtocol,
+            deviceDetails.tokenURI.deviceType,
+            deviceDetails.tokenURI.sensor,
+          ).encodeABI()
+        };
+        // let gasLimit = await web3.eth.estimateGas(transaction);
+        transaction["gasLimit"] = 4700000;
+        web3.eth.accounts.signTransaction(transaction, "0xD493D7F8F82C24BBFC3FE0E0FB14F45BAA8EA421356DC2F7C2B1A9EF455AB8DF").then((result) => {
+          // console.log("Adding", i, count, deviceDetails.deviceURN[count]);
+          batch.add(web3.eth.sendSignedTransaction(result.rawTransaction).on('receipt', (receipt) => {
+            // console.log(receipt);
+            dispatch({
+              type: NEW_DEVICE_CREATED,
+              payload: 1
+            });
+          }));
+        })
+        count++;
       }
+      batch.execute();
     })
-    .catch(err => {
-      console.log(err);
-      dispatch({
-        type: GET_ERRORS,
-        payload: err
-      });
-    });
+  })
 };
 
 export const createNewThing = thingDetails => dispatch => {

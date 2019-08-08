@@ -38,10 +38,10 @@ const Dashboard = (props) => {
     if (!props.auth.isAuthenticated) {
       props.history.push('/login');
     }
-    productContract.methods.balanceOf(props.auth.user.publicKey).call().then(res=>{
-      setProductCount(res);
-
-    });
+    // productContract.methods.balanceOf(props.auth.user.publicKey).call().then(res=>{
+    //   setProductCount(res);
+    //
+    // });
     // registryContract.methods.getMyProjects().call({
     //   from : props.auth.user.publicKey
     // }).then(res => {
@@ -64,7 +64,7 @@ const Dashboard = (props) => {
 
   return (
     <div>
-      {props.user.projectList && <GridContainer>
+      {props.user && <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <Link to="/dashboard/projects">
@@ -74,7 +74,7 @@ const Dashboard = (props) => {
                 </CardIcon>
                 <p className={classes.cardCategory}>Projects</p>
                 <h3 className={classes.cardTitle}>
-                  {props.user.projectList.length}
+                  {props.user.projectCount}
                 </h3>
               </CardHeader>
             </Link>
@@ -93,7 +93,7 @@ const Dashboard = (props) => {
                 <Accessibility />
               </CardIcon>
               <p className={classes.cardCategory}>Partners</p>
-              <h3 className={classes.cardTitle}>{props.user.partners}</h3>
+              <h3 className={classes.cardTitle}>&nbsp;</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>

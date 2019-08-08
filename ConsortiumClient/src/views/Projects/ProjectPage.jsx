@@ -17,12 +17,10 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import web3 from '../../web3';
-import {registryABI, registryAddress} from '../../utils';
+
 import { connect } from 'react-redux';
-import { openLocationModal, closeLocationModal } from 'actions/userActions';
-import LocationFormModal from "views/LocationFormModal";
-const registryContract = new web3.eth.Contract(registryABI, registryAddress);
+import { openDeviceModal, closeLocationModal } from 'actions/userActions';
+import RegisterDeviceModal from "views/RegisterDeviceModal";
 
 const ProjectPage = (props) => {
 console.log(props);
@@ -62,10 +60,10 @@ console.log(props);
               <p className={classes.cardCategory}></p>
               <h4 className={classes.cardTitle}>Devices</h4>
             </CardHeader>
-            <CardFooter stats>
+            <CardFooter stats onClick={props.openDeviceModal }>
               <div className={classes.stats}>
                 <Icon>forward</Icon>
-                Go to IotConekt App
+                  Register a device
               </div>
             </CardFooter>
           </Card>
@@ -105,7 +103,7 @@ console.log(props);
           </Card>
         </GridItem>
       </GridContainer>
-      <LocationFormModal projectID= {props.match.params.projectID}/>
+      <RegisterDeviceModal projectList= {[props.match.params.projectID]}/>
     </div>
   );
 }
@@ -120,4 +118,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { openLocationModal, closeLocationModal })(withStyles(dashboardStyle)(ProjectPage));
+export default connect(mapStateToProps, { openDeviceModal, closeLocationModal })(withStyles(dashboardStyle)(ProjectPage));

@@ -2,6 +2,7 @@ import React from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 import classNames from "classnames";
+import {Link} from "react-router-dom"
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -186,12 +187,13 @@ class AdminNavbarLinks extends React.Component {
                 <Paper>
                   <ClickAwayListener onClickAway={this.handleCloseProfile}>
                     <MenuList role="menu">
-                      <MenuItem
+                      <Link to= "/dashboard/user"><MenuItem
                         onClick={this.handleCloseProfile}
                         className={classes.dropdownItem}
                       >
                         Profile
                       </MenuItem>
+                      </Link>
                       <MenuItem
                         onClick={this.handleCloseProfile}
                         className={classes.dropdownItem}

@@ -1,17 +1,28 @@
 // core components/views for Admin layout
-import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import UserProfile from "views/UserProfile/UserProfile.jsx";
-import ProjectLocation from "views/Maps/ProjectLocation.jsx";
-import Apps from "views/Apps/Apps.jsx";
-import Projects from "views/Projects/Projects.jsx";
-import ProjectPage from "views/Projects/ProjectPage.jsx";
-import Partners from "views/Partners/Partners.jsx";
-import PricingPage from "views/Pricing/PricingPage.js";
-import ProjectPartners from "views/Partners/ProjectPartners.jsx";
-import People from "views/People/People.jsx";
+import React from "react";
+// import DashboardPage from "views/Dashboard/Dashboard.jsx";
+// import UserProfile from "views/UserProfile/UserProfile.jsx";
+// import ProjectLocation from "views/Maps/ProjectLocation.jsx";
+// import Apps from "views/Apps/Apps.jsx";
+// import Projects from "views/Projects/Projects.jsx";
+// import ProjectPage from "views/Projects/ProjectPage.jsx";
+// import Partners from "views/Partners/Partners.jsx";
+// import PricingPage from "views/Pricing/PricingPage.js";
+// import ProjectPartners from "views/Partners/ProjectPartners.jsx";
+// import People from "views/People/People.jsx";
 // import DocConekt from './views/DocConekt';
 import DocConekt from './views/DocConekt/UploadFile';
 import Wallet from './views/DocConekt/Wallet';
+const DashboardPage = React.lazy(() => import('views/Dashboard/Dashboard.jsx'));
+const UserProfile = React.lazy(() => import('views/UserProfile/UserProfile.jsx'));
+const ProjectLocation = React.lazy(() => import('views/Maps/ProjectLocation.jsx'));
+const Apps = React.lazy(() => import('views/Apps/Apps.jsx'));
+const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
+const ProjectPage = React.lazy(() => import('views/Projects/ProjectPage.jsx'));
+const Partners = React.lazy(() => import('views/Partners/Partners.jsx'));
+const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
+const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
+const People = React.lazy(() => import('views/People/People.jsx'));
 const dashboardRoutes = [
   {
     path: "/docconekt/explore",

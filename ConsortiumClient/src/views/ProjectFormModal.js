@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Button, Card, CardBody, CardHeader, Form, FormFeedback, FormGroup, Label, Input, FormText, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import axios from "axios";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { createNewProject, closeProjectModal } from '../actions/userActions';
 import useForm from 'react-hook-form'
@@ -24,13 +25,17 @@ function ProjectFormModal(props) {
 
   const initialState = {
     modal: false,
-    industry: '',
     functionalRoles: '',
     isLoading: false,
     isReadyForProject: true
   }
 
   const [state, setState] = useState(initialState);
+  const [projectName, setProjectName] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
+  const [industry, setIndustry] = useState('');
+  const [role, setRole] = useState(0);
+  const [isLoading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -59,24 +64,6 @@ function ProjectFormModal(props) {
     setState(initialState);
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState(state => ({
-      ...state,
-      [name]: value
-    }));
-  }
-
-  const onSubmitForm = (data, e) => {
-    e.preventDefault();
-    setState(state => ({
-      ...state,
-      isLoading: true
-    }));
-    const { name, description, role } = data;
-    props.createNewProject({ name: name, description: description, industry: state.industry, partnerRole: role });
-  }
-
   // useEffect(() => {
   //   axios.post("/api/dashboard/checkRegistration", {})
   //     .then(res => {
@@ -92,11 +79,17 @@ function ProjectFormModal(props) {
   //
   // }, [])
 
-  const { isLoading, isReadyForProject } = state;
+  const { isReadyForProject } = state;
   let button;
   if (isLoading) {
     button = <CircularProgress className={classes.progress} />;
     ;
+  }
+
+  const submitProject = () => {
+    // console.log({ name: projectName, description: projectDescription, industry: industry, partnerRole: role });
+    props.createNewProject({ name: projectName, description: projectDescription, industry: industry, partnerRole: role });
+    setLoading(true)
   }
 
   return (
@@ -113,40 +106,28 @@ function ProjectFormModal(props) {
         <Row>
           <Col>
             <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
-              <Form onSubmit={handleSubmit(onSubmitForm)} className="form-horizontal">
+              <Form className="form-horizontal">
                 <ModalHeader toggle={toggle}><strong>New Project Form</strong></ModalHeader>
                 <ModalBody>
                   <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Project Name</Label>
-                    </Col>
                     <Col xs="12" md="9">
-                      <Input type="text"
-                        placeholder="Project Name"
+                      <TextField type="text"
+                        label= "Project Name"
                         name="name"
-                        valid={!errors.name}
-                        invalid={errors.name}
                         required
-                        innerRef={register}
+                        onChange={(e => setProjectName(e.target.value))}
                       />
-                      <FormFeedback>{errors.name}</FormFeedback>
                       <FormText color="muted">Enter a name for your Project (For example: TestProject)</FormText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Project Description</Label>
-                    </Col>
                     <Col xs="12" md="9">
-                      <Input type="text"
-                        placeholder="Description"
+                      <TextField type="text"
+                        label="Project Description"
                         name="description"
-                        valid={!errors.description}
-                        invalid={errors.description}
                         required
-                        innerRef={register}
+                        onChange={(e => setProjectDescription(e.target.value))}
                       />
-                      <FormFeedback>{errors.description}</FormFeedback>
                       <FormText color="muted">Describe your project</FormText>
                     </Col>
                   </FormGroup>
@@ -158,51 +139,27 @@ function ProjectFormModal(props) {
                       <Input type="select"
                         placeholder="industry"
                         name="industry"
-                        valid={!errors.industry}
-                        invalid={errors.industry}
                         required
-                        value={state.industry}
-                        onChange={handleChange}
+                        value={industry}
+                        onChange={(e)=> setIndustry(e.target.value)}
                       >
                         <option value="0">Please select</option>
                         {renderFromArray(industryList)}
                       </Input>
-                      <FormFeedback>{errors.industry}</FormFeedback>
                       <FormText color="muted">What industry does your project cover?</FormText>
                     </Col>
                   </FormGroup>
-                  {/** <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Functional Roles</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="select"
-                        placeholder="Functional Roles"
-                        name="functionalRoles"
-                        valid={!errors.functionalRoles}
-                        invalid={errors.functionalRoles}
-                        required
-                        value={state.functionalRoles}
-                        onChange={handleChange}
-                      >
-                        <option value="0">Please select</option>
-                        {renderFromArray(functionalRoles)}
-                      </Input>
-                      <FormFeedback>{errors.functionalRoles}</FormFeedback>
-                      <FormText color="muted">What functional role does your project cover?</FormText>
-                    </Col>
-                  </FormGroup> */}
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="select">Select Role</Label>
                     </Col>
                     <Col xs="12" md="9">
                       <Label check>
-                        <Input type="radio" name="role" innerRef={register} value={0}/>{' '}
+                        <Input type="radio" name="role" value={0} onChange={(e)=> setRole(e.target.value)}/>{' '}
                         Buyer
                     </Label><br />
                       <Label check>
-                        <Input type="radio" name="role" innerRef={register} value={1}/>{' '}
+                        <Input type="radio" name="role" value={1} onChange={(e)=> setRole(e.target.value)}/>{' '}
                         Seller
                       </Label>
                     </Col>
@@ -210,7 +167,7 @@ function ProjectFormModal(props) {
                 </ModalBody>
                 <ModalFooter>
                   {isLoading && <CircularProgress className={classes.progress} /> }
-                  {!isLoading && <Button color="primary" disabled={false} >Create Project</Button>
+                  {!isLoading && <Button color="primary" type="button" onClick={submitProject}>Create Project</Button>
                   }
                 </ModalFooter>
               </Form>

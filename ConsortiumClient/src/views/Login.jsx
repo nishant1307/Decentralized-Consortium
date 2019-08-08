@@ -73,7 +73,7 @@ function Login(props) {
     let temp = localStorage.getItem("data");
     if (temp === null) {
       alert("No account Found!")
-      window.location.href = '/signup'
+      props.history.push('/signup')
     } else {
       setKeystore(JSON.parse(temp));
       setAddress(address);
