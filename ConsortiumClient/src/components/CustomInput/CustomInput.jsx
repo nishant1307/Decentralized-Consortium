@@ -41,7 +41,7 @@ function CustomInput({ ...props }) {
   return (
     <FormControl
       {...formControlProps}
-      className={formControlProps.className + " " + classes.formControl}
+className={formControlProps.className + " " + classes.formControl}
     >
       {labelText !== undefined ? (
         <InputLabel
@@ -62,6 +62,7 @@ function CustomInput({ ...props }) {
         defaultValue={defaultValue}
         value={value}
         {...inputProps}
+        onChange={props.onChangeValue}
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />

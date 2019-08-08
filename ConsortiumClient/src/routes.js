@@ -23,7 +23,13 @@ const Partners = React.lazy(() => import('views/Partners/Partners.jsx'));
 const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
 const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
 const People = React.lazy(() => import('views/People/People.jsx'));
+import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
+  {
+    path: "/structured/:structuredDocId",
+    component: StructuredDoc,
+    layout: "/dashboard"
+  },
   {
     path: "/docconekt/explore",
     component: Wallet,

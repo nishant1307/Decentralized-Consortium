@@ -231,7 +231,7 @@ export default function Signup(props) {
                                     }}
                                 />
                             }
-                            label="Do not share it! Your funds will be stolen if you use this file on a malicious/phishing site."
+                            label="Do not share it! Your Identity will be stolen if you use this file on a malicious/phishing site."
 
                         />
                         <FormControlLabel
