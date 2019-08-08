@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-// nodejs library to set properties for components
-import PropTypes from "prop-types";
-// @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-// core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import DateFnsUtils from "@date-io/date-fns";
@@ -24,6 +19,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
+import ipfs from '../../../ipfs';
+const Ipfs = require('ipfs-http-client')
 
 const styles = theme => ({
     cardCategoryWhite: {
@@ -50,10 +47,7 @@ const styles = theme => ({
 
 const PurchaseOrder = props => {
     const { classes } = props;
-    const [selectedDate, handleDateChange] = useState(new Date());
     const [struture, setStruture] = useState({});
-    const [mod, setMod] = React.useState("Air");
-    const [tos, setTos] = React.useState('LCL (CY)')
     const [maintable, setMainTable] = React.useState({
         columns: [
             { title: 'Product Code', field: 'productCode' },
@@ -67,15 +61,18 @@ const PurchaseOrder = props => {
 
         ],
     });
-    const updateProfile = () => {
-        console.log("Updated", struture);
+    const updateProfile = async () => {
+        // console.log("Updated", struture, maintable.data);
+        const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
+        const cid = await ipfs.add(content);
+        console.log("IPFS cid:", cid);
     }
 
     const handleChangeValue = e => {
         const { id, value } = e.target;
-        console.log(id, value );
-        
-        setStruture({ ...struture , [id]: value })
+        // console.log(id, value);
+
+        setStruture({ ...struture, [id]: value })
     }
 
     return (
@@ -124,7 +121,7 @@ const PurchaseOrder = props => {
                                             format="MM/dd/yyyy"
                                             value={struture.selectedDate}
                                             InputAdornmentProps={{ position: "start" }}
-                                            onChange={date => setStruture({ ...struture , ["selectedDate"]: date })}
+                                            onChange={date => setStruture({ ...struture, ["selectedDate"]: date })}
                                         />
                                     </MuiPickersUtilsProvider>
                                 </GridItem>
@@ -158,7 +155,7 @@ const PurchaseOrder = props => {
                                         <Select
                                             style={{ width: 250 }}
                                             value={struture.mod}
-                                            onChange={(e) =>  setStruture({ ...struture , ["mod"] :e.target.value }) }
+                                            onChange={(e) => setStruture({ ...struture, ["mod"]: e.target.value })}
                                         >
                                             <MenuItem value={"Air"}>Air</MenuItem>
                                             <MenuItem value={"Sea"}>Sea</MenuItem>
@@ -174,7 +171,7 @@ const PurchaseOrder = props => {
                                         <Select
                                             style={{ width: 250 }}
                                             value={struture.tos}
-                                            onChange={(e) => setStruture({ ...struture , ["tos"] :e.target.value })}
+                                            onChange={(e) => setStruture({ ...struture, ["tos"]: e.target.value })}
                                         >
                                             <MenuItem value={"LCL (CY)"}>LCL (CY)</MenuItem>
                                             <MenuItem value={"FCL (CFS)"}>FCL (CFS)</MenuItem>

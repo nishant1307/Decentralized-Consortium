@@ -5,6 +5,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 // core components
 import Admin from "layouts/Admin.jsx";
+import Kyc from 'views/KYC/Kyc';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Router history={hist}>
           <Switch>
             <Route path="/dashboard" component={Admin} />
+            <Route path="/kyc" component={Kyc} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/register" component={Register} />

@@ -5,8 +5,6 @@ import PackingList from './Types/PackingList'
 import SeawayBill from './Types/SeawayBill'
 import ShippingInstructions from './Types/ShippingInstructions'
 const UserProfile = props => {
-    console.log(props.match.params);
-
     function getPage() {
         switch (props.match.params.structuredDocId) {
             case "Purchase Order":
