@@ -16,7 +16,6 @@ const Signup = React.lazy(() => import('views/Signup.jsx'));
 const Register = React.lazy(() => import('views/Register/Register.js'));
 const RecoverAccount = React.lazy(() => import('views/RecoverAccount.jsx'));
 const RegisterOrganization = React.lazy(() => import('views/RegisterOrganization'));
-
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 
 const loading = <div className="loader"></div>;
@@ -29,10 +28,9 @@ ReactDOM.render(
         <Router history={hist}>
           <Switch>
             <Route path="/dashboard" component={Admin} />
-            <Route path="/kyc" component={Kyc} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/register" component={Register} />
+            <Route path="/register" component={Kyc} />
             <Route path="/recover" component={RecoverAccount} />
             <Route path="/registerOrganization" component ={RegisterOrganization} />
             <Route component={Page404}/>

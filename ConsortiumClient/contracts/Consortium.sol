@@ -63,13 +63,14 @@ contract Storage {
         string email;
         string phoneNumber;
         userKYCStatus status;
+        string kycHash;
         roles role;
     }
 
     struct Organization {
         string organizationID;
         string name;
-        string geocode;
+        string kycHash;
     }
 
     struct Project {
@@ -124,7 +125,7 @@ contract Storage {
     // mapping between ProjectID and item
     mapping(string => Item[]) itemList;
 
-    function setUser(string memory firstName, string memory lastName, string memory email, string memory phoneNumber) public uniqueEmail(email) {
+    function setUser(string memory firstName, string memory lastName, string memory email, string memory phoneNumber, string memory kycHash, roles role) public uniqueEmail(email) {
         require(bytes(invitedUsers[email].organizationID).length > 0);
         User memory newUser = User ({
             organizationID: invitedUsers[email].organizationID,
@@ -132,8 +133,9 @@ contract Storage {
             lastName: lastName,
             email: email,
             phoneNumber: phoneNumber,
-            role: roles.regular,
-            status: userKYCStatus.kycPending
+            role: role,
+            status: userKYCStatus.kycPending,
+            kycHash: kycHash
         });
         emailRegistry[email] = msg.sender;
         userDirectory[msg.sender] = newUser;
@@ -167,24 +169,13 @@ contract Storage {
         return (userDirectory[msg.sender], organizationDirectory[userDirectory[msg.sender].organizationID]);
     }
 
-    function setOrganizationAdmin(string memory organizationID, string memory name, string memory geocode, string memory firstName, string memory lastName, string memory email, string memory phoneNumber, address publicKey) public uniqueEmail(email) {
+    function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory firstName, string memory lastName, string memory email, string memory phoneNumber) public uniqueEmail(email) {
         Organization memory newOrganization = Organization ({
             organizationID: organizationID,
             name: name,
-            geocode: geocode
+            kycHash: orgKYCHash
         });
-        User memory newUser = User ({
-            organizationID: organizationID,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phoneNumber: phoneNumber,
-            role: roles.admin,
-            status: userKYCStatus.kycComplete
-        });
-        emailRegistry[email] = publicKey;
-        userDirectory[publicKey] = newUser;
-        users.push(newUser);
+        setUser(firstName, lastName, email, phoneNumber, userKYCHash, roles.admin);
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
         partners["All"].push(newOrganization);
@@ -253,16 +244,20 @@ contract Storage {
         return projectRoles[projectID][msg.sender];
     }
 
+    function setUserStatus(address userAddress, userKYCStatus status) public onlyOwner returns (bool) {
+        userDirectory[userAddress].status = status;
+    }
+
     function getUserKYCStatus() public view userExists returns (userKYCStatus status)  {
         return userDirectory[msg.sender].status;
     }
 
-    function existingEmail(string memory email) public view returns (bool){
-        return(emailRegistry[email] != address(0x0));
+    function updateKYC(string memory kycHash) public userExists returns (bool) {
+        userDirectory[msg.sender].kycHash = kycHash;
     }
 
-    function updateUserStatus(address userAddress, userKYCStatus status) public onlyOwner returns (bool) {
-        userDirectory[userAddress].status = status;
+    function existingEmail(string memory email) public view returns (bool){
+        return(emailRegistry[email] != address(0x0));
     }
 
     function addItemToProject(projectItems itemType, string memory itemID, string memory _projectID, address _by, uint256 timestamp) public returns (bool) {

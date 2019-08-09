@@ -18,8 +18,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Dropzone from 'react-dropzone'
-
-
+import ipfs from "ipfs";
+import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 const useStyles = makeStyles(theme => ({
     listItem: {
         padding: theme.spacing(1, 0),
@@ -195,110 +195,191 @@ function PaymentForm() {
 }
 
 function AddressForm() {
-    return (
-        <React.Fragment>
-            {/* <Typography variant="h6" gutterBottom>
-                Company Details
-        </Typography> */}
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <TextField
-                        required
-                        id="compnayName"
-                        name="compnayName"
-                        label="Company Name"
-                        fullWidth
-                        autoComplete="compnay name"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="firstName"
-                        name="firstName"
-                        label="First name"
-                        fullWidth
-                        autoComplete="fname"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="lastName"
-                        name="lastName"
-                        label="Last name"
-                        fullWidth
-                        autoComplete="lname"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        required
-                        id="address1"
-                        name="address1"
-                        label="Address line 1"
-                        fullWidth
-                        autoComplete="billing address-line1"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        id="address2"
-                        name="address2"
-                        label="Address line 2"
-                        fullWidth
-                        autoComplete="billing address-line2"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="city"
-                        name="city"
-                        label="City"
-                        fullWidth
-                        autoComplete="billing address-level2"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="zip"
-                        name="zip"
-                        label="Zip / Postal code"
-                        fullWidth
-                        autoComplete="billing postal-code"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="country"
-                        name="country"
-                        label="Country"
-                        fullWidth
-                        autoComplete="billing country"
-                    />
-                </Grid>
-                {/* <Grid item xs={12}>
-                    <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                        label="I agree to the "
-                    />
-                    <FormControlLabel
-                        control={<a></a>}
-                        label={<a href="/help">terms of service.</a>}
-                    />
-                </Grid> */}
-            </Grid>
-        </React.Fragment>
-    );
+  const [state, setState] = useState({
+    companyName: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    city: '',
+    state: '',
+    zipcode: '',
+    country: ''
+  })
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setState(state => ({ ...state,
+      [name]: value
+    }));
+  }
+
+  const handleAddressChange = address => {
+    setState(state => ({ ...state,
+      address: address
+    }));
+  };
+
+  const handleSelect = address => {
+    setState(state => ({ ...state,
+      address: address
+    }));
+    console.log(address);
+    geocodeByAddress(address)
+      .then(results => {
+        console.log(results[0].address_components);
+      })
+      .catch(error => console.error('Error', error));
+  };
+  return (
+      <React.Fragment>
+          {/* <Typography variant="h6" gutterBottom>
+              Company Details
+      </Typography> */}
+          <Grid container spacing={3}>
+              <Grid item xs={12}>
+                  <TextField
+                      required
+                      id="companyName"
+                      name="companyName"
+                      label="Company Name"
+                      fullWidth
+                      onChange={handleChange}
+                      autoComplete="companyName"
+                      value={state.companyName}
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                  <TextField
+                      required
+                      id="firstName"
+                      name="firstName"
+                      label="First name"
+                      fullWidth
+                      onChange={handleChange}
+                      autoComplete="fname"
+                      value={state.firstName}
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                  <TextField
+                      required
+                      id="lastName"
+                      name="lastName"
+                      label="Last name"
+                      fullWidth
+                      onChange={handleChange}
+                      autoComplete="lname"
+                      value={state.lastName}
+                  />
+              </Grid>
+              <Grid item xs={12}>
+                  <TextField
+                      required
+                      id="address1"
+                      name="address1"
+                      label="Address line 1"
+                      fullWidth
+                      onChange={handleChange}
+                      autoComplete="billing address-line1"
+                      value={state.address1}
+                  />
+              </Grid>
+              <Grid item xs={12}>
+                <PlacesAutocomplete
+                  value={state.address}
+                  onChange={handleAddressChange}
+                  onSelect={handleSelect}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    <div>
+                        <TextField
+                          id="standard-search"
+                          label="Address"
+                          type="search"
+                          fullWidth
+                          margin="normal"
+                          {...getInputProps()}
+                        />
+                      <div className="autocomplete-dropdown-container">
+                        {loading && <div>Loading...</div>}
+                        {suggestions.map(suggestion => {
+                          const className = suggestion.active
+                            ? 'suggestion-item--active'
+                            : 'suggestion-item';
+                          // inline style for demonstration purpose
+                          const style = suggestion.active
+                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                          return (
+                            <div
+                              {...getSuggestionItemProps(suggestion, {
+                                className,
+                                style,
+                              })}
+                            >
+                              <span>{suggestion.description}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                  <TextField
+                      required
+                      id="city"
+                      name="city"
+                      label="City"
+                      fullWidth
+                      onChange={handleChange}
+                      autoComplete="billing address-level2"
+                      value={state.city}
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                  <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                  <TextField
+                      required
+                      id="zip"
+                      name="zip"
+                      label="Zip / Postal code"
+                      fullWidth
+                      onChange={handleChange}
+                      autoComplete="billing postal-code"
+                      value={state.zipcode}
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                  <TextField
+                      required
+                      id="country"
+                      name="country"
+                      label="Country"
+                      fullWidth
+                      autoComplete="billing country"
+                      value={state.country}
+                  />
+              </Grid>
+              {/* <Grid item xs={12}>
+                  <FormControlLabel
+                      control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+                      label="I agree to the "
+                  />
+                  <FormControlLabel
+                      control={<a></a>}
+                      label={<a href="/help">terms of service.</a>}
+                  />
+              </Grid> */}
+          </Grid>
+      </React.Fragment>
+  );
 }
 
-const steps = ['Company Details', 'Company Document', 'Terms of Service'];
+const steps = ['Company & Personal Details', 'KYC Documents', 'Terms of Service'];
 
 function getStepContent(step) {
     switch (step) {
@@ -316,7 +397,6 @@ function getStepContent(step) {
 export default function Checkout(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
-
     const handleNext = () => {
         setActiveStep(activeStep + 1);
     };

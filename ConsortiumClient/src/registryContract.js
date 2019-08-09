@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0x958b19f97c4adfaa62af983007f789ddc794095d';
+export const registryAddress = '0xf55281c74448e13e2cff17a2ca98275cf1012ee1';
 export const registryABI = [
 	{
 		"constant": false,
@@ -142,7 +142,7 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"name": "geocode",
+				"name": "kycHash",
 				"type": "string"
 			},
 			{
@@ -421,7 +421,7 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "geocode",
+						"name": "kycHash",
 						"type": "string"
 					}
 				],
@@ -612,7 +612,7 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "geocode",
+						"name": "kycHash",
 						"type": "string"
 					}
 				],
@@ -668,7 +668,7 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "geocode",
+						"name": "kycHash",
 						"type": "string"
 					}
 				],
@@ -781,7 +781,7 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "geocode",
+						"name": "kycHash",
 						"type": "string"
 					}
 				],
