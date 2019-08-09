@@ -58,10 +58,7 @@ contract Storage {
 
     struct User {
         string organizationID;
-        string firstName;
-        string lastName;
         string email;
-        string phoneNumber;
         userKYCStatus status;
         string kycHash;
         roles role;
@@ -125,14 +122,11 @@ contract Storage {
     // mapping between ProjectID and item
     mapping(string => Item[]) itemList;
 
-    function setUser(string memory firstName, string memory lastName, string memory email, string memory phoneNumber, string memory kycHash, roles role) public uniqueEmail(email) {
-        require(bytes(invitedUsers[email].organizationID).length > 0);
+    function setUser( string memory email, string memory kycHash, roles role) public uniqueEmail(email) {
+        if(role != roles.admin ) {require(bytes(invitedUsers[email].organizationID).length > 0); }
         User memory newUser = User ({
             organizationID: invitedUsers[email].organizationID,
-            firstName: firstName,
-            lastName: lastName,
             email: email,
-            phoneNumber: phoneNumber,
             role: role,
             status: userKYCStatus.kycPending,
             kycHash: kycHash
@@ -141,6 +135,7 @@ contract Storage {
         userDirectory[msg.sender] = newUser;
         users.push(newUser);
     }
+    
 
     function inviteUser(string memory email) public onlyOrgAdmin() {
         Organization storage adminOrg = organizationDirectory[userDirectory[msg.sender].organizationID];
@@ -157,25 +152,17 @@ contract Storage {
         userDirectory[publicKey].role = newRole;
     }
 
-    function editUserEmail(string memory email) public userExists {
-        userDirectory[msg.sender].email = email;
-    }
-
-    function editUserPhoneNumber(string memory phoneNumber) public userExists {
-        userDirectory[msg.sender].phoneNumber = phoneNumber;
-    }
-
     function getUserOrganizationDetails() public view userExists returns (User memory, Organization memory) {
         return (userDirectory[msg.sender], organizationDirectory[userDirectory[msg.sender].organizationID]);
     }
 
-    function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory firstName, string memory lastName, string memory email, string memory phoneNumber) public uniqueEmail(email) {
+    function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
         Organization memory newOrganization = Organization ({
             organizationID: organizationID,
             name: name,
             kycHash: orgKYCHash
         });
-        setUser(firstName, lastName, email, phoneNumber, userKYCHash, roles.admin);
+        setUser(email, userKYCHash, roles.admin);
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
         partners["All"].push(newOrganization);
