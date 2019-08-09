@@ -34,7 +34,7 @@ const Register = (props) => {
 
   const [email, setEmail] = useState('');
   const [emailChecked, setEmailChecked] = useState(false);
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [userStatus, setUserStatus] = useState('');
   const [userRegistered, setUserRegistered] = useState('');
   const [place, setPlace] = useState('');
@@ -134,7 +134,7 @@ const Register = (props) => {
         <Button color="primary" className="mt-3" active="active" tabIndex={-1}>Proceed to Login</Button>
       </Link>
     </div>;
-  } else if (error == "") {
+  } else if (errorMessage == "") {
     render = <Form onSubmit={handleSubmit(onSubmit)}>
       <h1>Register</h1>
       <p className="text-muted">Create your account</p>

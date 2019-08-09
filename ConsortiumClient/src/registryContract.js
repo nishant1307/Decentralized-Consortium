@@ -1,6 +1,41 @@
 import web3 from './web3';
-export const registryAddress = '0xd40a51cf8de0f5c16f49d0dc509da9a22da4465a';
+export const registryAddress = '0x958b19f97c4adfaa62af983007f789ddc794095d';
 export const registryABI = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "itemType",
+				"type": "uint8"
+			},
+			{
+				"name": "itemID",
+				"type": "string"
+			},
+			{
+				"name": "_projectID",
+				"type": "string"
+			},
+			{
+				"name": "_by",
+				"type": "address"
+			},
+			{
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "addItemToProject",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [
@@ -90,62 +125,6 @@ export const registryABI = [
 			}
 		],
 		"name": "inviteUser",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_projectID",
-				"type": "string"
-			},
-			{
-				"name": "itemType",
-				"type": "string"
-			},
-			{
-				"name": "itemID",
-				"type": "string"
-			},
-			{
-				"name": "_by",
-				"type": "address"
-			},
-			{
-				"name": "timestamp",
-				"type": "uint256"
-			}
-		],
-		"name": "itemAdded",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_organizationID",
-				"type": "string"
-			},
-			{
-				"name": "productID",
-				"type": "string"
-			},
-			{
-				"name": "_by",
-				"type": "address"
-			},
-			{
-				"name": "timestamp",
-				"type": "uint256"
-			}
-		],
-		"name": "productAdded",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -245,8 +224,49 @@ export const registryABI = [
 				"type": "address"
 			}
 		],
-		"name": "updateOrgAdmin",
+		"name": "switchOrgAdmin",
 		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "publicKey",
+				"type": "address"
+			},
+			{
+				"name": "newRole",
+				"type": "uint8"
+			}
+		],
+		"name": "updateUserRole",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "userAddress",
+				"type": "address"
+			},
+			{
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"name": "updateUserStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -308,7 +328,7 @@ export const registryABI = [
 				"type": "address"
 			}
 		],
-		"name": "OrganizationAddedToConsortium",
+		"name": "PartnerAddedToConsortium",
 		"type": "event"
 	},
 	{
@@ -322,7 +342,7 @@ export const registryABI = [
 			{
 				"indexed": false,
 				"name": "itemType",
-				"type": "string"
+				"type": "uint8"
 			},
 			{
 				"indexed": false,
@@ -341,33 +361,6 @@ export const registryABI = [
 			}
 		],
 		"name": "ItemAdded",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "_organizationID",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"name": "productID",
-				"type": "string"
-			},
-			{
-				"indexed": true,
-				"name": "_by",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "timestamp",
-				"type": "uint256"
-			}
-		],
-		"name": "ProductAdded",
 		"type": "event"
 	},
 	{
@@ -448,10 +441,6 @@ export const registryABI = [
 			{
 				"components": [
 					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
 						"name": "organizationID",
 						"type": "string"
 					},
@@ -470,6 +459,10 @@ export const registryABI = [
 					{
 						"name": "phoneNumber",
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
 					},
 					{
 						"name": "role",
@@ -497,10 +490,6 @@ export const registryABI = [
 			{
 				"components": [
 					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
 						"name": "organizationID",
 						"type": "string"
 					},
@@ -519,6 +508,10 @@ export const registryABI = [
 					{
 						"name": "phoneNumber",
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
 					},
 					{
 						"name": "role",
@@ -727,41 +720,11 @@ export const registryABI = [
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "getUserDetails",
+		"name": "getUserKYCStatus",
 		"outputs": [
 			{
-				"components": [
-					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
-						"type": "string"
-					},
-					{
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"name": "",
-				"type": "tuple"
+				"name": "status",
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -776,10 +739,6 @@ export const registryABI = [
 			{
 				"components": [
 					{
-						"name": "userAddress",
-						"type": "address"
-					},
-					{
 						"name": "organizationID",
 						"type": "string"
 					},
@@ -798,6 +757,10 @@ export const registryABI = [
 					{
 						"name": "phoneNumber",
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
 					},
 					{
 						"name": "role",
@@ -824,20 +787,6 @@ export const registryABI = [
 				],
 				"name": "",
 				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "isValidUser",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
 			}
 		],
 		"payable": false,

@@ -19,24 +19,50 @@ contract Storage {
         _;
     }
 
-    modifier userExists() {
-        require(userDirectory[msg.sender].userAddress != address(0x0));
+    modifier onlyRegistrant() {
+        require(userDirectory[msg.sender].role == roles.admin || userDirectory[msg.sender].role == roles.registrant);
         _;
     }
 
-    enum roles {admin, regular}
+    modifier userExists() {
+        require(!compareStrings(userDirectory[msg.sender].organizationID, ""));
+        _;
+    }
 
-    enum partnerRoles { buyer, seller, shipper, bank }
+    modifier uniqueEmail(string memory email) {
+        require(emailRegistry[email]== address(0x0));
+        _;
+    }
 
-    enum status { active, inactive }
+    modifier organizationExists(string memory organizationID) {
+        require(compareStrings(organizationDirectory[organizationID].organizationID, ""));
+        _;
+    }
+
+    modifier sameOrganization(address a, address b) {
+        require(compareStrings(userDirectory[a].organizationID, userDirectory[b].organizationID));
+        _;
+    }
+
+    function compareStrings (string memory a, string memory b) public pure returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
+    }
+
+    enum roles {admin, regular, registrant}
+
+    enum partnerRoles { buyer, seller, logistics, agent, bank }
+
+    enum userKYCStatus { kycPending, kycComplete, banned }
+
+    enum projectItems { document, device, product }
 
     struct User {
-        address userAddress;
         string organizationID;
         string firstName;
         string lastName;
         string email;
         string phoneNumber;
+        userKYCStatus status;
         roles role;
     }
 
@@ -51,18 +77,25 @@ contract Storage {
         string name;
         string description;
         string industry;
-        status projectStatus;
+    }
+
+    struct Item {
+        projectItems itemType;
+        string itemID;
     }
 
     event ProjectCreated(string indexed _projectID, string name, uint256 timestamp, address indexed _by);
-    event OrganizationAddedToConsortium(string indexed _projectID, string organizationName, partnerRoles partnerRole, address indexed _by);
-    event ItemAdded(string indexed _projectID, string itemType, address indexed _by, uint256 timestamp);
+    event PartnerAddedToConsortium(string indexed _projectID, string organizationName, partnerRoles partnerRole, address indexed _by);
+    event ItemAdded(string indexed _projectID, projectItems itemType, string itemID, address indexed _by, uint256 timestamp);
 
     // Mapping of invited users emails
     mapping(string => Organization) invitedUsers;
 
     // User Directory
     mapping(address => User) userDirectory;
+
+    // Email Registry
+    mapping(string => address) emailRegistry;
 
     // All users
     User[] private users;
@@ -88,19 +121,22 @@ contract Storage {
     // mapping between projectID and user with their roles
     mapping(string => mapping (address => partnerRoles)) projectRoles;
 
-    function setUser(string memory firstName, string memory lastName, string memory email, string memory phoneNumber, address publicKey) public {
+    // mapping between ProjectID and item
+    mapping(string => Item[]) itemList;
+
+    function setUser(string memory firstName, string memory lastName, string memory email, string memory phoneNumber) public uniqueEmail(email) {
         require(bytes(invitedUsers[email].organizationID).length > 0);
         User memory newUser = User ({
-            userAddress : publicKey,
             organizationID: invitedUsers[email].organizationID,
             firstName: firstName,
             lastName: lastName,
             email: email,
             phoneNumber: phoneNumber,
-            role: roles.regular
+            role: roles.regular,
+            status: userKYCStatus.kycPending
         });
-
-        userDirectory[publicKey] = newUser;
+        emailRegistry[email] = msg.sender;
+        userDirectory[msg.sender] = newUser;
         users.push(newUser);
     }
 
@@ -109,51 +145,53 @@ contract Storage {
         invitedUsers[email] = adminOrg;
     }
 
-    function updateOrgAdmin(address publicKey) public onlyOrgAdmin {
+    function switchOrgAdmin(address publicKey) public onlyOrgAdmin sameOrganization(msg.sender, publicKey) {
         userDirectory[msg.sender].role = roles.regular;
         userDirectory[publicKey].role == roles.admin;
+    }
+
+    function updateUserRole(address publicKey, roles newRole) public onlyOrgAdmin sameOrganization(msg.sender, publicKey) {
+        require(newRole!=roles.admin);
+        userDirectory[publicKey].role = newRole;
     }
 
     function editUserEmail(string memory email) public userExists {
         userDirectory[msg.sender].email = email;
     }
 
-    function getUserDetails() public view userExists returns (User memory){
-        return userDirectory[msg.sender];
+    function editUserPhoneNumber(string memory phoneNumber) public userExists {
+        userDirectory[msg.sender].phoneNumber = phoneNumber;
     }
 
     function getUserOrganizationDetails() public view userExists returns (User memory, Organization memory) {
         return (userDirectory[msg.sender], organizationDirectory[userDirectory[msg.sender].organizationID]);
     }
 
-    function setOrganizationAdmin(string memory organizationID, string memory name, string memory geocode, string memory firstName, string memory lastName, string memory email, string memory phoneNumber, address publicKey) public onlyOwner{
+    function setOrganizationAdmin(string memory organizationID, string memory name, string memory geocode, string memory firstName, string memory lastName, string memory email, string memory phoneNumber, address publicKey) public uniqueEmail(email) {
         Organization memory newOrganization = Organization ({
             organizationID: organizationID,
             name: name,
             geocode: geocode
         });
         User memory newUser = User ({
-            userAddress : publicKey,
             organizationID: organizationID,
             firstName: firstName,
             lastName: lastName,
             email: email,
             phoneNumber: phoneNumber,
-            role: roles.admin
+            role: roles.admin,
+            status: userKYCStatus.kycComplete
         });
-
+        emailRegistry[email] = publicKey;
         userDirectory[publicKey] = newUser;
         users.push(newUser);
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
         partners["All"].push(newOrganization);
-
     }
 
-
-    function setOrganizationType(string memory organizationID, string memory orgType) public userExists {
+    function setOrganizationType(string memory organizationID, string memory orgType) public userExists organizationExists(organizationID) {
         partners[orgType].push(organizationDirectory[organizationID]);
-
     }
 
     function getOrganizationDetails(string memory organizationID) public view userExists returns (Organization memory) {
@@ -166,7 +204,6 @@ contract Storage {
         project.name = name;
         project.description = description;
         project.industry = industry;
-        project.projectStatus = status.active;
         projectRegistry[projectID] = project;
         myProjects[msg.sender].push(project);
         consortium[projectID].push(userDirectory[msg.sender]);
@@ -187,9 +224,8 @@ contract Storage {
     }
 
     function addUserToProject(string memory projectID, address userAddress, partnerRoles partnerRole) public {
-        User storage user = userDirectory[userAddress];
-        consortium[projectID].push(user);
-        myProjects[user.userAddress].push(projectRegistry[projectID]);
+        consortium[projectID].push(userDirectory[userAddress]);
+        myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][msg.sender] = partnerRole;
     }
 
@@ -217,11 +253,25 @@ contract Storage {
         return projectRoles[projectID][msg.sender];
     }
 
-    function isValidUser() public view returns (bool) {
-        return (userDirectory[msg.sender].userAddress != address(0x0));
+    function getUserKYCStatus() public view userExists returns (userKYCStatus status)  {
+        return userDirectory[msg.sender].status;
     }
 
-    function itemAdded(string memory _projectID, string memory itemType, address _by, uint256 timestamp) public {
-        emit ItemAdded(_projectID, itemType, _by, timestamp);
+    function existingEmail(string memory email) public view returns (bool){
+        return(emailRegistry[email] != address(0x0));
+    }
+
+    function updateUserStatus(address userAddress, userKYCStatus status) public onlyOwner returns (bool) {
+        userDirectory[userAddress].status = status;
+    }
+
+    function addItemToProject(projectItems itemType, string memory itemID, string memory _projectID, address _by, uint256 timestamp) public returns (bool) {
+        Item memory newItem = Item({
+            itemType: itemType,
+            itemID: itemID
+        });
+        itemList[_projectID].push(newItem);
+        emit ItemAdded(_projectID, itemType, itemID, _by, timestamp);
+        return true;
     }
 }

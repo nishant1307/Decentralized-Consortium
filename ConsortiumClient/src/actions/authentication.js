@@ -30,20 +30,20 @@ export const loginUser = (user,history) => dispatch => {
     })
     dispatch(currentUserInfo(user.address));
 
-    // registryContract.methods.isValidUser().call({
-    //   from : user.address
-    // }).then(res => {
-    //   if(res){
+    registryContract.methods.isValidUser().call({
+      from : user.address
+    }).then(res => {
+      if(res){
         dispatch(setCurrentUser({publicKey: user.address}));
         history.push('/dashboard/home');
-    //   }
-    //   else {
-    //     dispatch({
-    //         type: GET_ERRORS,
-    //         payload: {message: "No User Found"}
-    //     });
-    //   }
-    // })
+      }
+      else {
+        dispatch({
+            type: GET_ERRORS,
+            payload: {message: "No User Found"}
+        });
+      }
+    })
 
     //             dispatch(fetchSubscription());
 }
