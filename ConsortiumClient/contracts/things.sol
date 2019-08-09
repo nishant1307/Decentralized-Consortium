@@ -129,7 +129,7 @@ contract ERC721 is ERC165, Ownable   {
 
     // Mapping from token ID to owner
     mapping (string => address) private _tokenOwner;
-
+    
     // Mapping from token ID to approved address
     mapping (string => address) private _tokenApprovals;
 
@@ -169,7 +169,7 @@ contract ERC721 is ERC165, Ownable   {
 
         return owner;
     }
-
+    
 
     /**
      * @dev Approves another address to transfer the given token ID
@@ -189,6 +189,18 @@ contract ERC721 is ERC165, Ownable   {
 
         _tokenApprovals[tokenId] = to;
         emit Approval(owner, to, tokenId);
+    }
+    
+     function BatchApprove(address to, string[] memory tokenId) public {
+        for (uint i=0; i< tokenId.length; i++){
+        address owner = ownerOf(tokenId[i]);
+        require(to != owner, "ERC721: approval to current owner");
+        require(msg.sender == owner || isApprovedForAll(owner, msg.sender),
+            "ERC721: approve caller is not owner nor approved for all"
+        );
+            _tokenApprovals[tokenId[i]] = to;
+            emit Approval(owner, to, tokenId[i]);
+        }
     }
 
     /**
@@ -365,8 +377,8 @@ contract ERC721 is ERC165, Ownable   {
 
         emit Transfer(from, to, tokenId);
     }
-
-
+    
+    
 
     /**
      * @dev Internal function to invoke `onERC721Received` on a target address.
@@ -530,7 +542,7 @@ contract ERC721Mintable is ERC721, MinterRole {
     }
 }
 contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
-
+    
      struct deviceDetails {
         string[] certificateURLs;
         string[] ipfsHash;
@@ -546,11 +558,11 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
 
     // Optional mapping for token URIs
     mapping(string => string) private _tokenURIs;
-
+    
     // mapping for token deviceDetails
     mapping(string => deviceDetails) private _tokenDetails;
 
-
+    
     // Optional mapping for project ids
     // mapping(string => string) private _projectIds;
 
@@ -599,7 +611,7 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenURIs[tokenId]);
     }
-
+    
     function getDeviceDetails(string calldata tokenId) external view returns (deviceDetails memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenDetails[tokenId]);
@@ -616,7 +628,7 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
         _tokenURIs[tokenId] = uri;
         // _projectIds[tokenId] = projectId;
     }
-
+    
     function _setProductDetails(string memory tokenId,string[] memory certificateURLs, string[] memory ipfsHash, uint256 quantity, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) internal {
       deviceDetails memory temp;
       temp.certificateURLs = certificateURLs;
@@ -653,7 +665,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
 
     // Mapping from token ID to index of the owner tokens list
     mapping(string => uint256) private _ownedTokensIndex;
-
+    
     // Array with all token ids, used for enumeration
     string[] private _allTokens;
 
@@ -774,7 +786,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _ownedTokensIndex[tokenId] = _ownedTokens[to].length;
         _ownedTokens[to].push(tokenId);
     }
-
+    
 
     /**
      * @dev Private function to add a token to this extension's token tracking data structures.
@@ -814,8 +826,8 @@ contract ERC721Enumerable is ERC165, ERC721 {
         // Note that _ownedTokensIndex[tokenId] hasn't been cleared: it still points to the old slot (now occupied by
         // lastTokenId, or just over the end of the array if the token was the last one).
     }
-
-
+    
+    
     /**
      * @dev Private function to remove a token from this extension's token tracking data structures.
      * This has O(1) time complexity, but alters the order of the _allTokens array.
@@ -842,17 +854,17 @@ contract ERC721Enumerable is ERC165, ERC721 {
     }
 }
 contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintable, ERC721Burnable {
-
+    
      function setAdditionalDetails(string memory tokenId, string memory metadata ) public returns (bool) {
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setTokenURI(tokenId , metadata);
         return true;
     }
-
+    
     function MintWithDetails(address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, uint256 quantity, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) public returns (bool) {
         _setProductDetails(tokenId,certificateURLs, ipfsHash, quantity, thingBrand, thingDescription,  thingName, thingStory,  thingValue );
          mint(to, tokenId);
         return true;
     }
-
+    
 }

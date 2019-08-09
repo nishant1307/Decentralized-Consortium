@@ -129,7 +129,7 @@ contract ERC721 is ERC165, Ownable   {
 
     // Mapping from token ID to owner
     mapping (string => address) private _tokenOwner;
-
+    
       // Mapping from token ID to project
     mapping (string => string) private _tokenProject;
 
@@ -172,7 +172,7 @@ contract ERC721 is ERC165, Ownable   {
 
         return owner;
     }
-
+    
     function projectOf(string memory tokenId) public view returns (string memory) {
         string memory project = _tokenProject[tokenId];
         require(keccak256(abi.encodePacked((project))) != keccak256(abi.encodePacked((""))) , "ERC721: project query for nonexistent token");
@@ -198,6 +198,18 @@ contract ERC721 is ERC165, Ownable   {
 
         _tokenApprovals[tokenId] = to;
         emit Approval(owner, to, tokenId);
+    }
+    
+    function BatchApprove(address to, string[] memory tokenId) public {
+        for (uint i=0; i< tokenId.length; i++){
+        address owner = ownerOf(tokenId[i]);
+        require(to != owner, "ERC721: approval to current owner");
+        require(msg.sender == owner || isApprovedForAll(owner, msg.sender),
+            "ERC721: approve caller is not owner nor approved for all"
+        );
+            _tokenApprovals[tokenId[i]] = to;
+            emit Approval(owner, to, tokenId[i]);
+        }
     }
 
     /**
@@ -376,12 +388,12 @@ contract ERC721 is ERC165, Ownable   {
 
         emit Transfer(from, to, tokenId);
     }
-
+    
      function _transferFrom(address from, address to, string memory tokenId) internal {
         _transferFrom(from,to,tokenId,projectOf(tokenId));
     }
-
-
+    
+    
 
     /**
      * @dev Internal function to invoke `onERC721Received` on a target address.
@@ -545,7 +557,7 @@ contract ERC721Mintable is ERC721, MinterRole {
     }
 }
 contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
-
+    
      struct deviceDetails {
         string communicationProtocol;
         string dataProtocol;
@@ -557,11 +569,11 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
 
     // Optional mapping for token URIs
     mapping(string => string) private _tokenURIs;
-
+    
     // mapping for token deviceDetails
     mapping(string => deviceDetails) private _tokenDetails;
 
-
+    
     // Optional mapping for project ids
     // mapping(string => string) private _projectIds;
 
@@ -610,7 +622,7 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenURIs[tokenId]);
     }
-
+    
     function getDeviceDetails(string calldata tokenId) external view returns (deviceDetails memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenDetails[tokenId]);
@@ -627,7 +639,7 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
         _tokenURIs[tokenId] = uri;
         // _projectIds[tokenId] = projectId;
     }
-
+    
     function _setDeviceDetails(string memory tokenId,string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor ) internal {
       deviceDetails memory temp;
       temp.communicationProtocol = communicationProtocol;
@@ -660,7 +672,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
 
     // Mapping from token ID to index of the owner tokens list
     mapping(string => uint256) private _ownedTokensIndex;
-
+    
     // Mapping from project to list of owned token IDs
     mapping(string => string[]) private _ownedTokensByProject;
 
@@ -751,7 +763,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _addTokenToOwnerEnumeration(to, tokenId);
 
         _addTokenToAllTokensEnumeration(tokenId);
-
+        
         _addTokenToProjectEnumeration(projectId, tokenId);
     }
 
@@ -782,7 +794,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
     function _tokensOfOwner(address owner) public view returns (string[] memory) {
         return _ownedTokens[owner];
     }
-
+    
     function _tokensOfProject(string memory projectId) public view returns (string[] memory) {
         return _ownedTokensByProject[projectId];
     }
@@ -796,7 +808,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _ownedTokensIndex[tokenId] = _ownedTokens[to].length;
         _ownedTokens[to].push(tokenId);
     }
-
+    
     function _addTokenToProjectEnumeration(string memory projectId , string memory tokenId) private {
         _ownedTokensIndex[tokenId] = _ownedTokensByProject[projectId].length;
         _ownedTokensByProject[projectId].push(tokenId);
@@ -840,7 +852,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         // Note that _ownedTokensIndex[tokenId] hasn't been cleared: it still points to the old slot (now occupied by
         // lastTokenId, or just over the end of the array if the token was the last one).
     }
-
+    
       function _removeTokenFromProjectEnumeration(string memory projectId , string memory tokenId) private {
         // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
@@ -894,11 +906,11 @@ contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintable,
         _setTokenURI(tokenId , metadata);
         return true;
     }
-
+    
     function MintWithDetails(address to, string memory tokenId, string memory projectId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor) public returns (bool) {
         _setDeviceDetails(tokenId, communicationProtocol, dataProtocol, deviceType, sensor);
          mint(to, tokenId, projectId);
         return true;
     }
-
+    
 }
