@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -18,8 +18,9 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Dropzone from 'react-dropzone'
-import ipfs from "ipfs";
+import ipfs from "../../ipfs";
 import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
+// import countryCodes from "dataset/countryCodes";
 const useStyles = makeStyles(theme => ({
     listItem: {
         padding: theme.spacing(1, 0),
@@ -82,16 +83,39 @@ function Review(props) {
 
 function PaymentForm() {
     const [companyDoc, setCompanyDoc] = useState([]);
+    const [companyKYCHash, setCompanyKYCHash] = useState([]);
+    const [userKYCHash, setUserKYCHash] = useState([]);
+    const [showImages, setShowImages] = useState(false);
+    const [showUserImages, setShowUserImages] = useState(false);
     const [ownerDoc, setOwnerDoc] = useState([]);
     const onDrop = (type) => (acceptedFiles) => {
-        console.log(type, acceptedFiles);
-        let i;
-        for (i = 0; i < acceptedFiles.length; i++) {
+      let i;
+      let length = acceptedFiles.length;
+      for (i = 0; i < acceptedFiles.length; i++) {
+        let file = acceptedFiles[i];
+        if (type === "companyDoc")
+            setCompanyDoc([...companyDoc, URL.createObjectURL(acceptedFiles[i])])
+        else
+            setOwnerDoc([...ownerDoc, URL.createObjectURL(acceptedFiles[i])])
+        let reader = new window.FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onloadend = (res) => {
+          let content = Buffer.from(res.target.result);
+          ipfs.add(content, (err, newHash) => {
+            console.log(newHash);
             if (type === "companyDoc")
-                setCompanyDoc([...companyDoc, URL.createObjectURL(acceptedFiles[i])])
+              setCompanyKYCHash([...companyKYCHash, newHash[0].hash])
             else
-                setOwnerDoc([...ownerDoc, URL.createObjectURL(acceptedFiles[i])])
+              setUserKYCHash([...userKYCHash, newHash[0].hash])
+            if (newHash.length == length ) {
+              if (type === "companyDoc")
+                setShowImages(true);
+              else
+                setShowUserImages(true)
+            }
+          })
         }
+      }
     }
     return (
         <React.Fragment>
@@ -136,7 +160,7 @@ function PaymentForm() {
                             )
                         }}
                     </Dropzone>
-                    {companyDoc.length > 0 ? <div>
+                    {(showImages && companyDoc.length > 0) ? <div>
                         <h4>{companyDoc.length} images uploaded</h4>
                         <div>{companyDoc.map((file) => <img src={file} height="50px" width="50px" />)}</div>
                     </div> : null}
@@ -178,7 +202,7 @@ function PaymentForm() {
                             )
                         }}
                     </Dropzone>
-                    {ownerDoc.length > 0 ? <div>
+                    {(showUserImages && ownerDoc.length > 0) ? <div>
                         <h4>{ownerDoc.length} images uploaded</h4>
                         <div>{ownerDoc.map((file) => <img src={file} height="50px" width="50px" />)}</div>
                     </div> : null}
@@ -195,16 +219,23 @@ function PaymentForm() {
 }
 
 function AddressForm() {
+  const classes = useStyles();
   const [state, setState] = useState({
     companyName: '',
     firstName: '',
     lastName: '',
     address: '',
     city: '',
+    flat: '',
     state: '',
     zipcode: '',
-    country: ''
+    country: '',
+    phoneNumber: ''
   })
+
+  useEffect(() => {
+    setState(JSON.parse(sessionStorage.getItem('kycDetails')))
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -226,10 +257,26 @@ function AddressForm() {
     console.log(address);
     geocodeByAddress(address)
       .then(results => {
-        console.log(results[0].address_components);
+        let raw = results[0].address_components;
+        setState(state => ({ ...state,
+          zipcode: raw[raw.length-1]['long_name'],
+          country: raw[raw.length-2]['long_name'],
+          state: raw[raw.length-3]['long_name'],
+          city: raw[raw.length-4]['long_name']
+        }));
       })
       .catch(error => console.error('Error', error));
   };
+
+  const handleSave = () => {
+    sessionStorage.setItem('kycDetails', JSON.stringify(state));
+  }
+
+  // const getISDCode = countryCode => {
+  //   for(int i=0;i<countryCodes.length;i++){
+  //
+  //   }
+  // }
   return (
       <React.Fragment>
           {/* <Typography variant="h6" gutterBottom>
@@ -272,16 +319,16 @@ function AddressForm() {
                       value={state.lastName}
                   />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} >
                   <TextField
                       required
-                      id="address1"
-                      name="address1"
-                      label="Address line 1"
+                      id="flat"
+                      name="flat"
+                      label="Flat"
                       fullWidth
+                      required
                       onChange={handleChange}
-                      autoComplete="billing address-line1"
-                      value={state.address1}
+                      value={state.flat}
                   />
               </Grid>
               <Grid item xs={12}>
@@ -334,12 +381,18 @@ function AddressForm() {
                       label="City"
                       fullWidth
                       onChange={handleChange}
-                      autoComplete="billing address-level2"
                       value={state.city}
                   />
               </Grid>
               <Grid item xs={12} sm={6}>
-                  <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+                  <TextField
+                    id="state"
+                    name="state"
+                    label="State/Province/Region"
+                    fullWidth
+                    onChange={handleChange}
+                    value={state.state}
+                  />
               </Grid>
               <Grid item xs={12} sm={6}>
                   <TextField
@@ -349,7 +402,6 @@ function AddressForm() {
                       label="Zip / Postal code"
                       fullWidth
                       onChange={handleChange}
-                      autoComplete="billing postal-code"
                       value={state.zipcode}
                   />
               </Grid>
@@ -360,10 +412,33 @@ function AddressForm() {
                       name="country"
                       label="Country"
                       fullWidth
-                      autoComplete="billing country"
+                      onChange={handleChange}
                       value={state.country}
                   />
               </Grid>
+              <Grid item xs={12} sm={6}>
+                  <TextField
+                      required
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      label="Phone Number"
+                      required
+                      fullWidth
+                      onChange={handleChange}
+                      value={state.phoneNumber}
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+              <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleSave}
+                  className={classes.button}
+              >
+                  Save Details
+              </Button>
+              </Grid>
+
               {/* <Grid item xs={12}>
                   <FormControlLabel
                       control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
