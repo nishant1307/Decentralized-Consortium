@@ -93,18 +93,41 @@ function Login(props) {
         setOpen(true);
       })
   }
-
-
+  
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
+      {props.errors.message && <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+        open={true}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">{props.errors.message}</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            className={classes.close}
+            onClick={handleClose}
+          >
+            <CloseIcon />
+          </IconButton>,
+        ]}
+      />}
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'right',
         }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={600000}
         onClose={handleClose}
         ContentProps={{
           'aria-describedby': 'message-id',
@@ -114,7 +137,7 @@ function Login(props) {
           <IconButton
             key="close"
             aria-label="close"
-            color="inherit"
+            color="secondary"
             className={classes.close}
             onClick={handleClose}
           >
@@ -187,7 +210,7 @@ function Login(props) {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  error: state.error
+  errors: state.errors
 })
 
 export default connect(mapStateToProps, { loginUser })(Login)

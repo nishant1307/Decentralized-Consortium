@@ -31,7 +31,8 @@ import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-auto
 import countryCode from 'dataset/countryCodes.js'
 import {registryContract} from "registryContract";
 const Register = (props) => {
-
+  console.log("in here");
+  
   const [email, setEmail] = useState('');
   const [emailChecked, setEmailChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -97,8 +98,12 @@ const Register = (props) => {
   }
 
   useEffect(() => {
+    console.log(sessionStorage.getItem("privateKey"));
     if (props.auth.isAuthenticated) {
       props.history.push('/dashboard');
+    }
+    else if(sessionStorage.getItem("privateKey") === undefined){
+      props.history.push('/signup');
     }
   }, [props]);
 

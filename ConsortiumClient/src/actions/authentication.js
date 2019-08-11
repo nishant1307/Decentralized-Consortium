@@ -6,7 +6,7 @@ import { setAuthToken } from '../axiosConfig';
 import jwt_decode from 'jwt-decode';
 import { currentUserInfo, fetchNotifications, fetchSubscription } from './userActions';
 import web3 from '../web3';
-import {registryContract} from "registryContract";
+import { registryContract } from "registryContract";
 export const registerUser = (user, history) => dispatch => {
     // axios.post('/api/users/userRegistration', user)
     //         .then(res => {
@@ -22,27 +22,39 @@ export const registerUser = (user, history) => dispatch => {
     //         });
 }
 
-export const loginUser = (user,history) => dispatch => {
-    web3.eth.getBalance(user.address).then((balance) => {
-        if (balance < 1000000000000000000) {
-            axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":user.address , "amount": 30000000000000000000 }).then(console.log).catch(console.log)
-        }
-    })
+export const loginUser = (user, history) => dispatch => {
+    // web3.eth.getBalance(user.address).then((balance) => {
+    //     if (balance < 1000000000000000000) {
+    //         axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":user.address , "amount": 30000000000000000000 }).then(console.log).catch(console.log)
+    //     }
+    // })
     dispatch(currentUserInfo(user.address));
 
-    registryContract.methods.isValidUser().call({
-      from : user.address
+    registryContract.methods.getUserKYCStatus().call({
+        from: user.address
     }).then(res => {
-      if(res){
-        dispatch(setCurrentUser({publicKey: user.address}));
-        history.push('/dashboard/home');
-      }
-      else {
+        if (res === '1') {
+            dispatch(setCurrentUser({ publicKey: user.address }));
+            history.push('/dashboard/home');
+        }
+        else if(res === '0') {
+            dispatch({
+                type: GET_ERRORS,
+                payload: { message: "KYC Verification Is In Pending State. Please Wait For 24 Hours." }
+            });
+        }
+        else {
+            dispatch({
+                type: GET_ERRORS,
+                payload: { message: "KYC Verification Is Not Initiated" }
+            });
+        }
+    })
+    .catch((err)=>{
         dispatch({
             type: GET_ERRORS,
-            payload: {message: "No User Found"}
+            payload: { message: "KYC Verification Is Not Initiated" }
         });
-      }
     })
 
     //             dispatch(fetchSubscription());

@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0xf55281c74448e13e2cff17a2ca98275cf1012ee1';
+export const registryAddress = '0x7916a7b1796d4362239cb9ffcefb186f333c5726';
 export const registryABI = [
 	{
 		"constant": false,
@@ -96,34 +96,6 @@ export const registryABI = [
 				"type": "string"
 			}
 		],
-		"name": "editUserEmail",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "phoneNumber",
-				"type": "string"
-			}
-		],
-		"name": "editUserPhoneNumber",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "email",
-				"type": "string"
-			}
-		],
 		"name": "inviteUser",
 		"outputs": [],
 		"payable": false,
@@ -142,32 +114,43 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"name": "kycHash",
+				"name": "orgKYCHash",
 				"type": "string"
 			},
 			{
-				"name": "firstName",
-				"type": "string"
-			},
-			{
-				"name": "lastName",
+				"name": "userKYCHash",
 				"type": "string"
 			},
 			{
 				"name": "email",
 				"type": "string"
-			},
-			{
-				"name": "phoneNumber",
-				"type": "string"
-			},
-			{
-				"name": "publicKey",
-				"type": "address"
 			}
 		],
 		"name": "setOrganizationAdmin",
 		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "organizationID",
+				"type": "string"
+			},
+			{
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"name": "setOrganizationKYCStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -194,24 +177,43 @@ export const registryABI = [
 		"constant": false,
 		"inputs": [
 			{
-				"name": "firstName",
-				"type": "string"
-			},
-			{
-				"name": "lastName",
-				"type": "string"
-			},
-			{
 				"name": "email",
 				"type": "string"
 			},
 			{
-				"name": "phoneNumber",
+				"name": "kycHash",
 				"type": "string"
+			},
+			{
+				"name": "role",
+				"type": "uint8"
 			}
 		],
 		"name": "setUser",
 		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "userAddress",
+				"type": "address"
+			},
+			{
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"name": "setUserStatus",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -234,6 +236,48 @@ export const registryABI = [
 		"constant": false,
 		"inputs": [
 			{
+				"name": "kycHash",
+				"type": "string"
+			}
+		],
+		"name": "updateKYC",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "organizationID",
+				"type": "string"
+			},
+			{
+				"name": "kycHash",
+				"type": "string"
+			}
+		],
+		"name": "updateOrganizationKYC",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "publicKey",
 				"type": "address"
 			},
@@ -244,29 +288,6 @@ export const registryABI = [
 		],
 		"name": "updateUserRole",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "userAddress",
-				"type": "address"
-			},
-			{
-				"name": "status",
-				"type": "uint8"
-			}
-		],
-		"name": "updateUserStatus",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -423,6 +444,10 @@ export const registryABI = [
 					{
 						"name": "kycHash",
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
 					}
 				],
 				"name": "",
@@ -445,24 +470,16 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
 						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
 						"type": "string"
 					},
 					{
 						"name": "status",
 						"type": "uint8"
+					},
+					{
+						"name": "kycHash",
+						"type": "string"
 					},
 					{
 						"name": "role",
@@ -494,24 +511,16 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
 						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
 						"type": "string"
 					},
 					{
 						"name": "status",
 						"type": "uint8"
+					},
+					{
+						"name": "kycHash",
+						"type": "string"
 					},
 					{
 						"name": "role",
@@ -614,10 +623,33 @@ export const registryABI = [
 					{
 						"name": "kycHash",
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
 					}
 				],
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "organizationID",
+				"type": "string"
+			}
+		],
+		"name": "getOrganizationKYCStatus",
+		"outputs": [
+			{
+				"name": "status",
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -670,6 +702,10 @@ export const registryABI = [
 					{
 						"name": "kycHash",
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
 					}
 				],
 				"name": "",
@@ -743,24 +779,16 @@ export const registryABI = [
 						"type": "string"
 					},
 					{
-						"name": "firstName",
-						"type": "string"
-					},
-					{
-						"name": "lastName",
-						"type": "string"
-					},
-					{
 						"name": "email",
-						"type": "string"
-					},
-					{
-						"name": "phoneNumber",
 						"type": "string"
 					},
 					{
 						"name": "status",
 						"type": "uint8"
+					},
+					{
+						"name": "kycHash",
+						"type": "string"
 					},
 					{
 						"name": "role",
@@ -783,6 +811,10 @@ export const registryABI = [
 					{
 						"name": "kycHash",
 						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
 					}
 				],
 				"name": "",
@@ -807,6 +839,6 @@ export const registryABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-];
+]
 
 export const registryContract =  new web3.eth.Contract(registryABI, registryAddress);

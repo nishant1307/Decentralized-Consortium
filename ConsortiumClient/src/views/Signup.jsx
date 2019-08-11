@@ -79,7 +79,7 @@ export default function Signup(props) {
         let address = localStorage.getItem("address");
         if (address)
             alert("You seem to already have an account. You may lose that account if you have not saved the recovery key and try to signup.")
-            // props.history.push('/login')
+        // props.history.push('/login')
     }, [])
 
     const classes = useStyles();
@@ -89,7 +89,18 @@ export default function Signup(props) {
             const mnemonic = bip39.generateMnemonic()
             let HDwallet = etherHDkey.fromMasterSeed(mnemonic)
             let zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-            axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":zeroWallet.getAddressString() , "amount": 30000000000000000000 })
+            var etherTransfer1 = {
+                "to": zeroWallet.getAddressString(),
+                "value": 5000000000000000000,
+                "gasLimit": 2000000
+            };
+            web3.eth.accounts.signTransaction(etherTransfer1, '0xB90661473A8C66C3EABE255CBE1E9680920DE19CD88E0FF0AC9345BCF842E09A').then(result => {
+                web3.eth.sendSignedTransaction(result.rawTransaction)
+                    .on('confirmation', async function (confirmationNumber, receipt) {
+                        console.log(confirmationNumber, receipt);
+                    })
+            })
+            // axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":zeroWallet.getAddressString() , "amount": 30000000000000000000 })
             // console.log(zeroWallet.getAddressString(), zeroWallet.getPrivateKeyString(), keyStore);
             // let keyStore = zeroWallet.toV3(password, [])
             // const element = document.createElement("a");
@@ -104,8 +115,9 @@ export default function Signup(props) {
             doc.save('recovery key.pdf')
             passworder.encrypt(password, JSON.stringify({ mnemonic: mnemonic, privateKey: zeroWallet.getPrivateKeyString() }))
                 .then(function (blob) {
+                    sessionStorage.setItem("privateKey", zeroWallet.getPrivateKeyString())
                     localStorage.setItem("data", JSON.stringify(blob));
-                    localStorage.setItem("address",zeroWallet.getAddressString());
+                    localStorage.setItem("address", zeroWallet.getAddressString());
                     props.history.push('/register')
                 })
         } else {
@@ -185,13 +197,13 @@ export default function Signup(props) {
                         >
                             Sign Up
                       </Button>
-                      <Grid container>
-                        <Grid item>
-                          <Link to="/login" variant="body2">
-                            {"Already have an account? Login"}
-                          </Link>
+                        <Grid container>
+                            <Grid item>
+                                <Link to="/login" variant="body2">
+                                    {"Already have an account? Login"}
+                                </Link>
+                            </Grid>
                         </Grid>
-                      </Grid>
                     </form>
                 </div>
             </Grid>
@@ -252,7 +264,7 @@ export default function Signup(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={OnmodalAccept} color="primary">
-                        Agree
+                        Agree & Download
           </Button>
                 </DialogActions>
             </Dialog>
