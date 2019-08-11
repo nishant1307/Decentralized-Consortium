@@ -18,6 +18,7 @@ import Slide from '@material-ui/core/Slide';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from "axios";
+import web3 from '../web3';
 
 const bip39 = require('bip39')
 const etherHDkey = require('ethereumjs-wallet/hdkey')
@@ -77,9 +78,11 @@ export default function Signup(props) {
 
     React.useEffect(() => {
         let address = localStorage.getItem("address");
+        console.log(address);
         if (address)
-            alert("You seem to already have an account. You may lose that account if you have not saved the recovery key and try to signup.")
-        // props.history.push('/login')
+           {alert("You seem to already have an account. You may lose that account if you have not saved the recovery key and try to signup.")
+         props.history.push('/login')
+    }
     }, [])
 
     const classes = useStyles();
@@ -97,7 +100,7 @@ export default function Signup(props) {
             web3.eth.accounts.signTransaction(etherTransfer1, '0xB90661473A8C66C3EABE255CBE1E9680920DE19CD88E0FF0AC9345BCF842E09A').then(result => {
                 web3.eth.sendSignedTransaction(result.rawTransaction)
                     .on('confirmation', async function (confirmationNumber, receipt) {
-                        console.log(confirmationNumber, receipt);
+                        // console.log(confirmationNumber, receipt);
                     })
             })
             // axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address":zeroWallet.getAddressString() , "amount": 30000000000000000000 })

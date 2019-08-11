@@ -51,10 +51,7 @@ export const loginUser = (user, history) => dispatch => {
         }
     })
     .catch((err)=>{
-        dispatch({
-            type: GET_ERRORS,
-            payload: { message: "KYC Verification Is Not Initiated" }
-        });
+        history.push('/register');
     })
 
     //             dispatch(fetchSubscription());

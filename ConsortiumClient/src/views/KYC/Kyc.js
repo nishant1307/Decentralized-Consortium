@@ -1018,13 +1018,14 @@ function Checkout(props) {
         if(res === "0"){
             setActiveStep(4);
         }
-        else if (localStorage.getItem("address") === null) {
+    }).catch((e)=>{
+        
+        if (localStorage.getItem("address") === null) {
             props.history.push('/signup');
         }
         else if (props.auth.isAuthenticated) {
             props.history.push('/dashboard');
         }
-
     })
     }, []);
 

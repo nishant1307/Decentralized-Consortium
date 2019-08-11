@@ -104,22 +104,10 @@ function Login(props) {
         }}
         open={true}
         autoHideDuration={6000}
-        onClose={handleClose}
         ContentProps={{
           'aria-describedby': 'message-id',
         }}
         message={<span id="message-id">{props.errors.message}</span>}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="close"
-            color="inherit"
-            className={classes.close}
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>,
-        ]}
       />}
       <Snackbar
         anchorOrigin={{
