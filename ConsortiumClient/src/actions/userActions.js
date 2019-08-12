@@ -127,7 +127,7 @@ export const createNewProject = projectDetails => dispatch => {
       var transaction = {
         "to": registryAddress,
         "data": registryContract.methods.addNewProject(
-          uuidv1(),
+          uuidv1().toString(),
           projectDetails.name,
           projectDetails.description,
           projectDetails.industry,

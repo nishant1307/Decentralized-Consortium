@@ -21,7 +21,7 @@ import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardS
 import { connect } from 'react-redux';
 import { openDeviceModal, closeLocationModal } from 'actions/userActions';
 import RegisterDeviceModal from "views/RegisterDeviceModal";
-
+import {registryContract} from 'registryContract';
 const ProjectPage = (props) => {
 console.log(props);
 
@@ -30,24 +30,50 @@ console.log(props);
   const locationPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/location";
   const partnerPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/partners";
   const journeyPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/journey";
+  const [partners, setPartners] = useState([]);
+  useEffect(() => {
+    registryContract.methods.getConsortiumMember(props.match.params.projectID).call({
+      from : props.auth.user.publicKey
+    }).then(res => {
+      setPartners(res);
+    })
+  }, []);
   return (
     <div>
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-          <Link to={partnerPageURL}>
+          <Link to={{ pathname: partnerPageURL, state: { partners: partners} }}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <Icon>work</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}></p>
-              <h4 className={classes.cardTitle}>Partners</h4>
+              <p className={classes.cardCategory}>Participants so far</p>
+              <h4 className={classes.cardTitle}>{partners.length}</h4>
             </CardHeader>
           </Link>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Icon>forward</Icon>
-                Description
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+          <Link to={journeyPageURL}>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <Icon>apps</Icon>
+              </CardIcon>
+              <p className={classes.cardCategory}>Project Journey so far</p>
+              <h4 className={classes.cardTitle}></h4>
+            </CardHeader>
+          </Link>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                <Icon>forward</Icon>
+                See
               </div>
             </CardFooter>
           </Card>
@@ -86,25 +112,6 @@ console.log(props);
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-          <Link to={journeyPageURL}>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Icon>apps</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}></p>
-              <h4 className={classes.cardTitle}>Journey</h4>
-            </CardHeader>
-          </Link>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Icon>forward</Icon>
-                Go to DocConekt App
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
       </GridContainer>
       <RegisterDeviceModal projectList= {[props.match.params.projectID]}/>
     </div>
@@ -117,6 +124,7 @@ ProjectPage.propTypes = {
 
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   user: state.user,
   errors: state.errors
 });

@@ -230,6 +230,10 @@ contract Storage {
         return organizations;
     }
 
+    function getOrganizationEmployees(string memory organizationID) public view returns (User[] memory) {
+        return orgEmployees[organizationID];
+    }
+
     function getPartnersByType(string memory orgType) public view returns (Organization[] memory) {
         return partners[orgType];
     }

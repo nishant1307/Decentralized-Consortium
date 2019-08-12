@@ -101,7 +101,7 @@ function Review(props) {
         to be bound by the EULA and all additional EULA incorporated by
         reference.  If you do not agree to any portion of these EULA, you
         should not access or otherwise use the digital properties.
-        
+
         We will make an effort to update this web page with any changes to these
         EULA and you are encouraged to review these EULA frequently (the date
         of the most recent revision to these EULA appears at the end of these
@@ -143,7 +143,7 @@ function Review(props) {
         without our express, prior, written consent.  YOU MAY NOT USE ANY
         DIGITAL PROPERTY FOR ANY COMMERCIAL USE.  Any special rules
         for the software, files, downloads, and other items accessible through the
-        
+
         Digital Properties may be included elsewhere in the Digital Properties and
         are incorporated into these EULA by reference.
         If you are a subscriber and have purchased a service offered by us
@@ -183,10 +183,10 @@ function Review(props) {
         While we provide certain encryption technologies and use other
         reasonable precautions to protect your confidential information and
         provide suitable security, we do not and cannot guarantee or warrant that
-        
+
         information transmitted through the Internet is secure, or that such
         transmissions are free from delay, interruption, interception or error.
-        
+
         (b) ACCURATE INFORMATION. In creating and using your User Account
         for use on the Digital Properties, you agree to: (i) provide true, accurate,
         current, and complete information about yourself on any registration form
@@ -222,14 +222,14 @@ function Review(props) {
         accordance with applicable law, and you hereby agree that Arthanium has
         the right to submit such data to the Arthanium Blockchain architecture on
         your behalf.
-        
+
         OBJECTIONABLE MATERIAL. You acknowledge that in using the Digital
         Properties and accessing the Content and / or the User Content, you may
         encounter material that you deem to be disturbing, offensive or
         objectionable. You agree to use the Digital Properties at your sole risk and
         that we shall have no liability to you for material that may be disturbing,
         objectionable or offensive to you.
-        
+
         NOT INTENDED FOR MINORS. We do not collect Information from any
         person that we know to be under the age of 18. Specifically, the Digital
         Properties are not intended or designed to attract minors under the age of
@@ -261,14 +261,14 @@ function Review(props) {
         that: (i) the Content and/or the User Content is fair, accurate, or
         complete; (ii) the Content and/or the User Content is up-to-date or
         current; (iii) we have any obligation to update any Content; (iv) the
-        
+
         Content and/or the User Content is free from technical inaccuracies or
         programming or typographical errors; (v) the Content and/or the User
         Content is free from changes caused by a third party; (vi) any information
         obtained in response to questions asked through the Digital Properties is
         accurate or complete; and/or (vii) the Content and/or the User Content
         are non-infringing of any third party’s intellectual rights.
-        
+
         (b) NO WARRANTIES FOR DIGITAL PROPERTIES. When using the
         Digital Properties, information will be transmitted in such a way that may
         be beyond our control. As such, we make no warranty concerning the
@@ -294,7 +294,7 @@ function Review(props) {
         respect to the use of any service or product provided on or through the
         digital properties will be the refund of the purchase price for any content,
         user content, products, or services found to be inadequate.
-        
+
         (c) INDEMNIFICATION. You agree to defend, indemnify, and hold
         harmless Arthanium and our directors, officers, employees, and agents
         from and against any and all claims, demands, suits, proceedings,
@@ -305,7 +305,7 @@ function Review(props) {
         EULA; (iii) your use of the rights granted hereunder, including without
         limitation any claims made by any third parties; and/or (iv) any claim
         that your User Content caused damage to a third party.
-        
+
         (d) YOUR RESPONSIBILITIES. You are responsible for establishing
         such procedures as you deem appropriate to verify the accuracy of data
         transmitted hereunder (and we will have no obligation to verify the
@@ -348,7 +348,7 @@ function Review(props) {
         We make no representations or warranties in connection with any third
         party content or third party applications, which at all times and in each
         instance is provided “as is.” Third party applications may be subject to
-        
+
         additional EULA and conditions or agreements between you and the
         provider of such third party applications as may be provided to you in
         connection therewith, and you agree to fully comply with all such
@@ -356,7 +356,7 @@ function Review(props) {
         of the third party websites linked to the digital properties, any third party
         content, and/or any third party application, you do so entirely at your
         own risk.
-        
+
         If a third party links or refers to the Digital Properties, it is not necessarily
         an indication of an endorsement, authorization, sponsorship, affiliation,
         joint venture, or partnership by or with us. In most cases, we are not
@@ -390,7 +390,7 @@ function Review(props) {
         aggressively enforce our intellectual property rights. Neither the name of
         Arthanium, our subsidiaries or affiliates, nor any of our other trademarks,
         service marks, or copyrighted materials may be used in any way,
-        
+
         including in any advertising, hyperlink, publicity, or promotional materials
         of any kind, whether relating to the Digital Properties or otherwise,
         without our prior, written permission, except that a third party website
@@ -398,7 +398,7 @@ function Review(props) {
         requirements of Section 10 (Third Party Content and Third Party
         Applications) above may use the names “Arthanium” or the title of any
         Content in or as part of that link.
-        
+
         USER CONTENT. The Digital Properties does, or may in the future,
         permit the submission of various forms of content submitted by you and
         other users, such as materials, statements, reviews, ratings, opinions,
@@ -432,14 +432,14 @@ function Review(props) {
         our respective agents, affiliates’ and successors’) business including, but
         not limited to, publication of any portion or all of the User Content in an
         advertisement, a book, a magazine, a spoken word work, any other
-        
+
         literary work, and/or any other audio-visual work, in any medium or
         format, anywhere in the world. You also hereby grant each authorized
         user of the Digital Properties a worldwide, non-exclusive, royalty-free,
         irrevocable, and sub licenseable license to copy, modify, use, reproduce,
         distribute, publish, republish, and prepare derivative works of, display and
         perform your User Content as permitted under these EULA.
-        
+
         You acknowledge that we reserve the right to pre-screen User Content
         and that we shall have the right (but not the obligation) in our sole
         discretion to refuse, move, and/or remove any User Content that is
@@ -473,7 +473,7 @@ function Review(props) {
         unless you are the owner of such rights or have permission from the
         rightful owner to post the material and to grant us and other users of the
         Digital Properties all of the license rights granted herein; (viii) upload,
-        
+
         post, email, transmit, or otherwise make available any unsolicited or
         unauthorized advertising, promotional materials, spam, phishing
         schemes, pyramid schemes, or any other form of solicitation; (ix) upload,
@@ -517,7 +517,7 @@ function Review(props) {
         than violations of intellectual property law, such as, but not limited to,
         obscene or defamatory material. We may remove such User Content
         and/or cause the termination of a User Account for uploading such
-        
+
         material in violation of these EULA at any time, without prior notice and at
         our sole discretion. You acknowledge and agree that we may disclose
         your identity in connection with any claim of an intellectual property
@@ -560,7 +560,7 @@ function Review(props) {
         authorized to act on his or her behalf.
          A provider of content subject to a claim of infringement may make a
         counter notification. To file a counter notification with us, please
-        
+
         provide the IT ACT 2010 Agent a written communication containing the
         following:
          identification of the supposedly infringing material that is to be
@@ -601,7 +601,7 @@ function Review(props) {
         providers.
         ADDITIONAL REMEDIES. You acknowledge that your conduct that is
         inconsistent with the provisions of these EULA may cause us irreparable
-        
+
         damage for which remedies other than monetary relief may be
         inadequate.  In such instances, you agree that we may seek injunctive or
         other equitable relief seeking to restrain such conduct without the
@@ -641,7 +641,7 @@ function Review(props) {
         to:
         Arthanium
         D / 303, Silver Gardens,
-        
+
         Near Kanti Nagar Ganesh Mandir,
         J.B. Nagar
         Andheri East,
@@ -924,7 +924,7 @@ function Checkout(props) {
         setActiveStep(activeStep + 1);
     };
 
-    const handleBack = () => {        
+    const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
 
@@ -947,7 +947,7 @@ function Checkout(props) {
             state.email
             ).encodeABI()
           };
-    
+
           // web3.eth.estimateGas(transaction).then(gasLimit => {
           transaction["gasLimit"] = 4700000;
           web3.eth.accounts.signTransaction(transaction, privateKey)
@@ -983,7 +983,13 @@ function Checkout(props) {
         console.log(address);
         geocodeByAddress(address)
             .then(results => {
-                console.log(results[0].address_components);
+              let raw = results[0].address_components;
+              setState(state => ({ ...state,
+                zipcode: raw[raw.length-1]['long_name'],
+                country: raw[raw.length-2]['long_name'],
+                state: raw[raw.length-3]['long_name'],
+                city: raw[raw.length-4]['long_name']
+              }));
             })
             .catch(error => console.error('Error', error));
     };
@@ -1019,7 +1025,7 @@ function Checkout(props) {
             setActiveStep(4);
         }
     }).catch((e)=>{
-        
+
         if (localStorage.getItem("address") === null) {
             props.history.push('/signup');
         }

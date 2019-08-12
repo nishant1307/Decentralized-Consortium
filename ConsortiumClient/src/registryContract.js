@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0xe906d1277ab48e01d949de625d6b0fffd1e50792';
+export const registryAddress = '0xe1b20e3bee3e0fa29352919f0f09d0337fbf5eb3';
 export const registryABI = [
 	{
 		"constant": false,
@@ -15,10 +15,6 @@ export const registryABI = [
 			{
 				"name": "_projectID",
 				"type": "string"
-			},
-			{
-				"name": "_by",
-				"type": "address"
 			},
 			{
 				"name": "timestamp",
@@ -313,13 +309,13 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"name": "timestamp",
-				"type": "uint256"
-			},
-			{
-				"indexed": true,
 				"name": "_by",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
 			}
 		],
 		"name": "ProjectCreated",
@@ -335,8 +331,13 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"name": "organizationName",
-				"type": "string"
+				"name": "_by",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "userAddress",
+				"type": "address"
 			},
 			{
 				"indexed": false,
@@ -344,9 +345,9 @@ export const registryABI = [
 				"type": "uint8"
 			},
 			{
-				"indexed": true,
-				"name": "_by",
-				"type": "address"
+				"indexed": false,
+				"name": "timestamp",
+				"type": "uint256"
 			}
 		],
 		"name": "PartnerAddedToConsortium",
@@ -362,6 +363,11 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
+				"name": "_by",
+				"type": "address"
+			},
+			{
+				"indexed": false,
 				"name": "itemType",
 				"type": "uint8"
 			},
@@ -369,11 +375,6 @@ export const registryABI = [
 				"indexed": false,
 				"name": "itemID",
 				"type": "string"
-			},
-			{
-				"indexed": true,
-				"name": "_by",
-				"type": "address"
 			},
 			{
 				"indexed": false,
@@ -639,6 +640,51 @@ export const registryABI = [
 				],
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "organizationID",
+				"type": "string"
+			}
+		],
+		"name": "getOrganizationEmployees",
+		"outputs": [
+			{
+				"components": [
+					{
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
 		"payable": false,

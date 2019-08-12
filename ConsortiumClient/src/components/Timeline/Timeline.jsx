@@ -1,13 +1,18 @@
 import React, {useState, useEffect} from "react";
 import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
+import Divider from '@material-ui/core/Divider';
 import moment from "moment";
 import {registryContract} from "registryContract";
-const TimelineComponent = () => {
+import web3 from "../../web3";
+
+const TimelineComponent = (props) => {
 
   const [journey, setJourney] = useState([]);
 
   useEffect(()=> {
-    registryContract.getPastEvents('allEvents', {
+    console.log(web3.utils.sha3("ProjectCreated(string,string,address,uint256)"));
+    registryContract.getPastEvents('ProjectCreated', {
+      filter: {_projectID: web3.utils.sha3(props.match.params.projectID)},
       fromBlock: 0
     })
     .then(events => {
@@ -31,6 +36,7 @@ const TimelineComponent = () => {
         </p>
       )
     }
+    returnValuesRender = returnValuesRender.slice(returnValuesRender.length/2, returnValuesRender.length)
 
     timelineRender.push(
       <TimelineItem
@@ -46,13 +52,15 @@ const TimelineComponent = () => {
         }}
       >
         <b><h4>{event.event}</h4>
-        <p>By: {event.address}</p></b>
+        <p>By: {event.returnValues["_by"]}</p></b>
+        <Divider/><br/>
         {returnValuesRender}
         <p style={{
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis"
         }}>
+        <Divider/><br/>
           <b>Blockchain Details:</b> <br />
           <b>Block Number:</b> {event.blockNumber} <br/>
           <b>Block Hash:</b> {event.blockHash} <br/>

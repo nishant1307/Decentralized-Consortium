@@ -14,27 +14,19 @@ import axios from "axios";
 
 const RegisterThingModal = (props) => {
 
-  const validationSchema = Yup.object().shape({
-    thingName: Yup.string()
-      .min(2, 'Invalid Thing Name')
-      .required('Thing Name is required!'),
-    quantity: Yup.string()
-      .required('Quantity is required!'),
-    thingDescription: Yup.string()
-      .min(2, 'Invalid Thing Description')
-      .required('Thing Description is required!'),
-  })
-
-  const { register, handleSubmit, isSubmitting, errors } = useForm({
-    mode: 'onChange',
-    validationSchema: validationSchema,
-  })
-
-  const onSubmit = (data, e) => {
-    data.claims= claims;
-    data.certificateURLs = urls;
-    data.ipfsHash = ipfsHash;
-    props.createNewThing(data)
+  const onSubmit = (e) => {
+    e.preventDefault();
+    props.createNewThing({
+      thingName: state.thingName,
+      thingDescription: state.thingDescription,
+      thingBrand: state.thingBrand,
+      thingStory: state.thingStory,
+      thingValue: state.thingValue,
+      quantity: state.quantity,
+      claims: claims,
+      certificateURLs: certificateURLs,
+      ipfsHash: ipfsHash
+    })
     setURL([]);
     setClaims([]);
     setImageFilesWithURL([]);
@@ -215,7 +207,7 @@ const makeAddedList = () => {
         <Row>
           <Col>
             <Modal style={{maxWidth: '800px'}}  isOpen={props.user.thingModalOpen} toggle={toggle}>
-              <Form onSubmit={handleSubmit(onSubmit)} >
+              <Form>
                 <ModalHeader toggle={toggle}><strong>New Thing Registration </strong></ModalHeader>
                 <ModalBody>
                   <FormGroup row>
@@ -227,10 +219,7 @@ const makeAddedList = () => {
                         label="Thing Name"
                         fullWidth
                         name="thingName"
-                        valid={!errors.thingName}
-                        invalid={errors.thingName}
                         onChange={handleFormChange} />
-                      <FormFeedback>{errors.thingName}</FormFeedback>
                       <FormText color="muted">Enter Thing Name</FormText>
                     </Col>
                   </FormGroup>
@@ -243,10 +232,7 @@ const makeAddedList = () => {
                         label="Thing Brand"
                         fullWidth
                         name="thingBrand"
-                        valid={!errors.thingBrand}
-                        invalid={errors.thingBrand}
                         onChange={handleFormChange} />
-                      <FormFeedback>{errors.thingBrand}</FormFeedback>
                       <FormText color="muted">Enter Thing Brand</FormText>
                     </Col>
                   </FormGroup>
@@ -259,10 +245,7 @@ const makeAddedList = () => {
                         label="Thing Description"
                         fullWidth
                         name="thingDescription"
-                        valid={!errors.thingDescription}
-                        invalid={errors.thingDescription}
                         onChange={handleFormChange} />
-                      <FormFeedback>{errors.thingDescription}</FormFeedback>
                       <FormText color="muted">Enter Thing Description</FormText>
                     </Col>
                   </FormGroup>
@@ -275,10 +258,7 @@ const makeAddedList = () => {
                         label="How is it made?"
                         fullWidth
                         name="thingStory"
-                        valid={!errors.thingStory}
-                        invalid={errors.thingStory}
                         onChange={handleFormChange} />
-                      <FormFeedback>{errors.thingStory}</FormFeedback>
                       <FormText color="muted">Enter Thing Description</FormText>
                     </Col>
                   </FormGroup>
@@ -445,7 +425,7 @@ const makeAddedList = () => {
                       </FormGroup>
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="primary"  innerRef={register} >Add new Thing</Button>
+                  <Button color="primary"  onClick={onSubmit}>Add new Thing</Button>
                 </ModalFooter>
               </Form>
               {props.errors.thingError && (<FormGroup>

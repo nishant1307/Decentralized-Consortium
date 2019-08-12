@@ -17,54 +17,12 @@ import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CustomLoader from 'components/Loaders/CustomLoader';
+// import CustomLoader from 'components/Loaders/CustomLoader';
 import {connect} from "react-redux";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import {registryContract} from 'registryContract';
-
 const ProjectPartners = (props) => {
-
-  const [partners, setPartners] = useState([]);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
-    const [loader, setLoader] = useState(true);
-
-  const options = [
-  'Regular',
-  'Financial Institution',
-  'Certification Agency',
-  'Government',
-  'Business',
-  'Logistics',
-  'Distributor',
-  'Retailer',
-  'Recycler'
-];
-
-
-  function handleClickListItem(event) {
-    setAnchorEl(event.currentTarget);
-  }
-
-  function handleMenuItemClick(event, index) {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-  }
-
-  useEffect(() => {
-    registryContract.methods.getConsortiumMember(props.match.params.projectID).call({
-      from : props.auth.user.publicKey
-    }).then(res => {
-      setLoader(false)
-      setPartners(res);
-    })
-  }, []);
-
   const {classes} = props;
+  const {partners} = props.location.state
 
   return (
     <div>
@@ -73,23 +31,18 @@ const ProjectPartners = (props) => {
           <Card plain>
             <CardHeader plain color="primary">
               <h4 className={classes.cardTitleWhite}>
-                Regular Partners
+                List of all current participants
               </h4>
-              <p className={classes.cardCategoryWhite}>
-                Select Partner to add to Consortium
-              </p>
             </CardHeader>
-            {!loader?
-              partners.length>0 ?
+            {
                 <CardBody>
                   <Table
                     tableHeaderColor="primary"
                     tableHead={["Public Key", "OrganizationID", "Email", "KYC Status", "User KYC Hash", "User Role"]}
                     tableData={partners}
                   />
-                </CardBody>:
-                "No partners in the selected Category":
-            <CustomLoader/>}
+                </CardBody>
+            }
           </Card>
         </GridItem>
       </GridContainer>

@@ -1,97 +1,165 @@
 import React from 'react';
-// import 'assets/css/style.css';
-// import 'assets/css/responsive.css';
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import StarIcon from '@material-ui/icons/StarBorder';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 
-
-const PricingPage = () => {
-
-    return (
-      <section className="pricing-section style-two">
-        <div className="auto-container">
-          {/* Sec Title */}
-          <div className="sec-title centered">
-            <h2>Easy Pricing Plans</h2>
-          </div>
-          <div className="pricing-inner-container">
-            {/* Monthly Package */}
-            <div className="monthly-package">
-              <div className="row clearfix">
-                {/* Price Block */}
-                <div className="price-block col-lg-4 col-md-6 col-sm-12">
-                  <div className="inner-box">
-                    <div className="title-box">
-                      <h2>Pro</h2>
-                    </div>
-                    <div className="content-box">
-                      <div className="price">$50<span>/month</span></div>
-                      <div className="title">$500 USD billed annually</div>
-                      {/* Price List */}
-                      <ul className="price-list">
-                        <li className="check"><span className="check fa fa-check" />x% Transaction fee</li>
-                        <li className="check"><span className="check fa fa-check" />Upto 50 Devices</li>
-                        <li className="check"><span className="check fa fa-check" />Data – 500 MB</li>
-                        <li className="check"><span className="check fa fa-check" />Support – Included</li>
-                      </ul>
-                      {/* Button Box */}
-                      <div className="btn-box">
-                        <a href="/login" className="theme-btn btn-style-four">Get Started</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Price Block */}
-                <div className="price-block col-lg-4 col-md-6 col-sm-12">
-                  <div className="inner-box">
-                    <div className="title-box">
-                      <h2>Business</h2>
-                    </div>
-                    <div className="content-box">
-                      <div className="price">$500<span>/month</span></div>
-                      <div className="title">$5000 USD billed annually</div>
-                      {/* Price List */}
-                      <ul className="price-list">
-                      <li className="check"><span className="check fa fa-check" />x% Transaction fee</li>
-                      <li className="check"><span className="check fa fa-check" />Upto 500 Devices</li>
-                      <li className="check"><span className="check fa fa-check" />Data – 1 GB</li>
-                      <li className="check"><span className="check fa fa-check" />Support – Included</li>
-                      </ul>
-                      {/* Button Box */}
-                      <div className="btn-box">
-                        <a href="/login" className="theme-btn btn-style-four">Get Started</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* Price Block */}
-                <div className="price-block col-lg-4 col-md-6 col-sm-12">
-                  <div className="inner-box">
-                    <div className="title-box">
-                      <h2>Enterprise</h2>
-                    </div>
-                    <div className="content-box">
-                      <div className="price">$1500<span>/month</span></div>
-                      <div className="title">$15000 USD billed annually</div>
-                      {/* Price List */}
-                      <ul className="price-list">
-                      <li className="check"><span className="check fa fa-check" />x% Transaction fee</li>
-                      <li className="check"><span className="check fa fa-check" />Unlimited Devices</li>
-                      <li className="check"><span className="check fa fa-check" />Data – 5 GB</li>
-                      <li className="check"><span className="check fa fa-check" />Support – Included</li>
-                      </ul>
-                      {/* Button Box */}
-                      <div className="btn-box">
-                        <a href="login" className="theme-btn btn-style-four">Get Started</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Yearly Package */}
-          </div>
-        </div>
-      </section>
-    );
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'. Built with '}
+      <Link color="inherit" href="https://material-ui.com/">
+        Material-UI.
+      </Link>
+    </Typography>
+  );
 }
+const useStyles = makeStyles(theme => ({
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.gray,
+    },
+    ul: {
+      margin: 0,
+      padding: 0,
+    },
+    li: {
+      listStyle: 'none',
+    },
+  },
+  appBar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  toolbar: {
+    flexWrap: 'wrap',
+  },
+  toolbarTitle: {
+    flexGrow: 1,
+  },
+  link: {
+    margin: theme.spacing(1, 1.5),
+  },
+  heroContent: {
+    padding: theme.spacing(8, 0, 6),
+  },
+  cardHeader: {
+    backgroundColor: theme.palette.white,
+  },
+  cardPricing: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    marginTop: theme.spacing(8),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing(6),
+      paddingBottom: theme.spacing(6),
+    },
+  },
+}));
 
-export default PricingPage;
+const tiers = [
+  {
+    title: 'Free',
+    price: '0',
+    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
+    buttonText: 'Sign up for free',
+    buttonVariant: 'outlined',
+  },
+  {
+    title: 'Pro',
+    subheader: 'Most popular',
+    price: '15',
+    description: [
+      '20 users included',
+      '10 GB of storage',
+      'Help center access',
+      'Priority email support',
+    ],
+    buttonText: 'Get started',
+    buttonVariant: 'contained',
+  },
+  {
+    title: 'Enterprise',
+    price: '30',
+    description: [
+      '50 users included',
+      '30 GB of storage',
+      'Help center access',
+      'Phone & email support',
+    ],
+    buttonText: 'Contact us',
+    buttonVariant: 'outlined',
+  },
+];
+
+export default function PricingPage() {
+  const classes = useStyles();
+
+  return (
+    <React.Fragment>
+      <Container maxWidth="md" component="main">
+        <Grid container spacing={5} alignItems="flex-end">
+          {tiers.map(tier => (
+            // Enterprise card is full width at sm breakpoint
+            <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+              <Card>
+                <CardHeader
+                  title={tier.title}
+                  subheader={tier.subheader}
+                  titleTypographyProps={{ align: 'center' }}
+                  subheaderTypographyProps={{ align: 'center' }}
+                  action={tier.title === 'Pro' ? <StarIcon /> : null}
+                  className={classes.cardHeader}
+                />
+                <CardContent>
+                  <div className={classes.cardPricing}>
+                    <Typography component="h2" variant="h3" color="textPrimary">
+                      ${tier.price}
+                    </Typography>
+                    <Typography variant="h6" color="textSecondary">
+                      /mo
+                    </Typography>
+                  </div>
+                  <ul>
+                    {tier.description.map(line => (
+                      <Typography component="li" variant="subtitle1" align="center" key={line}>
+                        {line}
+                      </Typography>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardActions>
+                  <Button fullWidth variant={tier.buttonVariant} color="primary">
+                    {tier.buttonText}
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+    </React.Fragment>
+  );
+}

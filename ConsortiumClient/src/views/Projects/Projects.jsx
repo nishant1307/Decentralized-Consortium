@@ -6,13 +6,6 @@ import PropTypes from "prop-types";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import Store from "@material-ui/icons/Store";
-import Warning from "@material-ui/icons/Warning";
-import DateRange from "@material-ui/icons/DateRange";
-import LocalOffer from "@material-ui/icons/LocalOffer";
-import Update from "@material-ui/icons/Update";
-import Accessibility from "@material-ui/icons/Accessibility";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -69,7 +62,7 @@ const Projects = (props) => {
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>
-              <LocalOffer />
+              <Icon>apps</Icon>
               Open
             </div>
           </CardFooter>
