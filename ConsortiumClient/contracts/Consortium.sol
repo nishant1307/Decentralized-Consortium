@@ -146,7 +146,7 @@ contract Storage {
             require(bytes(invitedUsers[email].organizationID).length > 0, "invalid email.");
             require(bytes(userDirectory[msg.sender].email).length == 0, "address already used.");
         }
-        createUser(invitedUsers[email].organizationID, email , kycHash, roles.admin);
+        createUser(invitedUsers[email].organizationID, email , kycHash, role);
     }
 
     function inviteUser(string memory email) public onlyOrgAdmin() {
