@@ -5,6 +5,7 @@ const webpack = require("webpack");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 // var CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const DynamicCdnWebpackPlugin = require('dynamic-cdn-webpack-plugin');
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 const handler = (percentage, message, ...args) => {
@@ -18,6 +19,9 @@ module.exports = merge(common, {
     minimizer: [
       new TerserPlugin({
         parallel: true,
+      }),
+      new OptimizeCSSAssetsPlugin({
+        
       })
     ]
 	},

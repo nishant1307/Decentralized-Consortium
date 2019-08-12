@@ -6,6 +6,7 @@ import { createNewThing, closeThingModal } from '../actions/userActions';
 import useForm from 'react-hook-form'
 import * as Yup from 'yup';
 import Dropzone from 'react-dropzone'
+import TextField from '@material-ui/core/TextField';
 import "assets/css/ClaimPage.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -49,6 +50,15 @@ const RegisterThingModal = (props) => {
   const [imageCertificateFiles, setImageCertificateFiles] = useState([]);
   const [button, setButton] = useState(true);
   const [claims, setClaims] = useState([]);
+
+  const [state, setState] = useState({
+    thingName: '',
+    thingDescription: '',
+    thingBrand: '',
+    thingStory: '',
+    thingValue: '',
+    quantity: ''
+  })
   let helperspan = null;
   let lastId = -1;
   const width = Math.max(50)
@@ -61,6 +71,14 @@ const RegisterThingModal = (props) => {
   const handleChange = (event) => {
     setContentAdd(event.target.value)
     console.log(content_add);
+  }
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setState(state => ({
+      ...state,
+      [name]: value
+    }));
   }
 
 
@@ -205,12 +223,13 @@ const makeAddedList = () => {
                       <Label htmlFor="text-input">Thing name</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="thingName"
-                        placeholder="Thing Name"
+                      <TextField type="thingName"
+                        label="Thing Name"
+                        fullWidth
                         name="thingName"
                         valid={!errors.thingName}
                         invalid={errors.thingName}
-                        innerRef={register} />
+                        onChange={handleFormChange} />
                       <FormFeedback>{errors.thingName}</FormFeedback>
                       <FormText color="muted">Enter Thing Name</FormText>
                     </Col>
@@ -220,12 +239,13 @@ const makeAddedList = () => {
                       <Label htmlFor="text-input">Brand / Maker</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="thingBrand"
-                        placeholder="Thing Brand"
+                      <TextField type="thingBrand"
+                        label="Thing Brand"
+                        fullWidth
                         name="thingBrand"
                         valid={!errors.thingBrand}
                         invalid={errors.thingBrand}
-                        innerRef={register} />
+                        onChange={handleFormChange} />
                       <FormFeedback>{errors.thingBrand}</FormFeedback>
                       <FormText color="muted">Enter Thing Brand</FormText>
                     </Col>
@@ -235,12 +255,13 @@ const makeAddedList = () => {
                       <Label htmlFor="text-input">Thing description</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="thingDescription"
-                        placeholder="Thing Description"
+                      <TextField type="thingDescription"
+                        label="Thing Description"
+                        fullWidth
                         name="thingDescription"
                         valid={!errors.thingDescription}
                         invalid={errors.thingDescription}
-                        innerRef={register} />
+                        onChange={handleFormChange} />
                       <FormFeedback>{errors.thingDescription}</FormFeedback>
                       <FormText color="muted">Enter Thing Description</FormText>
                     </Col>
@@ -250,12 +271,13 @@ const makeAddedList = () => {
                       <Label htmlFor="text-input">How is it made?</Label>
                     </Col>
                     <Col xs="12" md="9">
-                      <Input type="text"
-                        placeholder="How is it made?"
+                      <TextField type="text"
+                        label="How is it made?"
+                        fullWidth
                         name="thingStory"
                         valid={!errors.thingStory}
                         invalid={errors.thingStory}
-                        innerRef={register} />
+                        onChange={handleFormChange} />
                       <FormFeedback>{errors.thingStory}</FormFeedback>
                       <FormText color="muted">Enter Thing Description</FormText>
                     </Col>
@@ -305,7 +327,7 @@ const makeAddedList = () => {
                     <Input type="number"
                       placeholder="Price of the thing (if applicable)?"
                       name="thingValue"
-                      innerRef={register} />
+                      onChange={handleFormChange} />
                   </Col>
                 </FormGroup>
               <FormGroup row>
@@ -316,7 +338,7 @@ const makeAddedList = () => {
                   <Input type="number"
                     min={1} defaultValue={1}
                     name="quantity"
-                    innerRef={register} />
+                    onChange={handleFormChange} />
                 </Col>
               </FormGroup>
                 <FormGroup row>

@@ -88,7 +88,7 @@ const People = (props) => {
       <GridContainer>
         {peopleRender}
         <GridItem xs={12} sm={6} md={3}>
-          <Card onClick={renderColleagueForm}>
+          {props.user.user[5]==="0" && <Card onClick={renderColleagueForm}>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>add</Icon>
@@ -96,7 +96,7 @@ const People = (props) => {
               <p className={classes.cardCategory}></p>
               <h4 className={classes.cardTitle} >Invite a colleague</h4>
             </CardHeader>
-          </Card>
+          </Card>}
         </GridItem>
       </GridContainer>
       {alert}

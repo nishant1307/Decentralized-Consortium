@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0x7916a7b1796d4362239cb9ffcefb186f333c5726';
+export const registryAddress = '0xe906d1277ab48e01d949de625d6b0fffd1e50792';
 export const registryABI = [
 	{
 		"constant": false,
@@ -466,6 +466,10 @@ export const registryABI = [
 			{
 				"components": [
 					{
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
 						"name": "organizationID",
 						"type": "string"
 					},
@@ -506,6 +510,10 @@ export const registryABI = [
 		"outputs": [
 			{
 				"components": [
+					{
+						"name": "publicKey",
+						"type": "address"
+					},
 					{
 						"name": "organizationID",
 						"type": "string"
@@ -775,6 +783,10 @@ export const registryABI = [
 			{
 				"components": [
 					{
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
 						"name": "organizationID",
 						"type": "string"
 					},
@@ -839,6 +851,6 @@ export const registryABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+];
 
 export const registryContract =  new web3.eth.Contract(registryABI, registryAddress);

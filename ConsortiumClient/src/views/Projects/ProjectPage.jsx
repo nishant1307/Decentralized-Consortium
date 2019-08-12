@@ -29,6 +29,7 @@ console.log(props);
 
   const locationPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/location";
   const partnerPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/partners";
+  const journeyPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/journey";
   return (
     <div>
       <GridContainer>
@@ -87,6 +88,7 @@ console.log(props);
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
+          <Link to={journeyPageURL}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <Icon>apps</Icon>
@@ -94,6 +96,7 @@ console.log(props);
               <p className={classes.cardCategory}></p>
               <h4 className={classes.cardTitle}>Journey</h4>
             </CardHeader>
+          </Link>
             <CardFooter stats>
               <div className={classes.stats}>
                 <Icon>forward</Icon>

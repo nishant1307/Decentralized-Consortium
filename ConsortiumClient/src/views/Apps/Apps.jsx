@@ -38,7 +38,7 @@ const Apps = (props) => {
                 <Icon>apps</Icon>
               </CardIcon>
               <p className={classes.cardCategory}>IotConekt</p>
-              <h3 className={classes.cardTitle}>2</h3>
+              <h3 className={classes.cardTitle}>&nbsp;</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -55,7 +55,7 @@ const Apps = (props) => {
                 <Accessibility />
               </CardIcon>
               <p className={classes.cardCategory}>DocConekt</p>
-              <h3 className={classes.cardTitle}>2</h3>
+              <h3 className={classes.cardTitle}>&nbsp;</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -72,7 +72,7 @@ const Apps = (props) => {
                 <Accessibility />
               </CardIcon>
               <p className={classes.cardCategory}>Explorer</p>
-              <h3 className={classes.cardTitle}>2</h3>
+              <h3 className={classes.cardTitle}>&nbsp;</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>

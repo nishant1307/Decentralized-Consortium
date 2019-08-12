@@ -57,6 +57,7 @@ contract Storage {
     enum projectItems { document, device, product }
 
     struct User {
+        address publicKey;
         string organizationID;
         string email;
         userKYCStatus status;
@@ -123,13 +124,14 @@ contract Storage {
     // mapping between ProjectID and item
     mapping(string => Item[]) itemList;
 
-    function setUser( string memory email, string memory kycHash, roles role) public uniqueEmail(email) {
-        require(bytes(invitedUsers[email].organizationID).length > 0, "invalid email."); 
-        require(bytes(userDirectory[msg.sender].email).length == 0, "address already used."); 
+    function setUser(string memory email, string memory kycHash, roles role) public uniqueEmail(email) {
+        require(bytes(invitedUsers[email].organizationID).length > 0, "invalid email.");
+        require(bytes(userDirectory[msg.sender].email).length == 0, "address already used.");
         User memory newUser;
         newUser.organizationID = invitedUsers[email].organizationID;
         newUser.email = email;
         newUser.role = role;
+        newUser.publicKey = msg.sender;
         newUser.status =  userKYCStatus.kycPending;
         newUser.kycHash = kycHash;
         emailRegistry[email] = msg.sender;
@@ -155,12 +157,13 @@ contract Storage {
     function getUserOrganizationDetails() public view userExists returns (User memory, Organization memory) {
         return (userDirectory[msg.sender], organizationDirectory[userDirectory[msg.sender].organizationID]);
     }
-    
-    function setOrgAdmin(string memory organizationID, string memory email, string memory kycHash, roles role) internal uniqueEmail(email) {
+
+    function setOrgAdmin(string memory organizationID, string memory email, string memory kycHash) internal uniqueEmail(email) {
         User memory newUser;
         newUser.organizationID = organizationID;
         newUser.email = email;
-        newUser.role = role;
+        newUser.role = roles.admin;
+        newUser.publicKey = msg.sender;
         newUser.status =  userKYCStatus.kycPending;
         newUser.kycHash = kycHash;
         emailRegistry[email] = msg.sender;
@@ -174,7 +177,7 @@ contract Storage {
         newOrganization.name = name;
         newOrganization.kycHash = orgKYCHash;
         newOrganization.status = userKYCStatus.kycPending;
-        setOrgAdmin(organizationID ,email, userKYCHash, roles.admin);
+        setOrgAdmin(organizationID ,email, userKYCHash);
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
         partners["All"].push(newOrganization);
@@ -246,11 +249,11 @@ contract Storage {
     function setUserStatus(address userAddress, userKYCStatus status) public onlyOwner returns (bool) {
         userDirectory[userAddress].status = status;
     }
-    
+
     function setOrganizationKYCStatus(string memory organizationID, userKYCStatus status) public onlyOwner returns (bool) {
         organizationDirectory[organizationID].status = status;
     }
-    
+
 
     function getUserKYCStatus() public view userExists returns (userKYCStatus status)  {
         return userDirectory[msg.sender].status;
@@ -259,12 +262,12 @@ contract Storage {
     function getOrganizationKYCStatus(string memory organizationID) public view returns (userKYCStatus status)  {
         return organizationDirectory[organizationID].status;
     }
-    
+
     function updateOrganizationKYC(string memory organizationID ,string memory kycHash) public onlyOrgAdmin returns (bool) {
        organizationDirectory[organizationID].kycHash = kycHash;
     }
-    
-  
+
+
     function updateKYC(string memory kycHash) public userExists returns (bool) {
         userDirectory[msg.sender].status =  userKYCStatus.kycPending;
         userDirectory[msg.sender].kycHash = kycHash;

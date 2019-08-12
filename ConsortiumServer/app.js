@@ -9,12 +9,12 @@ var history = require('connect-history-api-fallback');
 var expressStaticGzip = require("express-static-gzip");
 const multer = require('multer')
 var fs = require("fs");
-const IPFS = require('ipfs-http-client')
-const ipfs = new IPFS({
-  host: 'ipfs.infura.io',
-  port: 5001,
-  protocol: 'https'
-})
+// const IPFS = require('ipfs-http-client')
+// const ipfs = new IPFS({
+//   host: 'ipfs.infura.io',
+//   port: 5001,
+//   protocol: 'https'
+// })
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -40,9 +40,9 @@ const storage = multer.diskStorage({
   }
 });
 
-app.use(multer({
-  storage: storage
-}).any());
+// app.use(multer({
+//   storage: storage
+// }).any());
 
 app.use(logger('dev'));
 app.use(history());
@@ -51,26 +51,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/users', require('./userOnboarding/routes'));
-app.use('/api/dashboard', require('./userDashboard/routes'));
-app.use('/api/projects', require('./projectHandler/routes'));
-app.use('/api/devices', require('./deviceHandler/routes'));
-app.use('/api/things', require('./thingHandler/routes'));
-app.use('/api/explorer', require('./explorerHandler/routes'));
-app.use('/api/events', require('./iotEventHandler/routes'));
+// app.use('/api/users', require('./userOnboarding/routes'));
+// app.use('/api/dashboard', require('./userDashboard/routes'));
+// app.use('/api/projects', require('./projectHandler/routes'));
+// app.use('/api/devices', require('./deviceHandler/routes'));
+// app.use('/api/things', require('./thingHandler/routes'));
+// app.use('/api/explorer', require('./explorerHandler/routes'));
+// app.use('/api/events', require('./iotEventHandler/routes'));
 
-app.use(expressStaticGzip(path.resolve(__dirname, '..','iotumClient/dist'),{
+app.use(expressStaticGzip(path.resolve(__dirname, '..','ConsortiumClient/dist'),{
  enableBrotli: true
 }));
-app.use(express.static(path.resolve(__dirname, '..','iotumClient/src/assets')));
+app.use(express.static(path.resolve(__dirname, '..','ConsortiumClient/src/assets')));
 app.get('*', function(req, res) {
-  res.sendFile('index.html', {root: path.resolve(__dirname, '..','iotumClient/dist')});
+  res.sendFile('index.html', {root: path.resolve(__dirname, '..','ConsortiumClient/dist')});
 });
 
-var db = require('./database/models/index');
-db.sequelize.sync({ force: false}).then(() => {
-  console.log("Sync done");
-});
+// var db = require('./database/models/index');
+// db.sequelize.sync({ force: false}).then(() => {
+//   console.log("Sync done");
+// });
 
 // require('./websocketApp');
 

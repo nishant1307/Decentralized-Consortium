@@ -84,7 +84,7 @@ const ProjectPartners = (props) => {
                 <CardBody>
                   <Table
                     tableHeaderColor="primary"
-                    tableHead={["Public Key", "OrganizationID", "First Name", "Last Name", "Email", "Phone Number", "Role"]}
+                    tableHead={["Public Key", "OrganizationID", "Email", "KYC Status", "User KYC Hash", "User Role"]}
                     tableData={partners}
                   />
                 </CardBody>:
