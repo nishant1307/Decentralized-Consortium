@@ -1,8 +1,8 @@
 const IPFS = require('ipfs-http-client')
 const ipfs = new IPFS({
-  host: 'ipfs.infura.io',
+  host: '3.80.182.122',
   port: 5001,
-  protocol: 'https'
+  protocol: 'http'
 })
 
 export default ipfs;

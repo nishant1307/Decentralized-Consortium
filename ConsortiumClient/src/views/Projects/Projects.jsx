@@ -28,6 +28,8 @@ const Projects = (props) => {
     registryContract.methods.getMyProjects().call({
       from: props.auth.user.publicKey
     }).then(res => {
+      console.log(res,"res");
+      
       setProjectList(res);
     });
   }, []);
@@ -76,7 +78,8 @@ const Projects = (props) => {
     <div>
       <GridContainer>
         {projectRender.length !== 0  ? projectRender :
-          <CustomLoader />
+          // <CustomLoader />
+          <h3>No Projects Found!</h3>
         }
       </GridContainer>
     </div>

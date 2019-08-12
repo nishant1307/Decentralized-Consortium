@@ -931,33 +931,35 @@ function Checkout(props) {
     const submitForm = async () =>{
         setActiveStep(activeStep + 1);
         const privateKey = await sessionStorage.getItem('privateKey')
-        // const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:companyDoc,orgInfo:state}))
-        // const orgHash = await ipfs.add(orgBuffer);
-        // const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ownerDoc,orgInfo:state}))
-        // const userHash = await ipfs.add(userBuffer);
+        const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:companyDoc,orgInfo:state}))
+        const orgHash = await ipfs.add(orgBuffer);
+        const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ownerDoc,orgInfo:state}))
+        const userHash = await ipfs.add(userBuffer);
+        console.log(orgHash,userHash);
 
 
-        var transaction = {
-            "to": registryAddress,
-            "data": registryContract.methods.setOrganizationAdmin(
-              uuidv1(),
-            state.companyName,
-            "orgHash",
-            "userHash",
-            state.email
-            ).encodeABI()
-          };
 
-          // web3.eth.estimateGas(transaction).then(gasLimit => {
-          transaction["gasLimit"] = 4700000;
-          web3.eth.accounts.signTransaction(transaction, privateKey)
-            .then(res => {
-              web3.eth.sendSignedTransaction(res.rawTransaction)
-                .on('receipt', async function (receipt) {
-                    // console.log(receipt);
-                    setActiveStep(4);
-                })
-            })
+        // var transaction = {
+        //     "to": registryAddress,
+        //     "data": registryContract.methods.setOrganizationAdmin(
+        //       uuidv1(),
+        //     state.companyName,
+        //     "orgHash",
+        //     "userHash",
+        //     state.email
+        //     ).encodeABI()
+        //   };
+
+        //   // web3.eth.estimateGas(transaction).then(gasLimit => {
+        //   transaction["gasLimit"] = 4700000;
+        //   web3.eth.accounts.signTransaction(transaction, privateKey)
+        //     .then(res => {
+        //       web3.eth.sendSignedTransaction(res.rawTransaction)
+        //         .on('receipt', async function (receipt) {
+        //             // console.log(receipt);
+        //             setActiveStep(4);
+        //         })
+        //     })
     }
 
     const handleChange = (e) => {

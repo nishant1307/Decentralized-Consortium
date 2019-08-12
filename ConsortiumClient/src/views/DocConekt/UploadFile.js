@@ -98,6 +98,8 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
         padding: theme.spacing(2),
+        width:600,
+        height:300,
         [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
             marginTop: theme.spacing(6),
             marginBottom: theme.spacing(6),
@@ -132,6 +134,17 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         minWidth: 120,
     },
+    root: {
+        flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
+        display: 'flex',
+        width:800,
+        height:400,
+    },
+    tabs: {
+        borderRight: `1px solid ${theme.palette.divider}`,
+        
+    },
 }));
 
 function TabPanel(props) {
@@ -151,14 +164,12 @@ function TabPanel(props) {
     );
 }
 
-
 function a11yProps(index) {
     return {
         id: `vertical-tab-${index}`,
         'aria-controls': `vertical-tabpanel-${index}`,
     };
 }
-
 
 function AddressForm({ parentCallback }) {
     const captureFile = (event) => {
@@ -348,7 +359,7 @@ export default function Checkout(props) {
 
     function handleStructured() {
         console.log(subDocType);
-        props.history.push('/dashboard/structured/'+subDocType )
+        props.history.push('/dashboard/structured/' + subDocType)
     }
 
     async function uploadFile() {
@@ -398,24 +409,20 @@ export default function Checkout(props) {
 
     return (
         <main className={classes.layout}>
-            <div style={{
-                flexGrow: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                height: 224,
-            }}>
+            <div className={classes.root}>
                 <Tabs
                     orientation="vertical"
+                    variant="scrollable"
                     value={value}
                     onChange={handleChange}
-                    centered
+                    aria-label="Vertical tabs example"
+                    className={classes.tabs}
                 >
                     <Tab label="Unstructured document" {...a11yProps(0)} />
                     <Tab label="Structured document" {...a11yProps(1)} />
 
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                    {/* {status && <CustomizedSnackbars status={status} message={message} variant={variant} />} */}
                     <Paper className={classes.paper}>
                         <Typography component="h1" variant="h4" align="center">
                             File Upload
@@ -431,13 +438,6 @@ export default function Checkout(props) {
                             {activeStep === steps.length ? (
                                 <React.Fragment>
                                     <Review hash={txHash} />
-                                    {/* <Typography variant="h5" gutterBottom>
-                Thank you for your order.
-                </Typography>
-              <Typography variant="subtitle1">
-                Your order number is #2001539. We have emailed your order confirmation, and will
-                send you an update when your order has shipped.
-                </Typography> */}
                                 </React.Fragment>
                             ) : (
                                     <React.Fragment>
@@ -508,7 +508,7 @@ export default function Checkout(props) {
                         </form>
                         <React.Fragment>
                             <div className={classes.buttons}>
-                               <Button
+                                <Button
                                     variant="contained"
                                     color="primary"
                                     onClick={handleStructured}
