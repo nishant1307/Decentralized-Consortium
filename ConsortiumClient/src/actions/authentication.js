@@ -29,18 +29,23 @@ export const loginUser = (user, history) => dispatch => {
     //     }
     // })
     dispatch(currentUserInfo(user.address));
-
-    registryContract.methods.getUserKYCStatus().call({
+    registryContract.methods.getUserOrganizationDetails().call({
         from: user.address
     }).then(res => {
-        if (res === '1') {
+        if (res[0].status === '1' && res[1].status === '1') {
             dispatch(setCurrentUser({ publicKey: user.address }));
             history.push('/dashboard/home');
         }
-        else if(res === '0') {
+        else if (res[1].status !== '1') {
             dispatch({
                 type: GET_ERRORS,
-                payload: { message: "KYC Verification Is In Pending State. Please Wait For 24 Hours." }
+                payload: { message: "Your Organization KYC Verification Is In Pending State. Please Wait For 24 Hours." }
+            });
+        }
+        else if (res[0].status !== '1') {
+            dispatch({
+                type: GET_ERRORS,
+                payload: { message: "Your KYC Verification Is In Pending State. Please Wait For 24 Hours." }
             });
         }
         else {
@@ -50,10 +55,9 @@ export const loginUser = (user, history) => dispatch => {
             });
         }
     })
-    .catch((err)=>{
-        history.push('/register');
-    })
-
+        .catch((err) => {
+            history.push('/register');
+        })
     //             dispatch(fetchSubscription());
 }
 
