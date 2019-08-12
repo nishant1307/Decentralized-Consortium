@@ -941,8 +941,8 @@ function Checkout(props) {
             "data": registryContract.methods.setOrganizationAdmin(
               uuidv1(),
             state.companyName,
-            "orgHash",
-            "userHash",
+            orgHash,
+            userHash,
             state.email
             ).encodeABI()
           };
