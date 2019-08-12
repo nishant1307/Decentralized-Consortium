@@ -34,31 +34,6 @@ const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);
   const [projects, setProjects] = useState([]);
-  useEffect(() => {
-    if (!props.auth.isAuthenticated) {
-      props.history.push('/login');
-    }
-    // productContract.methods.balanceOf(props.auth.user.publicKey).call().then(res=>{
-    //   setProductCount(res);
-    //
-    // });
-    // registryContract.methods.getMyProjects().call({
-    //   from : props.auth.user.publicKey
-    // }).then(res => {
-    //   console.log(res);
-    //   let projectList=[];
-    //   res.reverse().forEach((projectData, index) => {
-    //     projectList[index] = ([
-    //       projectData["projectID"],
-    //       projectData["name"],
-    //       projectData["description"],
-    //       projectData["industry"],
-    //       projectData["role"]
-    //     ])
-    //   })
-    //   setProjects(projectList)
-    // })
-  }, []);
 
   const {classes} = props;
 

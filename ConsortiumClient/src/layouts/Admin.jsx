@@ -59,6 +59,9 @@ class Dashboard extends React.Component {
     }
   };
   componentDidMount() {
+    if (!this.props.auth.isAuthenticated) {
+      this.props.history.push('/login');
+    }
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.mainPanel.current);
     }

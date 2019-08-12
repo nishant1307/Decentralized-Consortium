@@ -59,13 +59,12 @@ const People = (props) => {
   allPeople.forEach(people => {
     peopleRender.push(
       <GridItem xs={12} sm={6} md={3}>
-        <Link to="/dashboard/people/1">
         <Card>
           <CardHeader color="danger" stats icon>
             <CardIcon color="danger">
               <Icon>apps</Icon>
             </CardIcon>
-            <p className={classes.cardCategory}>{people.firstName} {people.lastName}</p>
+            <p className={classes.cardCategory}>{people.publicKey}</p>
             <h4 className={classes.cardTitle}></h4>
           </CardHeader>
           <CardBody>
@@ -78,7 +77,6 @@ const People = (props) => {
             </div>
           </CardFooter>
         </Card>
-        </Link>
       </GridItem>
     )
   })

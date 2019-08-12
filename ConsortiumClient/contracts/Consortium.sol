@@ -84,9 +84,9 @@ contract Storage {
         string itemID;
     }
 
-    event ProjectCreated(string indexed _projectID, string name, uint256 timestamp, address indexed _by);
-    event PartnerAddedToConsortium(string indexed _projectID, string organizationName, partnerRoles partnerRole, address indexed _by);
-    event ItemAdded(string indexed _projectID, projectItems itemType, string itemID, address indexed _by, uint256 timestamp);
+    event ProjectCreated(string indexed _projectID, string name, uint256 timestamp);
+    event PartnerAddedToConsortium(string indexed _projectID, address userAddress, partnerRoles partnerRole);
+    event ItemAdded(string indexed _projectID, projectItems itemType, string itemID, uint256 timestamp);
 
     // Mapping of invited users emails
     mapping(string => Organization) invitedUsers;
@@ -106,6 +106,9 @@ contract Storage {
     // All Organizations
     Organization[] private organizations;
 
+    // Mapping between orgID and its Users
+    mapping(string => User[]) orgEmployees;
+
     // mapping between Project ID and project Details
     mapping (string => Project) private projectRegistry;
 
@@ -124,11 +127,9 @@ contract Storage {
     // mapping between ProjectID and item
     mapping(string => Item[]) itemList;
 
-    function setUser(string memory email, string memory kycHash, roles role) public uniqueEmail(email) {
-        require(bytes(invitedUsers[email].organizationID).length > 0, "invalid email.");
-        require(bytes(userDirectory[msg.sender].email).length == 0, "address already used.");
+    function createUser(string memory organizationID, string memory email, string memory kycHash, roles role) internal uniqueEmail(email) {
         User memory newUser;
-        newUser.organizationID = invitedUsers[email].organizationID;
+        newUser.organizationID = organizationID;
         newUser.email = email;
         newUser.role = role;
         newUser.publicKey = msg.sender;
@@ -137,6 +138,15 @@ contract Storage {
         emailRegistry[email] = msg.sender;
         userDirectory[msg.sender] = newUser;
         users.push(newUser);
+        orgEmployees[organizationID].push(newUser);
+    }
+
+    function setUser(string memory email, string memory kycHash, roles role) public uniqueEmail(email) {
+        if(role != roles.admin) {
+            require(bytes(invitedUsers[email].organizationID).length > 0, "invalid email.");
+            require(bytes(userDirectory[msg.sender].email).length == 0, "address already used.");
+        }
+        createUser(invitedUsers[email].organizationID, email , kycHash, roles.admin);
     }
 
     function inviteUser(string memory email) public onlyOrgAdmin() {
@@ -158,26 +168,13 @@ contract Storage {
         return (userDirectory[msg.sender], organizationDirectory[userDirectory[msg.sender].organizationID]);
     }
 
-    function setOrgAdmin(string memory organizationID, string memory email, string memory kycHash) internal uniqueEmail(email) {
-        User memory newUser;
-        newUser.organizationID = organizationID;
-        newUser.email = email;
-        newUser.role = roles.admin;
-        newUser.publicKey = msg.sender;
-        newUser.status =  userKYCStatus.kycPending;
-        newUser.kycHash = kycHash;
-        emailRegistry[email] = msg.sender;
-        userDirectory[msg.sender] = newUser;
-        users.push(newUser);
-    }
-
     function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
         Organization memory newOrganization;
         newOrganization.organizationID =organizationID;
         newOrganization.name = name;
         newOrganization.kycHash = orgKYCHash;
         newOrganization.status = userKYCStatus.kycPending;
-        setOrgAdmin(organizationID ,email, userKYCHash);
+        createUser(organizationID ,email, userKYCHash, roles.admin);
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
         partners["All"].push(newOrganization);
@@ -198,10 +195,15 @@ contract Storage {
         project.description = description;
         project.industry = industry;
         projectRegistry[projectID] = project;
-        myProjects[msg.sender].push(project);
-        consortium[projectID].push(userDirectory[msg.sender]);
-        projectRoles[projectID][msg.sender] = partnerRole;
-        emit ProjectCreated(projectID, name, now, msg.sender);
+        emit ProjectCreated(projectID, name, now);
+        addUserToProject(projectID, msg.sender, partnerRole);
+    }
+
+    function addUserToProject(string memory projectID, address userAddress, partnerRoles partnerRole) public {
+        consortium[projectID].push(userDirectory[userAddress]);
+        myProjects[userAddress].push(projectRegistry[projectID]);
+        projectRoles[projectID][userAddress] = partnerRole;
+        emit PartnerAddedToConsortium(projectID, userAddress, partnerRole);
     }
 
     function getProjectDetails(string memory projectID) public view returns (Project memory) {
@@ -214,12 +216,6 @@ contract Storage {
 
     function getMyProjectsCount() public view returns (uint) {
         return myProjects[msg.sender].length;
-    }
-
-    function addUserToProject(string memory projectID, address userAddress, partnerRoles partnerRole) public {
-        consortium[projectID].push(userDirectory[userAddress]);
-        myProjects[userAddress].push(projectRegistry[projectID]);
-        projectRoles[projectID][msg.sender] = partnerRole;
     }
 
     function getConsortiumMember(string memory projectID) public view returns (User[] memory) {
@@ -277,13 +273,13 @@ contract Storage {
         return(emailRegistry[email] != address(0x0));
     }
 
-    function addItemToProject(projectItems itemType, string memory itemID, string memory _projectID, address _by, uint256 timestamp) public returns (bool) {
+    function addItemToProject(projectItems itemType, string memory itemID, string memory _projectID, uint256 timestamp) public returns (bool) {
         Item memory newItem = Item({
             itemType: itemType,
             itemID: itemID
         });
         itemList[_projectID].push(newItem);
-        emit ItemAdded(_projectID, itemType, itemID, _by, timestamp);
+        emit ItemAdded(_projectID, itemType, itemID, timestamp);
         return true;
     }
 }
