@@ -713,7 +713,7 @@ function PaymentForm(props) {
                     </Dropzone>
                     {companyDoc.length > 0 ? <div>
                         <h4>{companyDoc.length} images uploaded</h4>
-                        <div>{companyDoc.map((file) => <img src={file} height="50px" width="50px" />)}</div>
+                        <div>{companyDoc.map((file) => <img src={file} key={Math.random()} height="50px" width="50px" />)}</div>
                     </div> : null}
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -755,7 +755,7 @@ function PaymentForm(props) {
                     </Dropzone>
                     {ownerDoc.length > 0 ? <div>
                         <h4>{ownerDoc.length} images uploaded</h4>
-                        <div>{ownerDoc.map((file) => <img src={file} height="50px" width="50px" />)}</div>
+                        <div>{ownerDoc.map((file) => <img src={file} key={Math.random()} height="50px" width="50px" />)}</div>
                     </div> : null}
                 </Grid>
             </Grid>
@@ -935,14 +935,14 @@ function Checkout(props) {
         const orgHash = await ipfs.add(orgBuffer);
         const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ownerDoc,orgInfo:state}))
         const userHash = await ipfs.add(userBuffer);
-
+        console.log(orgHash,userHash);
         var transaction = {
             "to": registryAddress,
             "data": registryContract.methods.setOrganizationAdmin(
               uuidv1(),
             state.companyName,
-            orgHash,
-            userHash,
+            orgHash[0].hash,
+            userHash[0].hash,
             state.email
             ).encodeABI()
           };

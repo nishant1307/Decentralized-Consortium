@@ -16,6 +16,15 @@ const Signup = React.lazy(() => import('views/Signup.jsx'));
 const Register = React.lazy(() => import('views/Register/Register.js'));
 const RecoverAccount = React.lazy(() => import('views/RecoverAccount.jsx'));
 const RegisterOrganization = React.lazy(() => import('views/RegisterOrganization'));
+const LandingPage = React.lazy(() => import('views/LandingPage/Landing.jsx'));
+const IndustryPage = React.lazy(() => import('views/LandingPage/IndustryPage.jsx'));
+const IotRegistryPage =  React.lazy(() => import('views/LandingPage/IotRegistryPage.jsx')); 
+const Solutions = React.lazy(() => import('views/LandingPage/Solutions.jsx')); 
+const ArchitecturePage = React.lazy(() => import('views/LandingPage/ArchitecturePage.jsx')); 
+const ConsumerPage = React.lazy(() => import('views/LandingPage/ConsumerPage.jsx')); 
+const AboutUsPage = React.lazy(() => import('views/LandingPage/AboutUsPage.jsx')); 
+const Contact = React.lazy(() => import('views/LandingPage/Contact.jsx')); 
+const TeamPage = React.lazy(() => import('views/LandingPage/TeamPage.jsx')); 
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 
 const loading = <div className="loader"></div>;
@@ -27,6 +36,15 @@ ReactDOM.render(
       <Suspense fallback={loading}>
         <Router history={hist}>
           <Switch>
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/team" component={TeamPage} />
+            <Route exact path="/consumer" component={ConsumerPage} />
+            <Route exact path="/about" component={AboutUsPage} />
+            <Route exact path="/solutions"component={Solutions} />
+            <Route exact path="/architecture"component={ArchitecturePage} />
+            <Route exact path="/industry"component={IndustryPage} />
+            <Route exact path="/iot-registry-platform"component={IotRegistryPage} />
             <Route path="/dashboard" component={Admin} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
