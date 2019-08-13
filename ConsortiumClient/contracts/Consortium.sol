@@ -1,46 +1,43 @@
-pragma solidity ^0.5.10;
+pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
+import "./EternalStorage.sol";
+contract Registry{
 
-contract Storage {
-
+    EternalStorage s;
     address public owner;
 
-    constructor() public {
+    constructor(address storageAddress) public {
+        s = EternalStorage(storageAddress);
         owner = msg.sender;
     }
 
     modifier onlyOwner() {
-        require(owner == msg.sender);
+        require(msg.sender == owner);
         _;
     }
 
     modifier onlyOrgAdmin() {
-        require(userDirectory[msg.sender].role == roles.admin,"invalid admin address" );
+        require(s.getUserDetails().role == EternalStorage.roles.admin,"invalid admin address" );
         _;
     }
 
     modifier onlyRegistrant() {
-        require(userDirectory[msg.sender].role == roles.admin || userDirectory[msg.sender].role == roles.registrant);
+        require(s.getUserDetails().role == EternalStorage.roles.admin || s.getUserDetails().role == EternalStorage.roles.registrant);
         _;
     }
 
     modifier userExists() {
-        require(!compareStrings(userDirectory[msg.sender].organizationID, ""));
+        require(!compareStrings(s.getUserDetails().organizationID, ""));
         _;
     }
 
     modifier uniqueEmail(string memory email) {
-        require(emailRegistry[email]== address(0x0));
+        require(s.getAddress(keccak256(abi.encodePacked(email))) == address(0x0));
         _;
     }
 
     modifier organizationExists(string memory organizationID) {
-        require(compareStrings(organizationDirectory[organizationID].organizationID, ""));
-        _;
-    }
-
-    modifier sameOrganization(address a, address b) {
-        require(compareStrings(userDirectory[a].organizationID, userDirectory[b].organizationID));
+        require(s.getBoolean(keccak256(abi.encodePacked("organizationExists", organizationID))));
         _;
     }
 
@@ -48,29 +45,13 @@ contract Storage {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
     }
 
-    enum roles {admin, regular, registrant}
+    // enum roles {admin, regular, registrant}
 
     enum partnerRoles { buyer, seller, logistics, agent, bank }
 
-    enum userKYCStatus { kycPending, kycComplete, banned }
+    // enum userKYCStatus { kycPending, kycComplete, banned }
 
     enum projectItems { document, device, product }
-
-    struct User {
-        address publicKey;
-        string organizationID;
-        string email;
-        userKYCStatus status;
-        string kycHash;
-        roles role;
-    }
-
-    struct Organization {
-        string organizationID;
-        string name;
-        string kycHash;
-        userKYCStatus status;
-    }
 
     struct Project {
         bytes32 projectID;
@@ -79,113 +60,69 @@ contract Storage {
         string industry;
     }
 
-    struct Item {
-        projectItems itemType;
-        string itemID;
-    }
-
     event ProjectCreated(bytes32 indexed _projectID, string name, address _by, uint256 timestamp);
     event PartnerAddedToConsortium(bytes32 indexed _projectID, address _by, address userAddress, partnerRoles partnerRole, uint256 timestamp);
-    event ItemAdded(bytes32 indexed _projectID, address _by, projectItems itemType, string itemID, uint256 timestamp);
-
-    // Mapping of invited users emails
-    mapping(string => Organization) invitedUsers;
-
-    // User Directory
-    mapping(address => User) userDirectory;
-
-    // Email Registry
-    mapping(string => address) emailRegistry;
-
-    // All users
-    User[] private users;
-
-    // Organization Directory from organizationID
-    mapping(string => Organization) private organizationDirectory;
-
-    // All Organizations
-    Organization[] private organizations;
-
-    // Mapping between orgID and its Users
-    mapping(string => User[]) orgEmployees;
+    event DocumentAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
+    event DeviceAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
+    event ProductAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
 
     // mapping between Project ID and project Details
-    mapping (bytes32 => Project) private projectRegistry;
+    mapping (bytes32 => Project) internal projectRegistry;
 
     // mapping between ProjectId and Users
-    mapping (bytes32 => User[]) private consortium;
+    mapping (bytes32 => EternalStorage.User[]) internal consortium;
 
     // mapping between userPublicKey and Projects
-    mapping (address => Project[]) private myProjects;
-
-    // mapping between orgType and Organization
-    mapping (string => Organization[]) private partners;
+    mapping (address => Project[]) internal myProjects;
 
     // mapping between projectID and user with their roles
-    mapping(bytes32 => mapping (address => partnerRoles)) projectRoles;
+    mapping(bytes32 => mapping (address => partnerRoles)) internal projectRoles;
 
-    // mapping between ProjectID and item
-    mapping(bytes32 => Item[]) itemList;
-
-    function createUser(string memory organizationID, string memory email, string memory kycHash, roles role) internal uniqueEmail(email) {
-        User memory newUser;
-        newUser.organizationID = organizationID;
-        newUser.email = email;
-        newUser.role = role;
-        newUser.publicKey = msg.sender;
-        newUser.status =  userKYCStatus.kycPending;
-        newUser.kycHash = kycHash;
-        emailRegistry[email] = msg.sender;
-        userDirectory[msg.sender] = newUser;
-        users.push(newUser);
-        orgEmployees[organizationID].push(newUser);
+    function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
+        s.setOrganizationAdmin(organizationID, name, orgKYCHash, userKYCHash, email);
+        s.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
     }
 
-    function setUser(string memory email, string memory kycHash, roles role) public uniqueEmail(email) {
-        if(role != roles.admin) {
-            require(bytes(invitedUsers[email].organizationID).length > 0, "invalid email.");
-            require(bytes(userDirectory[msg.sender].email).length == 0, "address already used.");
+    function createUser(string memory organizationID, string memory email, string memory kycHash, EternalStorage.roles role) public uniqueEmail(email) {
+        s.createUser(organizationID, email, kycHash, role);
+    }
+
+    function setUser(string memory email, string memory kycHash, EternalStorage.roles role) public uniqueEmail(email) {
+        if(role != EternalStorage.roles.admin) {
+            require(bytes(s.getString(keccak256(abi.encodePacked("InviteEmail", email)))).length > 0, "invalid email.");
+            require(bytes(s.getUserDetails().email).length == 0, "address already used.");
         }
-        createUser(invitedUsers[email].organizationID, email , kycHash, role);
+        createUser(s.getString(keccak256(abi.encodePacked("InviteEmail", email))), email , kycHash, role);
     }
 
     function inviteUser(string memory email) public onlyOrgAdmin() {
-        Organization storage adminOrg = organizationDirectory[userDirectory[msg.sender].organizationID];
-        invitedUsers[email] = adminOrg;
+        EternalStorage.Organization memory adminOrg = s.getOrganizationDetails();
+        s.setString(keccak256(abi.encodePacked("InviteEmail", email)), adminOrg.organizationID);
     }
 
-    function switchOrgAdmin(address publicKey) public onlyOrgAdmin sameOrganization(msg.sender, publicKey) {
-        userDirectory[msg.sender].role = roles.regular;
-        userDirectory[publicKey].role == roles.admin;
+    function switchOrgAdmin(address publicKey) public onlyOrgAdmin {
+        s.switchOrgAdmin(publicKey);
     }
 
-    function updateUserRole(address publicKey, roles newRole) public onlyOrgAdmin sameOrganization(msg.sender, publicKey) {
-        require(newRole!=roles.admin);
-        userDirectory[publicKey].role = newRole;
+    function updateUserRole(address publicKey, EternalStorage.roles newRole) public onlyOrgAdmin {
+        require(newRole!=EternalStorage.roles.admin);
+        s.updateUserRole(publicKey, newRole);
     }
 
-    function getUserOrganizationDetails() public view userExists returns (User memory, Organization memory) {
-        return (userDirectory[msg.sender], organizationDirectory[userDirectory[msg.sender].organizationID]);
+    function getUserDetails() public view userExists returns (EternalStorage.User memory) {
+        return s.getUserDetails();
     }
 
-    function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
-        Organization memory newOrganization;
-        newOrganization.organizationID =organizationID;
-        newOrganization.name = name;
-        newOrganization.kycHash = orgKYCHash;
-        newOrganization.status = userKYCStatus.kycPending;
-        createUser(organizationID ,email, userKYCHash, roles.admin);
-        organizationDirectory[organizationID] = newOrganization;
-        organizations.push(newOrganization);
-        partners["All"].push(newOrganization);
+    function getOrganizationDetails() public view userExists returns (EternalStorage.Organization memory) {
+        return s.getOrganizationDetails();
+    }
+
+    function getUserOrganizationDetails() public view userExists returns (EternalStorage.User memory, EternalStorage.Organization memory) {
+        return s.getUserOrganizationDetails();
     }
 
     function setOrganizationType(string memory organizationID, string memory orgType) public userExists organizationExists(organizationID) {
-        partners[orgType].push(organizationDirectory[organizationID]);
-    }
-
-    function getOrganizationDetails(string memory organizationID) public view userExists returns (Organization memory) {
-        return organizationDirectory[organizationID];
+        s.setOrganizationType(organizationID, orgType);
     }
 
     function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public userExists {
@@ -200,7 +137,7 @@ contract Storage {
     }
 
     function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public {
-        consortium[projectID].push(userDirectory[userAddress]);
+        consortium[projectID].push(s.getUserDetailsFromPublicKey(userAddress));
         myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][userAddress] = partnerRole;
         emit PartnerAddedToConsortium(projectID, msg.sender, userAddress, partnerRole, now);
@@ -218,24 +155,24 @@ contract Storage {
         return myProjects[msg.sender].length;
     }
 
-    function getConsortiumMember(bytes32 projectID) public view returns (User[] memory) {
+    function getConsortiumMember(bytes32 projectID) public view returns (EternalStorage.User[] memory) {
         return (consortium[projectID]);
     }
 
-    function getAllUsers() public view returns (User[] memory) {
-        return users;
+    function getAllUsers() public view returns (EternalStorage.User[] memory) {
+        return s.getAllUsers();
     }
 
-    function getAllOrganizations() public view returns (Organization[] memory) {
-        return organizations;
+    function getAllOrganizations() public view returns (EternalStorage.Organization[] memory) {
+        return s.getAllOrganizations();
     }
 
-    function getOrganizationEmployees(string memory organizationID) public view returns (User[] memory) {
-        return orgEmployees[organizationID];
+    function getOrganizationEmployees(string memory organizationID) public view returns (EternalStorage.User[] memory) {
+        return s.getOrganizationEmployees(organizationID);
     }
 
-    function getPartnersByType(string memory orgType) public view returns (Organization[] memory) {
-        return partners[orgType];
+    function getPartnersByType(string memory orgType) public view returns (EternalStorage.Organization[] memory) {
+        return s.getPartnersByType(orgType);
     }
 
     function getPartnerRole(bytes32 projectID, address publicKey) public view returns (partnerRoles) {
@@ -246,44 +183,47 @@ contract Storage {
         return projectRoles[projectID][msg.sender];
     }
 
-    function setUserStatus(address userAddress, userKYCStatus status) public onlyOwner returns (bool) {
-        userDirectory[userAddress].status = status;
+    function setUserStatus(address userAddress, EternalStorage.userKYCStatus status) public onlyOwner returns (bool) {
+        return s.setUserStatus(userAddress, status);
     }
 
-    function setOrganizationKYCStatus(string memory organizationID, userKYCStatus status) public onlyOwner returns (bool) {
-        organizationDirectory[organizationID].status = status;
+    function setOrganizationKYCStatus(string memory organizationID, EternalStorage.userKYCStatus status) public onlyOwner returns (bool) {
+        return s.setOrganizationKYCStatus(organizationID, status);
     }
 
-
-    function getUserKYCStatus() public view userExists returns (userKYCStatus status)  {
-        return userDirectory[msg.sender].status;
+    function getUserKYCStatus() public view userExists returns (EternalStorage.userKYCStatus status)  {
+        return s.getUserKYCStatus();
     }
 
-    function getOrganizationKYCStatus(string memory organizationID) public view returns (userKYCStatus status)  {
-        return organizationDirectory[organizationID].status;
+    function getOrganizationKYCStatus(string memory organizationID) public view returns (EternalStorage.userKYCStatus status)  {
+        return s.getOrganizationKYCStatus(organizationID);
     }
 
     function updateOrganizationKYC(string memory kycHash) public onlyOrgAdmin returns (bool) {
-       organizationDirectory[userDirectory[msg.sender].organizationID].kycHash = kycHash;
+      return s.updateOrganizationKYC(kycHash);
     }
 
 
     function updateKYC(string memory kycHash) public userExists returns (bool) {
-        userDirectory[msg.sender].status =  userKYCStatus.kycPending;
-        userDirectory[msg.sender].kycHash = kycHash;
+        return s.updateKYC(kycHash);
     }
 
     function existingEmail(string memory email) public view returns (bool){
-        return(emailRegistry[email] != address(0x0));
+        return(s.getAddress(keccak256(abi.encodePacked(email))) != address(0x0));
     }
 
-    function addItemToProject(projectItems itemType, string memory itemID, bytes32 _projectID) public userExists returns (bool) {
-        Item memory newItem = Item({
-            itemType: itemType,
-            itemID: itemID
-        });
-        itemList[_projectID].push(newItem);
-        emit ItemAdded(_projectID, msg.sender, itemType, itemID, now);
+    function addDocumentToProject(string memory docID, bytes32 _projectID) public userExists returns (bool) {
+        emit DocumentAdded(_projectID, msg.sender, docID, now);
+        return true;
+    }
+
+    function addDeviceToProject(string memory itemID, bytes32 _projectID) public userExists returns (bool) {
+        emit DeviceAdded(_projectID, msg.sender, itemID, now);
+        return true;
+    }
+
+    function addProductToProject(string memory itemID, bytes32 _projectID) public userExists returns (bool) {
+        emit ProductAdded(_projectID, msg.sender, itemID, now);
         return true;
     }
 }
