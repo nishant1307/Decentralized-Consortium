@@ -3,8 +3,8 @@ import { Button, Card, CardBody, CardHeader, FormFeedback,ListGroupItem,ListGrou
 import ipfs from 'ipfs.js';
 import { connect } from 'react-redux';
 import { createNewThing, closeThingModal } from '../actions/userActions';
-import useForm from 'react-hook-form'
-import * as Yup from 'yup';
+// import useForm from 'react-hook-form'
+// import * as Yup from 'yup';
 import Dropzone from 'react-dropzone'
 import TextField from '@material-ui/core/TextField';
 import "assets/css/ClaimPage.css";

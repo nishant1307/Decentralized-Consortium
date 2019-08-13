@@ -110,7 +110,7 @@ export default function (state = initialState, action) {
     case NEW_PROJECT_CREATED:
       return {
         ...state,
-        projectCount: state.projectCount + 1,
+        projectCount: parseInt(state.projectCount) + 1,
         projectModalOpen: false,
         notificationList: [...state.notificationList, "New Project "+action.payload + " created"]
       }

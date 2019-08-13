@@ -13,7 +13,6 @@ import "assets/css/material-dashboard-react.css?v=1.7.0";
 const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
 const Login = React.lazy(() => import('views/Login.jsx'));
 const Signup = React.lazy(() => import('views/Signup.jsx'));
-const Register = React.lazy(() => import('views/Register/Register.js'));
 const RecoverAccount = React.lazy(() => import('views/RecoverAccount.jsx'));
 const RegisterOrganization = React.lazy(() => import('views/RegisterOrganization'));
 const LandingPage = React.lazy(() => import('views/LandingPage/Landing.jsx'));

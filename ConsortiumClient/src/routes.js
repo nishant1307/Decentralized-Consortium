@@ -15,7 +15,8 @@ import DocConekt from './views/DocConekt/UploadFile';
 import Wallet from './views/DocConekt/Wallet';
 const DashboardPage = React.lazy(() => import('views/Dashboard/Dashboard.jsx'));
 const UserProfile = React.lazy(() => import('views/UserProfile/UserProfile.jsx'));
-const ProjectLocation = React.lazy(() => import('views/Maps/ProjectLocation.jsx'));
+const UserInfo = React.lazy(() => import('views/UserProfile/UserInfo.jsx'));
+// const ProjectLocation = React.lazy(() => import('views/Maps/ProjectLocation.jsx'));
 const Apps = React.lazy(() => import('views/Apps/Apps.jsx'));
 const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
 const ProjectPage = React.lazy(() => import('views/Projects/ProjectPage.jsx'));
@@ -77,12 +78,12 @@ const dashboardRoutes = [
     component: ProjectPage,
     layout: "/dashboard"
   },
-  {
-    path: "/projects/:projectID/location",
-    name: "Project Locations",
-    component: ProjectLocation,
-    layout: "/dashboard"
-  },
+  // {
+  //   path: "/projects/:projectID/location",
+  //   name: "Project Locations",
+  //   component: ProjectLocation,
+  //   layout: "/dashboard"
+  // },
   {
     path: "/projects/:projectID/partners",
     name: "Project Partners",

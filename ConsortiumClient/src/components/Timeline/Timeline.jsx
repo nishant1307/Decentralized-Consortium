@@ -10,13 +10,12 @@ const TimelineComponent = (props) => {
   const [journey, setJourney] = useState([]);
 
   useEffect(()=> {
-    console.log(web3.utils.sha3("ProjectCreated(string,string,address,uint256)"));
-    registryContract.getPastEvents('ProjectCreated', {
-      filter: {_projectID: web3.utils.sha3(props.match.params.projectID)},
+    console.log(props.match.params.projectID);
+    registryContract.getPastEvents("allEvents", {
+      topics: [null, props.match.params.projectID],
       fromBlock: 0
     })
     .then(events => {
-      console.log(events);
       setJourney(events);
     })
   }, []);

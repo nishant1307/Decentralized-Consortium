@@ -23,14 +23,14 @@ import {registryContract} from 'registryContract';
 const Projects = (props) => {
 
   const [projectList, setProjectList] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   useEffect(()=> {
     registryContract.methods.getMyProjects().call({
       from: props.auth.user.publicKey
     }).then(res => {
-      console.log(res,"res");
-      
       setProjectList(res);
+      setLoader(false);
     });
   }, []);
   const projectURL = (projectID) => {
@@ -77,9 +77,11 @@ const Projects = (props) => {
   return (
     <div>
       <GridContainer>
-        {projectRender.length !== 0  ? projectRender :
-          // <CustomLoader />
-          <h3>No Projects Found!</h3>
+        {loader ?
+          <CustomLoader /> :
+          projectRender.length !== 0  ?
+            projectRender :    
+            <h3>No Projects Found!</h3>
         }
       </GridContainer>
     </div>

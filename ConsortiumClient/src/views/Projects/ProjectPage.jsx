@@ -23,8 +23,6 @@ import { openDeviceModal, closeLocationModal } from 'actions/userActions';
 import RegisterDeviceModal from "views/RegisterDeviceModal";
 import {registryContract} from 'registryContract';
 const ProjectPage = (props) => {
-console.log(props);
-
   const {classes} = props;
 
   const locationPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/location";
