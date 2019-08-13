@@ -73,7 +73,7 @@ contract Storage {
     }
 
     struct Project {
-        string projectID;
+        bytes32 projectID;
         string name;
         string description;
         string industry;
@@ -84,9 +84,9 @@ contract Storage {
         string itemID;
     }
 
-    event ProjectCreated(string indexed _projectID, string name, uint256 timestamp);
-    event PartnerAddedToConsortium(string indexed _projectID, address userAddress, partnerRoles partnerRole);
-    event ItemAdded(string indexed _projectID, projectItems itemType, string itemID, uint256 timestamp);
+    event ProjectCreated(bytes32 indexed _projectID, string name, address _by, uint256 timestamp);
+    event PartnerAddedToConsortium(bytes32 indexed _projectID, address _by, address userAddress, partnerRoles partnerRole, uint256 timestamp);
+    event ItemAdded(bytes32 indexed _projectID, address _by, projectItems itemType, string itemID, uint256 timestamp);
 
     // Mapping of invited users emails
     mapping(string => Organization) invitedUsers;
@@ -110,10 +110,10 @@ contract Storage {
     mapping(string => User[]) orgEmployees;
 
     // mapping between Project ID and project Details
-    mapping (string => Project) private projectRegistry;
+    mapping (bytes32 => Project) private projectRegistry;
 
     // mapping between ProjectId and Users
-    mapping (string => User[]) private consortium;
+    mapping (bytes32 => User[]) private consortium;
 
     // mapping between userPublicKey and Projects
     mapping (address => Project[]) private myProjects;
@@ -122,10 +122,10 @@ contract Storage {
     mapping (string => Organization[]) private partners;
 
     // mapping between projectID and user with their roles
-    mapping(string => mapping (address => partnerRoles)) projectRoles;
+    mapping(bytes32 => mapping (address => partnerRoles)) projectRoles;
 
     // mapping between ProjectID and item
-    mapping(string => Item[]) itemList;
+    mapping(bytes32 => Item[]) itemList;
 
     function createUser(string memory organizationID, string memory email, string memory kycHash, roles role) internal uniqueEmail(email) {
         User memory newUser;
@@ -188,25 +188,25 @@ contract Storage {
         return organizationDirectory[organizationID];
     }
 
-    function addNewProject(string memory projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public userExists {
+    function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public userExists {
         Project memory project;
         project.projectID = projectID;
         project.name = name;
         project.description = description;
         project.industry = industry;
         projectRegistry[projectID] = project;
-        emit ProjectCreated(projectID, name, now);
+        emit ProjectCreated(projectID, name, msg.sender, now);
         addUserToProject(projectID, msg.sender, partnerRole);
     }
 
-    function addUserToProject(string memory projectID, address userAddress, partnerRoles partnerRole) public {
+    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public {
         consortium[projectID].push(userDirectory[userAddress]);
         myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][userAddress] = partnerRole;
-        emit PartnerAddedToConsortium(projectID, userAddress, partnerRole);
+        emit PartnerAddedToConsortium(projectID, msg.sender, userAddress, partnerRole, now);
     }
 
-    function getProjectDetails(string memory projectID) public view returns (Project memory) {
+    function getProjectDetails(bytes32 projectID) public view returns (Project memory) {
         return (projectRegistry[projectID]);
     }
 
@@ -218,7 +218,7 @@ contract Storage {
         return myProjects[msg.sender].length;
     }
 
-    function getConsortiumMember(string memory projectID) public view returns (User[] memory) {
+    function getConsortiumMember(bytes32 projectID) public view returns (User[] memory) {
         return (consortium[projectID]);
     }
 
@@ -238,11 +238,11 @@ contract Storage {
         return partners[orgType];
     }
 
-    function getPartnerRole(string memory projectID, address publicKey) public view returns (partnerRoles) {
+    function getPartnerRole(bytes32 projectID, address publicKey) public view returns (partnerRoles) {
         return projectRoles[projectID][publicKey];
     }
 
-    function getMyRole(string memory projectID) public view returns (partnerRoles) {
+    function getMyRole(bytes32 projectID) public view returns (partnerRoles) {
         return projectRoles[projectID][msg.sender];
     }
 
@@ -263,8 +263,8 @@ contract Storage {
         return organizationDirectory[organizationID].status;
     }
 
-    function updateOrganizationKYC(string memory organizationID ,string memory kycHash) public onlyOrgAdmin returns (bool) {
-       organizationDirectory[organizationID].kycHash = kycHash;
+    function updateOrganizationKYC(string memory kycHash) public onlyOrgAdmin returns (bool) {
+       organizationDirectory[userDirectory[msg.sender].organizationID].kycHash = kycHash;
     }
 
 
@@ -277,13 +277,13 @@ contract Storage {
         return(emailRegistry[email] != address(0x0));
     }
 
-    function addItemToProject(projectItems itemType, string memory itemID, string memory _projectID, uint256 timestamp) public returns (bool) {
+    function addItemToProject(projectItems itemType, string memory itemID, bytes32 _projectID) public userExists returns (bool) {
         Item memory newItem = Item({
             itemType: itemType,
             itemID: itemID
         });
         itemList[_projectID].push(newItem);
-        emit ItemAdded(_projectID, itemType, itemID, timestamp);
+        emit ItemAdded(_projectID, msg.sender, itemType, itemID, now);
         return true;
     }
 }
