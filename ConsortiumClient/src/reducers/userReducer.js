@@ -48,7 +48,7 @@ export default function (state = initialState, action) {
         // user: action.payload.client,
         // organization: action.payload.organization,
         projectCount: action.payload.projectCount,
-        // deviceCount: action.payload.deviceCount,
+        deviceCount: action.payload.deviceCount,
         projectList:action.payload.projectList,
         thingCount: action.payload.thingCount,
         productList:action.payload.productList,
@@ -118,7 +118,7 @@ export default function (state = initialState, action) {
     case NEW_DEVICE_CREATED:
       return {
         ...state,
-        deviceCount: state.deviceCount + parseInt(action.payload),
+        deviceCount: parseInt(state.deviceCount) + parseInt(action.payload),
         deviceModalOpen: false,
         notificationList: [...state.notificationList, "New Device Created"]
       }

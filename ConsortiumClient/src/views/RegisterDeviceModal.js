@@ -8,11 +8,21 @@ import CSVReader from 'react-csv-reader'
 import {deviceList, protocolList, sensorList, dataProtocolList} from 'dataset/devices';
 import {renderFromArray} from 'utils';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles(theme => ({
+  progress: {
+    margin: theme.spacing(2),
+  },
+}));
+
 
 const RegisterDeviceModal = (props) => {
+  const classes = useStyles();
   const [deviceURN, setDeviceURN] = useState('');
+  const [isLoading, setLoading] = useState(false);
     const [state, setState] = useState({
-      selectedProject: '',
+      // selectedProject: '',
       deviceType: '',
       sensor: '',
       communicationProtocol: '',
@@ -29,6 +39,7 @@ const RegisterDeviceModal = (props) => {
   }
 
   const onSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     let deviceURNArray = Array.isArray(deviceURN)? deviceURN : [deviceURN]
     let tokenURI =  {
@@ -38,10 +49,10 @@ const RegisterDeviceModal = (props) => {
       sensor: state.sensor
     }
     props.createNewDevice({
-      selectedProject: state.selectedProject,
+      selectedProject: props.projectList[0],
       deviceURN: deviceURNArray,
       tokenURI: tokenURI,
-      number: state.number
+      number: deviceURNArray.length
     });
   };
 
@@ -55,6 +66,7 @@ const RegisterDeviceModal = (props) => {
       if (deviceURN[0] !== 'DeviceURN' && deviceURN[0] !== '') { deviceURNs.push(deviceURN[0]) }
     })
     setDeviceURN(deviceURNs)
+    setState({number:deviceURNs.length})
   }
 
   const handleDarkSideForce = error => {
@@ -69,7 +81,7 @@ const RegisterDeviceModal = (props) => {
             <Form className="form-horizontal">
               <ModalHeader toggle={toggle}><strong>New Device Registration </strong></ModalHeader>
               <ModalBody>
-                <FormGroup row>
+              {/*  <FormGroup row>
                   <Col md="3">
                     <Label htmlFor="select">Project Name</Label>
                   </Col>
@@ -82,7 +94,7 @@ const RegisterDeviceModal = (props) => {
                       {renderFromArray(props.projectList)}
                     </Input>
                   </Col>
-                </FormGroup>
+                </FormGroup> */}
                 <FormGroup row>
                   <Col xs="12" md="9">
                     <TextField
@@ -100,6 +112,7 @@ const RegisterDeviceModal = (props) => {
                     <TextField type="text"
                       name="deviceURN"
                       fullWidth
+                      value={deviceURN}
                       onChange={(e) => {setDeviceURN(e.target.value)}}
                       label="DeviceURN"  />
                     <FormText color="muted">Enter Device URN</FormText>
@@ -172,7 +185,10 @@ const RegisterDeviceModal = (props) => {
                 </FormGroup>
               </ModalBody>
               <ModalFooter>
+                {isLoading === true  ? <CircularProgress className={classes.progress} /> :
+
                 <Button color="primary" type="button" onClick={onSubmit}>Register new device</Button>
+                }
               </ModalFooter>
             </Form>
               {props.errors.deviceError && (<FormGroup>

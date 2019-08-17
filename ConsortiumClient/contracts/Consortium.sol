@@ -41,6 +41,14 @@ contract Registry{
         _;
     }
 
+    /**
+   * @dev Throws if called by any account other than the registeredContract.
+   */
+  modifier onlyRegisteredContract() {
+    require(registeredContracts[msg.sender]);
+    _;
+  }
+
     function compareStrings (string memory a, string memory b) public pure returns (bool) {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
     }
@@ -78,21 +86,34 @@ contract Registry{
     // mapping between projectID and user with their roles
     mapping(bytes32 => mapping (address => partnerRoles)) internal projectRoles;
 
+    //contracts to emit events
+    mapping(address => bool) internal registeredContracts;
+
+    function addRegisteredContract(address contractAddress) external onlyOwner {
+    require(contractAddress != address(0));
+    registeredContracts[contractAddress] = true;
+    }
+
+    function revokeRegisteredContract(address contractAddress) external onlyOwner {
+    require(contractAddress != address(0));
+    registeredContracts[contractAddress] = false;
+    }
+
     function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
         s.setOrganizationAdmin(organizationID, name, orgKYCHash, userKYCHash, email);
         s.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
     }
 
-    function createUser(string memory organizationID, string memory email, string memory kycHash, EternalStorage.roles role) public uniqueEmail(email) {
+    function createUser(string memory organizationID, string memory email, string memory kycHash, EternalStorage.roles role) internal uniqueEmail(email) {
         s.createUser(organizationID, email, kycHash, role);
     }
 
-    function setUser(string memory email, string memory kycHash, EternalStorage.roles role) public uniqueEmail(email) {
-        if(role != EternalStorage.roles.admin) {
+    function setUser(string memory email, string memory kycHash) public uniqueEmail(email) {
+        // if(role != EternalStorage.roles.admin) {
             require(bytes(s.getString(keccak256(abi.encodePacked("InviteEmail", email)))).length > 0, "invalid email.");
             require(bytes(s.getUserDetails().email).length == 0, "address already used.");
-        }
-        createUser(s.getString(keccak256(abi.encodePacked("InviteEmail", email))), email , kycHash, role);
+        // }
+        createUser(s.getString(keccak256(abi.encodePacked("InviteEmail", email))), email , kycHash, EternalStorage.roles.regular);
     }
 
     function inviteUser(string memory email) public onlyOrgAdmin() {
@@ -121,11 +142,11 @@ contract Registry{
         return s.getUserOrganizationDetails();
     }
 
-    function setOrganizationType(string memory organizationID, string memory orgType) public userExists organizationExists(organizationID) {
+    function setOrganizationType(string memory organizationID, string memory orgType) public onlyOrgAdmin organizationExists(organizationID) {
         s.setOrganizationType(organizationID, orgType);
     }
 
-    function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public userExists {
+    function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public onlyRegistrant {
         Project memory project;
         project.projectID = projectID;
         project.name = name;
@@ -136,7 +157,7 @@ contract Registry{
         addUserToProject(projectID, msg.sender, partnerRole);
     }
 
-    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public {
+    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public onlyRegistrant {
         consortium[projectID].push(s.getUserDetailsFromPublicKey(userAddress));
         myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][userAddress] = partnerRole;
@@ -212,18 +233,18 @@ contract Registry{
         return(s.getAddress(keccak256(abi.encodePacked(email))) != address(0x0));
     }
 
-    function addDocumentToProject(string memory docID, bytes32 _projectID) public userExists returns (bool) {
-        emit DocumentAdded(_projectID, msg.sender, docID, now);
+    function addDocumentToProject(string calldata docID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
+        emit DocumentAdded(_projectID,  tx.origin, docID, now);
         return true;
     }
 
-    function addDeviceToProject(string memory itemID, bytes32 _projectID) public userExists returns (bool) {
-        emit DeviceAdded(_projectID, msg.sender, itemID, now);
+    function addDeviceToProject(string calldata itemID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
+        emit DeviceAdded(_projectID, tx.origin, itemID, now);
         return true;
     }
 
-    function addProductToProject(string memory itemID, bytes32 _projectID) public userExists returns (bool) {
-        emit ProductAdded(_projectID, msg.sender, itemID, now);
+    function addProductToProject(string calldata itemID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
+        emit ProductAdded(_projectID,  tx.origin, itemID, now);
         return true;
     }
 }

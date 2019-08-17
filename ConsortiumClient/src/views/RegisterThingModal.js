@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, CardHeader, FormFeedback,ListGroupItem,ListGroup, Form, FormGroup, Label, Input, FormText, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row , Alert } from 'reactstrap';
 import ipfs from 'ipfs.js';
+const IPFS = require('ipfs-http-client')
 import { connect } from 'react-redux';
 import { createNewThing, closeThingModal } from '../actions/userActions';
 // import useForm from 'react-hook-form'
@@ -15,6 +16,7 @@ import axios from "axios";
 const RegisterThingModal = (props) => {
 
   const onSubmit = (e) => {
+    console.log(claims,state,ipfsHash);
     e.preventDefault();
     props.createNewThing({
       thingName: state.thingName,
@@ -24,7 +26,7 @@ const RegisterThingModal = (props) => {
       thingValue: state.thingValue,
       quantity: state.quantity,
       claims: claims,
-      certificateURLs: certificateURLs,
+      certificateURLs: [],
       ipfsHash: ipfsHash
     })
     setURL([]);
@@ -49,7 +51,7 @@ const RegisterThingModal = (props) => {
     thingBrand: '',
     thingStory: '',
     thingValue: '',
-    quantity: ''
+    quantity: '1'
   })
   let helperspan = null;
   let lastId = -1;
@@ -134,7 +136,7 @@ const makeAddedList = () => {
       let reader = new window.FileReader();
       reader.readAsArrayBuffer(file);
       reader.onloadend = (res) => {
-        let content = ipfs.Buffer.from(res.target.result);
+        let content = IPFS.Buffer.from(res.target.result);
         ipfs.add(content, (err, newHash) => {
           console.log(err, ipfsHash);
           setIPFSHash([...ipfsHash, newHash[0].hash])
@@ -355,7 +357,7 @@ const makeAddedList = () => {
                     <FormText color="muted">Click a pill to remove.</FormText>
                       </Col>
                       </FormGroup>
-                      <FormGroup row>
+                      {/*    <FormGroup row>
                       <Col md="3">
                         <Label htmlFor="text-input">Certificate Name</Label>
                       </Col>
@@ -406,7 +408,7 @@ const makeAddedList = () => {
                       <Button color="primary" onClick={uploadImages}>Upload Certificates</Button>
                       </Col>
                       </FormGroup>
-                      <FormGroup row>
+                  <FormGroup row>
                       <Col md="3">
                         <Label htmlFor="text-input">Uploaded Certificates</Label>
                       </Col>
@@ -422,7 +424,7 @@ const makeAddedList = () => {
                       })
                     }
                       </Col>
-                      </FormGroup>
+                      </FormGroup> */}
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary"  onClick={onSubmit}>Add new Thing</Button>

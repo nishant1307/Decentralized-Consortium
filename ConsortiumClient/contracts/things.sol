@@ -1,6 +1,7 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
-
+import "./EternalStorage.sol";
+import "./consortium.sol";
 library SafeMath {
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
@@ -122,14 +123,15 @@ contract ERC721 is ERC165, Ownable   {
     event Approval(address indexed owner, address indexed approved, string  tokenId);
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
-
+    EternalStorage s;
+    Registry registerContract;
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
 
     // Mapping from token ID to owner
     mapping (string => address) private _tokenOwner;
-    
+
     // Mapping from token ID to approved address
     mapping (string => address) private _tokenApprovals;
 
@@ -141,9 +143,16 @@ contract ERC721 is ERC165, Ownable   {
 
     bytes4 private constant _INTERFACE_ID_ERC721 = 0x80ac58cd;
 
-    constructor () public {
+      constructor (address storageAddress,address registryAddress) public {
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721);
+          s = EternalStorage(storageAddress);
+          registerContract = Registry(registryAddress);
+    }
+
+    modifier onlyRegistrant() {
+        require(s.getUserDetails().role == EternalStorage.roles.admin || s.getUserDetails().role == EternalStorage.roles.registrant);
+        _;
     }
 
 
@@ -169,7 +178,7 @@ contract ERC721 is ERC165, Ownable   {
 
         return owner;
     }
-    
+
 
     /**
      * @dev Approves another address to transfer the given token ID
@@ -190,7 +199,7 @@ contract ERC721 is ERC165, Ownable   {
         _tokenApprovals[tokenId] = to;
         emit Approval(owner, to, tokenId);
     }
-    
+
      function BatchApprove(address to, string[] memory tokenId) public {
         for (uint i=0; i< tokenId.length; i++){
         address owner = ownerOf(tokenId[i]);
@@ -377,8 +386,8 @@ contract ERC721 is ERC165, Ownable   {
 
         emit Transfer(from, to, tokenId);
     }
-    
-    
+
+
 
     /**
      * @dev Internal function to invoke `onERC721Received` on a target address.
@@ -414,36 +423,6 @@ contract ERC721 is ERC165, Ownable   {
         }
     }
 }
-library Roles {
-    struct Role {
-        mapping (address => bool) bearer;
-    }
-
-    /**
-     * @dev Give an account access to this role.
-     */
-    function add(Role storage role, address account) internal {
-        require(!has(role, account), "Roles: account already has role");
-        role.bearer[account] = true;
-    }
-
-    /**
-     * @dev Remove an account's access to this role.
-     */
-    function remove(Role storage role, address account) internal {
-        require(has(role, account), "Roles: account does not have role");
-        role.bearer[account] = false;
-    }
-
-    /**
-     * @dev Check if an account has this role.
-     * @return bool
-     */
-    function has(Role storage role, address account) internal view returns (bool) {
-        require(account != address(0), "Roles: account is the zero address");
-        return role.bearer[account];
-    }
-}
 
 
 contract ERC721Burnable is ERC721 {
@@ -460,76 +439,11 @@ contract ERC721Burnable is ERC721 {
 
 
 
-contract MinterRole is Ownable {
-    using Roles for Roles.Role;
-
-    event MinterAdded(address indexed account);
-    event MinterRemoved(address indexed account);
-
-    Roles.Role private _minters;
-
-    constructor () internal {
-        _addMinter(msg.sender);
-    }
-
-    modifier onlyMinter() {
-        require(isMinter(msg.sender), "MinterRole: caller does not have the Minter role");
-        _;
-    }
-
-    function isMinter(address account) public view returns (bool) {
-        return _minters.has(account);
-    }
-
-    function addMinter(address account) public onlyOwner {
-        _addMinter(account);
-    }
-
-    function renounceMinter(address account) public onlyOwner {
-        _removeMinter(account);
-    }
-
-    function _addMinter(address account) internal {
-        _minters.add(account);
-        emit MinterAdded(account);
-    }
-
-    function _removeMinter(address account) internal {
-        _minters.remove(account);
-        emit MinterRemoved(account);
-    }
-}
-
-contract MetadataAdder is Ownable {
-     using Roles for Roles.Role;
-    event MetadataAdderAdded(address indexed account);
-    event MetadataAdderRemoved(address indexed account);
-
-    Roles.Role private _metadataAdder;
-
-      function addMetadataAdder(address account) public onlyOwner {
-        _addMetadataAdder(account);
-    }
-
-    function renounceMetadataAdder(address account) public onlyOwner {
-        _removeMetadataAdder(account);
-    }
-
-    function _addMetadataAdder(address account) internal {
-        _metadataAdder.add(account);
-    }
-
-    function _removeMetadataAdder(address account) internal {
-        _metadataAdder.remove(account);
-    }
-}
-
-
 /**
  * @title ERC721Mintable
  * @dev ERC721 minting logic.
  */
-contract ERC721Mintable is ERC721, MinterRole {
+contract ERC721Mintable is ERC721 {
     /**
      * @dev Function to mint tokens.
      * @param to The address that will receive the minted tokens.
@@ -541,8 +455,8 @@ contract ERC721Mintable is ERC721, MinterRole {
         return true;
     }
 }
-contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
-    
+contract ERC721Metadata is ERC165, ERC721{
+
      struct deviceDetails {
         string[] certificateURLs;
         string[] ipfsHash;
@@ -558,11 +472,11 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
 
     // Optional mapping for token URIs
     mapping(string => string) private _tokenURIs;
-    
+
     // mapping for token deviceDetails
     mapping(string => deviceDetails) private _tokenDetails;
 
-    
+
     // Optional mapping for project ids
     // mapping(string => string) private _projectIds;
 
@@ -611,7 +525,7 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenURIs[tokenId]);
     }
-    
+
     function getDeviceDetails(string calldata tokenId) external view returns (deviceDetails memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenDetails[tokenId]);
@@ -628,7 +542,7 @@ contract ERC721Metadata is ERC165, ERC721, MetadataAdder{
         _tokenURIs[tokenId] = uri;
         // _projectIds[tokenId] = projectId;
     }
-    
+
     function _setProductDetails(string memory tokenId,string[] memory certificateURLs, string[] memory ipfsHash, uint256 quantity, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) internal {
       deviceDetails memory temp;
       temp.certificateURLs = certificateURLs;
@@ -665,7 +579,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
 
     // Mapping from token ID to index of the owner tokens list
     mapping(string => uint256) private _ownedTokensIndex;
-    
+
     // Array with all token ids, used for enumeration
     string[] private _allTokens;
 
@@ -786,7 +700,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _ownedTokensIndex[tokenId] = _ownedTokens[to].length;
         _ownedTokens[to].push(tokenId);
     }
-    
+
 
     /**
      * @dev Private function to add a token to this extension's token tracking data structures.
@@ -826,8 +740,8 @@ contract ERC721Enumerable is ERC165, ERC721 {
         // Note that _ownedTokensIndex[tokenId] hasn't been cleared: it still points to the old slot (now occupied by
         // lastTokenId, or just over the end of the array if the token was the last one).
     }
-    
-    
+
+
     /**
      * @dev Private function to remove a token from this extension's token tracking data structures.
      * This has O(1) time complexity, but alters the order of the _allTokens array.
@@ -853,18 +767,24 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _allTokensIndex[tokenId] = 0;
     }
 }
-contract ERC721Full is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintable, ERC721Burnable {
-    
-     function setAdditionalDetails(string memory tokenId, string memory metadata ) public returns (bool) {
+contract ThingContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintable, ERC721Burnable {
+     constructor(address storageAddress, address registryAddress) ERC721(storageAddress,registryAddress) public {
+    }
+
+    event MetadataChanged(string tokenId , string metadata);
+
+     function setAdditionalDetails(string memory tokenId, string memory metadata ) public onlyRegistrant returns (bool) {
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setTokenURI(tokenId , metadata);
+        emit MetadataChanged(tokenId,metadata);
         return true;
     }
-    
-    function MintWithDetails(address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, uint256 quantity, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) public returns (bool) {
+
+    function MintWithDetails(address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, uint256 quantity, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) public onlyRegistrant returns (bool) {
         _setProductDetails(tokenId,certificateURLs, ipfsHash, quantity, thingBrand, thingDescription,  thingName, thingStory,  thingValue );
          mint(to, tokenId);
+        //  registerContract.addProductToProject(tokenId,ipfsHash)
         return true;
     }
-    
+
 }

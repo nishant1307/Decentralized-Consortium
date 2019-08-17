@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0xcc51f98456d6d8c9ae4ed3293d4c680b37626298';
+export const registryAddress = '0x1bc2989c6b4fb2c4d2758a3c9c6229db8697b26d';
 export const registryABI = [
 	{
 		"constant": true,
@@ -131,36 +131,6 @@ export const registryABI = [
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "kycHash",
-				"type": "string"
-			},
-			{
-				"internalType": "enum EternalStorage.roles",
-				"name": "role",
-				"type": "uint8"
-			}
-		],
-		"name": "createUser",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
 				"name": "kycHash",
 				"type": "string"
 			}
@@ -192,6 +162,21 @@ export const registryABI = [
 			}
 		],
 		"name": "setOrganizationType",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			}
+		],
+		"name": "addRegisteredContract",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -246,6 +231,26 @@ export const registryABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "email",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "kycHash",
+				"type": "string"
+			}
+		],
+		"name": "setUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -510,6 +515,21 @@ export const registryABI = [
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			}
+		],
+		"name": "revokeRegisteredContract",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
@@ -629,31 +649,6 @@ export const registryABI = [
 			}
 		],
 		"name": "updateUserRole",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "kycHash",
-				"type": "string"
-			},
-			{
-				"internalType": "enum EternalStorage.roles",
-				"name": "role",
-				"type": "uint8"
-			}
-		],
-		"name": "setUser",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -1197,6 +1192,6 @@ export const registryABI = [
 		"name": "ProductAdded",
 		"type": "event"
 	}
-];
+]
 
 export const registryContract =  new web3.eth.Contract(registryABI, registryAddress);

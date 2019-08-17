@@ -82,8 +82,8 @@ const ProjectPage = (props) => {
               <CardIcon color="info">
                 <Icon>device_hub</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}></p>
-              <h4 className={classes.cardTitle}>Devices</h4>
+              <p className={classes.cardCategory}>Devices</p>
+              <h4 className={classes.cardTitle}>{props.user.deviceCount}</h4>
             </CardHeader>
             <CardFooter stats onClick={props.openDeviceModal }>
               <div className={classes.stats}>

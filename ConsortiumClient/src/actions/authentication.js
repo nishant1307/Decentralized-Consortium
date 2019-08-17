@@ -32,6 +32,7 @@ export const loginUser = (user, history) => dispatch => {
     registryContract.methods.getUserOrganizationDetails().call({
         from: user.address
     }).then(res => {
+      console.log(res,"res");
         if (res[0].status === '1' && res[1].status === '1') {
             dispatch(setCurrentUser({ publicKey: user.address }));
             history.push('/dashboard/home');
