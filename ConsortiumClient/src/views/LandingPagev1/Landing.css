@@ -6,16 +6,16 @@ body{
 a{
 	text-decoration:none;
 	cursor:pointer;
-    color:#3d7d9a;
+    color:#3d7d9a !important;
     /* margin: 10px; */
     padding: 10px;
 }
 
-a:hover,a:focus,a:visited{
+a:hover,a:focus{
 	text-decoration:none;
     outline:none;
-    color:white;
-    background-color: #3d7d9a;
+    color:white !important;
+    background-color: #3d7d9a !important;
     /* margin: 10px; */
     padding: 10px;
 }
@@ -37,7 +37,7 @@ a:hover,a:focus,a:visited{
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
 
@@ -84,7 +84,7 @@ a:hover,a:focus,a:visited{
         left: 0;
         right: 0;
         width: 100%;
-        height: 100%; 
+        height: 100%;
       }
 
 /* .firstSection{
@@ -110,11 +110,11 @@ div.background {
     height: 150px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
   }
-  
+
   div.transbox {
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
@@ -125,9 +125,9 @@ div.background {
     filter: alpha(opacity=30); /* For IE8 and earlier */
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
   }
-  
+
   div.transbox h3 {
     margin: 5%;
     color:white;
@@ -136,7 +136,7 @@ div.background {
 
   .planInnerDiv{
     padding: 20px;
-    font-weight:500; 
+    font-weight:500;
     width: 320px;
     height: 150px;
     text-align: center;

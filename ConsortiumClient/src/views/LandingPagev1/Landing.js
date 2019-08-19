@@ -67,7 +67,7 @@ export default function Landing(props) {
                             <a href="google.com" >
                                 About Us
                             </a>
-                            <a href="google.com" >
+                            <a href="/login" >
                                 Get Started
                             </a>
                         </div>
@@ -94,7 +94,7 @@ export default function Landing(props) {
                                     Leverage the power of digitized doccumentation, connected IoT devices, & smart contracts with our Dapps
                                </h4>
                                 <br />
-                                <button style={{ paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, color: "#3d7d9a", fontWeight: 800, position: 'relative', left: "40%" }}>
+                                <button onClick={()=>{window.location.href='/login' }} style={{ paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, color: "#3d7d9a", fontWeight: 800, position: 'relative', left: "40%" }}>
                                     GET TOUR
                                </button>
                             </Grid>
