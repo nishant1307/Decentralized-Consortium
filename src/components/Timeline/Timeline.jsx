@@ -12,7 +12,6 @@ const TimelineComponent = (props) => {
   useEffect(()=> {
     console.log(props.match.params.projectID);
     registryContract.getPastEvents("allEvents", {
-      topics: [null, props.match.params.projectID],
       fromBlock: 0
     })
     .then(events => {

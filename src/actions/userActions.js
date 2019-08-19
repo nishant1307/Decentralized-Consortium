@@ -23,7 +23,7 @@ import {
 } from "./types";
 import { setAuthToken } from '../axiosConfig';
 import productContract from '../productContract.js'
-import deviceContract from '../deviceContract.js'
+import {deviceContract, deviceAddress} from '../deviceContract.js'
 import DocContract from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
 let address = localStorage.getItem("address");
@@ -239,7 +239,7 @@ export const createNewDevice = deviceDetails =>  async (dispatch) => {
 
         var transaction = {
           "nonce": nonce,
-          "to": "0x03e75ed9b4371aa4f0b9021bc353e6b536d561c7",
+          "to": deviceAddress,
           "data": deviceContract.methods.MintWithDetails(
             address,
             deviceDetails.deviceURN[count],

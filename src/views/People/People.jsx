@@ -86,7 +86,7 @@ const People = (props) => {
       <GridContainer>
         {peopleRender}
         <GridItem xs={12} sm={6} md={3}>
-          {props.user.user[5]==="0" && <Card onClick={renderColleagueForm}>
+          {props.user.user[5]==="1" && <Card onClick={renderColleagueForm}>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>add</Icon>

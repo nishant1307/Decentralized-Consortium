@@ -13,11 +13,6 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Slide from '@material-ui/core/Slide';
 import { connect } from 'react-redux';
 import { addNewLocation, closeLocationModal } from '../actions/userActions';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });

@@ -16,6 +16,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
+import DocConekt from 'views/DocConekt/UploadFile';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 import { connect } from 'react-redux';

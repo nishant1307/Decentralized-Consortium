@@ -1,7 +1,7 @@
 pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
 import "./EternalStorage.sol";
-import "./consortium.sol";
+import "./Consortium.sol";
 library SafeMath {
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
@@ -133,7 +133,7 @@ contract ERC721 is ERC165, Ownable   {
     mapping (string => address) private _tokenOwner;
 
       // Mapping from token ID to project
-    mapping (string => string) private _tokenProject;
+    mapping (string => bytes32) private _tokenProject;
 
     // Mapping from token ID to approved address
     mapping (string => address) private _tokenApprovals;
@@ -181,8 +181,8 @@ contract ERC721 is ERC165, Ownable   {
         return owner;
     }
 
-    function projectOf(string memory tokenId) public view returns (string memory) {
-        string memory project = _tokenProject[tokenId];
+    function projectOf(string memory tokenId) public view returns (bytes32) {
+        bytes32 project = _tokenProject[tokenId];
         require(keccak256(abi.encodePacked((project))) != keccak256(abi.encodePacked((""))) , "ERC721: project query for nonexistent token");
 
         return project;
@@ -336,7 +336,7 @@ contract ERC721 is ERC165, Ownable   {
      * @param to The address that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, string memory tokenId, string memory projectId) internal {
+    function _mint(address to, string memory tokenId, bytes32 projectId) internal {
         require(to != address(0), "ERC721: mint to the zero address");
         require(!_exists(tokenId), "ERC721: token already minted");
 
@@ -355,7 +355,7 @@ contract ERC721 is ERC165, Ownable   {
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned
      */
-    function _burn(address owner, string memory tokenId, string memory projectId) internal {
+    function _burn(address owner, string memory tokenId, bytes32 projectId) internal {
         require(ownerOf(tokenId) == owner, "ERC721: burn of token that is not own");
 
         _clearApproval(tokenId);
@@ -383,7 +383,7 @@ contract ERC721 is ERC165, Ownable   {
      * @param to address to receive the ownership of the given token ID
      * @param tokenId uint256 ID of the token to be transferred
      */
-    function _transferFrom(address from, address to, string memory tokenId, string memory projectId) internal {
+    function _transferFrom(address from, address to, string memory tokenId, bytes32 projectId) internal {
         require(ownerOf(tokenId) == from, "ERC721: transfer of token that is not own");
         require(to != address(0), "ERC721: transfer to the zero address");
 
@@ -462,7 +462,7 @@ contract ERC721Mintable is ERC721 {
      * @param tokenId The token id to mint.
      * @return A boolean that indicates if the operation was successful.
      */
-    function mint(address to, string memory tokenId, string memory projectId) internal returns (bool) {
+    function mint(address to, string memory tokenId, bytes32 projectId) internal returns (bool) {
         _mint(to, tokenId, projectId);
         return true;
     }
@@ -568,7 +568,7 @@ contract ERC721Metadata is ERC165, ERC721{
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned by the msg.sender
      */
-    function _burn(address owner, string memory tokenId, string memory projectId) internal {
+    function _burn(address owner, string memory tokenId, bytes32 projectId) internal {
         super._burn(owner, tokenId, projectId);
 
         // Clear metadata (if any)
@@ -585,7 +585,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
     mapping(string => uint256) private _ownedTokensIndex;
 
     // Mapping from project to list of owned token IDs
-    mapping(string => string[]) private _ownedTokensByProject;
+    mapping(bytes32 => string[]) private _ownedTokensByProject;
 
     // Mapping from token ID to index of the project tokens list
     mapping(string => uint256) private _ownedTokensByProjectIndex;
@@ -651,7 +651,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param to address to receive the ownership of the given token ID
      * @param tokenId uint256 ID of the token to be transferred
      */
-    function _transferFrom(address from, address to, string memory tokenId, string memory projectId) internal {
+    function _transferFrom(address from, address to, string memory tokenId, bytes32 projectId) internal {
         super._transferFrom(from, to, tokenId);
 
         _removeTokenFromOwnerEnumeration(from, tokenId);
@@ -668,7 +668,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param to address the beneficiary that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, string memory tokenId, string memory projectId) internal {
+    function _mint(address to, string memory tokenId, bytes32 projectId) internal {
         super._mint(to, tokenId,projectId);
 
         _addTokenToOwnerEnumeration(to, tokenId);
@@ -685,7 +685,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned
      */
-    function _burn(address owner, string memory tokenId, string memory projectId) internal {
+    function _burn(address owner, string memory tokenId, bytes32 projectId) internal {
         super._burn(owner, tokenId, projectId);
 
         _removeTokenFromOwnerEnumeration(owner, tokenId);
@@ -706,7 +706,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         return _ownedTokens[owner];
     }
 
-    function _tokensOfProject(string memory projectId) public view returns (string[] memory) {
+    function _tokensOfProject(bytes32 projectId) public view returns (string[] memory) {
         return _ownedTokensByProject[projectId];
     }
 
@@ -720,7 +720,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _ownedTokens[to].push(tokenId);
     }
 
-    function _addTokenToProjectEnumeration(string memory projectId , string memory tokenId) private {
+    function _addTokenToProjectEnumeration(bytes32 projectId , string memory tokenId) private {
         _ownedTokensIndex[tokenId] = _ownedTokensByProject[projectId].length;
         _ownedTokensByProject[projectId].push(tokenId);
     }
@@ -764,7 +764,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         // lastTokenId, or just over the end of the array if the token was the last one).
     }
 
-      function _removeTokenFromProjectEnumeration(string memory projectId , string memory tokenId) private {
+      function _removeTokenFromProjectEnumeration(bytes32 projectId , string memory tokenId) private {
         // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
@@ -835,11 +835,10 @@ contract DeviceContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Minta
     }
     }
 
-    function MintWithDetails(address to, string memory tokenId, string memory projectId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor) public onlyRegistrant returns (bool) {
+    function MintWithDetails(address to, string memory tokenId, bytes32 projectId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor) public onlyRegistrant returns (bool) {
         _setDeviceDetails(tokenId, communicationProtocol, dataProtocol, deviceType, sensor);
          mint(to, tokenId, projectId);
-        registerContract.addDeviceToProject(tokenId,stringToBytes32(projectId));
+        registerContract.addDeviceToProject(tokenId, (projectId));
         return true;
     }
-
 }
