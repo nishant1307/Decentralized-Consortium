@@ -24,6 +24,9 @@ const ConsumerPage = React.lazy(() => import('views/LandingPage/ConsumerPage.jsx
 const AboutUsPage = React.lazy(() => import('views/LandingPage/AboutUsPage.jsx')); 
 const Contact = React.lazy(() => import('views/LandingPage/Contact.jsx')); 
 const TeamPage = React.lazy(() => import('views/LandingPage/TeamPage.jsx')); 
+//v1
+const Landing = React.lazy(() => import('views/LandingPagev1/Landing')); 
+
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 
 const loading = <div className="loader"></div>;
@@ -35,7 +38,7 @@ ReactDOM.render(
       <Suspense fallback={loading}>
         <Router history={hist}>
           <Switch>
-            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/" component={Landing} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/team" component={TeamPage} />
             <Route exact path="/consumer" component={ConsumerPage} />

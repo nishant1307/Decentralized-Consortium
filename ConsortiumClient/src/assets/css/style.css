@@ -79,7 +79,9 @@ body {
 a{
 	text-decoration:none;
 	cursor:pointer;
-	color:#44ce6f;
+    color:#3d7d9a;
+    /* margin: 10px; */
+    padding: 10px;
 }
 
 .no-padding{
@@ -93,7 +95,11 @@ button:focus{
 .btn,
 a:hover,a:focus,a:visited{
 	text-decoration:none;
-	outline:none;
+    outline:none;
+    color:white;
+    background-color: #3d7d9a;
+    /* margin: 10px; */
+    padding: 10px;
 }
 
 .btn:focus{
