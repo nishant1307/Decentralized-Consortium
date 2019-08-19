@@ -5,6 +5,7 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 // core components
 import Admin from "layouts/Admin.jsx";
+import AdminPanel from "layouts/AdminPanel.jsx";
 import Kyc from 'views/KYC/Kyc';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
@@ -48,6 +49,7 @@ ReactDOM.render(
             <Route exact path="/industry"component={IndustryPage} />
             <Route exact path="/iot-registry-platform"component={IotRegistryPage} />
             <Route path="/dashboard" component={Admin} />
+            <Route path="/admin" component={AdminPanel} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/register" component={Kyc} />

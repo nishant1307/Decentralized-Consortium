@@ -25,6 +25,7 @@ const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
 const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
 const People = React.lazy(() => import('views/People/People.jsx'));
 const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
+const DeviceList = React.lazy(()=>import('views/Projects/DeviceList'))
 import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
   {
@@ -76,6 +77,12 @@ const dashboardRoutes = [
     path: "/projects/:projectID",
     name: "Projects",
     component: ProjectPage,
+    layout: "/dashboard"
+  },
+  {
+    path: "/projects/:projectID/deviceList",
+    name: "Device List",
+    component: DeviceList,
     layout: "/dashboard"
   },
   // {

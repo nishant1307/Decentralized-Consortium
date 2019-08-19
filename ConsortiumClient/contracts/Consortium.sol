@@ -1,47 +1,84 @@
 pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
-import "./EternalStorage.sol";
-contract Registry{
+/**
+ * @title EternalStorage
+ * @dev An ownable contract that can be used as a storage where the variables
+ * are stored in a set of mappings indexed by hash names.
+ */
+contract EternalStorage {
 
-    EternalStorage s;
-    address public owner;
+  struct Storage {
+    mapping(bytes32 => bool) _bool;
+    mapping(bytes32 => int) _int;
+    mapping(bytes32 => uint256) _uint;
+    mapping(bytes32 => string) _string;
+    mapping(bytes32 => address) _address;
+    mapping(bytes32 => bytes32) _bytes32;
+  }
 
-    constructor(address storageAddress) public {
-        s = EternalStorage(storageAddress);
-        owner = msg.sender;
+    struct User {
+        address externalKey;
+        string organizationID;
+        string email;
+        userKYCStatus status;
+        string kycHash;
+        roles role;
+    }
+    struct Organization {
+        string organizationID;
+        string name;
+        string kycHash;
+        userKYCStatus status;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner);
-        _;
-    }
+    // All users
+    User[] internal users;
+    // User Directory
+    mapping(address => User) userDirectory;
 
-    modifier onlyOrgAdmin() {
-        require(s.getUserDetails().role == EternalStorage.roles.admin,"invalid admin address" );
-        _;
-    }
+    // Organization Directory from organizationID
+    mapping(string => Organization) internal organizationDirectory;
 
-    modifier onlyRegistrant() {
-        require(s.getUserDetails().role == EternalStorage.roles.admin || s.getUserDetails().role == EternalStorage.roles.registrant);
-        _;
-    }
+    // All Organizations
+    Organization[] internal organizations;
 
-    modifier userExists() {
-        require(!compareStrings(s.getUserDetails().organizationID, ""));
-        _;
-    }
+    // Mapping between orgID and its Users
+    mapping(string => User[]) internal orgEmployees;
 
-    modifier uniqueEmail(string memory email) {
-        require(s.getAddress(keccak256(abi.encodePacked(email))) == address(0x0));
-        _;
-    }
+    // mapping between orgType and Organization
+    mapping (string => Organization[]) internal partners;
 
-    modifier organizationExists(string memory organizationID) {
-        require(s.getBoolean(keccak256(abi.encodePacked("organizationExists", organizationID))));
-        _;
-    }
+  Storage internal s;
 
-    /**
+  mapping(address => bool) internal registeredContracts;
+
+  address public owner;
+
+  event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+  event ContractRegistered(address indexed contractAddress, uint256 timestamp);
+  event ContractRevoked(address indexed contractAddress, uint256 timestamp);
+  enum roles {unknown, admin, regular, registrant}
+
+
+    enum userKYCStatus { kycPending, kycComplete, banned }
+
+  /**
+   * @dev The constructor sets the original `owner` of the
+   * contract to the sender account.
+   */
+  constructor() public {
+    owner = msg.sender;
+  }
+
+  /**
+   * @dev Throws if called by any account other than the owner.
+   */
+  modifier onlyOwner() {
+    require(msg.sender == owner);
+    _;
+  }
+
+  /**
    * @dev Throws if called by any account other than the registeredContract.
    */
   modifier onlyRegisteredContract() {
@@ -49,202 +86,268 @@ contract Registry{
     _;
   }
 
-    function compareStrings (string memory a, string memory b) public pure returns (bool) {
+  modifier sameOrganization(address a, address b) {
+        require(compareStrings(userDirectory[a].organizationID, userDirectory[b].organizationID));
+        _;
+    }
+
+    function compareStrings (string memory a, string memory b) internal pure returns (bool) {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
     }
 
-    // enum roles {admin, regular, registrant}
 
-    enum partnerRoles { buyer, seller, logistics, agent, bank }
+  /**
+   * @dev Allows the current owner to transfer control of the contract to a
+   * newOwner.
+   * @param newOwner The address to transfer ownership to.
+   */
+  function transferOwnership(address newOwner) external onlyOwner {
+    require(newOwner != address(0));
+    emit OwnershipTransferred(owner, newOwner);
+    owner = newOwner;
+  }
 
-    // enum userKYCStatus { kycPending, kycComplete, banned }
-
-    enum projectItems { document, device, product }
-
-    struct Project {
-        bytes32 projectID;
-        string name;
-        string description;
-        string industry;
-    }
-
-    event ProjectCreated(bytes32 indexed _projectID, string name, address _by, uint256 timestamp);
-    event PartnerAddedToConsortium(bytes32 indexed _projectID, address _by, address userAddress, partnerRoles partnerRole, uint256 timestamp);
-    event DocumentAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
-    event DeviceAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
-    event ProductAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
-
-    // mapping between Project ID and project Details
-    mapping (bytes32 => Project) internal projectRegistry;
-
-    // mapping between ProjectId and Users
-    mapping (bytes32 => EternalStorage.User[]) internal consortium;
-
-    // mapping between userPublicKey and Projects
-    mapping (address => Project[]) internal myProjects;
-
-    // mapping between projectID and user with their roles
-    mapping(bytes32 => mapping (address => partnerRoles)) internal projectRoles;
-
-    //contracts to emit events
-    mapping(address => bool) internal registeredContracts;
-
-    function addRegisteredContract(address contractAddress) external onlyOwner {
+  function addRegisteredContract(address contractAddress) external onlyOwner {
     require(contractAddress != address(0));
+    emit ContractRegistered(contractAddress, now);
     registeredContracts[contractAddress] = true;
-    }
+  }
 
-    function revokeRegisteredContract(address contractAddress) external onlyOwner {
+  function revokeRegisteredContract(address contractAddress) external onlyOwner {
     require(contractAddress != address(0));
+    emit ContractRevoked(contractAddress, now);
     registeredContracts[contractAddress] = false;
+  }
+
+  /**
+   * @dev Allows the owner to set a value for a boolean variable.
+   * @param h The keccak256 hash of the variable name
+   * @param v The value to be stored
+   */
+  function setBoolean(bytes32 h, bool v) external onlyRegisteredContract {
+    s._bool[h] = v;
+  }
+
+  /**
+   * @dev Allows the owner to set a value for a int variable.
+   * @param h The keccak256 hash of the variable name
+   * @param v The value to be stored
+   */
+  function setInt(bytes32 h, int v) external onlyRegisteredContract {
+    s._int[h] = v;
+  }
+
+  /**
+   * @dev Allows the owner to set a value for a boolean variable.
+   * @param h The keccak256 hash of the variable name
+   * @param v The value to be stored
+   */
+  function setUint(bytes32 h, uint256 v) external onlyRegisteredContract {
+    s._uint[h] = v;
+  }
+
+  /**
+   * @dev Allows the owner to set a value for a address variable.
+   * @param h The keccak256 hash of the variable name
+   * @param v The value to be stored
+   */
+  function setAddress(bytes32 h, address v) external onlyRegisteredContract {
+    s._address[h] = v;
+  }
+
+  /**
+   * @dev Allows the owner to set a value for a string variable.
+   * @param h The keccak256 hash of the variable name
+   * @param v The value to be stored
+   */
+  function setString(bytes32 h, string calldata v) external onlyRegisteredContract {
+    s._string[h] = v;
+  }
+
+  /**
+   * @dev Allows the owner to set a value for a bytes variable.
+   * @param h The keccak256 hash of the variable name
+   * @param v The value to be stored
+   */
+  function setBytes32(bytes32 h, bytes32 v) external onlyRegisteredContract {
+    s._bytes32[h] = v;
+  }
+
+  /**
+   * @dev Get the value stored of a boolean variable by the hash name
+   * @param h The keccak256 hash of the variable name
+   */
+  function getBoolean(bytes32 h) external view returns (bool){
+    return s._bool[h];
+  }
+
+  /**
+   * @dev Get the value stored of a int variable by the hash name
+   * @param h The keccak256 hash of the variable name
+   */
+  function getInt(bytes32 h) external view returns (int){
+    return s._int[h];
+  }
+
+  /**
+   * @dev Get the value stored of a uint variable by the hash name
+   * @param h The keccak256 hash of the variable name
+   */
+  function getUint(bytes32 h) external view returns (uint256){
+    return s._uint[h];
+  }
+
+  /**
+   * @dev Get the value stored of a address variable by the hash name
+   * @param h The keccak256 hash of the variable name
+   */
+  function getAddress(bytes32 h) external view returns (address){
+    return s._address[h];
+  }
+
+  /**
+   * @dev Get the value stored of a string variable by the hash name
+   * @param h The keccak256 hash of the variable name
+   */
+  function getString(bytes32 h) external view returns (string memory){
+    return s._string[h];
+  }
+
+  /**
+   * @dev Get the value stored of a bytes variable by the hash name
+   * @param h The keccak256 hash of the variable name
+   */
+  function getBytes(bytes32 h) external view returns (bytes32){
+    return s._bytes32[h];
+  }
+
+  /**** Delete Methods ***********/
+
+    /// @param _key The key for the record
+    function deleteAddress(bytes32 _key) onlyRegisteredContract external {
+        delete s._address[_key];
     }
 
-    function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
-        s.setOrganizationAdmin(organizationID, name, orgKYCHash, userKYCHash, email);
-        s.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
+    /// @param _key The key for the record
+    function deleteUint(bytes32 _key) onlyRegisteredContract external {
+        delete s._uint[_key];
     }
 
-    function createUser(string memory organizationID, string memory email, string memory kycHash, EternalStorage.roles role) internal uniqueEmail(email) {
-        s.createUser(organizationID, email, kycHash, role);
+    /// @param _key The key for the record
+    function deleteString(bytes32 _key) onlyRegisteredContract external {
+        delete s._string[_key];
     }
 
-    function setUser(string memory email, string memory kycHash) public uniqueEmail(email) {
-        // if(role != EternalStorage.roles.admin) {
-            require(bytes(s.getString(keccak256(abi.encodePacked("InviteEmail", email)))).length > 0, "invalid email.");
-            require(bytes(s.getUserDetails().email).length == 0, "address already used.");
-        // }
-        createUser(s.getString(keccak256(abi.encodePacked("InviteEmail", email))), email , kycHash, EternalStorage.roles.regular);
+    /// @param _key The key for the record
+    function deleteBytes32(bytes32 _key) onlyRegisteredContract external {
+        delete s._bytes32[_key];
     }
 
-    function inviteUser(string memory email) public onlyOrgAdmin() {
-        EternalStorage.Organization memory adminOrg = s.getOrganizationDetails();
-        s.setString(keccak256(abi.encodePacked("InviteEmail", email)), adminOrg.organizationID);
+    /// @param _key The key for the record
+    function deleteBool(bytes32 _key) onlyRegisteredContract external {
+        delete s._bool[_key];
     }
 
-    function switchOrgAdmin(address publicKey) public onlyOrgAdmin {
-        s.switchOrgAdmin(publicKey);
+    /// @param _key The key for the record
+    function deleteInt(bytes32 _key) onlyRegisteredContract external {
+        delete s._int[_key];
     }
 
-    function updateUserRole(address publicKey, EternalStorage.roles newRole) public onlyOrgAdmin {
-        require(newRole!=EternalStorage.roles.admin);
-        s.updateUserRole(publicKey, newRole);
+    function createUser(string memory organizationID, string memory email, string memory kycHash, roles role) public onlyRegisteredContract {
+        User memory newUser;
+        newUser.organizationID = organizationID;
+        newUser.email = email;
+        newUser.role = role;
+        newUser.externalKey = tx.origin;
+        newUser.status =  userKYCStatus.kycPending;
+        newUser.kycHash = kycHash;
+        userDirectory[tx.origin] = newUser;
+        users.push(newUser);
+        orgEmployees[organizationID].push(newUser);
     }
 
-    function getUserDetails() public view userExists returns (EternalStorage.User memory) {
-        return s.getUserDetails();
+    function setOrganizationAdmin(string calldata organizationID, string calldata name, string calldata orgKYCHash, string calldata userKYCHash, string calldata email) external {
+        Organization memory newOrganization;
+        newOrganization.organizationID =organizationID;
+        newOrganization.name = name;
+        newOrganization.kycHash = orgKYCHash;
+        newOrganization.status = userKYCStatus.kycPending;
+        createUser(organizationID ,email, userKYCHash, roles.admin);
+        organizationDirectory[organizationID] = newOrganization;
+        organizations.push(newOrganization);
+        partners["All"].push(newOrganization);
     }
 
-    function getOrganizationDetails() public view userExists returns (EternalStorage.Organization memory) {
-        return s.getOrganizationDetails();
+    function getAllUsers() external view onlyRegisteredContract returns (User[] memory) {
+        return users;
     }
 
-    function getUserOrganizationDetails() public view userExists returns (EternalStorage.User memory, EternalStorage.Organization memory) {
-        return s.getUserOrganizationDetails();
+    function getAllOrganizations() external view onlyRegisteredContract returns (Organization[] memory) {
+        return organizations;
     }
 
-    function setOrganizationType(string memory organizationID, string memory orgType) public onlyOrgAdmin organizationExists(organizationID) {
-        s.setOrganizationType(organizationID, orgType);
+    function getUserDetails() external view onlyRegisteredContract returns (User memory) {
+        return (userDirectory[tx.origin]);
     }
 
-    function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public onlyRegistrant {
-        Project memory project;
-        project.projectID = projectID;
-        project.name = name;
-        project.description = description;
-        project.industry = industry;
-        projectRegistry[projectID] = project;
-        emit ProjectCreated(projectID, name, msg.sender, now);
-        addUserToProject(projectID, msg.sender, partnerRole);
+    function getUserDetailsFromPublicKey(address userAddress) external view onlyRegisteredContract returns (User memory) {
+        return (userDirectory[userAddress]);
     }
 
-    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public onlyRegistrant {
-        consortium[projectID].push(s.getUserDetailsFromPublicKey(userAddress));
-        myProjects[userAddress].push(projectRegistry[projectID]);
-        projectRoles[projectID][userAddress] = partnerRole;
-        emit PartnerAddedToConsortium(projectID, msg.sender, userAddress, partnerRole, now);
+    function getOrganizationDetails() external view onlyRegisteredContract returns (Organization memory) {
+        return (organizationDirectory[userDirectory[tx.origin].organizationID]);
     }
 
-    function getProjectDetails(bytes32 projectID) public view returns (Project memory) {
-        return (projectRegistry[projectID]);
+    function getUserOrganizationDetails() external view onlyRegisteredContract returns (User memory, Organization memory) {
+        return (userDirectory[tx.origin], organizationDirectory[userDirectory[tx.origin].organizationID]);
     }
 
-    function getMyProjects() public view returns (Project[] memory) {
-        return myProjects[msg.sender];
+    function getOrganizationEmployees(string calldata organizationID) external view returns (User[] memory) {
+        return orgEmployees[organizationID];
     }
 
-    function getMyProjectsCount() public view returns (uint) {
-        return myProjects[msg.sender].length;
+    function switchOrgAdmin(address externalKey) external onlyRegisteredContract sameOrganization(tx.origin, externalKey){
+        userDirectory[tx.origin].role = roles.regular;
+        userDirectory[externalKey].role == roles.admin;
     }
 
-    function getConsortiumMember(bytes32 projectID) public view returns (EternalStorage.User[] memory) {
-        return (consortium[projectID]);
+    function updateUserRole(address externalKey, roles newRole) external onlyRegisteredContract sameOrganization(tx.origin, externalKey) {
+        userDirectory[externalKey].role = newRole;
     }
 
-    function getAllUsers() public view returns (EternalStorage.User[] memory) {
-        return s.getAllUsers();
+    function setOrganizationType(string calldata organizationID, string calldata orgType) external onlyRegisteredContract {
+        partners[orgType].push(organizationDirectory[organizationID]);
     }
 
-    function getAllOrganizations() public view returns (EternalStorage.Organization[] memory) {
-        return s.getAllOrganizations();
+    function getPartnersByType(string calldata orgType) external onlyRegisteredContract view returns (Organization[] memory) {
+        return partners[orgType];
     }
 
-    function getOrganizationEmployees(string memory organizationID) public view returns (EternalStorage.User[] memory) {
-        return s.getOrganizationEmployees(organizationID);
-    }
-
-    function getPartnersByType(string memory orgType) public view returns (EternalStorage.Organization[] memory) {
-        return s.getPartnersByType(orgType);
-    }
-
-    function getPartnerRole(bytes32 projectID, address publicKey) public view returns (partnerRoles) {
-        return projectRoles[projectID][publicKey];
-    }
-
-    function getMyRole(bytes32 projectID) public view returns (partnerRoles) {
-        return projectRoles[projectID][msg.sender];
-    }
-
-    function setUserStatus(address userAddress, EternalStorage.userKYCStatus status) public onlyOwner returns (bool) {
-        return s.setUserStatus(userAddress, status);
-    }
-
-    function setOrganizationKYCStatus(string memory organizationID, EternalStorage.userKYCStatus status) public onlyOwner returns (bool) {
-        return s.setOrganizationKYCStatus(organizationID, status);
-    }
-
-    function getUserKYCStatus() public view userExists returns (EternalStorage.userKYCStatus status)  {
-        return s.getUserKYCStatus();
-    }
-
-    function getOrganizationKYCStatus(string memory organizationID) public view returns (EternalStorage.userKYCStatus status)  {
-        return s.getOrganizationKYCStatus(organizationID);
-    }
-
-    function updateOrganizationKYC(string memory kycHash) public onlyOrgAdmin returns (bool) {
-      return s.updateOrganizationKYC(kycHash);
-    }
-
-
-    function updateKYC(string memory kycHash) public userExists returns (bool) {
-        return s.updateKYC(kycHash);
-    }
-
-    function existingEmail(string memory email) public view returns (bool){
-        return(s.getAddress(keccak256(abi.encodePacked(email))) != address(0x0));
-    }
-
-    function addDocumentToProject(string calldata docID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit DocumentAdded(_projectID,  tx.origin, docID, now);
+    function updateKYC(string calldata kycHash) external onlyRegisteredContract returns (bool) {
+        userDirectory[tx.origin].status =  userKYCStatus.kycPending;
+        userDirectory[tx.origin].kycHash = kycHash;
         return true;
     }
 
-    function addDeviceToProject(string calldata itemID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit DeviceAdded(_projectID, tx.origin, itemID, now);
+    function updateOrganizationKYC(string calldata kycHash) external onlyRegisteredContract returns (bool) {
+       organizationDirectory[userDirectory[tx.origin].organizationID].kycHash = kycHash;
+    }
+
+    function getOrganizationKYCStatus(string calldata organizationID) external view onlyRegisteredContract returns (userKYCStatus status)  {
+        return organizationDirectory[organizationID].status;
+    }
+
+    function getUserKYCStatus() external view onlyRegisteredContract returns (userKYCStatus status)  {
+        return userDirectory[tx.origin].status;
+    }
+
+    function setOrganizationKYCStatus(string calldata organizationID, userKYCStatus status) external onlyRegisteredContract returns (bool) {
+        organizationDirectory[organizationID].status = status;
         return true;
     }
 
-    function addProductToProject(string calldata itemID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit ProductAdded(_projectID,  tx.origin, itemID, now);
+    function setUserStatus(address userAddress, userKYCStatus status) external onlyRegisteredContract returns (bool) {
+        userDirectory[userAddress].status = status;
         return true;
     }
 }
