@@ -36,10 +36,6 @@
     "identity-obj-proxy": "3.0.0",
     "ipfs-http-client": "^33.1.1",
     "is-wsl": "^1.1.0",
-    "jest": "24.7.1",
-    "jest-environment-jsdom-fourteen": "0.1.0",
-    "jest-resolve": "24.7.1",
-    "jest-watch-typeahead": "0.3.0",
     "jspdf": "^1.5.3",
     "jwt-decode": "^2.2.0",
     "material-table": "^1.45.0",
@@ -87,8 +83,7 @@
     "webpack": "^4.39.1",
     "webpack-dev-server": "^3.7.2",
     "webpack-manifest-plugin": "2.0.4",
-    "workbox-webpack-plugin": "4.2.0",
-    "yup": "^0.27.0"
+    "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
     "dev": "webpack-dev-server --hot --inline --open 'google-chrome' --config webpack.dev.js",

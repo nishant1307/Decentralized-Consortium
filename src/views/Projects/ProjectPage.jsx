@@ -20,8 +20,9 @@ import DocConekt from 'views/DocConekt/UploadFile';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 import { connect } from 'react-redux';
-import { openDeviceModal, closeLocationModal } from 'actions/userActions';
+import { openDeviceModal, openDocModal, closeDocModal } from 'actions/userActions';
 import RegisterDeviceModal from "views/RegisterDeviceModal";
+import RegisterDocModal from "views/RegisterDocModal";
 import {registryContract} from 'registryContract';
 const ProjectPage = (props) => {
   const {classes} = props;
@@ -103,7 +104,7 @@ const ProjectPage = (props) => {
               <p className={classes.cardCategory}>Docs</p>
               <h3 className={classes.cardTitle}>{props.user.docCount}</h3>
             </CardHeader>
-            <CardFooter onClick={()=>{props.history.push('/dashboard/docconekt/upload')} } stats>
+            <CardFooter onClick={props.openDocModal} stats>
               <div className={classes.stats}>
                 <Icon>forward</Icon>
                 Upload Doc on DocConekt
@@ -113,6 +114,7 @@ const ProjectPage = (props) => {
         </GridItem>
       </GridContainer>
       <RegisterDeviceModal projectList= {[props.match.params.projectID]}/>
+      <RegisterDocModal />
     </div>
   );
 }
@@ -128,4 +130,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { openDeviceModal, closeLocationModal })(withStyles(dashboardStyle)(ProjectPage));
+export default connect(mapStateToProps, { openDeviceModal, closeDocModal, openDocModal })(withStyles(dashboardStyle)(ProjectPage));

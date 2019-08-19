@@ -14,8 +14,8 @@ import {
   CLOSE_DEVICE_MODAL,
   OPEN_THING_MODAL,
   CLOSE_THING_MODAL,
-  OPEN_LOCATION_MODAL,
-  CLOSE_LOCATION_MODAL,
+  OPEN_DOC_MODAL,
+  CLOSE_DOC_MODAL,
   CREATE_NEW_NOTIFICATION,
   FETCH_NOTIFICATION,
   EDIT_PROFILE,
@@ -108,16 +108,16 @@ export const closeThingModal = () => dispatch => {
   });
 };
 
-export const openLocationModal = () => dispatch => {
+export const openDocModal = () => dispatch => {
   dispatch({
-    type: OPEN_LOCATION_MODAL,
+    type: OPEN_DOC_MODAL,
     payload: ""
   });
 };
 
-export const closeLocationModal = () => dispatch => {
+export const closeDocModal = () => dispatch => {
   dispatch({
-    type: CLOSE_LOCATION_MODAL,
+    type: CLOSE_DOC_MODAL,
     payload: ""
   });
 };
@@ -179,47 +179,9 @@ export const createNewProject = projectDetails => async (dispatch) => {
   })
 };
 
-// export const addNewLocation = locationDetails => dispatch => {
-//   var transaction = {
-//     "to": registryAddress,
-//     "data": registryContract.methods.addProjectLocation(
-//       locationDetails.latitude,
-//       locationDetails.longitude,
-//       locationDetails.name,
-//       locationDetails.projectID,
-//     ).encodeABI()
-//   };
-//
-//   // web3.eth.estimateGas(transaction).then(gasLimit => {
-//   transaction["gasLimit"] = 2000000;
-//   web3.eth.accounts.signTransaction(transaction, privateKey)
-//     .then(res => {
-//       web3.eth.sendSignedTransaction(res.rawTransaction)
-//         .on('confirmation', async function (confirmationNumber, receipt) {
-//           if (confirmationNumber == 1) {
-//             if (receipt.status == true) {
-//               dispatch({
-//                 type: NEW_PROJECT_CREATED,
-//                 payload: locationDetails.name
-//               });
-//             }
-//           }
-//         })
-//         .on('error', async function (error) {
-//           dispatch({
-//             type: GET_ERRORS,
-//             payload: error
-//           });
-//         })
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       dispatch({
-//         type: GET_ERRORS,
-//         payload: "Error Occured While Creating New Project."
-//       });
-//     });
-// };
+export const addNewDoc = docDetails => dispatch => {
+  console.log("Hey");
+};
 
 export const createNewDevice = deviceDetails =>  async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');
