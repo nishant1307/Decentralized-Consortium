@@ -16,7 +16,6 @@ const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
 const Login = React.lazy(() => import('views/Login.jsx'));
 const Signup = React.lazy(() => import('views/Signup.jsx'));
 const RecoverAccount = React.lazy(() => import('views/RecoverAccount.jsx'));
-const RegisterOrganization = React.lazy(() => import('views/RegisterOrganization'));
 const LandingPage = React.lazy(() => import('views/LandingPage/Landing.jsx'));
 const IndustryPage = React.lazy(() => import('views/LandingPage/IndustryPage.jsx'));
 const IotRegistryPage =  React.lazy(() => import('views/LandingPage/IotRegistryPage.jsx'));
@@ -50,7 +49,6 @@ ReactDOM.render(
             <Route path="/signup" component={Signup} />
             <Route path="/register" component={Kyc} />
             <Route path="/recover" component={RecoverAccount} />
-            <Route path="/registerOrganization" component ={RegisterOrganization} />
             <Route component={Page404}/>
           </Switch>
         </BrowserRouter>
