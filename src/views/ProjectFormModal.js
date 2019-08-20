@@ -5,10 +5,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { createNewProject, closeProjectModal } from '../actions/userActions';
-import useForm from 'react-hook-form'
 import { makeStyles } from '@material-ui/core/styles';
 
-import * as Yup from 'yup';
 import { industryList } from '../dataset/industries';
 import { functionalRoles } from '../dataset/functionalRoles';
 import { renderFromArray } from '../utils';
@@ -36,23 +34,6 @@ function ProjectFormModal(props) {
   const [industry, setIndustry] = useState('');
   const [role, setRole] = useState(0);
   const [isLoading, setLoading] = useState(false);
-
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .min(2, `Project name has to be at least 2 characters`)
-      .required('Project name is required'),
-    description: Yup.string()
-      .min(2, `Description has to be at least 1 character`)
-      .required('Description is required')
-  })
-
-
-  const { register, handleSubmit, errors } = useForm({
-    mode: 'onChange',
-    validationSchema: validationSchema,
-  })
-
-
 
   const reset = () => {
     // this.setState(this.initialState);
