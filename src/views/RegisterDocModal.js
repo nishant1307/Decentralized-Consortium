@@ -49,6 +49,7 @@ const DialogTitle = withStyles(styles)(props => {
 const DialogContent = withStyles(theme => ({
   root: {
     padding: theme.spacing(2),
+    width:theme.spacing(104)
   },
 }))(MuiDialogContent);
 
@@ -59,7 +60,7 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-const RegisterDocModal = (props) =>  {
+const RegisterDocModal = (props) =>  {  
 
   return (
     <div>
@@ -68,12 +69,14 @@ const RegisterDocModal = (props) =>  {
         aria-labelledby="customized-dialog-title"
         TransitionComponent={Transition}
         open={props.user.docModalOpen}
+        maxWidth = "xl"
+        
       >
         <DialogTitle id="customized-dialog-title" onClose={props.closeDocModal}>
-          DocConekt
+          {/* DocConekt */} &nbsp;
         </DialogTitle>
         <DialogContent dividers>
-          <UploadFile />
+          <UploadFile projectList= {props.projectList} history={props}  />
         </DialogContent>
         {/**<DialogActions>
           <Button onClick={() => {props.addNewLocation({

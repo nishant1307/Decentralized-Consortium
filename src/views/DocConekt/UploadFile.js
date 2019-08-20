@@ -18,12 +18,7 @@ import TextField from '@material-ui/core/TextField';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { withRouter } from 'react-router'
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -98,8 +93,8 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(3),
         marginBottom: theme.spacing(3),
         padding: theme.spacing(2),
-        width:600,
-        height:300,
+        width: 600,
+        height: 300,
         [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
             marginTop: theme.spacing(6),
             marginBottom: theme.spacing(6),
@@ -136,14 +131,11 @@ const useStyles = makeStyles(theme => ({
     },
     root: {
         flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-        display: 'flex',
-        width:800,
-        height:400,
+        width: theme.spacing(100)
     },
     tabs: {
         borderRight: `1px solid ${theme.palette.divider}`,
-        
+
     },
 }));
 
@@ -192,7 +184,7 @@ function AddressForm({ parentCallback }) {
 
     return (
         <div>
-            <Typography variant="h7" gutterBottom>
+            <Typography variant="h6" gutterBottom>
                 Select File to Upload
         </Typography>
             <Grid container spacing={3}>
@@ -253,7 +245,7 @@ function Review(props) {
     );
 }
 
-export default function Checkout(props) {
+function Checkout(props) {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [status, setStatus] = React.useState(false);
@@ -321,19 +313,19 @@ export default function Checkout(props) {
             case 0:
                 return (salesTypes.map((data) => {
                     return (
-                        <MenuItem value={data}>{data}</MenuItem>
+                        <MenuItem key={Math.random()} value={data}>{data}</MenuItem>
                     )
                 }));
             case 1:
                 return (shippingType.map((data) => {
                     return (
-                        <MenuItem value={data}>{data}</MenuItem>
+                        <MenuItem key={Math.random()} value={data}>{data}</MenuItem>
                     )
                 }));
             case 2:
                 return (bankType.map((data) => {
                     return (
-                        <MenuItem value={data}>{data}</MenuItem>
+                        <MenuItem key={Math.random()} value={data}>{data}</MenuItem>
                     )
                 }))
             default:
@@ -358,7 +350,6 @@ export default function Checkout(props) {
     }
 
     function handleStructured() {
-        console.log(subDocType);
         props.history.push('/dashboard/structured/' + subDocType)
     }
 
@@ -406,121 +397,121 @@ export default function Checkout(props) {
             // });
         })
     }
-
     return (
-        <main className={classes.layout}>
-            <div className={classes.root}>
-                <Tabs
-                    orientation="vertical"
-                    variant="scrollable"
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="Vertical tabs example"
-                    className={classes.tabs}
-                >
-                    <Tab label="Unstructured document" {...a11yProps(0)} />
-                    <Tab label="Structured document" {...a11yProps(1)} />
+        <div className={classes.root}>
+            <Tabs
+                value={value}
+                onChange={handleChange}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+            >
+                <Tab style={{ outline: "none" }} label="Unstructured document" {...a11yProps(0)} />
+                <Tab style={{ outline: "none" }} label="Structured document" {...a11yProps(1)} />
 
-                </Tabs>
-                <TabPanel value={value} index={0}>
-                    <Paper className={classes.paper}>
-                        <Typography component="h1" variant="h4" align="center">
-                            File Upload
+            </Tabs>
+            <TabPanel value={value} index={0}>
+                {/* <Paper className={classes.paper}> */}
+                <Typography component="h1" variant="h4" align="center">
+                    File Upload
           </Typography>
-                        <Stepper activeStep={activeStep} className={classes.stepper}>
-                            {steps.map(label => (
-                                <Step key={label}>
-                                    <StepLabel>{label}</StepLabel>
-                                </Step>
-                            ))}
-                        </Stepper>
+                <Stepper activeStep={activeStep} className={classes.stepper}>
+                    {steps.map(label => (
+                        <Step key={label}>
+                            <StepLabel>{label}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
+                <React.Fragment>
+                    {activeStep === steps.length ? (
                         <React.Fragment>
-                            {activeStep === steps.length ? (
-                                <React.Fragment>
-                                    <Review hash={txHash} />
-                                </React.Fragment>
-                            ) : (
-                                    <React.Fragment>
-                                        {getStepContent(activeStep)}
-                                        <div className={classes.buttons}>
-                                            {activeStep !== 0 && (
-                                                <Button onClick={handleBack} className={classes.button}>
-                                                    Back
+                            <Review hash={txHash} />
+                        </React.Fragment>
+                    ) : (
+                            <React.Fragment>
+                                {getStepContent(activeStep)}
+                                <div className={classes.buttons}>
+                                    {activeStep !== 0 && activeStep !== 2 && (
+                                        <Button onClick={handleBack} className={classes.button}>
+                                            Back
                     </Button>
-                                            )}
-                                            {activeStep === 1 && (
-                                                <Button
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={uploadFile} className={classes.button}>
-                                                    Upload File
+                                    )}
+                                    {activeStep === 1 && (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={uploadFile} className={classes.button}>
+                                            Upload File
                      </Button>
-                                            )}
-                                            {activeStep !== 1 && (<Button
-                                                variant="contained"
-                                                color="primary"
-                                                onClick={handleNext}
-                                                className={classes.button}
-                                            >
-                                                {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                                    )}
+                                    {activeStep !== 1 && activeStep !== 2 && (<Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleNext}
+                                        className={classes.button}
+                                    >
+                                        Next
                                             </Button>)}
-                                        </div>
-                                    </React.Fragment>
-                                )}
-                        </React.Fragment>
-                    </Paper>
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <Paper className={classes.paper}>
-                        <Typography component="h1" variant="h4" align="center">
-                            Selet Document Type
+                                </div>
+                            </React.Fragment>
+                        )}
+                </React.Fragment>
+                {/* </Paper> */}
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                {/* <Paper className={classes.paper}> */}
+                <Typography component="h1" variant="h4" align="center">
+                    Selet Document Type
           </Typography>
-                        <br /><br /><br />
-                        <form className={classes.container}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={6} md={6}>
-                                    <FormControl className={classes.formControl}>
-                                        <InputLabel htmlFor="age-native-simple">Document Type</InputLabel>
-                                        <Select
-                                            value={DocType}
-                                            onChange={handleDocChange("Main")}
-                                            input={<Input id="mainType" />}
-                                        >
-                                            <MenuItem value={0}>{mainDocType[0]}</MenuItem>
-                                            <MenuItem value={1}>{mainDocType[1]}</MenuItem>
-                                            <MenuItem value={2}>{mainDocType[2]}</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={6} md={6}>
-                                    <FormControl className={classes.formControl}>
-                                        <InputLabel htmlFor="age-simple">Sub-Type</InputLabel>
-                                        <Select
-                                            value={subDocType}
-                                            onChange={handleDocChange("Sub")}
-                                            input={<Input id="sub-Type" />}
-                                        >
-                                            {getSubContent(DocType)}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
-                        </form>
-                        <React.Fragment>
-                            <div className={classes.buttons}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleStructured}
-                                    className={classes.button}
+                <br /><br /><br />
+                <form className={classes.container}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={6} md={6} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel htmlFor="age-native-simple">Document Type</InputLabel>
+                                <Select
+                                    value={DocType}
+                                    onChange={handleDocChange("Main")}
+                                    input={<Input id="mainType" />}
                                 >
-                                    Next
+                                    <MenuItem value={0}>{mainDocType[0]}</MenuItem>
+                                    <MenuItem value={1}>{mainDocType[1]}</MenuItem>
+                                    <MenuItem value={2}>{mainDocType[2]}</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={6} md={6} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel htmlFor="age-simple">Sub-Type</InputLabel>
+                                <Select
+                                    value={subDocType}
+                                    onChange={handleDocChange("Sub")}
+                                    input={<Input id="sub-Type" />}
+                                >
+                                    {getSubContent(DocType)}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                </form>
+                <React.Fragment>
+                    <div className={classes.buttons}>
+                        <Link to={{ pathname:'/dashboard/structured/' + subDocType, state: { projectId: props.projectList } }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                           
+                                className={classes.button}
+                            >
+                                Next
                                 </Button>
-                            </div>
-                        </React.Fragment>
-                    </Paper>
-                </TabPanel>
-            </div>
-        </main>
+                        </Link>
+                    </div>
+                </React.Fragment>
+                {/* </Paper> */}
+            </TabPanel>
+        </div>
     );
 }
+
+export default withRouter(Checkout);
