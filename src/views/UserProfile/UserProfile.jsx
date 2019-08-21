@@ -14,9 +14,13 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import Skeleton from '@material-ui/lab/Skeleton';
+
 import { connect } from 'react-redux';
 import avatar from "assets/img/faces/marc.jpg";
 import {registryContract} from "registryContract";
+import {parseJSONFromIPFSHash} from "utils";
+import axios from "axios";
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -50,6 +54,14 @@ const UserProfile = props => {
     //   setUserDetails(res[0]);
     //   setOrganizationDetails(res[1]);
     // })
+    // axios.get("https://files.arthanium.org/ipfs/"+props.user.user[4], {}).then(res => {
+    //   console.log();
+    //
+    // })
+    parseJSONFromIPFSHash(props.user.user[4]).then(data => {
+      console.log(data);
+      setUserDetails(data.info);
+    });
   }, []);
 
   const { classes } = props;
@@ -66,35 +78,29 @@ const UserProfile = props => {
               <h4 className={classes.cardTitleWhite}>Your Profile</h4>
               <p className={classes.cardCategoryWhite}></p>
             </CardHeader>
-            <CardBody>
+            { userDetails ? <CardBody>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={5}>
+                <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="Company (disabled)"
+                    labelText="Company"
                     id="company-disabled"
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputProps={{
-                      disabled: true
-                    }}
                     value={props.user.organization[1]}
                   />
                 </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
+                <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
                     labelText="UserID"
                     id="username"
                     formControlProps={{
                       fullWidth: true
                     }}
-                    inputProps={{
-                      disabled: true
-                    }}
                     value={props.user.user[0]}
                   />
                 </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
+                <GridItem xs={12} sm={12} md={6}>
                   {!editMode ?
                     <CustomInput
                       labelText="Email address"
@@ -102,7 +108,7 @@ const UserProfile = props => {
                       formControlProps={{
                         fullWidth: true
                       }}
-                      value={props.user.user[4]}
+                      value={userDetails.email}
                     /> :
                     <CustomInput
                       labelText="Email address"
@@ -110,7 +116,7 @@ const UserProfile = props => {
                       formControlProps={{
                         fullWidth: true
                       }}
-                      placeholder={props.user.user[4]}
+                      placeholder={userDetails.email}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -120,22 +126,12 @@ const UserProfile = props => {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    labelText="First Name"
+                    labelText="Full Name"
                     id="first-name"
                     formControlProps={{
                       fullWidth: true
                     }}
-                    value={props.user.user[2]}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={6}>
-                  <CustomInput
-                    labelText="Last Name"
-                    id="last-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    value={props.user.user[3]}
+                    value={userDetails.fullName}
                   />
                 </GridItem>
               </GridContainer>
@@ -147,7 +143,7 @@ const UserProfile = props => {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    value={organizationDetails.city}
+                    value={userDetails.city}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
@@ -157,7 +153,7 @@ const UserProfile = props => {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    value={organizationDetails.country}
+                    value={userDetails.country}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
@@ -167,33 +163,22 @@ const UserProfile = props => {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    value={organizationDetails.zipcode}
+                    value={userDetails.zipcode}
                   />
                 </GridItem>
               </GridContainer>
             </CardBody>
+            :
+            (
+            <React.Fragment>
+              <Skeleton />
+              <Skeleton width="60%" />
+            </React.Fragment>
+          )
+          }
             <CardFooter>
               <Button color="primary" onClick={() => setEditMode(true)}>Update Profile</Button>
             </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={4}>
-          <Card profile>
-            <CardAvatar profile>
-              <a href="#pablo" onClick={e => e.preventDefault()}>
-                <img src={avatar} alt="..." />
-              </a>
-            </CardAvatar>
-            <CardBody profile>
-              <h6 className={classes.cardCategory}>CEO / CO-FOUNDER</h6>
-              <h4 className={classes.cardTitle}>{props.user.user[2] + " " + props.user.user[3]}</h4>
-              <p className={classes.description}>
-
-              </p>
-              <Button color="primary" round>
-                Follow
-              </Button>
-            </CardBody>
           </Card>
         </GridItem>
       </GridContainer>

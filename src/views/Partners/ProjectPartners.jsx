@@ -19,6 +19,58 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Dialog from '@material-ui/core/Dialog';
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+import MuiDialogContent from '@material-ui/core/DialogContent';
+import MuiDialogActions from '@material-ui/core/DialogActions';
+import Slide from '@material-ui/core/Slide';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+const styles = theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(2),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+const DialogTitle = withStyles(styles)(props => {
+  const { children, classes, onClose } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles(theme => ({
+  root: {
+    padding: theme.spacing(2),
+    width:theme.spacing(104)
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles(theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
+
 import {registryContract} from "registryContract";
 import {inviteUserToConsortium} from "actions/userActions";
 // import CustomLoader from 'components/Loaders/CustomLoader';
@@ -30,6 +82,7 @@ const ProjectPartners = (props) => {
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteOrg, setInviteOrg] = useState('');
   const [invitePublicKey, setInvitePublicKey] = useState('');
+  const [modal, setModal] = useState(true);
 
   const checkForUser = () => {
     registryContract.methods.getPublicKeyFromEmail(inviteEmail).call({
@@ -81,13 +134,38 @@ const ProjectPartners = (props) => {
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
             <CardHeader>
-              <TextField type="text"
-                name="InviteEmail to invite to Consortium"
-                value={inviteEmail}
-                onChange={(e) => {setInviteEmail(e.target.value)}}
-                label="Enter email"  />
-              <Button type="button" onClick={checkForUser}>Check for user </Button>
-              {inviteOrg && <p>Invite {inviteOrg} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
+            <Dialog
+              onClose={() => setModal(false)}
+              aria-labelledby="customized-dialog-title"
+              TransitionComponent={Transition}
+              open={modal}
+              maxWidth = "xl"
+
+            >
+              <DialogTitle id="customized-dialog-title" onClose={() => setModal(false)}>
+                {/* DocConekt */} &nbsp;
+              </DialogTitle>
+              <DialogContent dividers>
+                <TextField type="text"
+                  name="InviteEmail to invite to Consortium"
+                  value={inviteEmail}
+                  onChange={(e) => {setInviteEmail(e.target.value)}}
+                  label="Enter email"  />
+                <Button type="button" onClick={checkForUser}>Check for user </Button>
+                {inviteOrg && <p>Invite {inviteOrg} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
+              </DialogContent>
+              {/**<DialogActions>
+                <Button onClick={() => {props.addNewLocation({
+                  latitude: String(latitude),
+                  longitude: String(longitude),
+                  name: name,
+                  projectID: props.projectID
+                })}} color="primary">
+                  Add Location
+                </Button>
+              </DialogActions> */}
+            </Dialog>
+
             </CardHeader>
           </Card>
         </GridItem>

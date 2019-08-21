@@ -17,6 +17,7 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import CustomLoader from 'components/Loaders/CustomLoader';
+import Skeleton from '@material-ui/lab/Skeleton';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
 import {registryContract} from 'registryContract';
@@ -80,7 +81,7 @@ const Projects = (props) => {
         {loader ?
           <CustomLoader /> :
           projectRender.length !== 0  ?
-            projectRender :    
+            projectRender :
             <h3>No Projects Found!</h3>
         }
       </GridContainer>

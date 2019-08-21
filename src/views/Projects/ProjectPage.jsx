@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
+import TimelineIcon from '@material-ui/icons/Timeline';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -64,7 +65,7 @@ const ProjectPage = (props) => {
           <Link to={journeyPageURL}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Icon>apps</Icon>
+                <TimelineIcon />
               </CardIcon>
               <p className={classes.cardCategory}>Project Journey so far</p>
               <h4 className={classes.cardTitle}></h4>
