@@ -1,7 +1,10 @@
 pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
+import "./Storage.sol";
 import "./EternalStorage.sol";
-contract Registry{
+import "./Utils.sol";
+
+contract Consortium is StorageDefinition {
 
     EternalStorage s;
     address public owner;
@@ -17,22 +20,22 @@ contract Registry{
     }
 
     modifier onlyOrgAdmin() {
-        require(s.getUserDetails().role == EternalStorage.roles.admin,"invalid admin address" );
+        require(s.getUserDetails().role == roles.admin,"Not an admin" );
         _;
     }
 
     modifier onlyRegistrant() {
-        require(s.getUserDetails().role == EternalStorage.roles.admin || s.getUserDetails().role == EternalStorage.roles.registrant);
+        require(s.getUserDetails().role == roles.admin || s.getUserDetails().role == roles.registrant);
         _;
     }
 
     modifier userExists() {
-        require(!compareStrings(s.getUserDetails().organizationID, ""));
+        require(!Utils.compareStrings(s.getUserDetails().organizationID, ""));
         _;
     }
 
     modifier uniqueEmail(string memory email) {
-        require(s.getAddress(keccak256(abi.encodePacked(email))) == address(0x0));
+        require(s.getAddress(keccak256(abi.encodePacked("EmailToPKMapping", email))) == address(0x0));
         _;
     }
 
@@ -42,43 +45,18 @@ contract Registry{
     }
 
     /**
-   * @dev Throws if called by any account other than the registeredContract.
-   */
-  modifier onlyRegisteredContract() {
-    require(registeredContracts[msg.sender]);
-    _;
-  }
-
-    function compareStrings (string memory a, string memory b) public pure returns (bool) {
-        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
+       * @dev Throws if called by any account other than the registeredContract.
+       */
+    modifier onlyRegisteredContract() {
+        require(s.isRegisteredContract(msg.sender));
+        _;
     }
-
-    // enum roles {admin, regular, registrant}
-
-    enum partnerRoles { buyer, seller, logistics, agent, bank }
-
-    // enum userKYCStatus { kycPending, kycComplete, banned }
-
-    enum projectItems { document, device, product }
-
-    struct Project {
-        bytes32 projectID;
-        string name;
-        string description;
-        string industry;
-    }
-
-    event ProjectCreated(bytes32 indexed _projectID, string name, address _by, uint256 timestamp);
-    event PartnerAddedToConsortium(bytes32 indexed _projectID, address _by, address userAddress, partnerRoles partnerRole, uint256 timestamp);
-    event DocumentAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
-    event DeviceAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
-    event ProductAdded(bytes32 indexed _projectID, address _by, string itemID, uint256 timestamp);
 
     // mapping between Project ID and project Details
     mapping (bytes32 => Project) internal projectRegistry;
 
     // mapping between ProjectId and Users
-    mapping (bytes32 => EternalStorage.User[]) internal consortium;
+    mapping (bytes32 => User[]) internal consortium;
 
     // mapping between userPublicKey and Projects
     mapping (address => Project[]) internal myProjects;
@@ -86,38 +64,22 @@ contract Registry{
     // mapping between projectID and user with their roles
     mapping(bytes32 => mapping (address => partnerRoles)) internal projectRoles;
 
-    //contracts to emit events
-    mapping(address => bool) internal registeredContracts;
-
-    function addRegisteredContract(address contractAddress) external onlyOwner {
-    require(contractAddress != address(0));
-    registeredContracts[contractAddress] = true;
-    }
-
-    function revokeRegisteredContract(address contractAddress) external onlyOwner {
-    require(contractAddress != address(0));
-    registeredContracts[contractAddress] = false;
-    }
-
     function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
-        s.setOrganizationAdmin(organizationID, name, orgKYCHash, userKYCHash, email);
+        s.setOrganization(organizationID, name, orgKYCHash);
         s.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
-    }
-
-    function createUser(string memory organizationID, string memory email, string memory kycHash, EternalStorage.roles role) internal uniqueEmail(email) {
-        s.createUser(organizationID, email, kycHash, role);
+        s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
+        s.setUser(organizationID, email, userKYCHash, roles.admin);
     }
 
     function setUser(string memory email, string memory kycHash) public uniqueEmail(email) {
-        // if(role != EternalStorage.roles.admin) {
-            require(bytes(s.getString(keccak256(abi.encodePacked("InviteEmail", email)))).length > 0, "invalid email.");
-            require(bytes(s.getUserDetails().email).length == 0, "address already used.");
-        // }
-        createUser(s.getString(keccak256(abi.encodePacked("InviteEmail", email))), email , kycHash, EternalStorage.roles.regular);
+        require(bytes(s.getString(keccak256(abi.encodePacked("InviteEmail", email)))).length > 0, "invalid email.");
+        require(bytes(s.getUserDetails().email).length == 0, "address already used.");
+        s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
+        s.setUser(s.getString(keccak256(abi.encodePacked("InviteEmail", email))), email, kycHash, roles.regular);
     }
 
     function inviteUser(string memory email) public onlyOrgAdmin() {
-        EternalStorage.Organization memory adminOrg = s.getOrganizationDetails();
+        Organization memory adminOrg = s.getOrganizationDetails();
         s.setString(keccak256(abi.encodePacked("InviteEmail", email)), adminOrg.organizationID);
     }
 
@@ -125,25 +87,21 @@ contract Registry{
         s.switchOrgAdmin(publicKey);
     }
 
-    function updateUserRole(address publicKey, EternalStorage.roles newRole) public onlyOrgAdmin {
-        require(newRole!=EternalStorage.roles.admin);
+    function updateUserRole(address publicKey, roles newRole) public onlyOrgAdmin {
+        require(newRole!=roles.admin);
         s.updateUserRole(publicKey, newRole);
     }
 
-    function getUserDetails() public view userExists returns (EternalStorage.User memory) {
+    function getUserDetails() public view userExists returns (User memory) {
         return s.getUserDetails();
     }
 
-    function getOrganizationDetails() public view userExists returns (EternalStorage.Organization memory) {
+    function getOrganizationDetails() public view userExists returns (Organization memory) {
         return s.getOrganizationDetails();
     }
 
-    function getUserOrganizationDetails() public view userExists returns (EternalStorage.User memory, EternalStorage.Organization memory) {
+    function getUserOrganizationDetails() public view userExists returns (User memory, Organization memory) {
         return s.getUserOrganizationDetails();
-    }
-
-    function setOrganizationType(string memory organizationID, string memory orgType) public onlyOrgAdmin organizationExists(organizationID) {
-        s.setOrganizationType(organizationID, orgType);
     }
 
     function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public onlyRegistrant {
@@ -172,31 +130,27 @@ contract Registry{
         return myProjects[msg.sender];
     }
 
-    function getMyProjectsCount() public view returns (uint) {
+    function getMyProjectsCount() public view returns (uint256) {
         return myProjects[msg.sender].length;
     }
 
-    function getConsortiumMember(bytes32 projectID) public view returns (EternalStorage.User[] memory) {
+    function getConsortiumMember(bytes32 projectID) public view returns (User[] memory) {
         return (consortium[projectID]);
     }
 
-    function getAllUsers() public view returns (EternalStorage.User[] memory) {
+    function getAllUsers() public view returns (User[] memory) {
         return s.getAllUsers();
     }
 
-    function getAllOrganizations() public view returns (EternalStorage.Organization[] memory) {
+    function getAllOrganizations() public view returns (Organization[] memory) {
         return s.getAllOrganizations();
     }
 
-    function getOrganizationEmployees(string memory organizationID) public view returns (EternalStorage.User[] memory) {
+    function getOrganizationEmployees(string memory organizationID) public view returns (User[] memory) {
         return s.getOrganizationEmployees(organizationID);
     }
 
-    function getPartnersByType(string memory orgType) public view returns (EternalStorage.Organization[] memory) {
-        return s.getPartnersByType(orgType);
-    }
-
-    function getPartnerRole(bytes32 projectID, address publicKey) public view returns (partnerRoles) {
+    function getPartnerRole(bytes32 projectID, address publicKey) external view returns (partnerRoles) {
         return projectRoles[projectID][publicKey];
     }
 
@@ -204,33 +158,29 @@ contract Registry{
         return projectRoles[projectID][msg.sender];
     }
 
-    function setUserStatus(address userAddress, EternalStorage.userKYCStatus status) public onlyOwner returns (bool) {
+    function setUserStatus(address userAddress, KYCStatus status) public onlyOwner returns (bool) {
         return s.setUserStatus(userAddress, status);
     }
 
-    function setOrganizationKYCStatus(string memory organizationID, EternalStorage.userKYCStatus status) public onlyOwner returns (bool) {
+    function setOrganizationKYCStatus(string memory organizationID, KYCStatus status) public onlyOwner returns (bool) {
         return s.setOrganizationKYCStatus(organizationID, status);
     }
 
-    function getUserKYCStatus() public view userExists returns (EternalStorage.userKYCStatus status)  {
+    function getUserKYCStatus() public view userExists returns (KYCStatus status)  {
         return s.getUserKYCStatus();
     }
 
-    function getOrganizationKYCStatus(string memory organizationID) public view returns (EternalStorage.userKYCStatus status)  {
+    function getOrganizationKYCStatus(string calldata organizationID) external view returns (KYCStatus status)  {
         return s.getOrganizationKYCStatus(organizationID);
     }
 
-    function updateOrganizationKYC(string memory kycHash) public onlyOrgAdmin returns (bool) {
+    function updateOrganizationKYC(string calldata kycHash) external onlyOrgAdmin returns (bool) {
       return s.updateOrganizationKYC(kycHash);
     }
 
 
-    function updateKYC(string memory kycHash) public userExists returns (bool) {
-        return s.updateKYC(kycHash);
-    }
-
-    function existingEmail(string memory email) public view returns (bool){
-        return(s.getAddress(keccak256(abi.encodePacked(email))) != address(0x0));
+    function updateKYC(string calldata kycHash) external userExists returns (bool) {
+        return s.updateUserKYC(kycHash);
     }
 
     function addDocumentToProject(string calldata docID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
@@ -238,13 +188,43 @@ contract Registry{
         return true;
     }
 
-    function addDeviceToProject(string calldata itemID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit DeviceAdded(_projectID, tx.origin, itemID, now);
+    function addDeviceToProject(string calldata deviceID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
+        emit DeviceAdded(_projectID, tx.origin, deviceID, now);
         return true;
     }
 
-    function addProductToProject(string calldata itemID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit ProductAdded(_projectID,  tx.origin, itemID, now);
+    function addProductToProject(string calldata productID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
+        emit ProductAdded(_projectID,  tx.origin, productID, now);
         return true;
+    }
+
+    function isUniqueEmail(string memory email) public view returns (bool) {
+        return(s.getAddress(keccak256(abi.encodePacked("EmailToPKMapping", email))) == address(0x0));
+    }
+
+    // Function to remove email from Email Mapping (Failsafe Mechanism)
+    function removeEmailFromMapping(string memory email) public onlyOwner returns (bool) {
+        s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), address(0x0));
+        return true;
+    }
+
+    function getPublicKeyFromEmail(string calldata email) external view returns(address) {
+        return s.getAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)));
+    }
+
+    function createPartnershipRequest(string calldata organizationID, string calldata partnershipType, string calldata partnershipDoc) external onlyOrgAdmin{
+        s.createPartnershipRequest(organizationID, partnershipType, partnershipDoc);
+    }
+
+    function getAllPartnershipRequests() external view returns(PartnershipRequest[] memory) {
+        return s.getAllPartnershipRequests();
+    }
+
+    function updatePartnershipStatus(string calldata organizationID, string calldata partnershipType, KYCStatus partnershipStatus) external onlyOwner {
+        s.updatePartnershipStatus(organizationID, partnershipType, partnershipStatus);
+    }
+
+    function getPartnersByType(string memory orgType) public view returns (Organization[] memory) {
+        return s.getPartnersByType(orgType);
     }
 }

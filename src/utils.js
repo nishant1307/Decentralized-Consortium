@@ -8,4 +8,4 @@ export const renderFromArray = array => {
   return render;
 }
 
-export const eternalStorageAddress = "0xedbea0b0b981d6b328f3cffcdbf9559dd3525359";
+export const eternalStorageAddress = "0x3f69452797c779bfd8e6702742929d9b85d508ce";

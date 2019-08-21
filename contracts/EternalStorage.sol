@@ -1,40 +1,18 @@
 pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
+
+import "./Storage.sol";
 /**
  * @title EternalStorage
  * @dev An ownable contract that can be used as a storage where the variables
  * are stored in a set of mappings indexed by hash names.
  */
-contract EternalStorage {
-
-  struct Storage {
-    mapping(bytes32 => bool) _bool;
-    mapping(bytes32 => int) _int;
-    mapping(bytes32 => uint256) _uint;
-    mapping(bytes32 => string) _string;
-    mapping(bytes32 => address) _address;
-    mapping(bytes32 => bytes32) _bytes32;
-  }
-
-    struct User {
-        address externalKey;
-        string organizationID;
-        string email;
-        userKYCStatus status;
-        string kycHash;
-        roles role;
-    }
-    struct Organization {
-        string organizationID;
-        string name;
-        string kycHash;
-        userKYCStatus status;
-    }
+contract EternalStorage is StorageDefinition {
 
     // All users
     User[] internal users;
     // User Directory
-    mapping(address => User) userDirectory;
+    mapping(address => User) internal userDirectory;
 
     // Organization Directory from organizationID
     mapping(string => Organization) internal organizationDirectory;
@@ -45,22 +23,18 @@ contract EternalStorage {
     // Mapping between orgID and its Users
     mapping(string => User[]) internal orgEmployees;
 
-    // mapping between orgType and Organization
+    // mapping between partnershipType and Organization
     mapping (string => Organization[]) internal partners;
 
-  Storage internal s;
+    Storage internal s;
 
-  mapping(address => bool) internal registeredContracts;
+    mapping(address => bool) internal registeredContracts;
 
-  address public owner;
-
-  event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-  event ContractRegistered(address indexed contractAddress, uint256 timestamp);
-  event ContractRevoked(address indexed contractAddress, uint256 timestamp);
-  enum roles {admin, regular, registrant}
+    address public owner;
 
 
-    enum userKYCStatus { kycPending, kycComplete, banned }
+    // All PartnershipRequest
+    PartnershipRequest[] internal partnershipRequests;
 
   /**
    * @dev The constructor sets the original `owner` of the
@@ -82,7 +56,7 @@ contract EternalStorage {
    * @dev Throws if called by any account other than the registeredContract.
    */
   modifier onlyRegisteredContract() {
-    require(registeredContracts[msg.sender]);
+    require(registeredContracts[msg.sender]||msg.sender==address(this));
     _;
   }
 
@@ -107,15 +81,27 @@ contract EternalStorage {
     owner = newOwner;
   }
 
-  function addRegisteredContract(address contractAddress) external onlyOwner {
+  function addRegisteredContract(address contractAddress, string calldata contractType) external onlyOwner {
     require(contractAddress != address(0));
-    emit ContractRegistered(contractAddress, now);
+    emit ContractRegistered(contractAddress, contractType, now);
+    if(this.getAddress(keccak256(abi.encodePacked("ContractRegistry", contractType)))!=address(0x0)){
+        revokeRegisteredContract(contractAddress, contractType);
+    }
+    this.setAddress(keccak256(abi.encodePacked("ContractRegistry", contractType)), contractAddress);
     registeredContracts[contractAddress] = true;
   }
 
-  function revokeRegisteredContract(address contractAddress) external onlyOwner {
+  function getRegisteredContractAddress(string calldata contractType) external view onlyRegisteredContract returns (address) {
+    return this.getAddress(keccak256(abi.encodePacked("ContractRegistry", contractType)));
+  }
+
+  function isRegisteredContract(address contractAddress) external view onlyRegisteredContract returns (bool) {
+      return(registeredContracts[contractAddress]||contractAddress==address(this));
+  }
+
+  function revokeRegisteredContract(address contractAddress, string memory contractType) internal onlyOwner {
     require(contractAddress != address(0));
-    emit ContractRevoked(contractAddress, now);
+    emit ContractRevoked(contractAddress, contractType, now);
     registeredContracts[contractAddress] = false;
   }
 
@@ -253,26 +239,25 @@ contract EternalStorage {
         delete s._int[_key];
     }
 
-    function createUser(string memory organizationID, string memory email, string memory kycHash, roles role) public onlyRegisteredContract {
+    function setUser(string calldata organizationID, string calldata email, string calldata kycHash, roles role) external onlyRegisteredContract {
         User memory newUser;
         newUser.organizationID = organizationID;
         newUser.email = email;
         newUser.role = role;
-        newUser.externalKey = tx.origin;
-        newUser.status =  userKYCStatus.kycPending;
+        newUser.publicKey = tx.origin;
+        newUser.status =  KYCStatus.kycPending;
         newUser.kycHash = kycHash;
         userDirectory[tx.origin] = newUser;
         users.push(newUser);
         orgEmployees[organizationID].push(newUser);
     }
 
-    function setOrganizationAdmin(string calldata organizationID, string calldata name, string calldata orgKYCHash, string calldata userKYCHash, string calldata email) external {
+    function setOrganization(string calldata organizationID, string calldata name, string calldata orgKYCHash) external onlyRegisteredContract {
         Organization memory newOrganization;
         newOrganization.organizationID =organizationID;
         newOrganization.name = name;
         newOrganization.kycHash = orgKYCHash;
-        newOrganization.status = userKYCStatus.kycPending;
-        createUser(organizationID ,email, userKYCHash, roles.admin);
+        newOrganization.status = KYCStatus.kycPending;
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
         partners["All"].push(newOrganization);
@@ -308,23 +293,19 @@ contract EternalStorage {
 
     function switchOrgAdmin(address externalKey) external onlyRegisteredContract sameOrganization(tx.origin, externalKey){
         userDirectory[tx.origin].role = roles.regular;
-        userDirectory[externalKey].role == roles.admin;
+        userDirectory[externalKey].role = roles.admin;
     }
 
     function updateUserRole(address externalKey, roles newRole) external onlyRegisteredContract sameOrganization(tx.origin, externalKey) {
         userDirectory[externalKey].role = newRole;
     }
 
-    function setOrganizationType(string calldata organizationID, string calldata orgType) external onlyRegisteredContract {
-        partners[orgType].push(organizationDirectory[organizationID]);
-    }
-
     function getPartnersByType(string calldata orgType) external onlyRegisteredContract view returns (Organization[] memory) {
         return partners[orgType];
     }
 
-    function updateKYC(string calldata kycHash) external onlyRegisteredContract returns (bool) {
-        userDirectory[tx.origin].status =  userKYCStatus.kycPending;
+    function updateUserKYC(string calldata kycHash) external onlyRegisteredContract returns (bool) {
+        userDirectory[tx.origin].status =  KYCStatus.kycPending;
         userDirectory[tx.origin].kycHash = kycHash;
         return true;
     }
@@ -333,21 +314,47 @@ contract EternalStorage {
        organizationDirectory[userDirectory[tx.origin].organizationID].kycHash = kycHash;
     }
 
-    function getOrganizationKYCStatus(string calldata organizationID) external view onlyRegisteredContract returns (userKYCStatus status)  {
-        return organizationDirectory[organizationID].status;
-    }
-
-    function getUserKYCStatus() external view onlyRegisteredContract returns (userKYCStatus status)  {
-        return userDirectory[tx.origin].status;
-    }
-
-    function setOrganizationKYCStatus(string calldata organizationID, userKYCStatus status) external onlyRegisteredContract returns (bool) {
+    function setOrganizationKYCStatus(string calldata organizationID, KYCStatus status) external onlyRegisteredContract returns (bool) {
         organizationDirectory[organizationID].status = status;
         return true;
     }
 
-    function setUserStatus(address userAddress, userKYCStatus status) external onlyRegisteredContract returns (bool) {
+    function getOrganizationKYCStatus(string calldata organizationID) external view onlyRegisteredContract returns (KYCStatus status)  {
+        return organizationDirectory[organizationID].status;
+    }
+
+    function setUserStatus(address userAddress, KYCStatus status) external onlyRegisteredContract returns (bool) {
         userDirectory[userAddress].status = status;
         return true;
+    }
+
+    function getUserKYCStatus() external view onlyRegisteredContract returns (KYCStatus status)  {
+        return userDirectory[tx.origin].status;
+    }
+
+    function createPartnershipRequest(string calldata organizationID, string calldata partnershipType, string calldata partnershipDoc) external onlyRegisteredContract{
+        PartnershipRequest memory newRequest;
+        newRequest.organizationID = organizationID;
+        newRequest.partnershipDoc = partnershipDoc;
+        newRequest.partnershipType = partnershipType;
+        newRequest.partnershipStatus = KYCStatus.kycPending;
+        partnershipRequests.push(newRequest);
+        this.setUint(keccak256(abi.encodePacked("PartnershipRequestDirectory", partnershipType, this.getUserDetails().organizationID)), partnershipRequests.length-1);
+    }
+
+    function getAllPartnershipRequests() external view onlyRegisteredContract returns(PartnershipRequest[] memory) {
+        return partnershipRequests;
+    }
+
+    function updatePartnershipStatus(string calldata organizationID, string calldata partnershipType, KYCStatus partnershipStatus) external onlyRegisteredContract {
+        uint256 index = this.getUint(keccak256(abi.encodePacked("PartnershipRequestDirectory", partnershipType, organizationID)));
+        partnershipRequests[index].partnershipStatus = partnershipStatus;
+        if(partnershipStatus== KYCStatus.kycComplete){
+            confirmPartnershipStatus(organizationID, partnershipType);
+        }
+    }
+
+    function confirmPartnershipStatus(string memory organizationID, string memory partnershipType) internal {
+        partners[partnershipType].push(organizationDirectory[organizationID]);
     }
 }

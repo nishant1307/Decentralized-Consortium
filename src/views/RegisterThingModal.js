@@ -210,7 +210,7 @@ const makeAddedList = () => {
           <Col>
             <Modal style={{maxWidth: '800px'}}  isOpen={props.user.thingModalOpen} toggle={toggle}>
               <Form>
-                <ModalHeader toggle={toggle}><strong>New Thing Registration </strong></ModalHeader>
+                <ModalHeader toggle={toggle}><strong>New Product Registration </strong></ModalHeader>
                 <ModalBody>
                   <FormGroup row>
                     <Col md="3">

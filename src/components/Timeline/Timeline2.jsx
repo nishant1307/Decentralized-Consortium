@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
+import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
+import 'react-vertical-timeline-component/style.min.css';
 import Divider from '@material-ui/core/Divider';
+import Add from "@material-ui/icons/Add";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {registryContract} from "registryContract";
@@ -51,7 +54,7 @@ const TimelineComponent = (props) => {
             }}
             key={Math.random()}
           >
-            <b>{key.replace(/([A-Z]+)/g, " $1").replace(/([A-Z][a-z])/g, " $1")}:</b> {key=="partnerRole"? fetchPartnerRoleFromCode(event.returnValues[key]) : event.returnValues[key]}
+            <b>{key}:</b> {key=="partnerRole"? fetchPartnerRoleFromCode(event.returnValues[key]) : event.returnValues[key]}
           </p>
         )
       }
@@ -60,22 +63,11 @@ const TimelineComponent = (props) => {
     // let by = await fetchOrgFromAddress(event.returnValues["_by"]);
 
     timelineRender.push(
-      <TimelineItem
+      <VerticalTimelineElement
         key={Math.random()}
-        dateText={time}
-        style={{ color: '#e86971' }}
-        dateInnerStyle={{ background: '#61b8ff', color: '#000' }}
-        bodyContainerStyle={timelineRender.length%2==0 ? {
-          background: '#ddd',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)',
-        }: {
-          background: '#fff',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2)',
-        }}
+        date={time}
+        iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+        icon={<Add />}
       >
         <b><h4>{event.event}</h4>
         <p>By: {event.returnValues["_by"]}</p></b>
@@ -90,14 +82,26 @@ const TimelineComponent = (props) => {
           <b>Blockchain Details:</b> <br />
           <Link to={"/" + event.transactionHash}>View in Blockchain Explorer</Link><br />
         </p>
-      </TimelineItem>
+      </VerticalTimelineElement>
     )
   })
 
   return (
-    <Timeline lineColor={'#ddd'}>
+    <VerticalTimeline>
+      <VerticalTimelineElement
+        className="vertical-timeline-element--work"
+        date="2011 - present"
+        iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+        icon={<Add />}
+      >
+        <h3 className="vertical-timeline-element-title">Creative Director</h3>
+        <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
+        <p>
+          Creative Direction, User Experience, Visual Design, Project Management, Team Leading
+        </p>
+      </VerticalTimelineElement>
       {timelineRender}
-    </Timeline>
+    </VerticalTimeline>
   )
 }
 

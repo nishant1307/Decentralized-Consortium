@@ -179,6 +179,61 @@ export const createNewProject = projectDetails => async (dispatch) => {
   })
 };
 
+export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
+  privateKey = await sessionStorage.getItem('privateKey');
+  web3.eth.getBalance(address).then((balance) => {
+    console.log(balance);
+    if (balance > 1000000000000000000) {
+      var transaction = {
+        "to": registryAddress,
+        "data": registryContract.methods.addUserToProject(
+          invitationDetails.projectID,
+          invitationDetails.inviteAddress,
+          invitationDetails.partnerRole
+        ).encodeABI()
+      };
+
+      // web3.eth.estimateGas(transaction).then(gasLimit => {
+      transaction["gasLimit"] = 4700000;
+      web3.eth.accounts.signTransaction(transaction, privateKey)
+        .then(res => {
+          web3.eth.sendSignedTransaction(res.rawTransaction)
+            .on('receipt', async function (receipt) {
+              console.log(receipt);
+              if (receipt.status == true) {
+                // dispatch({
+                //   type: NEW_PROJECT_CREATED,
+                //   payload: projectDetails.name
+                // });
+              }
+            })
+            .on('error', async function (error) {
+                console.log(error);
+              dispatch({
+                type: GET_ERRORS,
+                payload: error
+              });
+            })
+        })
+        .catch(err => {
+          console.log(err);
+          dispatch({
+            type: GET_ERRORS,
+            payload: "Error Occured While Creating New Project."
+          });
+        });
+    } else {
+      axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address": address, "amount": 30000000000000000000 })
+        .then(res => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: "Network Error."
+          });
+        })
+    }
+  })
+};
+
 export const addNewDoc = docDetails => dispatch => {
   console.log("Hey");
 };

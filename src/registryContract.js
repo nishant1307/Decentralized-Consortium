@@ -1,70 +1,12 @@
 import web3 from './web3';
-export const registryAddress = '0x1bc2989c6b4fb2c4d2758a3c9c6229db8697b26d';
+export const registryAddress = '0x32026cfcf9e2cff600742ff7d810574ec0ac79ec';
 export const registryABI = [
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "projectID",
-				"type": "bytes32"
-			}
-		],
-		"name": "getMyRole",
-		"outputs": [
-			{
-				"internalType": "enum Registry.partnerRoles",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getAllOrganizations",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.Organization[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
 	{
 		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "itemID",
+				"name": "deviceID",
 				"type": "string"
 			},
 			{
@@ -73,7 +15,7 @@ export const registryABI = [
 				"type": "bytes32"
 			}
 		],
-		"name": "addProductToProject",
+		"name": "addDeviceToProject",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -112,666 +54,6 @@ export const registryABI = [
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMyProjectsCount",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "kycHash",
-				"type": "string"
-			}
-		],
-		"name": "updateKYC",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "orgType",
-				"type": "string"
-			}
-		],
-		"name": "setOrganizationType",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "contractAddress",
-				"type": "address"
-			}
-		],
-		"name": "addRegisteredContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "projectID",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "userAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "enum Registry.partnerRoles",
-				"name": "partnerRole",
-				"type": "uint8"
-			}
-		],
-		"name": "addUserToProject",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "projectID",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "address",
-				"name": "publicKey",
-				"type": "address"
-			}
-		],
-		"name": "getPartnerRole",
-		"outputs": [
-			{
-				"internalType": "enum Registry.partnerRoles",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "kycHash",
-				"type": "string"
-			}
-		],
-		"name": "setUser",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "kycHash",
-				"type": "string"
-			}
-		],
-		"name": "updateOrganizationKYC",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "email",
-				"type": "string"
-			}
-		],
-		"name": "existingEmail",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "projectID",
-				"type": "bytes32"
-			}
-		],
-		"name": "getConsortiumMember",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "externalKey",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.roles",
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.User[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "organizationID",
-				"type": "string"
-			},
-			{
-				"internalType": "enum EternalStorage.userKYCStatus",
-				"name": "status",
-				"type": "uint8"
-			}
-		],
-		"name": "setOrganizationKYCStatus",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "publicKey",
-				"type": "address"
-			}
-		],
-		"name": "switchOrgAdmin",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getOrganizationDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.Organization",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "userAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "enum EternalStorage.userKYCStatus",
-				"name": "status",
-				"type": "uint8"
-			}
-		],
-		"name": "setUserStatus",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUserDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "externalKey",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.roles",
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.User",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "contractAddress",
-				"type": "address"
-			}
-		],
-		"name": "revokeRegisteredContract",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "organizationID",
-				"type": "string"
-			}
-		],
-		"name": "getOrganizationEmployees",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "externalKey",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.roles",
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.User[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "itemID",
-				"type": "string"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "_projectID",
-				"type": "bytes32"
-			}
-		],
-		"name": "addDeviceToProject",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "a",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "b",
-				"type": "string"
-			}
-		],
-		"name": "compareStrings",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "pure",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "publicKey",
-				"type": "address"
-			},
-			{
-				"internalType": "enum EternalStorage.roles",
-				"name": "newRole",
-				"type": "uint8"
-			}
-		],
-		"name": "updateUserRole",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUserOrganizationDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "externalKey",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.roles",
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.User",
-				"name": "",
-				"type": "tuple"
-			},
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.Organization",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "orgType",
-				"type": "string"
-			}
-		],
-		"name": "getPartnersByType",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.Organization[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -795,7 +77,7 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"internalType": "enum Registry.partnerRoles",
+				"internalType": "enum StorageDefinition.partnerRoles",
 				"name": "partnerRole",
 				"type": "uint8"
 			}
@@ -807,123 +89,115 @@ export const registryABI = [
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getAllUsers",
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "productID",
+				"type": "string"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "_projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "addProductToProject",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "externalKey",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "organizationID",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "email",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.userKYCStatus",
-						"name": "status",
-						"type": "uint8"
-					},
-					{
-						"internalType": "string",
-						"name": "kycHash",
-						"type": "string"
-					},
-					{
-						"internalType": "enum EternalStorage.roles",
-						"name": "role",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct EternalStorage.User[]",
+				"internalType": "bool",
 				"name": "",
-				"type": "tuple[]"
+				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUserKYCStatus",
-		"outputs": [
+		"constant": false,
+		"inputs": [
 			{
-				"internalType": "enum EternalStorage.userKYCStatus",
-				"name": "status",
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "userAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "enum StorageDefinition.partnerRoles",
+				"name": "partnerRole",
 				"type": "uint8"
 			}
 		],
+		"name": "addUserToProject",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getMyProjects",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "projectID",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "description",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "industry",
-						"type": "string"
-					}
-				],
-				"internalType": "struct Registry.Project[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
 				"name": "organizationID",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "partnershipType",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "partnershipDoc",
+				"type": "string"
 			}
 		],
-		"name": "getOrganizationKYCStatus",
+		"name": "createPartnershipRequest",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "inviteUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "removeEmailFromMapping",
 		"outputs": [
 			{
-				"internalType": "enum EternalStorage.userKYCStatus",
-				"name": "status",
-				"type": "uint8"
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -962,46 +236,29 @@ export const registryABI = [
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"internalType": "bytes32",
-				"name": "projectID",
-				"type": "bytes32"
+				"internalType": "string",
+				"name": "organizationID",
+				"type": "string"
+			},
+			{
+				"internalType": "enum StorageDefinition.KYCStatus",
+				"name": "status",
+				"type": "uint8"
 			}
 		],
-		"name": "getProjectDetails",
+		"name": "setOrganizationKYCStatus",
 		"outputs": [
 			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "projectID",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "description",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "industry",
-						"type": "string"
-					}
-				],
-				"internalType": "struct Registry.Project",
+				"internalType": "bool",
 				"name": "",
-				"type": "tuple"
+				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1011,9 +268,142 @@ export const registryABI = [
 				"internalType": "string",
 				"name": "email",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "kycHash",
+				"type": "string"
 			}
 		],
-		"name": "inviteUser",
+		"name": "setUser",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "userAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "enum StorageDefinition.KYCStatus",
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"name": "setUserStatus",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "publicKey",
+				"type": "address"
+			}
+		],
+		"name": "switchOrgAdmin",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "kycHash",
+				"type": "string"
+			}
+		],
+		"name": "updateKYC",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "kycHash",
+				"type": "string"
+			}
+		],
+		"name": "updateOrganizationKYC",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "organizationID",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "partnershipType",
+				"type": "string"
+			},
+			{
+				"internalType": "enum StorageDefinition.KYCStatus",
+				"name": "partnershipStatus",
+				"type": "uint8"
+			}
+		],
+		"name": "updatePartnershipStatus",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "publicKey",
+				"type": "address"
+			},
+			{
+				"internalType": "enum StorageDefinition.roles",
+				"name": "newRole",
+				"type": "uint8"
+			}
+		],
+		"name": "updateUserRole",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -1085,7 +475,7 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"internalType": "enum Registry.partnerRoles",
+				"internalType": "enum StorageDefinition.partnerRoles",
 				"name": "partnerRole",
 				"type": "uint8"
 			},
@@ -1191,6 +581,738 @@ export const registryABI = [
 		],
 		"name": "ProductAdded",
 		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "contractName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "ContractRegistered",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "contractAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "contractName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "ContractRevoked",
+		"type": "event"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getAllOrganizations",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.Organization[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getAllPartnershipRequests",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "partnershipType",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "partnershipDoc",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "partnershipStatus",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.PartnershipRequest[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getAllUsers",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.roles",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.User[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getConsortiumMember",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.roles",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.User[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getMyProjects",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "bytes32",
+						"name": "projectID",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "industry",
+						"type": "string"
+					}
+				],
+				"internalType": "struct StorageDefinition.Project[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getMyProjectsCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getMyRole",
+		"outputs": [
+			{
+				"internalType": "enum StorageDefinition.partnerRoles",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getOrganizationDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.Organization",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "organizationID",
+				"type": "string"
+			}
+		],
+		"name": "getOrganizationEmployees",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.roles",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.User[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "organizationID",
+				"type": "string"
+			}
+		],
+		"name": "getOrganizationKYCStatus",
+		"outputs": [
+			{
+				"internalType": "enum StorageDefinition.KYCStatus",
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "publicKey",
+				"type": "address"
+			}
+		],
+		"name": "getPartnerRole",
+		"outputs": [
+			{
+				"internalType": "enum StorageDefinition.partnerRoles",
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "orgType",
+				"type": "string"
+			}
+		],
+		"name": "getPartnersByType",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.Organization[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getProjectDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "bytes32",
+						"name": "projectID",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "industry",
+						"type": "string"
+					}
+				],
+				"internalType": "struct StorageDefinition.Project",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "getPublicKeyFromEmail",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.roles",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.User",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserKYCStatus",
+		"outputs": [
+			{
+				"internalType": "enum StorageDefinition.KYCStatus",
+				"name": "status",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "getUserOrganizationDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.roles",
+						"name": "role",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.User",
+				"name": "",
+				"type": "tuple"
+			},
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct StorageDefinition.Organization",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "email",
+				"type": "string"
+			}
+		],
+		"name": "isUniqueEmail",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 
