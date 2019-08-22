@@ -1,552 +1,944 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Container from '@material-ui/core/Container';
+import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import './Landing.css';
-function ElevationScroll(props) {
-    const { children, window } = props;
-    const trigger = useScrollTrigger({
-        disableHysteresis: true,
-        threshold: 0,
-        target: window ? window() : undefined,
-    });
+import "../../WA/projects/ferrari/template/assets/css/font-awesome.min.css"
+import "../../WA/projects/ferrari/template/assets/css/prettyPhoto.css"
+import "../../WA/projects/ferrari/template/assets/css/swiper.min.css"
+import "../../WA/projects/ferrari/template/assets/css/owl.carousel.min.css"
+import "../../WA/projects/ferrari/template/assets/css/sliderDefault.css"
+import "../../WA/projects/ferrari/template/assets/css/sliderCustom.css"
+import "../../WA/projects/ferrari/template/assets/css/style.css"
+import "../../WA/projects/ferrari/template/assets/css/responsive.css"
 
-    return React.cloneElement(children, {
-        elevation: trigger ? 4 : 0,
-    });
-}
 
 const useStyles = makeStyles(theme => ({
-    link: {
-        margin: theme.spacing(1),
-    },
-    main: {
-        display: 'flex'
-    },
-    grow: {
-        flexGrow: 1,
-    },
     root: {
-        flexGrow: 1,
+        width: '100%',
+    },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
     },
 }));
 
 export default function Landing(props) {
     const classes = useStyles();
-
+    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <ElevationScroll {...props}>
-                <AppBar color="default">
-                    <Toolbar className={classes.main}>
-                        <img width="50" height="50" src={require('../../websiteAssets/logo/logo.png')} />
-                        <div className={classes.grow} />
-                        <div style={{ alignContent: "center", textAlign: 'center' }}>
-                            <a href="google.com" >
-                                Home
-                            </a>
-                            <a href="google.com"  >
-                                Platform
-                            </a>
-                            <a href="google.com"  >
-                                Partners
-                            </a>
-                            <a href="google.com"  >
-                                Solutions
-                            </a>
-                            <a href="google.com" >
-                                Industry
-                            </a>
-                            <a href="google.com" >
-                                About Us
-                            </a>
-                            <a href="/login" >
-                                Get Started
-                            </a>
-                        </div>
-                    </Toolbar>
-                </AppBar>
-            </ElevationScroll>
-            <Toolbar />
-            <main>
-                <Paper style={{ height: window.innerHeight - 50 }}>
-                    <div className="my-background">
-                        <Grid container justify="center">
-                            <Grid item xs={1}>
-                            </Grid>
-                            <Grid item xs={5}>
-                                <h2 style={{ color: "white", textAlign: 'center', fontSize: 40, fontWeight: 400 }}>
-                                    Decentralized trade and supply chain on blockchain
-                               </h2>
-                                <br />
-                                <h4 style={{ color: "white", textAlign: 'center', fontSize: 23 }}>
-                                    Building solutions for transparency, automating processes, trade financeand protecting your brand from counterfeiting
-                               </h4>
-                                <br />
-                                <h4 style={{ color: "white", textAlign: 'center', fontSize: 23, }}>
-                                    Leverage the power of digitized doccumentation, connected IoT devices, & smart contracts with our Dapps
-                               </h4>
-                                <br />
-                                <button onClick={()=>{window.location.href='/login' }} style={{ paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, color: "#3d7d9a", fontWeight: 800, position: 'relative', left: "40%" }}>
-                                    GET TOUR
-                               </button>
-                            </Grid>
-                            <Grid item xs={1}>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <img height="450" width="450" style={{ borderRadius: 10 }} src={require("../../assets/newImages/LandingPage3Screen_elShakehandsforhometradingbetw__CB3JJW_615978.jpg")} />
-                            </Grid>
-                            <Grid item xs={2}>
-                            </Grid>
-                        </Grid>
+        <div>
+            <div id="preloader">
+                <div className="preloader-center">
+                    <div className="preloader-center-absolute">
+                        <div className="object" />
                     </div>
-                </Paper>
-                <Paper style={{ height: window.innerHeight - 50, display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <Grid container justify="center">
-                        <Grid item xs={1}>
-                        </Grid>
-                        <Grid item xs={5}>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-
-                            <h4 style={{ textAlign: 'center', fontSize: 30, fontWeight: 500 }}>
-                                What is Arthanium Platform for ?                               </h4>
-                            <br />
-                            <h4 style={{ textAlign: 'center', fontSize: 22, }}>
-                                A decentralized platform for organizations to create consortiums for their various projects & bring all stakeholders on one platform                               </h4>
-
-                        </Grid>
-                        <Grid item xs={1}>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <img height="450" width="450" style={{ borderRadius: 10 }} src={require("../../assets/newImages/Screen8_elPn_775354.png")} />
-                        </Grid>
-                        <Grid item xs={2}>
-                        </Grid>
-                    </Grid>
-                </Paper>
-                <Paper style={{ height: window.innerHeight - 50, display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <Grid container justify="center" style={{ position: "relative" }}>
-                        <Grid item xs={3}>
-                            {/* <img height="450" width="450" style={{ borderRadius: 10 }} src={require("../../assets/newImages/Screen8_elPn_775354.png")} />
-                            <img height="450" width="450" style={{ borderRadius: 10 }} src={require("../../assets/newImages/Screen8_elPn_775354.png")} /> */}
-                            <div class="containerFrame">
-                                <div class="innerImage">
-                                </div>
-                            </div>
-
-                        </Grid>
-                        <Grid item xs={1}>
-                        </Grid>
-                        <Grid item xs={6} style={{ paddingLeft: 100 }}>
-                            <h4 style={{ textAlign: 'center', fontSize: 30, fontWeight: 500 }}>
-                                What is Arthanium Platform for ?                               </h4>
-                            <br />
-                            <Grid container justify="center">
-                                <Grid item xs={4}>
-                                    <h4 style={{ fontSize: 23 }}>
-                                        Buyers / Sellers -</h4>
-                                </Grid>
-                                <Grid item xs={8}>
-                                    <h4 style={{ fontSize: 23 }}>
-                                        Register your organization on the platform, create projects, connect with partners & experience decentralized trade.</h4>
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <h4 style={{ fontSize: 23 }}>
-                                        Partners -</h4>
-                                </Grid>
-                                <Grid item xs={8}>
-                                    <h4 style={{ fontSize: 23 }}>
-                                        Organizations can search / add partners for their supply chain If you are in Banking, Logistics, Insurance, Certification. </h4>                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={1} style={{ position: 'absolute', top: -110, right: 50, display: 'flex', alignItems: 'center', verticalAlign: 'center', justifyContent: 'center' }}>
-                            <Grid container justify="center">
-                                <Grid item xs={12}>
-                                    <div style={{ backgroundColor: '#297D9E', width: 10, height: 100, display: 'block' }}>&nbsp;</div>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <h4 style={{ width: 10, height: 370 }}>h o w d o e s i t w o r k ?</h4>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <div style={{ backgroundColor: '#297D9E', width: 10, height: 100, display: 'block' }}>&nbsp;</div>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Paper>
-                <Paper style={{ height: window.innerHeight - 50, display: "flex", alignItems: 'center', justifyContent: 'space-around', backgroundColor: '#E4E4E4', paddingLeft: 150, paddingRight: 150 }}>
-                    <Grid container justify="center">
-
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                            <h3 style={{ fontWeight: 500, fontSize: 40, paddingTop: 30, paddingBottom: 50 }}>Why Arthanium?</h3>
-                            <br />
-                        </Grid>
-                        <Grid item xs={3} style={{
-                            width: 410, height: 400, backgroundColor: '#FFFFFF', borderRight: "1px solid #E4E4E4"
-                        }} className="shadow2">
-                            <Grid container justify="center">
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <img width="100" height="100" src={require("../../assets/newImages/102649.png")} />
-                                </Grid>
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <h4 style={{ fontSize: 19, textAlign: 'center' }}>
-                                        Secure <br />Heterogenous multi chain  <br /> blockchain architecture  <br /> Scalable, Interoperable Secure  <br /> & High TPS                                        </h4>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={3} style={{
-                            width: 410, height: 400, backgroundColor: '#297D9E', position: "relative", borderRight: "1px solid #E4E4E4"
-                        }} className="shadow2">
-                            <Grid container justify="center">
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <img width="100" height="100" src={require("../../assets/newImages/images.png")} />
-                                </Grid>
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <h4 style={{ fontSize: 19, textAlign: 'center' }}>
-                                        Automate <br /> Decentralized Apps ecosystem <br /> for digitized doccumentation,<br /> connected devices <br /> & trade finance
-                                              </h4>
-                                </Grid>
-                            </Grid>
-                            <img width="72.4" height="72.4" style={{ backgroundColor: "#FFFFFF", position: 'absolute', right: 0, bottom: 0, padding: 0, margin: 0 }} src={require("../../assets/newImages/Screen3_elGraphic2.png")} />
-                        </Grid>
-                        <Grid item xs={3} style={{
-                            width: 410, height: 400, backgroundColor: '#FFFFFF', borderRight: "1px solid #E4E4E4"
-                        }} className="shadow2">
-                            <Grid container justify="center">
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <img width="100" height="100" src={require("../../assets/newImages/Screen3_elN925249200_152181.png")} />
-                                </Grid>
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <h4 style={{ fontSize: 19, textAlign: 'center' }}>
-                                        Collaborate Brings <br />  all diverse stakeholders <br />  on   one platform
-                                           </h4>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-                        <Grid item xs={3} style={{ width: 410, height: 400, backgroundColor: '#FFFFFF' }} className="shadow2">
-                            <Grid container justify="center">
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <img width="100" height="100" src={require("../../assets/newImages/Screen3_elImg_546279_977173.png")} />
-                                </Grid>
-                                <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', paddingTop: 50 }}>
-                                    <h4 style={{ fontSize: 19, textAlign: 'center' }}>
-                                        Innovate  Unlock <br />  new opportunities            </h4>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Paper>
-                <Paper style={{ height: window.innerHeight, display: "flex", alignItems: 'center', justifyContent: 'center', backgroundColor: '#E4E4E4', position: 'relative' }}>
-                    <Grid container justify="center">
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                            <img src={require('../../assets/newImages/businessman-analyzes-graph-data-and-use-the-P48X8YL@2x.png')} style={{ width: '100%', height: window.innerHeight * 65 / 100 }} />
-                        </Grid>
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                            <div style={{ width: '100%', height: window.innerHeight * 35 / 100, backgroundColor: 'transaparent' }}>
-                            </div>
-                        </Grid>
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', position: 'absolute', left: 0, top: 150, right: 0, bottom: 0 }}>
-                            <Grid container justify="center" style={{ display: "flex", alignItems: 'center', justifyContent: 'center', }}>
-                                <Grid item xs={3} spacing={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                    <Grid container justify="center" style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                            <div class="background">
-                                                <div class="transbox">
-                                                    <h3>PRO</h3>
-                                                </div>
-                                            </div>
-                                        </Grid>
-                                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                            <div style={{ backgroundColor: 'white', borderBottomLeftRadius: 25, borderBottomRightRadius: 25 }}>
-                                                <h4 className="planInnerDiv">
-                                                    $ 49/month
-                                                    <br />
-                                                    <br />
-                                                    400 Credits
-                                        </h4>
-                                                <button style={{ paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, backgroundColor: "#3d7d9a", color: 'white', fontWeight: 800, position: 'relative', left: "25%", margin: 20 }}>
-                                                    Choose
-                               </button>
-                                            </div>
-
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={3} spacing={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                    <Grid container justify="center" style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                            <div class="background">
-                                                <div class="transbox">
-                                                    <h3>BUSINESS</h3>
-                                                </div>
-                                            </div>
-                                        </Grid>
-                                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                            <div style={{ backgroundColor: 'white', borderBottomLeftRadius: 25, borderBottomRightRadius: 25 }}>
-                                                <h4 className="planInnerDiv">
-                                                    $ 149/month
-                                                    <br />
-                                                    <br />
-                                                    1200 Credits
-                                        </h4>
-                                                <button style={{ paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, backgroundColor: "#3d7d9a", color: 'white', fontWeight: 800, position: 'relative', left: "25%", margin: 20 }}>
-                                                    Choose
-                               </button>
-                                            </div>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={3} spacing={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                    <Grid container justify="center" style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                            <div class="background">
-                                                <div class="transbox">
-                                                    <h3>ENTERPRISE</h3>
-                                                </div>
-                                            </div>
-                                        </Grid>
-                                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                            <div style={{ backgroundColor: 'white', borderBottomLeftRadius: 25, borderBottomRightRadius: 25 }}>
-                                                <h4 className="planInnerDiv">
-                                                    $ 499/month
-                                                    <br />
-                                                    <br />
-                                                    3600 Credits
-                                        </h4>
-                                                <button style={{ paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, backgroundColor: "#3d7d9a", color: 'white', fontWeight: 800, position: 'relative', left: "25%", margin: 20 }}>
-                                                    Choose
-                               </button>
-                                            </div>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Paper>
-                <Paper style={{ height: window.innerHeight - 50, backgroundColor: 'white', display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <Grid container justify="center">
-                        <Grid item xs={4} spacing={8}>
+                </div>
+            </div>
+            <section id="menu_area" className="navbar-fixed-top">
+                <div className="container">
+                    <nav className="navbar navbar-default">
+                        <a className="logo" href="#">
+                            <img src={require("../../WA/projects/ferrari/template/assets/img/logo1.png")} alt="logo" />
+                            {/* CreativeLogo */}
+                        </a>
+                        <div className="open">
+                            <div className="cls" />
                             <div>
-                                <Grid style={{ padding: 20, margin: 50, border: '1px solid #E4E4E4', display: "flex", alignItems: 'center', justifyContent: 'center' }} container justify="center">
-                                    <Grid item xs={3}>
-
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <div style={{ padding: 5, margin: 5, color: "white", backgroundColor: '#297D9E', textAlign: 'center' }}>
-                                            Credit Chart
+                                <ul className="sub-menu">
+                                    <li>
+                                        <a data-scroll href="#menu_area" title="home">Home</a>
+                                    </li>
+                                    <li>
+                                        <a data-scroll href="#about" title="about">About us</a>
+                                    </li>
+                                    <li>
+                                        <a data-scroll href="#service" title="service">Our Services</a>
+                                    </li>
+                                    <li>
+                                        <a data-scroll href="#Features" title="coFeaturesntact">Features</a>
+                                    </li>
+                                    <li>
+                                        <a data-scroll href="#Portfolio" title="Portfolio">Our Portfolio</a>
+                                    </li>
+                                    <li>
+                                        <a data-scroll href="#Team" title="team">Team</a>
+                                    </li>
+                                    <li>
+                                        <a data-scroll href="#Pricing" title="Pricing">Pricing</a>
+                                    </li>
+                                    <li>
+                                        <a data-scroll href="#contact" title="contact">Contact</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="cls" />
+                        </div>
+                    </nav>
+                </div>
+            </section>
+            <section id="sliderArea">
+                <div className="demo-1">
+                    <AutoPlaySwipeableViews>
+                        <div id="slider" className="sl-slider-wrapper">
+                            <div className="sl-slide bg-1" data-orientation="horizontal" data-slice1-rotation={-25} data-slice2-rotation={-25} data-slice1-scale={2} data-slice2-scale={2}>
+                                <div className="sl-slide-inner">
+                                    <div className="deco" >
+                                        <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="img" />
+                                    </div>
+                                    <h2>Lorem ipsum</h2>
+                                    <blockquote>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
+                                        <cite>Jhon Doe</cite>
+                                    </blockquote>
                                 </div>
-                                    </Grid>
-                                    <Grid item xs={3}>
-
-                                    </Grid>
-                                    <Grid item xs={7} >
-
-                                    </Grid>
-                                    <Grid item xs={3} >
-                                        <div style={{ padding: 5, margin: 5, textAlign: 'center' }}>
-                                            Credit Used
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={6} style={{ border: '1px solid black', display: "flex", alignItems: 'center', justifyContent: 'center', padding: 5, margin: 5 }} spacing={1}>
-                                        <div>
-                                            Projects
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={3} style={{ border: '1px solid black', display: "flex", alignItems: 'center', justifyContent: 'center', padding: 5, margin: 5 }} spacing={1}>
-                                        <div>
-                                            75
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={6} style={{ border: '1px solid black', display: "flex", alignItems: 'center', justifyContent: 'center', padding: 5, margin: 5 }} spacing={1}>
-                                        <div>
-                                            Partners
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={3} style={{ border: '1px solid black', display: "flex", alignItems: 'center', justifyContent: 'center', padding: 5, margin: 5 }} spacing={1}>
-                                        <div>
-                                            15
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={6} style={{ border: '1px solid black', display: "flex", alignItems: 'center', justifyContent: 'center', padding: 5, margin: 5 }} spacing={1}>
-                                        <div>
-                                            Products / Docs / Devices
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={3} style={{ border: '1px solid black', display: "flex", alignItems: 'center', justifyContent: 'center', padding: 5, margin: 5 }} spacing={1}>
-                                        <div>
-                                            1
-                                        </div>
-                                    </Grid>
-                                </Grid>
                             </div>
-                        </Grid>
-                        <Grid item xs={12} style={{ paddingLeft: window.innerWidth * 43 / 100 }}>
-                            <h3>    <img height="25" width="25" src={require('../../assets/newImages/Screen7_elPh_505305.png')} />&nbsp;&nbsp;Contact us for free demo.</h3>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <pre style={{ fontSize: 15, fontWeight: 400, paddingLeft: window.innerWidth * 30 / 100 }}>
-                                Note : <br /> Setup and customization charges could be applicable for certain customers <br />  For larger customized plans contact us directly <br />  Adittional monthly credits packs can be purchased at $ 49 for 400 Credits <br />  Validity of plan & credits is one month and it cannot be carried forward <br />  Currently we don’t charge any transaction based fee,<br />  but in future we might move to a transaction based fee model
-                            </pre>
-                        </Grid>
-                    </Grid>
-                </Paper>
-                <Paper style={{ height: window.innerHeight - 50, backgroundColor: 'white', display: "flex", alignItems: 'center', justifyContent: 'center', marginTop: 50 }}>
-                    <Grid container justify="center">
-                        <Grid item xs={2} >
-                        </Grid>
-                        <Grid item xs={8} >
-                            <h2 style={{ textAlign: 'center', margin: 30, fontSize: 45, fontWeight: 500 }}>A native app for every platform</h2>
-                        </Grid>
-                        <Grid item xs={2} >
-                        </Grid>
-                        <Grid item xs={2} >
-                        </Grid>
-                        <Grid item xs={8} >
-                            <h3 style={{ textAlign: 'center', margin: 30, fontSize: 25, fontWeight: 300 }}>The platform is accessible on both web and mobile.</h3>
-                        </Grid>
-                        <Grid item xs={2} >
-                        </Grid>
-                        <Grid item xs={2} >
-                        </Grid>
-                        <Grid item xs={4} style={{ paddingBottom: 50 }} >
-                            <img height="450" width="650" src={require('../../assets/newImages/Screen5_elMacbook_198171.png')} />
-                            <button style={{
-                                paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, color: "white", backgroundColor: '#297D9E', fontWeight: 800,
-                                position: 'relative', left: "55%"
-                            }}>
-                                Get Started
-                               </button>
-                        </Grid>
-                        <Grid item xs={4} style={{ paddingBottom: 50 }} >
-                            <img height="450" width="650" src={require('../../assets/newImages/Screen5_elK_269332.png')} />
-                            <button style={{
-                                paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, color: "white", backgroundColor: '#297D9E', fontWeight: 800,
-                                position: 'relative', left: "55%"
-                            }}>
-                                Get Started
-                               </button>
-                        </Grid>
-                        <Grid item xs={2} >
-                        </Grid>
-
-                    </Grid>
-                </Paper>
-                <Paper style={{ height: window.innerHeight, display: "flex", alignItems: 'center', justifyContent: 'center', backgroundColor: 'white', position: 'relative' }}>
-                    <Grid container justify="center">
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                            <img src={require('../../assets/newImages/Screen7_elLaptoponthedeskPTWSW25_51654.jpg')} style={{ width: '100%', height: window.innerHeight * 50 / 100 }} />
-                        </Grid>
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                            <div style={{ width: '100%', height: window.innerHeight * 50 / 100, backgroundColor: 'transaparent' }}>
-
+                        </div>
+                        <div id="slider" className="sl-slider-wrapper">
+                            <div className="sl-slide bg-3" data-orientation="horizontal" data-slice1-rotation={3} data-slice2-rotation={3} data-slice1-scale={2} data-slice2-scale={1}>
+                                <div className="sl-slide-inner">
+                                    <div className="deco">
+                                        <img src={require("../../WA/projects/ferrari/template/assets//img/s.png")} alt="img" />
+                                    </div>
+                                    <h2>Lorem ipsum</h2>
+                                    <blockquote>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
+                                        <cite>Jhon Doe</cite>
+                                    </blockquote>
+                                </div>
                             </div>
-                        </Grid>
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', position: 'absolute', left: 0, top: 500, right: 0, bottom: 0, zIndex: 10000 }}>
-                            <input type="text" style={{ paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, color: "black", margin: 10 }} placeholder="Enter your email here" />
-                            <button style={{
-                                paddingLeft: 30, paddingRight: 30, paddingTop: 10, paddingBottom: 10, borderRadius: 5, color: "white", backgroundColor: '#297D9E', fontWeight: 800,
-                            }}>
-                                SEND
-                               </button>
-                        </Grid>
-                        <Grid item xs={12} style={{ display: "flex", alignItems: 'center', justifyContent: 'center', position: 'absolute', left: 0, top: 0, right: 0, bottom: 0 }}>
-                            <Grid container justify="center" style={{ display: "flex", alignItems: 'center', justifyContent: 'center', }}>
-                                <Grid item xs={3} spacing={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }} >
-                                    <div style={{ backgroundColor: 'white', height: 200, paddingTop: 30, paddingBottom: 30 }} className="shadow2">
-                                        <h4 className="planInnerDiv1">
-                                            <img height="30" width="30" src={require('../../assets/newImages/Screen7_elPh_505305.png')} /><br /> <br />  Mobile NO :  <br />  (+91) 9892935802
-                                        </h4>
+                        </div>
+                        <div id="slider" className="sl-slider-wrapper">
+                            <div className="sl-slide bg-4" data-orientation="vertical" data-slice1-rotation={-5} data-slice2-rotation={25} data-slice1-scale={2} data-slice2-scale={1}>
+                                <div className="sl-slide-inner">
+                                    <div className="deco">
+                                        <img src={require("../../WA/projects/ferrari/template/assets//img/s1.png")} alt="img" />
                                     </div>
-                                </Grid>
-                                <Grid item xs={3} spacing={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+                                    <h2>Lorem ipsum</h2>
+                                    <blockquote>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
+                                        <cite>Jhon Doe</cite>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="slider" className="sl-slider-wrapper">
+                            <div className="sl-slide bg-5" data-orientation="horizontal" data-slice1-rotation={-5} data-slice2-rotation={10} data-slice1-scale={2} data-slice2-scale={1}>
+                                <div className="sl-slide-inner">
+                                    <div className="deco">
+                                        <img src={require("../../WA/projects/ferrari/template/assets//img/s3.png")} alt="img" />
+                                    </div>
+                                    <h2>Lorem ipsum</h2>
+                                    <blockquote>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
+                                        <cite>Jhon Doe</cite>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
 
-                                    <div style={{ backgroundColor: 'white', height: 200, paddingTop: 30, paddingBottom: 30 }} className="shadow2">
-                                        <h4 className="planInnerDiv1">
-                                            <img height="30" width="30" src={require('../../assets/newImages/Screen7_elEm_244434.png')} /><br /> <br />  Email Id :  <br /> sandesh@arthanium.com
-                                        </h4>
-                                    </div>
-                                </Grid>
-                                <Grid item xs={3} spacing={1} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                    <div style={{ backgroundColor: 'white', height: 200, paddingTop: 30, paddingBottom: 30 }} className="shadow2">
-                                        <h4 className="planInnerDiv1">
-                                            <img height="30" width="30" src={require('../../assets/newImages/Screen7_elLo2_990516.png')} /><br /> <br /> Location :  <br />  Mumbai, India
-                                        </h4>
-                                    </div>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Paper>
-                <Paper style={{ color: "white", fontWeight: 300, height: 300, display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                    <div className="footerLeft">
-                        <Grid container justify="center" style={{ padding: 50, paddingLeft: 150 }}>
-                            <Grid item xs={4} style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-                                <Grid container justify="center">
-                                    <Grid item xs={12} >
-                                        <h3>
-                                            COMPANY
-                            </h3>
-                                    </Grid>
-                                    <Grid item xs={12} >
-                                        <h4>
-                                            Company <br /> Features  <br /> Blog  <br /> Pricing
-                            </h4>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={4} >
-                                <Grid container justify="center">
-                                    <Grid item xs={12}>
-                                        <h3>
-                                            DOWNLOAD
-                            </h3>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <h4>
-                                            IOS  <br /> Android  <br />
-                                        </h4>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Grid container justify="center">
-                                    <Grid item xs={12} >
-                                        <h3>
-                                            SUPPORT
-                            </h3>
-                                    </Grid>
-                                    <Grid item xs={12} >
-                                        <h4>
-                                            Documentation   <br /> FAQ'S  <br /> Privacy
-                            </h4>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
+                    </AutoPlaySwipeableViews>
+
+                </div>
+            </section>
+
+            <section id="about" className="section bg-grey">
+                <div className="container">
+                    <header className="section-header">
+                        <small>About</small>
+                        <h2>What is Arthanium ?</h2>
+                        <hr />
+                        <p className="lead opacity-70">A decentralized platform for organizations to create trade consortiums for their various projects & bring all stakeholders on one platform.</p>
+                    </header>
+                    <div className="row">
+                        <div className="col-sm-12 col-md-6 col-lg-6">
+                            <br />
+                            <h4>More Dynamic </h4>
+                            <p>Access to more credible information on time for quicker decision making</p>
+                            <br />
+                            <h4>More Efficient </h4>
+                            <p>Eliminate low value task so that people can focus on higher value activities</p>
+                            <br />
+                            <h4>More Value </h4>
+                            <p>Integrate diverse activities between stake holders more effectively to create additional value and eliminate gaps</p>
+                            <br />
+                            {/* <p>
+                                <i className="ti-check text-success mr-8" />
+                                <span className="fs-14">More Dynamic</span>
+                            </p>
+                            <p>
+                                <i className="ti-check text-success mr-8" />
+                                <span className="fs-14">Your items will import automatically</span>
+                            </p>
+                            <p>
+                                <i className="ti-check text-success mr-8" />
+                                <span className="fs-14">Your customers doesn't need to provide purchase code</span>
+                            </p>
+                            <p>
+                                <i className="ti-check text-success mr-8" />
+                                <span className="fs-14">Identify if a customer has a valid support</span>
+                            </p>
+                            <p>
+                                <i className="ti-check text-success mr-8" />
+                                <span className="fs-14">Identify if a customer has a valid support</span>
+                            </p>
+                            <p>
+                                <i className="ti-check text-success mr-8" />
+                                <span className="fs-14">Identify if a customer has a valid support</span>
+                            </p> */}
+                        </div>
+                        <div className="col-md-6 col-lg-6 hidden-xs">
+                            {/* <div className="swiper-container swiper-pagination-outside shadow-3" data-autoplay={2000} data-loop="true" data-space-between={20}> */}
+                            {/* <div className="swiper-wrapper"> */}
+                            <AutoPlaySwipeableViews>
+                                <div className="swiper-slide">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/slider/slider-dashboard.jpg")} alt="..." />
+                                </div>
+                                <div className="swiper-slide">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/slider/slider-admin.jpg")} alt="..." />
+                                </div>
+                                <div className="swiper-slide">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/slider/slider-items.jpg")} alt="..." />
+                                </div>
+                            </AutoPlaySwipeableViews>
+                            {/* </div> */}
+                            {/* <div className="swiper-pagination" /> */}
+                            {/* </div> */}
+                        </div>
                     </div>
-                    <div className="footerRight">
-                        <h3>
-                            FOLLOW US AT<br/>
-                            <img height="30" width="30" src={require('../../assets/newImages/Screen7_elLo2_990516.png')} />&nbsp;&nbsp;&nbsp;  <img height="30" width="30" src={require('../../assets/newImages/Screen7_elLo2_990516.png')} />&nbsp;&nbsp;&nbsp;  <img height="30" width="30" src={require('../../assets/newImages/Screen7_elLo2_990516.png')} />
-                            </h3>
+                </div>
+            </section>
+
+            <section id="service" className="section">
+                <div className="container">
+                    <header className="section-header">
+                        <small>Services</small>
+                        <h2>How does it work?</h2>
+                        <hr />
+                        {/* <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p> */}
+                    </header>
+                    <div className="row">
+                        <div className="features-wrap">
+                            <div className="col-md-4 col-sm-12 text-center">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/ipad-img.png")} alt="" className="ipad-img" />
+                            </div>
+                            <div className="col-md-8 col-sm-12">
+                                <div className="row">
+                                    <div className="col-md-7">
+                                        <div className="panel-group theme-accordian-rounded" id="accordion2">
+                                            <div className="panel">
+                                                <div className="panel-heading">
+                                                    <h4 className="panel-title">
+                                                        <a className="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2">
+                                                            <i className="fa fa-minus" />
+                                                            Buyers / Sellers
+                            </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne2" className="panel-collapse collapse in">
+                                                    <div className="panel-body">
+                                                        register your organization on the platform, create projects, connect with partners & experience decentralized trade.
+                          </div>
+                                                </div>
+                                            </div>
+                                            <div className="panel">
+                                                <div className="panel-heading">
+                                                    <h4 className="panel-title">
+                                                        <a className="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2">
+                                                            <i className="fa fa-plus" />
+                                                            Partners
+                            </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseTwo2" className="panel-collapse collapse">
+                                                    <div className="panel-body">
+                                                        Organizations can search / add partners for their supply chain Come onboard If you are in Banking, Logistics, Insurance, Certification.
+                          </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <div className="col-md-5">
+                                        <div className="skillbar-wrap">
+                                            <div className="clearfix">
+                                                Dreamweaver
+                      </div>
+                                            <div className="skillbar" data-percent="95%">
+                                                <div className="skillbar-percent">95%</div>
+                                                <div className="skillbar-bar" />
+                                            </div>
+                                        </div>
+                                        <div className="skillbar-wrap">
+                                            <div className="clearfix">
+                                                Wordpress
+                      </div>
+                                            <div className="skillbar" data-percent="98%">
+                                                <div className="skillbar-percent">98%</div>
+                                                <div className="skillbar-bar" />
+                                            </div>
+                                        </div>
+                                        <div className="skillbar-wrap">
+                                            <div className="clearfix">
+                                                HTML5/CSS
+                      </div>
+                                            <div className="skillbar" data-percent="70%">
+                                                <div className="skillbar-percent">70%</div>
+                                                <div className="skillbar-bar" />
+                                            </div>
+                                        </div>
+                                        <div className="skillbar-wrap">
+                                            <div className="clearfix">
+                                                Jquery
+                      </div>
+                                            <div className="skillbar" data-percent="95%">
+                                                <div className="skillbar-percent">95%</div>
+                                                <div className="skillbar-bar" />
+                                            </div>
+                                        </div>
+                                    </div> */}
+                                </div>
+                                <div className="small-top-pad smart-mar">
+                                    <blockquote className="blockquote-2">
+                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </Paper>
-            </main>
-            <div style={{ height: 30, backgroundColor: "#000406", color: "white", textAlign: 'center', fontWeight: 300, fontSize: 17 }}>Copyrights are reserved @arthanium.com</div>
-        </React.Fragment>
+                </div>
+            </section>
+
+            <section id="Features" className="section bg-grey">
+                <div className="container">
+                    <header className="section-header">
+                        <small>Features</small>
+                        <h2>Our Features</h2>
+                        <hr />
+                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                    </header>
+                    <div className="row text-center">
+                        <div className="service-block-list">
+                            <div className="col-md-4 col-sm-6 col-xs-12">
+                                <div className="service-block-item service-item-1 row">
+                                    <div className="service-block-inner">
+                                        <a className="service-icon" href="#">
+                                            <i className="fa fa-google-wallet" />
+                                        </a>
+                                        <div className="service-block-inner-content">
+                                            <h4 className="service-item-title"><a href="#">Web Design</a></h4>
+                                            <div className="service-block-item-excerpt">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                            </div>
+                                            {/* .service-block-item-excerpt */}
+                                        </div>
+                                        {/* .service-block-inner-content */}
+                                    </div>
+                                    {/* .service-block-inner */}
+                                </div>
+                                {/* .service-block-item */}
+                            </div>
+                            <div className="col-md-4 col-sm-6 col-xs-12">
+                                <div className="service-block-item service-item-2 row">
+                                    <div className="service-block-inner">
+                                        <a className="service-icon" href="#">
+                                            <i className="fa fa-line-chart" />
+                                        </a>
+                                        <div className="service-block-inner-content">
+                                            <h4 className="service-item-title"><a href="#">Web Development</a></h4>
+                                            <div className="service-block-item-excerpt">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                            </div>
+                                            {/* .service-block-item-excerpt */}
+                                        </div>
+                                        {/* .service-block-inner-content */}
+                                    </div>
+                                    {/* .service-block-inner */}
+                                </div>
+                                {/* .service-block-item */}
+                            </div>
+                            <div className="col-md-4 col-sm-6 col-xs-12">
+                                <div className="service-block-item service-item-3 row">
+                                    <div className="service-block-inner">
+                                        <a className="service-icon" href="#">
+                                            <i className="fa fa-male" />
+                                        </a>
+                                        <div className="service-block-inner-content">
+                                            <h4 className="service-item-title"><a href="#">Seo</a></h4>
+                                            <div className="service-block-item-excerpt">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                            </div>
+                                            {/* .service-block-item-excerpt */}
+                                        </div>
+                                        {/* .service-block-inner-content */}
+                                    </div>
+                                    {/* .service-block-inner */}
+                                </div>
+                                {/* .service-block-item */}
+                            </div>
+                            <div className="col-md-4 col-sm-6 col-xs-12">
+                                <div className="service-block-item service-item-4 row">
+                                    <div className="service-block-inner">
+                                        <a className="service-icon" href="#">
+                                            <i className="fa fa-briefcase" />
+                                        </a>
+                                        <div className="service-block-inner-content">
+                                            <h4 className="service-item-title"><a href="#">Graphics</a></h4>
+                                            <div className="service-block-item-excerpt">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                            </div>
+                                            {/* .service-block-item-excerpt */}
+                                        </div>
+                                        {/* .service-block-inner-content */}
+                                    </div>
+                                    {/* .service-block-inner */}
+                                </div>
+                                {/* .service-block-item */}
+                            </div>
+                            <div className="col-md-4 col-sm-6 col-xs-12">
+                                <div className="service-block-item service-item-5 row">
+                                    <div className="service-block-inner">
+                                        <a className="service-icon" href="#">
+                                            <i className="fa fa-map-o" />
+                                        </a>
+                                        <div className="service-block-inner-content">
+                                            <h4 className="service-item-title"><a href="#">Finance</a></h4>
+                                            <div className="service-block-item-excerpt">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                            </div>
+                                            {/* .service-block-item-excerpt */}
+                                        </div>
+                                        {/* .service-block-inner-content */}
+                                    </div>
+                                    {/* .service-block-inner */}
+                                </div>
+                                {/* .service-block-item */}
+                            </div>
+                            <div className="col-md-4 col-sm-6 col-xs-12">
+                                <div className="service-block-item service-item-6 row">
+                                    <div className="service-block-inner">
+                                        <a className="service-icon" href="#">
+                                            <i className="fa fa-pencil-square-o" />
+                                        </a>
+                                        <div className="service-block-inner-content">
+                                            <h4 className="service-item-title"><a href="#">Apps Development</a></h4>
+                                            <div className="service-block-item-excerpt">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                            </div>
+                                            {/* .service-block-item-excerpt */}
+                                        </div>
+                                        {/* .service-block-inner-content */}
+                                    </div>
+                                    {/* .service-block-inner */}
+                                </div>
+                                {/* .service-block-item */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="Portfolio" className="section">
+                <div className="container">
+                    <header className="section-header">
+                        <small>Portfolio</small>
+                        <h2>Our Portfolio</h2>
+                        <hr />
+                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                    </header>
+                    <nav className="portfolio-filter">
+                        <ul>
+                            <li><a className="active" href="#" data-filter="*"><span /> All</a></li>
+                            <li><a className href="#" data-filter=".web-design">Web Design</a></li>
+                            <li><a className href="#" data-filter=".graphic-design">Graphic Design</a></li>
+                            <li><a className href="#" data-filter=".photography">Photography</a></li>
+                        </ul>
+                    </nav>
+                    <div id="portfolio" className="masonry-wrapper row-fluid wow fadeInUp">
+                        <div className="portfolio-item  photography">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-1.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-1.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                        <div className="portfolio-item  graphic-design">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-2.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-2.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                        <div className="portfolio-item  photography">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-3.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-3.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                        <div className="portfolio-item  web-design">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-4.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-4.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                        <div className="portfolio-item  photography">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-5.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-5.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                        <div className="portfolio-item  graphic-design">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-6.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-6.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                        <div className="portfolio-item  photography">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-7.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-7.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                        <div className="portfolio-item  web-design">
+                            <div className="item-inner-wrapper">
+                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-8.jpg")} alt="" className="portfolio-thumb" />
+                                <div className="overlay" />
+                                <div className="portfolio-content">
+                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-8.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
+                                    <h3><a href="#">Works Title</a></h3>
+                                    <p>Web Design, Business, Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                        {/* end item */}
+                    </div>
+                </div>
+            </section>
+
+            <section id="counter" className="section bg-grey">
+                <div className="container">
+                    <div className="service-block-list text-center">
+                        <div className="col-md-4 col-sm-12">
+                            <div className="row">
+                                <div className="service-block-inner counter">
+                                    <a className="service-icon" href="#">
+                                        <i className="fa fa-grav" />
+                                    </a>
+                                    <div className="service-block-inner-content">
+                                        <h3 className="service-item-title"><a href="#" className="counternum">1200</a></h3>
+                                        <h4>Complete Project</h4>
+                                        <div className="service-block-item-excerpt">
+                                            <p>Proin gravida nibh vel velit auctor Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin,...</p>
+                                        </div>
+                                        {/* .service-block-item-excerpt */}
+                                    </div>
+                                    {/* .service-block-inner-content */}
+                                </div>
+                                {/* .service-block-inner */}
+                            </div>
+                            {/* .service-block-item */}
+                        </div>
+                        <div className="col-md-4 col-sm-12">
+                            <div className="row">
+                                <div className="service-block-inner counter counterMiddle">
+                                    <a className="service-icon" href="#">
+                                        <i className="fa fa-user-circle-o" />
+                                    </a>
+                                    <div className="service-block-inner-content">
+                                        <h3 className="service-item-title"><a href="#" className="counternum">1500</a></h3>
+                                        <h4>Running Project</h4>
+                                        <div className="service-block-item-excerpt">
+                                            <p>Proin gravida nibh vel velit auctor Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin,...</p>
+                                        </div>
+                                        {/* .service-block-item-excerpt */}
+                                    </div>
+                                    {/* .service-block-inner-content */}
+                                </div>
+                                {/* .service-block-inner */}
+                            </div>
+                            {/* .service-block-item */}
+                        </div>
+                        <div className="col-md-4 col-sm-12">
+                            <div className="row">
+                                <div className="service-block-inner counter">
+                                    <a className="service-icon" href="#">
+                                        <i className="fa fa-check-circle" />
+                                    </a>
+                                    <div className="service-block-inner-content">
+                                        <h3 className="service-item-title"><a href="#" className="counternum">3000</a></h3>
+                                        <h4>Happy Clients</h4>
+                                        <div className="service-block-item-excerpt">
+                                            <p>Proin gravida nibh vel velit auctor Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin,...</p>
+                                        </div>
+                                        {/* .service-block-item-excerpt */}
+                                    </div>
+                                    {/* .service-block-inner-content */}
+                                </div>
+                                {/* .service-block-inner */}
+                            </div>
+                            {/* .service-block-item */}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="Team" className="section team-area">
+                <div className="container">
+                    <header className="section-header">
+                        <small>Team</small>
+                        <h2>Our Creative Team</h2>
+                        <hr />
+                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                    </header>
+                    <div className="team-img">
+                        <div className="row">
+                            <div className="col-md-3 col-sm-6">
+                                <div className="single-team">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/1.png")} alt="Team" />
+                                    <div className="team-overlay" />
+                                    <div className="team-content">
+                                        <div className="team-text">
+                                            <h3>Andrew Gaskarth</h3>
+                                            <h5>web development</h5>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo</p>
+                                        </div>
+                                        {/* end team-text */}
+                                        <div className="team-icon">
+                                            <a className="facebook" href><i className="fa fa-facebook" /></a>
+                                            <a className="linkedin" href><i className="fa fa-linkedin" /></a>
+                                            <a className="twitter" href><i className="fa fa-twitter" /></a>
+                                        </div>
+                                        {/* end team-content*/}
+                                    </div>
+                                    {/* end team-content*/}
+                                </div>
+                                {/* end single-team */}
+                            </div>
+                            <div className="col-md-3 col-sm-6">
+                                <div className="single-team">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/2.png")} alt="Team" />
+                                    <div className="team-overlay" />
+                                    <div className="team-content">
+                                        <div className="team-text">
+                                            <h3>Andrew Gaskarth</h3>
+                                            <h5>web development</h5>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo</p>
+                                        </div>
+                                        {/* end team-text */}
+                                        <div className="team-icon">
+                                            <a className="facebook" href><i className="fa fa-facebook" /></a>
+                                            <a className="linkedin" href><i className="fa fa-linkedin" /></a>
+                                            <a className="twitter" href><i className="fa fa-twitter" /></a>
+                                        </div>
+                                        {/* end team-content*/}
+                                    </div>
+                                    {/* end team-content*/}
+                                </div>
+                                {/* end single-team */}
+                            </div>
+                            <div className="col-md-3 col-sm-6">
+                                <div className="single-team">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/3.png")} alt="Team" />
+                                    <div className="team-overlay" />
+                                    <div className="team-content">
+                                        <div className="team-text">
+                                            <h3>Andrew Gaskarth</h3>
+                                            <h5>web development</h5>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo</p>
+                                        </div>
+                                        {/* end team-text */}
+                                        <div className="team-icon">
+                                            <a className="facebook" href><i className="fa fa-facebook" /></a>
+                                            <a className="linkedin" href><i className="fa fa-linkedin" /></a>
+                                            <a className="twitter" href><i className="fa fa-twitter" /></a>
+                                        </div>
+                                        {/* end team-content*/}
+                                    </div>
+                                    {/* end team-content*/}
+                                </div>
+                                {/* end single-team */}
+                            </div>
+                            <div className="col-md-3 col-sm-6">
+                                <div className="single-team">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/4.png")} alt="Team" />
+                                    <div className="team-overlay" />
+                                    <div className="team-content">
+                                        <div className="team-text">
+                                            <h3>Andrew Gaskarth</h3>
+                                            <h5>web development</h5>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmo</p>
+                                        </div>
+                                        {/* end team-text */}
+                                        <div className="team-icon">
+                                            <a className="facebook" href><i className="fa fa-facebook" /></a>
+                                            <a className="linkedin" href><i className="fa fa-linkedin" /></a>
+                                            <a className="twitter" href><i className="fa fa-twitter" /></a>
+                                        </div>
+                                        {/* end team-content*/}
+                                    </div>
+                                    {/* end team-content*/}
+                                </div>
+                                {/* end single-team */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="testimonial" className="section reviews bg-grey">
+                <div className="container">
+                    <header className="section-header">
+                        <small>Testimonial</small>
+                        <h2>Our Client Says</h2>
+                        <hr />
+                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                    </header>
+                    <div className="row">
+                        {/* end col-12 */}
+                        <div className="col-xs-12">
+                            <div className="owl-slider">
+                                <div className="testimonial">
+                                    <figure className="head"> <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="Image" /> </figure>
+                                    <h4>ENVATO LT.</h4>
+                                    <small>JESSICA CARTER - BUSINESS MANAGER</small> <span className="rates"> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> </span>
+                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia non qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia numquam eius modi. Neque porro quisquam est.</p>
+                                </div>
+                                {/* end testimonial */}
+                                <div className="testimonial">
+                                    <figure className="head"> <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="Image" /> </figure>
+                                    <h4>ENVATO LT.</h4>
+                                    <small>JESSICA CARTER - BUSINESS MANAGER</small> <span className="rates"> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> </span>
+                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia non qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia numquam eius modi. Neque porro quisquam est.</p>
+                                </div>
+                                {/* end testimonial */}
+                                <div className="testimonial">
+                                    <figure className="head"> <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="Image" /> </figure>
+                                    <h4>ENVATO LT.</h4>
+                                    <small>JESSICA CARTER - BUSINESS MANAGER</small> <span className="rates"> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> </span>
+                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia non qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia numquam eius modi. Neque porro quisquam est.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="Pricing" className="section spricing">
+                <div className="container">
+                    <header className="section-header">
+                        <small>Pricing</small>
+                        <h2>Pricing Plan</h2>
+                        <hr />
+                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                    </header>
+                    <div className="row">
+                        <div className="col-md-3 col-sm-6 col-xs-12">
+                            <div className="ssingle-pricing">
+                                <h4>Personal</h4>
+                                <div className="pricing-icon">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                </div>
+                                <div className="pricing-content">
+                                    <ul>
+                                        <li>2 GB web space</li>
+                                        <li>free domain register</li>
+                                        <li className="off">special offer</li>
+                                        <li>service uptime</li>
+                                    </ul>
+                                </div>
+                                <div className="pricing-count">
+                                    <h4>$15/Mo</h4>
+                                    <a className="sorder-btn" href>Order Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-sm-6 col-xs-12">
+                            <div className="ssingle-pricing">
+                                <h4>Professional</h4>
+                                <div className="pricing-icon">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                </div>
+                                <div className="pricing-content">
+                                    <ul>
+                                        <li>2 GB web space</li>
+                                        <li>free domain register</li>
+                                        <li className="off">special offer</li>
+                                        <li>service uptime</li>
+                                    </ul>
+                                </div>
+                                <div className="pricing-count">
+                                    <h4>$15/Mo</h4>
+                                    <a className="sorder-btn" href>Order Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-sm-6 col-xs-12">
+                            <div className="ssingle-pricing">
+                                <h4>Business</h4>
+                                <div className="pricing-icon">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                </div>
+                                <div className="pricing-content">
+                                    <ul>
+                                        <li>2 GB web space</li>
+                                        <li>free domain register</li>
+                                        <li className="off">special offer</li>
+                                        <li>service uptime</li>
+                                    </ul>
+                                </div>
+                                <div className="pricing-count">
+                                    <h4>$15/Mo</h4>
+                                    <a className="sorder-btn" href>Order Now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-sm-6 col-xs-12">
+                            <div className="ssingle-pricing">
+                                <h4>Enterprise</h4>
+                                <div className="pricing-icon">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                </div>
+                                <div className="pricing-content">
+                                    <ul>
+                                        <li>2 GB web space</li>
+                                        <li>free domain register</li>
+                                        <li className="off">special offer</li>
+                                        <li>service uptime</li>
+                                    </ul>
+                                </div>
+                                <div className="pricing-count">
+                                    <h4>$15/Mo</h4>
+                                    <a className="sorder-btn" href>Order Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="contact" className="contact-section">
+                <div id="map" />
+                <div className="contact-box-area">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-8">
+                                <div className="contact-box">
+                                    <h3>Send us a Message</h3>
+                                    <form id="contact-form" className="form-group" method="POST" name="contact" netlify-honeypot="bot-field" data-netlify="true">
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <input type="text" name="name" id="name" placeholder="First Name" required />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input name="lastname" type="text" placeholder="Last Name" required />
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <input type="email" name="email" id="email" placeholder="Email" required />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <input name="subject" id="subject" type="text" placeholder="Subject" required />
+                                            </div>
+                                        </div>
+                                        <textarea name="message" id="message" cols={30} rows={10} placeholder="Write Your Message" required defaultValue={""} />
+                                        <button name="submit" className="submit" type="submit">Send Massage</button>
+                                    </form>
+                                    <p className="form-messege" />
+                                </div>
+                            </div>
+                            <div className="col-md-4">
+                                <div className="getIn-tuchBox">
+                                    <h3>Get In Touch</h3>
+                                    <p><i className="fa fa-home" /> 2793 Cunningham Court,Clarkston,
+                    <br />MI48346
+                  </p>
+                                    <p><i className="fa fa-phone" /> <a href="tel:005858595">+880123456789</a>
+                                        <br />+880123456789
+                  </p>
+                                    <p><i className="fa fa-envelope" /> <a href="mailto:codeshaperbd@gmail.com">codeshaperbd@gmail.com</a>
+                                        <br /><a href="mailto:codeshaperbd@gmail.com">codeshaperbd@gmail.com</a>
+                                    </p>
+                                    <div className="socials-icons">
+                                        <a href="#"><i className="fa fa-facebook" /></a>
+                                        <a href="#"><i className="fa fa-twitter" /></a>
+                                        <a href="#"><i className="fa fa-linkedin-square" /></a>
+                                        <a href="#"><i className="fa fa-skype" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div className="footer-area">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="footer-text">
+                                <p>Copyright @ 2017 <a href="index.html" target="_blank">Codeshaper</a> all right reserved.</p>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="footer-menu">
+                                <nav>
+                                    <ul>
+                                        <li><a href="index.html">Home </a></li>
+                                        <li><a href="index.html">About</a></li>
+                                        <li><a href="index.html">Terms</a></li>
+                                        <li><a href="index.html">Privacy Policy</a></li>
+                                        <li><a href="index.html">Licenses</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
