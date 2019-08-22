@@ -87,64 +87,36 @@ export default function Landing(props) {
                 <div className="demo-1">
                     <AutoPlaySwipeableViews>
                         <div id="slider" className="sl-slider-wrapper">
-                            <div className="sl-slide bg-1" data-orientation="horizontal" data-slice1-rotation={-25} data-slice2-rotation={-25} data-slice1-scale={2} data-slice2-scale={2}>
-                                <div className="sl-slide-inner">
-                                    <div className="deco" >
-                                        <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="img" />
-                                    </div>
-                                    <h2>Lorem ipsum</h2>
-                                    <blockquote>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
-                                        <cite>Jhon Doe</cite>
-                                    </blockquote>
+                            <div className="sl-slide bg-4" data-orientation="vertical" data-slice1-rotation={-5} data-slice2-rotation={25} data-slice1-scale={2} data-slice2-scale={1}>
+                                <div className="main-div-1">
                                 </div>
-                            </div>
-                        </div>
-                        <div id="slider" className="sl-slider-wrapper">
-                            <div className="sl-slide bg-3" data-orientation="horizontal" data-slice1-rotation={3} data-slice2-rotation={3} data-slice1-scale={2} data-slice2-scale={1}>
-                                <div className="sl-slide-inner">
-                                    <div className="deco">
-                                        <img src={require("../../WA/projects/ferrari/template/assets//img/s.png")} alt="img" />
+                                <div class="outer">
+                                    <div class="middle">
+                                        <div class="inner">
+                                            <h1>Decentralized Trade and Supply Chain on Blockchain</h1>
+                                            <p>Building solutions for transparency, automating processes, trade finance and protecting your brand from counterfeiting.</p>
+                                            <p>Leverage the power of digitized doccumentation, connected IoT devices, &  smart contracts with our Dapps.</p>
+                                        </div>
                                     </div>
-                                    <h2>Lorem ipsum</h2>
-                                    <blockquote>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
-                                        <cite>Jhon Doe</cite>
-                                    </blockquote>
                                 </div>
                             </div>
                         </div>
                         <div id="slider" className="sl-slider-wrapper">
                             <div className="sl-slide bg-4" data-orientation="vertical" data-slice1-rotation={-5} data-slice2-rotation={25} data-slice1-scale={2} data-slice2-scale={1}>
-                                <div className="sl-slide-inner">
-                                    <div className="deco">
-                                        <img src={require("../../WA/projects/ferrari/template/assets//img/s1.png")} alt="img" />
+                                <div className="main-div-2">
+                                </div>
+                                <div class="outer">
+                                    <div class="middle">
+                                        <div class="inner">
+                                            <h1>Decentralized Trade and Supply Chain on Blockchain</h1>
+                                            <p>Building solutions for transparency, automating processes, trade finance and protecting your brand from counterfeiting.</p>
+                                            <p>Leverage the power of digitized doccumentation, connected IoT devices, &  smart contracts with our Dapps.</p>
+                                        </div>
                                     </div>
-                                    <h2>Lorem ipsum</h2>
-                                    <blockquote>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
-                                        <cite>Jhon Doe</cite>
-                                    </blockquote>
                                 </div>
                             </div>
                         </div>
-                        <div id="slider" className="sl-slider-wrapper">
-                            <div className="sl-slide bg-5" data-orientation="horizontal" data-slice1-rotation={-5} data-slice2-rotation={10} data-slice1-scale={2} data-slice2-scale={1}>
-                                <div className="sl-slide-inner">
-                                    <div className="deco">
-                                        <img src={require("../../WA/projects/ferrari/template/assets//img/s3.png")} alt="img" />
-                                    </div>
-                                    <h2>Lorem ipsum</h2>
-                                    <blockquote>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel,.</p>
-                                        <cite>Jhon Doe</cite>
-                                    </blockquote>
-                                </div>
-                            </div>
-                        </div>
-
                     </AutoPlaySwipeableViews>
-
                 </div>
             </section>
 
@@ -218,7 +190,7 @@ export default function Landing(props) {
             <section id="service" className="section">
                 <div className="container">
                     <header className="section-header">
-                        <small>Services</small>
+                        <small>About</small>
                         <h2>How does it work?</h2>
                         <hr />
                         {/* <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p> */}
@@ -231,77 +203,15 @@ export default function Landing(props) {
                             <div className="col-md-8 col-sm-12">
                                 <div className="row">
                                     <div className="col-md-7">
-                                        <div className="panel-group theme-accordian-rounded" id="accordion2">
-                                            <div className="panel">
-                                                <div className="panel-heading">
-                                                    <h4 className="panel-title">
-                                                        <a className="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne2">
-                                                            <i className="fa fa-minus" />
-                                                            Buyers / Sellers
-                            </a>
-                                                    </h4>
-                                                </div>
-                                                <div id="collapseOne2" className="panel-collapse collapse in">
-                                                    <div className="panel-body">
-                                                        register your organization on the platform, create projects, connect with partners & experience decentralized trade.
-                          </div>
-                                                </div>
-                                            </div>
-                                            <div className="panel">
-                                                <div className="panel-heading">
-                                                    <h4 className="panel-title">
-                                                        <a className="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo2">
-                                                            <i className="fa fa-plus" />
-                                                            Partners
-                            </a>
-                                                    </h4>
-                                                </div>
-                                                <div id="collapseTwo2" className="panel-collapse collapse">
-                                                    <div className="panel-body">
-                                                        Organizations can search / add partners for their supply chain Come onboard If you are in Banking, Logistics, Insurance, Certification.
-                          </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        <br />
+                                        <h4>Buyers / Sellers </h4>
+                                        <p>Register your organization on the platform, create projects, connect with partners & experience decentralized trade.</p>
+                                        <br />
+                                        <h4>Partners </h4>
+                                        <p>Organizations can search / add partners for their supply chain Come onboard If you are in Banking, Logistics, Insurance, Certification.</p>
+                                        <br />
                                     </div>
-                                    {/* <div className="col-md-5">
-                                        <div className="skillbar-wrap">
-                                            <div className="clearfix">
-                                                Dreamweaver
-                      </div>
-                                            <div className="skillbar" data-percent="95%">
-                                                <div className="skillbar-percent">95%</div>
-                                                <div className="skillbar-bar" />
-                                            </div>
-                                        </div>
-                                        <div className="skillbar-wrap">
-                                            <div className="clearfix">
-                                                Wordpress
-                      </div>
-                                            <div className="skillbar" data-percent="98%">
-                                                <div className="skillbar-percent">98%</div>
-                                                <div className="skillbar-bar" />
-                                            </div>
-                                        </div>
-                                        <div className="skillbar-wrap">
-                                            <div className="clearfix">
-                                                HTML5/CSS
-                      </div>
-                                            <div className="skillbar" data-percent="70%">
-                                                <div className="skillbar-percent">70%</div>
-                                                <div className="skillbar-bar" />
-                                            </div>
-                                        </div>
-                                        <div className="skillbar-wrap">
-                                            <div className="clearfix">
-                                                Jquery
-                      </div>
-                                            <div className="skillbar" data-percent="95%">
-                                                <div className="skillbar-percent">95%</div>
-                                                <div className="skillbar-bar" />
-                                            </div>
-                                        </div>
-                                    </div> */}
                                 </div>
                                 <div className="small-top-pad smart-mar">
                                     <blockquote className="blockquote-2">
@@ -318,22 +228,23 @@ export default function Landing(props) {
                 <div className="container">
                     <header className="section-header">
                         <small>Features</small>
-                        <h2>Our Features</h2>
+                        <h2>Why Arthanium?</h2>
                         <hr />
                         <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
                     </header>
                     <div className="row text-center">
                         <div className="service-block-list">
-                            <div className="col-md-4 col-sm-6 col-xs-12">
+                            <div className="col-md-3 col-sm-6 col-xs-12">
                                 <div className="service-block-item service-item-1 row">
                                     <div className="service-block-inner">
                                         <a className="service-icon" href="#">
                                             <i className="fa fa-google-wallet" />
                                         </a>
                                         <div className="service-block-inner-content">
-                                            <h4 className="service-item-title"><a href="#">Web Design</a></h4>
+                                            <h4 className="service-item-title"><a href="#">Blockchain</a></h4>
                                             <div className="service-block-item-excerpt">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                                <strong>Secure</strong>
+                                                <p>Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS</p>
                                             </div>
                                             {/* .service-block-item-excerpt */}
                                         </div>
@@ -343,16 +254,17 @@ export default function Landing(props) {
                                 </div>
                                 {/* .service-block-item */}
                             </div>
-                            <div className="col-md-4 col-sm-6 col-xs-12">
+                            <div className="col-md-3 col-sm-6 col-xs-12">
                                 <div className="service-block-item service-item-2 row">
                                     <div className="service-block-inner">
                                         <a className="service-icon" href="#">
                                             <i className="fa fa-line-chart" />
                                         </a>
                                         <div className="service-block-inner-content">
-                                            <h4 className="service-item-title"><a href="#">Web Development</a></h4>
+                                            <h4 className="service-item-title"><a href="#">DApps</a></h4>
                                             <div className="service-block-item-excerpt">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                                <strong>Automate</strong>
+                                                <p>Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance	</p>
                                             </div>
                                             {/* .service-block-item-excerpt */}
                                         </div>
@@ -362,16 +274,17 @@ export default function Landing(props) {
                                 </div>
                                 {/* .service-block-item */}
                             </div>
-                            <div className="col-md-4 col-sm-6 col-xs-12">
+                            <div className="col-md-3 col-sm-6 col-xs-12">
                                 <div className="service-block-item service-item-3 row">
                                     <div className="service-block-inner">
                                         <a className="service-icon" href="#">
                                             <i className="fa fa-male" />
                                         </a>
                                         <div className="service-block-inner-content">
-                                            <h4 className="service-item-title"><a href="#">Seo</a></h4>
+                                            <h4 className="service-item-title"><a href="#">Partners</a></h4>
                                             <div className="service-block-item-excerpt">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                                <strong>Collaborate</strong>
+                                                <p>Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently	</p>
                                             </div>
                                             {/* .service-block-item-excerpt */}
                                         </div>
@@ -381,54 +294,17 @@ export default function Landing(props) {
                                 </div>
                                 {/* .service-block-item */}
                             </div>
-                            <div className="col-md-4 col-sm-6 col-xs-12">
+                            <div className="col-md-3 col-sm-6 col-xs-12">
                                 <div className="service-block-item service-item-4 row">
                                     <div className="service-block-inner">
                                         <a className="service-icon" href="#">
                                             <i className="fa fa-briefcase" />
                                         </a>
                                         <div className="service-block-inner-content">
-                                            <h4 className="service-item-title"><a href="#">Graphics</a></h4>
+                                            <h4 className="service-item-title"><a href="#">Industry 4.0</a></h4>
                                             <div className="service-block-item-excerpt">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
-                                            </div>
-                                            {/* .service-block-item-excerpt */}
-                                        </div>
-                                        {/* .service-block-inner-content */}
-                                    </div>
-                                    {/* .service-block-inner */}
-                                </div>
-                                {/* .service-block-item */}
-                            </div>
-                            <div className="col-md-4 col-sm-6 col-xs-12">
-                                <div className="service-block-item service-item-5 row">
-                                    <div className="service-block-inner">
-                                        <a className="service-icon" href="#">
-                                            <i className="fa fa-map-o" />
-                                        </a>
-                                        <div className="service-block-inner-content">
-                                            <h4 className="service-item-title"><a href="#">Finance</a></h4>
-                                            <div className="service-block-item-excerpt">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
-                                            </div>
-                                            {/* .service-block-item-excerpt */}
-                                        </div>
-                                        {/* .service-block-inner-content */}
-                                    </div>
-                                    {/* .service-block-inner */}
-                                </div>
-                                {/* .service-block-item */}
-                            </div>
-                            <div className="col-md-4 col-sm-6 col-xs-12">
-                                <div className="service-block-item service-item-6 row">
-                                    <div className="service-block-inner">
-                                        <a className="service-icon" href="#">
-                                            <i className="fa fa-pencil-square-o" />
-                                        </a>
-                                        <div className="service-block-inner-content">
-                                            <h4 className="service-item-title"><a href="#">Apps Development</a></h4>
-                                            <div className="service-block-item-excerpt">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam non ipsum facilisis, tristique nulla vel....</p>
+                                                <strong>Innovate</strong>
+                                                <p>Unlock new opportunities Eliminate low value activities</p>
                                             </div>
                                             {/* .service-block-item-excerpt */}
                                         </div>
@@ -442,125 +318,131 @@ export default function Landing(props) {
                     </div>
                 </div>
             </section>
-
-            <section id="Portfolio" className="section">
+            <section id="Pricing" className="section spricing">
                 <div className="container">
                     <header className="section-header">
-                        <small>Portfolio</small>
-                        <h2>Our Portfolio</h2>
+                        <small>Pricing</small>
+                        <h2>Pricing Plan</h2>
                         <hr />
-                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                        {/* <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p> */}
                     </header>
-                    <nav className="portfolio-filter">
-                        <ul>
-                            <li><a className="active" href="#" data-filter="*"><span /> All</a></li>
-                            <li><a className href="#" data-filter=".web-design">Web Design</a></li>
-                            <li><a className href="#" data-filter=".graphic-design">Graphic Design</a></li>
-                            <li><a className href="#" data-filter=".photography">Photography</a></li>
-                        </ul>
-                    </nav>
-                    <div id="portfolio" className="masonry-wrapper row-fluid wow fadeInUp">
-                        <div className="portfolio-item  photography">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-1.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-1.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
+                    <div className="row" style={{ justifyContent: 'center' }}>
+                        <div className="col-md-3 col-sm-6 col-xs-12">
+                            <div className="ssingle-pricing">
+                                <h4>PRO</h4>
+                                <div className="pricing-icon">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                </div>
+                                <div className="pricing-content">
+                                    <ul>
+                                        {/* <li>$ 49 / month</li> */}
+                                        <li>400 Credits</li>
+                                        {/* <li className="off">special offer</li> */}
+                                        {/* <li>service uptime</li> */}
+                                    </ul>
+                                </div>
+                                <div className="pricing-count">
+                                    <h4>$49/Mo</h4>
+                                    <a className="sorder-btn" href>Order Now</a>
                                 </div>
                             </div>
                         </div>
-                        {/* end item */}
-                        <div className="portfolio-item  graphic-design">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-2.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-2.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
+                        <div className="col-md-3 col-sm-6 col-xs-12">
+                            <div className="ssingle-pricing">
+                                <h4>BUSINESS</h4>
+                                <div className="pricing-icon">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                </div>
+                                <div className="pricing-content">
+                                    <ul>
+                                        {/* <li>$ 149 / month</li> */}
+                                        <li>1200 Credits</li>
+                                        {/* <li className="off">special offer</li>
+                                        <li>service uptime</li> */}
+                                    </ul>
+                                </div>
+                                <div className="pricing-count">
+                                    <h4>$149/Mo</h4>
+                                    <a className="sorder-btn" href>Order Now</a>
                                 </div>
                             </div>
                         </div>
-                        {/* end item */}
-                        <div className="portfolio-item  photography">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-3.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-3.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
+                        <div className="col-md-3 col-sm-6 col-xs-12">
+                            <div className="ssingle-pricing">
+                                <h4>ENTERPRISE</h4>
+                                <div className="pricing-icon">
+                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                </div>
+                                <div className="pricing-content">
+                                    <ul>
+                                        {/* <li>$ 449 / month</li> */}
+                                        <li>3600 Credits</li>
+                                        {/* <li className="off">special offer</li>
+                                        <li>service uptime</li> */}
+                                    </ul>
+                                </div>
+                                <div className="pricing-count">
+                                    <h4>$449/Mo</h4>
+                                    <a className="sorder-btn" href>Order Now</a>
                                 </div>
                             </div>
                         </div>
-                        {/* end item */}
-                        <div className="portfolio-item  web-design">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-4.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-4.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
-                                </div>
-                            </div>
+                        <div className="small-top-pad smart-mar">
+                            <blockquote>
+                                <p style={{ textAlign: 'center' }}>Contact us for a free demo &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+                            </blockquote>
                         </div>
-                        {/* end item */}
-                        <div className="portfolio-item  photography">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-5.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-5.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
-                                </div>
-                            </div>
+                        {/* </blockquote> */}
+                        {/* </div> */}
+                    </div>
+
+                    {/* <div className="small-top-pad smart-mar"> */}
+                    {/* <blockquote> */}
+                    <div className="row">
+                        <div className="col-md-6 col-sm-6 col-xs-12">
+                            <p>
+                                Note - <br />
+                                Setup and customization charges could be applicable for certain customers.<br />
+                                For larger customized plans contact us directly.<br />
+                                Adittional monthly credits packs can be purchased at $ 49 for 400 Credits.<br />
+                                Validity of plan & credits is one month and it cannot be carried forward.<br />
+                                Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
                         </div>
-                        {/* end item */}
-                        <div className="portfolio-item  graphic-design">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-6.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-6.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
-                                </div>
-                            </div>
+                        <div className="col-md-6 col-sm-6 col-xs-12" style={{ textAlign: "-webkit-center" }}>
+                            <table className="tg">
+                                <tr>
+                                    <th className="tg-rnhl" colspan="2">Credit Chart</th>
+                                </tr>
+                                <tr>
+                                    <td className="tg-rnhl"></td>
+                                    <td className="tg-rnhl">Credits Used</td>
+                                </tr>
+                                <tr>
+                                    <td className="tg-rnhl">Projects</td>
+                                    <td className="tg-rnhl">75</td>
+                                </tr>
+                                <tr>
+                                    <td className="tg-rnhl">Partners</td>
+                                    <td className="tg-rnhl">15</td>
+                                </tr>
+                                <tr>
+                                    <td className="tg-rnhl">Products / Docs / Devices</td>
+                                    <td className="tg-g2pk">1</td>
+                                </tr>
+                            </table>
                         </div>
-                        {/* end item */}
-                        <div className="portfolio-item  photography">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-7.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-7.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
-                                </div>
-                            </div>
-                        </div>
-                        {/* end item */}
-                        <div className="portfolio-item  web-design">
-                            <div className="item-inner-wrapper">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-8.jpg")} alt="" className="portfolio-thumb" />
-                                <div className="overlay" />
-                                <div className="portfolio-content">
-                                    <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-8.jpg")}><i className="fa fa-eye" aria-hidden="true" /></a>
-                                    <h3><a href="#">Works Title</a></h3>
-                                    <p>Web Design, Business, Photography</p>
-                                </div>
-                            </div>
-                        </div>
-                        {/* end item */}
                     </div>
                 </div>
             </section>
 
+
             <section id="counter" className="section bg-grey">
+                <header className="section-header">
+                    <small>Portfolio</small>
+                    <h2>A native app for every platform</h2>
+                    <hr />
+                    <p className="lead opacity-70">The platform is accessible on both web and mobile.</p>
+                </header>
                 <div className="container">
                     <div className="service-block-list text-center">
                         <div className="col-md-4 col-sm-12">
@@ -626,14 +508,57 @@ export default function Landing(props) {
                     </div>
                 </div>
             </section>
+            <section id="Portfolio" className="section">
+                <div className="container">
+                    <header className="section-header">
+                        <small>Media</small>
+                        <h2>Latest Blog</h2>
+                        <hr />
+                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                    </header>
+                    <div className="col-md-4 col-sm-12">
+                        <div className="item-inner-wrapper">
+                            <img width="300px" height="300" src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-1.jpg")} alt="" className="portfolio-thumb" />
+                            <div className="overlay" />
+                            <div className="portfolio-content">
+                                <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href="https://medium.com/@sandesh.hegde/internet-of-things-iot-b13cc2d9637a"><i className="fa fa-eye" aria-hidden="true" /></a>
+                                <h3><a href="https://medium.com/iot-conekt/iot-conekt-is-the-first-inhouse-dapp-to-be-built-on-the-arthanium-multichain-blockchain-c5007eac9535?source=---------5------------------" target="_blank">Works Title</a></h3>
+                                <p>Web Design, Business, Photography</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4 col-sm-12">
+                        <div className="item-inner-wrapper">
+                            <img width="300px" height="300" src="https://miro.medium.com/max/1600/1*L-KyK6YuaZX_41czG-RbcA.jpeg" alt="" className="portfolio-thumb" />
+                            <div className="overlay" />
+                            <div className="portfolio-content">
+                                <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href="https://medium.com/@sandesh.hegde/internet-of-things-iot-b13cc2d9637a"><i className="fa fa-eye" aria-hidden="true" /></a>
+                                <h3><a href="https://medium.com/@sandesh.hegde/internet-of-things-iot-b13cc2d9637a" target="_blank">Internet of Things (IoT)</a></h3>
+                                <p>Web Design, Business, Photography</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4 col-sm-12">
+                        <div className="item-inner-wrapper">
+                            <img width="300px" height="300" src="https://miro.medium.com/max/4800/1*8SL8giRT_7t9tnxKzMKAuw.jpeg" alt="" className="portfolio-thumb" />
+                            <div className="overlay" />
+                            <div className="portfolio-content">
+                                <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href="https://medium.com/iot-conekt/provenance-in-a-blockchain-world-supply-chain-beyond-7ee89ea0a18c"><i className="fa fa-eye" aria-hidden="true" /></a>
+                                <h3><a href="https://medium.com/iot-conekt/provenance-in-a-blockchain-world-supply-chain-beyond-7ee89ea0a18c" target="_blank">Works Title</a></h3>
+                                <p>Web Design, Business, Photography</p>
+                            </div>
+                        </div>
+                    </div>
 
-            <section id="Team" className="section team-area">
+                </div>
+            </section>
+            <section id="testimonial" className="section reviews bg-grey">
                 <div className="container">
                     <header className="section-header">
                         <small>Team</small>
-                        <h2>Our Creative Team</h2>
-                        <hr />
-                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
+                        <h2>Our Team</h2>
+                        {/* <hr /> */}
+                        {/* <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p> */}
                     </header>
                     <div className="team-img">
                         <div className="row">
@@ -729,137 +654,6 @@ export default function Landing(props) {
                     </div>
                 </div>
             </section>
-
-            <section id="testimonial" className="section reviews bg-grey">
-                <div className="container">
-                    <header className="section-header">
-                        <small>Testimonial</small>
-                        <h2>Our Client Says</h2>
-                        <hr />
-                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
-                    </header>
-                    <div className="row">
-                        {/* end col-12 */}
-                        <div className="col-xs-12">
-                            <div className="owl-slider">
-                                <div className="testimonial">
-                                    <figure className="head"> <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="Image" /> </figure>
-                                    <h4>ENVATO LT.</h4>
-                                    <small>JESSICA CARTER - BUSINESS MANAGER</small> <span className="rates"> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> </span>
-                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia non qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia numquam eius modi. Neque porro quisquam est.</p>
-                                </div>
-                                {/* end testimonial */}
-                                <div className="testimonial">
-                                    <figure className="head"> <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="Image" /> </figure>
-                                    <h4>ENVATO LT.</h4>
-                                    <small>JESSICA CARTER - BUSINESS MANAGER</small> <span className="rates"> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> </span>
-                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia non qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia numquam eius modi. Neque porro quisquam est.</p>
-                                </div>
-                                {/* end testimonial */}
-                                <div className="testimonial">
-                                    <figure className="head"> <img src={require("../../WA/projects/ferrari/template/assets//img/headshot1.png")} alt="Image" /> </figure>
-                                    <h4>ENVATO LT.</h4>
-                                    <small>JESSICA CARTER - BUSINESS MANAGER</small> <span className="rates"> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> <i className="fa fa-star" aria-hidden="true" /> </span>
-                                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia non qui dolorem ipsum quia dolor sit amet, consectetur, adipis civelit sed quia numquam eius modi. Neque porro quisquam est.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="Pricing" className="section spricing">
-                <div className="container">
-                    <header className="section-header">
-                        <small>Pricing</small>
-                        <h2>Pricing Plan</h2>
-                        <hr />
-                        <p className="lead opacity-70">Choose any of the following plans to get start with. You can start with the FREE plan to see our web application at first. You can always change your plan from your account.</p>
-                    </header>
-                    <div className="row">
-                        <div className="col-md-3 col-sm-6 col-xs-12">
-                            <div className="ssingle-pricing">
-                                <h4>Personal</h4>
-                                <div className="pricing-icon">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
-                                </div>
-                                <div className="pricing-content">
-                                    <ul>
-                                        <li>2 GB web space</li>
-                                        <li>free domain register</li>
-                                        <li className="off">special offer</li>
-                                        <li>service uptime</li>
-                                    </ul>
-                                </div>
-                                <div className="pricing-count">
-                                    <h4>$15/Mo</h4>
-                                    <a className="sorder-btn" href>Order Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 col-xs-12">
-                            <div className="ssingle-pricing">
-                                <h4>Professional</h4>
-                                <div className="pricing-icon">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
-                                </div>
-                                <div className="pricing-content">
-                                    <ul>
-                                        <li>2 GB web space</li>
-                                        <li>free domain register</li>
-                                        <li className="off">special offer</li>
-                                        <li>service uptime</li>
-                                    </ul>
-                                </div>
-                                <div className="pricing-count">
-                                    <h4>$15/Mo</h4>
-                                    <a className="sorder-btn" href>Order Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 col-xs-12">
-                            <div className="ssingle-pricing">
-                                <h4>Business</h4>
-                                <div className="pricing-icon">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
-                                </div>
-                                <div className="pricing-content">
-                                    <ul>
-                                        <li>2 GB web space</li>
-                                        <li>free domain register</li>
-                                        <li className="off">special offer</li>
-                                        <li>service uptime</li>
-                                    </ul>
-                                </div>
-                                <div className="pricing-count">
-                                    <h4>$15/Mo</h4>
-                                    <a className="sorder-btn" href>Order Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 col-xs-12">
-                            <div className="ssingle-pricing">
-                                <h4>Enterprise</h4>
-                                <div className="pricing-icon">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
-                                </div>
-                                <div className="pricing-content">
-                                    <ul>
-                                        <li>2 GB web space</li>
-                                        <li>free domain register</li>
-                                        <li className="off">special offer</li>
-                                        <li>service uptime</li>
-                                    </ul>
-                                </div>
-                                <div className="pricing-count">
-                                    <h4>$15/Mo</h4>
-                                    <a className="sorder-btn" href>Order Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
             <section id="contact" className="contact-section">
                 <div id="map" />
                 <div className="contact-box-area">
@@ -939,6 +733,6 @@ export default function Landing(props) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
