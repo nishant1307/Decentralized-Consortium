@@ -22,6 +22,7 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import Divider from '@material-ui/core/Divider';
+import Claims from "views/Claims&Certifications/Claims";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import DropzoneS3Uploader from 'react-dropzone-s3-uploader'
@@ -50,72 +51,10 @@ class OrganizationProfile extends Component {
 
     this.renderColleagueForm = this.renderColleagueForm.bind(this);
 
-    //
-    this.handleFocus = this.handleFocus.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeypress = this.handleKeypress.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleCancelClick = this.handleCancelClick.bind(this);
 
     this.helperspan = null;
     this.lastId = -1;
 
-  }
-
-  addClaims = () => {
-    axios.post("/api/dashboard/addClaim", { claims: this.state.myItems }).then(res => {
-      this.setState({
-        alertMessage: <Alert>{res.data.message}</Alert>
-      })
-    });
-  }
-
-
-  handleFocus(event) {
-    this.setState({ content_add: "" });
-    this.forceUpdate();
-  }
-
-  handleChange(event) {
-    const usr_input = event.target.value;
-    this.setState({ content_add: usr_input });
-    this.forceUpdate();
-  }
-
-
-  handleKeypress(event) {
-    if (event.key == "Enter") {
-      var newArray = this.state.myItems;
-      var currentcontent = this.state.content_add.trim();
-      if (!currentcontent) {
-        return;
-      }
-
-      var currentWidth = this.helperspan.offsetWidth;
-      newArray.push({
-        content: currentcontent,
-        id: ++this.lastId,
-        itemWidth: currentWidth + 2,
-        verified: false
-      });
-      this.setState({
-        myItems: newArray,
-        content_add: "",
-      });
-      this.forceUpdate();
-    }
-  }
-
-  handleBlur(event) {
-    this.setState({ content_add: "add +" });
-  }
-
-  handleCancelClick(event) {
-    console.log(event.target.value, "ddfdf");
-    const idToRemove = Number(event.target.dataset["item"]);
-    const newArray = this.state.myItems.filter((listitem) => { return listitem.id !== idToRemove });
-    this.setState({ myItems: newArray });
-    this.forceUpdate();
   }
 
   componentDidMount(){
@@ -372,6 +311,7 @@ class OrganizationProfile extends Component {
               <i className="fa fa-align-justify"></i>
               <strong>Upload certificates of authenticity or standards</strong>
             </CardHeader>
+            <Divider/>
             <CardBody>
               <Nav tabs>
                 <NavItem>
@@ -393,42 +333,7 @@ class OrganizationProfile extends Component {
               </Nav>
               <TabContent activeTab={this.state.activeTab}>
                 <TabPane tabId="1">
-                  <ListGroup>
-                    <ListGroupItem>
-                      <Row>
-                        <Col sm="12" xl="5">
-                          <TextField
-
-variant="outlined"
-                            id="add"
-                            type="text"
-                            name="initvalue"
-                            autoComplete="off"
-                            maxLength="1000"
-                            onFocus={this.handleFocus}
-                            onChange={this.handleChange}
-                            onKeyPress={this.handleKeypress}
-                            onBlur={this.handleBlur}
-                            value={this.state.content_add}
-                          />
-                        </Col>
-                        <Col sm="12" xl="7">
-                          <h6> Hit "Enter" to confirm, Click a pill to remove and click on Update Claims to update it.</h6>
-
-                        </Col>
-                      </Row>
-
-                      <span style={{ whiteSpace: "pre", visibility: "hidden", position: "absolute", pointerEvents: "none" }} ref={el => (this.helperspan = el)}>
-                        {this.state.content_add}
-                      </span>
-                    </ListGroupItem>
-                    <ListGroupItem>
-                      {this.makeAddedList()}
-                    </ListGroupItem>
-                    <ListGroupItem>
-                      <Button color="primary" onClick={this.addClaims}>Update Claims</Button>
-                    </ListGroupItem>
-                  </ListGroup>
+                  <Claims/>
                 </TabPane>
                 <TabPane tabId="2">
                   <ListGroup>

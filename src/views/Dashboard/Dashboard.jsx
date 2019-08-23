@@ -40,6 +40,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Claims from "views/Claims&Certifications/Claims";
 // import ListItemText from '@material-ui/core/ListItemText';
 
 const Dashboard = (props) => {
@@ -164,7 +165,7 @@ const Dashboard = (props) => {
                 <Tab label="Certifications" {...a11yProps(1)} />
               </Tabs>
               <TabPanel value={value} index={0}>
-                Claims Coming Soon
+                <Claims/>
               </TabPanel>
               <TabPanel value={value} index={1}>
                 Certifications Coming Soon
