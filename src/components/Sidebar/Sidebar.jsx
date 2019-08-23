@@ -78,16 +78,15 @@ const Sidebar = ({ ...props }) => {
   );
   var brand = (
     <div className={classes.logo}>
-      <a
-        href="https://www.arthanium.org"
+      <NavLink
+        to="/dashboard/home"
         className={classes.logoLink}
-        target="_blank"
       >
         <div className={classes.logoImage}>
           <img src={logo} alt="logo" className={classes.img} />
         </div>
         {logoText}
-      </a>
+      </NavLink>
     </div>
   );
   return (

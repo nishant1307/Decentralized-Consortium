@@ -406,6 +406,7 @@ function Checkout(props) {
                 indicatorColor="primary"
                 textColor="primary"
                 centered
+                variant="fullWidth"
             >
                 <Tab style={{ outline: "none" }} label="Unstructured document" {...a11yProps(0)} />
                 <Tab style={{ outline: "none" }} label="Structured document" {...a11yProps(1)} />

@@ -17,7 +17,7 @@ import "WA/projects/ferrari/template/assets/css/sliderDefault.css"
 import "WA/projects/ferrari/template/assets/css/sliderCustom.css"
 import "WA/projects/ferrari/template/assets/css/style.css"
 import "WA/projects/ferrari/template/assets/css/responsive.css"
-// import "WA/projects/ferrari/template/assets/css/bootstrap.min.css"
+import "WA/projects/ferrari/template/assets/css/bootstrap.min.css"
 
 const useStyles = makeStyles(theme => ({
     root: {

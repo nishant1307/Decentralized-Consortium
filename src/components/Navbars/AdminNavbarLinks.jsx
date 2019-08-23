@@ -66,22 +66,7 @@ class AdminNavbarLinks extends React.Component {
     })
     return (
       <div>
-        <div className={classes.searchWrapper}>
-          <CustomInput
-            formControlProps={{
-              className: classes.margin + " " + classes.search
-            }}
-            inputProps={{
-              placeholder: "Search",
-              inputProps: {
-                "aria-label": "Search"
-              }
-            }}
-          />
-          <Button color="white" aria-label="edit" justIcon round>
-            <Search />
-          </Button>
-        </div>
+              <Link to ="/dashboard/home">
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
@@ -94,6 +79,7 @@ class AdminNavbarLinks extends React.Component {
             <p className={classes.linkText}>Dashboard</p>
           </Hidden>
         </Button>
+        </Link>
         <div className={classes.manager}>
           <Button
             buttonRef={node => {
@@ -108,7 +94,7 @@ class AdminNavbarLinks extends React.Component {
             className={classes.buttonLink}
           >
             <Notifications className={classes.icons} />
-            <span className={classes.notifications}>{user.notificationList.length>0 && user.notificationList.length}</span>
+            {(user.notificationList.length>0)&&<span className={classes.notifications}>{user.notificationList.length}</span>}
             <Hidden mdUp implementation="css">
               <p onClick={this.handleClick} className={classes.linkText}>
                 Notification
@@ -194,12 +180,14 @@ class AdminNavbarLinks extends React.Component {
                         Profile
                       </MenuItem>
                       </Link>
+                      <Link to= "/dashboard/settings">
                       <MenuItem
                         onClick={this.handleCloseProfile}
                         className={classes.dropdownItem}
                       >
                         Settings
                       </MenuItem>
+                      </Link>
                       <Divider light />
                       <MenuItem
                         onClick={this.props.onLogout}

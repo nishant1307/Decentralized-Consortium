@@ -7,10 +7,12 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 const Wallet = React.lazy(() => import('views/DocConekt/Wallet'));
 // const DashboardPage = React.lazy(() => import('views/Dashboard/Dashboard.jsx'));
 const UserProfile = React.lazy(() => import('views/UserProfile/UserProfile.jsx'));
+const OrganizationProfile = React.lazy(() => import('views/OrganizationProfile'));
 const UserInfo = React.lazy(() => import('views/UserProfile/UserInfo.jsx'));
-const Apps = React.lazy(() => import('views/Apps/Apps.jsx'));
+// const Apps = React.lazy(() => import('views/Apps/Apps.jsx'));
 const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
 const ProjectPage = React.lazy(() => import('views/Projects/ProjectPage.jsx'));
+const SupportPage = React.lazy(() => import('views/SupportPage'));
 const Partners = React.lazy(() => import('views/Partners/Partners.jsx'));
 const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
 const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
@@ -18,6 +20,7 @@ const People = React.lazy(() => import('views/People/People.jsx'));
 const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
 const DeviceList = React.lazy(()=>import('views/Projects/DeviceList'))
 const StructuredDoc = React.lazy(()=>import('views/DocConekt/StructuredDoc'))
+
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
   {
@@ -48,15 +51,21 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/apps",
-    name: "Apps",
-    component: Apps,
+    path: "/settings",
+    name: "Settings",
+    component: OrganizationProfile,
     layout: "/dashboard"
   },
   {
     path: "/projects",
     name: "Projects",
     component: Projects,
+    layout: "/dashboard"
+  },
+  {
+    path: "/support",
+    name: "Support",
+    component: SupportPage,
     layout: "/dashboard"
   },
   {
@@ -77,12 +86,6 @@ const dashboardRoutes = [
     component: DeviceList,
     layout: "/dashboard"
   },
-  // {
-  //   path: "/projects/:projectID/location",
-  //   name: "Project Locations",
-  //   component: ProjectLocation,
-  //   layout: "/dashboard"
-  // },
   {
     path: "/projects/:projectID/partners",
     name: "Project Partners",
@@ -100,12 +103,6 @@ const dashboardRoutes = [
     name: "Partners",
     component: Partners,
     layout: "/dashboard"
-  },
-  {
-    name: 'Analytics',
-    path: '/analytics',
-    component: Apps,
-    layout: "dashboard"
   },
   {
     name: 'Plans',

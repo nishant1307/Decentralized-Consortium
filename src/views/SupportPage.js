@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Promise} from "bluebird";
-import ReactTable from "react-table";
-import 'react-table/react-table.css';
 import {
   Alert,
   Col,
@@ -18,22 +16,7 @@ import {
   ListGroupItem,
   Button
 } from 'reactstrap';
-import Dropzone from 'react-dropzone'
-import useDataTables from '../customHooks/useDataTables';
-
-const columns = [{
-  Header: 'Subject',
-  accessor: 'subject'
-}, {
-  Header: 'Message',
-  accessor: 'message',
-},{
-  Header: 'Status',
-  accessor: 'status'
-}, {
-  Header: 'Created Date',
-  accessor: 'createdAt'
-}];
+import Dropzone from 'react-dropzone';
 
 const SupportPage = () => {
   const [imageFiles, setimageFiles] = useState([]);
@@ -130,7 +113,6 @@ const SupportPage = () => {
   const maxSize = 1048576;
 
   return (<div>
-    <br/>
     <Col sm="12" xl="12">
       <Card>
         {alertMessage!='' && <Alert>{alertMessage}</Alert>}
@@ -204,22 +186,6 @@ const SupportPage = () => {
                 float: "right"
               }} color="primary" onClick={onSubmit}>Submit</Button>
           </Form>
-        </CardBody>
-      </Card>
-    </Col>
-    <Col sm="12" xl="12">
-      <Card>
-        <CardHeader>
-          <i className="fa fa-align-justify"></i>
-          <strong>Tickets Log</strong>
-        </CardHeader>
-        <CardBody>
-          <ReactTable
-            data={fetchedData}
-            columns={columns}
-            filterable= {true}
-            defaultFilterMethod={(filter, row) => (String(row[filter.id]).toLowerCase()).includes((filter.value).toLowerCase())}
-            noDataText="Not available"/>
         </CardBody>
       </Card>
     </Col>

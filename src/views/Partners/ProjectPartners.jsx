@@ -21,6 +21,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
 import Button from "components/CustomButtons/Button";
 import Modal from "components/CustomModal/Modal";
+import {parseJSONFromIPFSHash} from "utils";
 const styles = theme => ({
   root: {
     margin: 0,
@@ -78,6 +79,16 @@ const ProjectPartners = (props) => {
     })
   }
 
+  const fetchPartnerRole = (publicKey) => {
+    registryContract.methods.getPartnerRole(props.match.params.projectID, publicKey).call({
+      from: props.auth.user.publicKey
+    })
+    .then(role => {
+      console.log("Role", role);
+      return role;
+    });
+  }
+
   return (
     <div>
       <AddCircleOutlineIcon onClick={() => setModal(true)}/>
@@ -89,23 +100,20 @@ const ProjectPartners = (props) => {
                 List of all current participants
               </h4>
             </CardHeader>
-            {
-                <CardBody>
-                  <MaterialTable
-                      columns={[
-                        { title: "Email", field: "email" },
-                        { title: "PublicKey", field: "publicKey" },
-                        { title: "OrganizationID", field: "organizationID"}
-                      ]}
-                      data={partners}
-                      title="List of all current participants"
-                      options={{
-                        search: true,
-                        exportButton: true
-                      }}
-                    />
-                </CardBody>
-            }
+              <MaterialTable
+                  columns={[
+                    { title: "Email", field: "email" },
+                    { title: "PublicKey", field: "publicKey" },
+                    { title: "OrganizationID", field: "organizationID"},
+                    { title: "Role in Consortium", field: "publicKey" , render: rowData => <Button color="primary" onClick = {fetchPartnerRole(rowData.publicKey)}> Fetch Role</Button>},
+                  ]}
+                  data={partners}
+                  title=""
+                  options={{
+                    search: true,
+                    exportButton: true
+                  }}
+                />
           </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={12}>

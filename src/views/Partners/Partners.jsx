@@ -13,13 +13,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
+import MaterialTable from "material-table";
 import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import CustomLoader from 'components/Loaders/CustomLoader';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Divider from '@material-ui/core/Divider';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {registryContract} from 'registryContract';
@@ -69,33 +70,6 @@ const Partners = (props) => {
     })
   }, [selectedIndex]);
 
-  let partnerRender = [];
-  partners.forEach(partner => {
-    partnerRender.push(
-      <GridItem key={Math.random()} xs={12} sm={12} md={4}>
-        <Link to= {"/"}>
-        <Card >
-        <CardHeader color="danger" stats icon>
-            <h3 className={classes.cardTitle} style={{
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis"
-            }}>
-              {partner[1]}
-            </h3>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}>
-            <Icon>apps</Icon>
-              Click on Organization to see all employees
-            </div>
-          </CardFooter>
-        </Card>
-        </Link>
-      </GridItem>
-    )
-  })
-
   return (
     <div>
       <Divider/>
@@ -129,9 +103,46 @@ const Partners = (props) => {
       <GridContainer>
         {!loader?
           partners.length>0 ?
-          partnerRender:
+          <Card plain>
+            <CardHeader plain color="primary">
+            <h4 className={classes.cardTitleWhite}>
+              Partners in the selected category
+            </h4>
+
+            </CardHeader>
+              <MaterialTable
+                  columns={[
+                    { title: "OrganizationID", field: "organizationID"},
+                    { title: "Organization Name", field: "name"}
+
+                  ]}
+                  data={partners}
+                  title=""
+                  options={{
+                    search: true,
+                    exportButton: true
+                  }}
+                />
+          </Card>:
             "No organizations in the selected Category":
-        <CustomLoader/>}
+            <React.Fragment>
+            <GridItem xs={12} sm={12} md={12}>
+              <Card plain>
+                <CardHeader plain color="primary">
+                <h4 className={classes.cardTitleWhite}>
+                  Partners in the selected category
+                </h4>
+                </CardHeader>
+              <Skeleton width="80%"/>
+              <Skeleton width="80%" />
+              <Skeleton width="80%" />
+              <Skeleton width="80%" />
+              <Skeleton width="80%" />
+              <Skeleton width="80%" />
+              <Skeleton width="80%" />
+              </Card>
+            </GridItem>
+            </React.Fragment>}
       </GridContainer>
     </div>
   );

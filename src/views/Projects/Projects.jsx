@@ -16,11 +16,14 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
-import CustomLoader from 'components/Loaders/CustomLoader';
 import Skeleton from '@material-ui/lab/Skeleton';
+const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
+import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
 import {registryContract} from 'registryContract';
+import MaterialTable from "material-table";
+import AddBoxIcon from '@material-ui/icons/AddBox';
 const Projects = (props) => {
 
   const [projectList, setProjectList] = useState([]);
@@ -31,6 +34,7 @@ const Projects = (props) => {
       from: props.auth.user.publicKey
     }).then(res => {
       setProjectList(res);
+      console.log(res);
       setLoader(false);
     });
   }, []);
@@ -38,52 +42,62 @@ const Projects = (props) => {
     return "/dashboard/projects/"+ projectID;
   }
   const {classes} = props;
-  let projectRender = [];
-  projectList.forEach(project => {
-    projectRender.push(
-      <GridItem key={Math.random()} xs={12} sm={6} md={3}>
-        <Link to= {projectURL(project[0])}>
-        <Card>
-          <CardHeader color="danger" stats icon>
-            <CardIcon color="danger">
-              <Icon>apps</Icon>
-            </CardIcon>
-            <p className={classes.cardCategory} style={{
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis"
-            }}>
-            </p>
-            <p className={classes.cardTitle} style={{
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis"
-            }}>
-              {project[1]}
-            </p>
-          </CardHeader>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <Icon>apps</Icon>
-              Open
-            </div>
-          </CardFooter>
-        </Card>
-        </Link>
-      </GridItem>
-    )
-  })
 
   return (
     <div>
       <GridContainer>
         {loader ?
-          <CustomLoader /> :
-          projectRender.length !== 0  ?
-            projectRender :
+          <React.Fragment>
+          <GridItem xs={12} sm={12} md={12}>
+            <Card plain>
+              <CardHeader plain color="primary">
+                <h4 className={classes.cardTitleWhite}>
+                  My Projects
+                </h4>
+                <AddBoxIcon onClick={props.openProjectModal}/>
+              </CardHeader>
+            <Skeleton width="80%"/>
+            <Skeleton width="80%" />
+            <Skeleton width="80%" />
+            <Skeleton width="80%" />
+            <Skeleton width="80%" />
+            <Skeleton width="80%" />
+            <Skeleton width="80%" />
+            </Card>
+          </GridItem>
+          </React.Fragment> :
+          projectList.length !== 0  ?
+          <GridItem xs={12} sm={12} md={12}>
+            <Card plain>
+              <CardHeader plain color="primary">
+                <h4 className={classes.cardTitleWhite}>
+                  My Projects
+                </h4>
+                <AddBoxIcon onClick={props.openProjectModal}/>
+              </CardHeader>
+              <MaterialTable
+                  columns={[
+                    { title: "Project Name", field: "projectID" , render: rowData => <Link to= {projectURL(rowData.projectID)}>Go to Project</Link>},
+                    { title: "Project Name", field: "name" },
+                    { title: "Project ID", field: "projectID" },
+                    { title: "Description", field: "description"},
+                    { title: "Industry", field: "industry"},
+                    { title: "Project Admin", field: "projectAdmin"},
+                  ]}
+                  data={projectList}
+                  title=""
+                  options={{
+                    search: true,
+                    exportButton: true
+                  }}
+                />
+            </Card>
+          </GridItem>
+             :
             <h3>No Projects Found!</h3>
         }
       </GridContainer>
+      <ProjectFormModal />
     </div>
   );
 }
@@ -97,4 +111,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.user
 })
-export default connect(mapStateToProps) (withStyles(dashboardStyle)(Projects));
+export default connect(mapStateToProps, {openProjectModal}) (withStyles(dashboardStyle)(Projects));

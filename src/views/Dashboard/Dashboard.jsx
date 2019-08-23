@@ -13,6 +13,8 @@ import DateRange from "@material-ui/icons/DateRange";
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import Update from "@material-ui/icons/Update";
 import Accessibility from "@material-ui/icons/Accessibility";
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import DescriptionIcon from '@material-ui/icons/Description';
 import { connect } from 'react-redux';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -23,30 +25,65 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
-// const RegisterThingModal = React.lazy(() => import('views/RegisterThingModal.js'));
-// import ProjectFormModal from "views/ProjectFormModal.js";
+
 import RegisterThingModal from "views/RegisterThingModal.js";
-import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
 import productContract from "productContract";
 import {registryContract} from "registryContract";
+import {parseJSONFromIPFSHash} from "utils";
+
+// import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+import Divider from '@material-ui/core/Divider';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+// import ListItemText from '@material-ui/core/ListItemText';
+
 const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);
   const [projects, setProjects] = useState([]);
-
+  const [allPeople, setPeople] = useState([]);
   const {classes} = props;
+  const [userName, setUserName] = useState('');
+
+  const [value, setValue] = React.useState(0);
+
+  function handleChange(event, newValue) {
+    setValue(newValue);
+  }
+
+  useEffect(() => {
+    // parseJSONFromIPFSHash(props.user.user[4]).then(userDetails => {
+    //   setUserName(userDetails.info.fullName);
+    // })
+    registryContract.methods.getOrganizationEmployees().call({
+      from : props.auth.user.publicKey
+    }).then(res => {
+      setPeople(res);
+    })
+  }, []);
+
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
 
   return (
     <div>
+    <h4>Welcome to Arthanium Dashboard</h4><br/>
       {props.user && <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card onClick={props.openProjectModal}>
+        <GridItem xs={12} sm={6} md={4}>
+        <Link to="/dashboard/projects">
+          <Card>
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
-                <Icon>content_copy</Icon>
+                <DescriptionIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Projects</p>
               <h3 className={classes.cardTitle}>
@@ -55,31 +92,15 @@ const Dashboard = (props) => {
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Icon>add</Icon>
-                Create new Project
+                <VisibilityIcon/>
+                View your Projects
               </div>
             </CardFooter>
           </Card>
+          </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory}>Partners</p>
-              <h3 className={classes.cardTitle}>&nbsp;</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
+        <GridItem xs={12} sm={6} md={4}>
+          <Card  onClick={props.openThingModal}>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
                 <Store />
@@ -87,54 +108,92 @@ const Dashboard = (props) => {
               <p className={classes.cardCategory}>Products</p>
               <h3 className={classes.cardTitle}>{props.user.thingCount}</h3>
             </CardHeader>
-            <CardFooter stats onClick={props.openThingModal}>
+            <CardFooter stats>
               <div className={classes.stats}>
-                <Icon>add</Icon>
-                Create new Product
+                <VisibilityIcon/>
+                View your Products
             </div>
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Link to="/dashboard/people"><Card>
+        <GridItem xs={12} sm={6} md={4}>
+          <Link to={{ pathname: "/dashboard/people", state: { allPeople: allPeople} }}><Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <Icon>people</Icon>
               </CardIcon>
               <p className={classes.cardCategory}>People</p>
-              <h3 className={classes.cardTitle}>{props.user.people}</h3>
+              <h3 className={classes.cardTitle}>{allPeople.length}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
+              <VisibilityIcon/>
+              View People in your Organization
               </div>
             </CardFooter>
           </Card></Link>
         </GridItem>
       </GridContainer>}
-      {/**<GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card plain>
-            <CardHeader plain color="primary">
-              <h4 className={classes.cardTitleWhite}>
-                Your Projects
-              </h4>
-              <p className={classes.cardCategoryWhite}>
-                Here is a list of trades you are a part of
-              </p>
+      <GridContainer>
+        <GridItem xs={12} sm={6} md={6}>
+          <Card style={{height: "200px"}}>
+            <CardHeader>
+              <strong>Organization Info</strong>
             </CardHeader>
+            <Divider/>
             <CardBody>
-              <Table
-                tableHeaderColor="primary"
-                tableHead={["ID", "Name", "Description", "Industry", "FunctionalRoles"]}
-                tableData={projects}
-              />
+                <b>Organization Name:</b> {props.user.organization[1]}<br/>
+                <b>Organization ID: </b>{props.user.organization[0]}
             </CardBody>
           </Card>
         </GridItem>
-      </GridContainer>*/}
-      <ProjectFormModal />
+        <GridItem xs={12} sm={6} md={6}>
+          <Card>
+            <CardHeader>
+              <strong>Claims & Certifications</strong>
+            </CardHeader>
+            <Divider/>
+            <CardBody>
+              <Tabs value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              centered>
+                <Tab label="Claims" {...a11yProps(0)} />
+                <Tab label="Certifications" {...a11yProps(1)} />
+              </Tabs>
+              <TabPanel value={value} index={0}>
+                Claims Coming Soon
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                Certifications Coming Soon
+              </TabPanel>
+              {/**<TabContent activeTab= {state.activeTab}>
+                <TabPane tabId="1">
+                  <ListGroup>
+                    <ListGroupItem>
+                      {makeAddedList()}
+                    </ListGroupItem>
+                  </ListGroup>
+                </TabPane>
+                <TabPane tabId="2">
+                      {
+                        state.urls.length !== 0 && state.urls.map((url, i) => {
+                          // return (<ListGroupItem><a href={url}>{url}</a></ListGroupItem>)
+                          return (<ListGroupItem>
+                            Certificate Name : {url.name}
+                            <img style={{
+                              padding: 10
+                            }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListGroupItem>)
+                        })
+                      }
+                </TabPane>
+              </TabContent>*/}
+            </CardBody>
+          </Card>
+        </GridItem>
+        </GridContainer>
       <RegisterThingModal />
     </div>
   );
@@ -143,6 +202,24 @@ const Dashboard = (props) => {
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
+
+const TabPanel = (props) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  );
+}
+
 
 const mapStateToProps = (state) => ({
   auth: state.auth,

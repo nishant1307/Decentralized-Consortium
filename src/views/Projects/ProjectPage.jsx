@@ -25,6 +25,7 @@ import { openDeviceModal, openDocModal, closeDocModal } from 'actions/userAction
 import RegisterDeviceModal from "views/RegisterDeviceModal";
 import RegisterDocModal from "views/RegisterDocModal";
 import {registryContract} from 'registryContract';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 const ProjectPage = (props) => {
   const {classes} = props;
 
@@ -49,32 +50,32 @@ const ProjectPage = (props) => {
               <CardIcon color="info">
                 <Icon>work</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Participants so far</p>
+              <p className={classes.cardCategory}>Participants </p>
               <h4 className={classes.cardTitle}>{partners.length}</h4>
             </CardHeader>
           </Link>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Icon>forward</Icon>
+                <VisibilityIcon/>View
               </div>
             </CardFooter>
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
-          <Link to={journeyPageURL}>
+            <Link to={journeyPageURL}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <TimelineIcon />
               </CardIcon>
-              <p className={classes.cardCategory}>Project Journey so far</p>
-              <h4 className={classes.cardTitle}></h4>
+              <p className={classes.cardCategory}>Journey </p>
+              <h4 className={classes.cardTitle}>&nbsp;</h4>
             </CardHeader>
-          </Link>
+            </Link>
             <CardFooter stats>
               <div className={classes.stats}>
-                <Icon>forward</Icon>
-                See
+                <VisibilityIcon/>
+                View
               </div>
             </CardFooter>
           </Card>
@@ -103,11 +104,11 @@ const ProjectPage = (props) => {
                 <Icon>file_copy</Icon>
               </CardIcon>
               <p className={classes.cardCategory}>Docs</p>
-              <h3 className={classes.cardTitle}>{props.user.docCount}</h3>
+              <h4 className={classes.cardTitle}>{props.user.docCount}</h4>
             </CardHeader>
             <CardFooter onClick={props.openDocModal} stats>
               <div className={classes.stats}>
-                <Icon>forward</Icon>
+                <VisibilityIcon/>
                 Upload Doc on DocConekt
               </div>
             </CardFooter>

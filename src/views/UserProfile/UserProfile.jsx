@@ -16,7 +16,7 @@ import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
-
+import EditIcon from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import avatar from "assets/img/faces/marc.jpg";
 import {registryContract} from "registryContract";
@@ -75,9 +75,9 @@ const UserProfile = props => {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card>
-            <CardHeader color="primary">
+            <CardHeader color="primary"  >
               <h4 className={classes.cardTitleWhite}>Your Profile</h4>
-              <p className={classes.cardCategoryWhite}></p>
+              <EditIcon onClick={() => setEditMode(true)}/>
             </CardHeader>
             { userDetails ? <CardBody>
               <GridContainer>
@@ -172,14 +172,16 @@ const UserProfile = props => {
             :
             (
             <React.Fragment>
-              <Skeleton />
+              <Skeleton width="60%"/>
+              <Skeleton width="60%" />
+              <Skeleton width="60%" />
+              <Skeleton width="60%" />
+              <Skeleton width="60%" />
+              <Skeleton width="60%" />
               <Skeleton width="60%" />
             </React.Fragment>
           )
           }
-            <CardFooter>
-              <Button color="primary" onClick={() => setEditMode(true)}>Update Profile</Button>
-            </CardFooter>
           </Card>
         </GridItem>
       </GridContainer>

@@ -243,6 +243,8 @@ const makeAddedList = () => {
                           type="thingDescription"
                           label="Product Description"
                           fullWidth
+                          multiline
+                          rows="4"
                           name="thingDescription"
                           onChange={handleFormChange} />
                         <FormText color="muted">Enter Product Description</FormText>
@@ -255,6 +257,8 @@ const makeAddedList = () => {
                           type="text"
                           label="How is it made?"
                           fullWidth
+                          multiline
+                          rows="4"
                           name="thingStory"
                           onChange={handleFormChange} />
                         <FormText color="muted">Enter Product Description</FormText>

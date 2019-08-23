@@ -20,31 +20,33 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Table from "components/Table/Table.jsx";
+import Button from "components/CustomButtons/Button";
 import MaterialTable from "material-table";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {registryContract} from "registryContract";
 import { connect } from 'react-redux';
-
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import Modal from "components/CustomModal/Modal";
 const People = (props) => {
 
-  const [allPeople, setPeople] = useState([]);
+  const [allPeople, setPeople]=useState([]);
   const [colleagueForm, setColleagueForm] = useState(false);
   const [alert, setAlert] = useState('');
 
   useEffect(() => {
-    registryContract.methods.getOrganizationEmployees().call({
-      from : props.auth.user.publicKey
-    }).then(res => {
-      setPeople(res);
-    })
+    if(!props.location.state)
+      props.history.push("/dashboard/home")
+    else
+      setPeople(props.location.state.allPeople);
+
+    console.log(allPeople);
   }, []);
 
-  const renderColleagueForm = () => {
-    setColleagueForm(true);
+  const toggleColleagueForm = () => {
+    setColleagueForm(!colleagueForm);
   }
 
-  const hanldeColleagueFormSubmit = (message) => {
+  const handleColleagueFormSubmit = (message) => {
     setAlert(<Alert>{message}</Alert>);
     setTimeout(
       function () {
@@ -55,38 +57,61 @@ const People = (props) => {
     );
   }
 
+  const fetchRoleFromRoleCode =(roleCode) => {
+    switch(roleCode){
+      case "0": return "Regular"
+      case "1": return "Admin"
+      case "2": return "Registrant"
+    }
+  }
+
+  const fetchAction = (roleCode) => {
+    switch(roleCode){
+      case "0": return <Button color="primary">Make Registrant</Button>
+      case "1": return "No action"
+      case "2": return <Button color="primary">Make Admin</Button>
+    }
+  }
+
   const {classes} = props;
 
   return (
     <div>
-    <MaterialTable
-        columns={[
-          { title: "Email", field: "email" },
-          { title: "PublicKey", field: "publicKey" }
-        ]}
-        data={allPeople}
-        title="Employees in your Organization"
-        options={{
-          search: true,
-          exportButton: true
-        }}
-      />
-
-      <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
-          {props.user.user[5]==="1" && <Card onClick={renderColleagueForm}>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <Icon>add</Icon>
-              </CardIcon>
-              <p className={classes.cardCategory}></p>
-              <h4 className={classes.cardTitle} >Invite a colleague</h4>
-            </CardHeader>
-          </Card>}
-        </GridItem>
-      </GridContainer>
-      {alert}
-      {colleagueForm && <ColleagueForm onColleagueFormSubmit={hanldeColleagueFormSubmit} />}
+    <GridContainer>
+      <GridItem xs={12} sm={12} md={12}>
+        <Card plain>
+          <CardHeader plain color="primary">
+            <h4 className={classes.cardTitleWhite}>
+              Employees in your Organization
+            </h4>
+            {props.user.user[5]==="1" && <AddBoxIcon onClick={toggleColleagueForm}/>}
+          </CardHeader>
+          <MaterialTable
+              columns={[
+                { title: "Email", field: "email" },
+                { title: "PublicKey", field: "publicKey" },
+                { title: "Employee Role", field: "role" , render: rowData => fetchRoleFromRoleCode(rowData.role)},
+                { title: "Action", field: "role" , render: rowData => fetchAction(rowData.role)}
+              ]}
+              data={allPeople}
+              title=""
+              options={{
+                search: true,
+                exportButton: true
+              }}
+          />
+        </Card>
+      </GridItem>
+    </GridContainer>
+    <Modal
+      open={colleagueForm}
+      onClose={toggleColleagueForm}
+      title={"New Colleague Form"}
+      content= {
+        <ColleagueForm onColleagueFormSubmit={handleColleagueFormSubmit} />
+      }
+    />
+    {alert}
     </div>
   );
 }
