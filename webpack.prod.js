@@ -12,7 +12,6 @@ const handler = (percentage, message, ...args) => {
   // e.g. Output each progress message directly to the console:
   console.info(percentage);
 };
-
 module.exports = merge(common, {
   mode: "production",
   optimization: {

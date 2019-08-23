@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Card, CardBody, CardHeader, FormFeedback,ListGroupItem,ListGroup, Form, FormGroup, Label, Input, FormText, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row , Alert } from 'reactstrap';
+import { Button, FormFeedback,ListGroupItem,ListGroup, Form, FormGroup, Label, Input, FormText, Col,  ModalBody, ModalFooter, ModalHeader, Row , Alert } from 'reactstrap';
 import ipfs from 'ipfs.js';
 const IPFS = require('ipfs-http-client')
 import { connect } from 'react-redux';
-import { createNewThing, closeThingModal } from '../actions/userActions';
-// import useForm from 'react-hook-form'
-// import * as Yup from 'yup';
+import { createNewThing, closeThingModal } from 'actions/userActions';
 import Dropzone from 'react-dropzone'
 import TextField from '@material-ui/core/TextField';
+import Modal from "components/CustomModal/Modal";
 import "assets/css/ClaimPage.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,7 +15,6 @@ import axios from "axios";
 const RegisterThingModal = (props) => {
 
   const onSubmit = (e) => {
-    console.log(claims,state,ipfsHash);
     e.preventDefault();
     props.createNewThing({
       thingName: state.thingName,
@@ -208,239 +206,218 @@ const makeAddedList = () => {
       <div className="animated fadeIn">
         <Row>
           <Col>
-            <Modal style={{maxWidth: '800px'}}  isOpen={props.user.thingModalOpen} toggle={toggle}>
-              <Form>
-                <ModalHeader toggle={toggle}><strong>New Product Registration </strong></ModalHeader>
-                <ModalBody>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Thing name</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <TextField type="thingName"
-                        label="Thing Name"
-                        fullWidth
-                        name="thingName"
+            <Modal
+              open={props.user.thingModalOpen}
+              onClose={toggle}
+              title="New Product Registration"
+              content = {
+                <Form>
+                    <FormGroup row>
+                      <Col xs="12" md="12">
+                        <TextField
+                          variant="outlined"
+                          type="thingName"
+                          label="Product Name"
+                          fullWidth
+                          name="thingName"
+                          onChange={handleFormChange} />
+                        <FormText color="muted">Enter Product Name</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col xs="12" md="12">
+                        <TextField
+                          variant="outlined"
+                          type="thingBrand"
+                          label="Product Brand"
+                          fullWidth
+                          name="thingBrand"
+                          onChange={handleFormChange} />
+                        <FormText color="muted">Enter Product Brand</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col xs="12" md="12">
+                        <TextField
+                          variant="outlined"
+                          type="thingDescription"
+                          label="Product Description"
+                          fullWidth
+                          name="thingDescription"
+                          onChange={handleFormChange} />
+                        <FormText color="muted">Enter Product Description</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col xs="12" md="12">
+                        <TextField
+                          variant="outlined"
+                          type="text"
+                          label="How is it made?"
+                          fullWidth
+                          name="thingStory"
+                          onChange={handleFormChange} />
+                        <FormText color="muted">Enter Product Description</FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                      <Col xs="12" md="12">
+                        <Dropzone
+                          onDrop={onDrop}
+                          accept="image/*"
+                          minSize={0}
+                          maxSize={maxSize}
+                          multiple
+                        >
+                        {({ getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles }) => {
+                          const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
+                          return (
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              {!isDragActive && 'Click here or drop upto 3 images'}
+                              {isDragActive && !isDragReject && "Drop it here"}
+                              {isDragReject && "File type not accepted, sorry!"}
+                              {isFileTooLarge && (
+                                <div className="text-danger mt-2">
+                                  File is too large.
+                                </div>
+                              )}
+                              <div style={previewStyle} />
+                            </div>
+                          )
+                        }}
+                        </Dropzone>
+                        {imageFiles.length > 0 ? <div>
+                          <h4>{imageFiles.length} images uploaded</h4>
+                          <div>{imageFiles.map((file) => <img src={file} height="50px" width="50px" />)}</div>
+                        </div> : null}
+                        <FormText color="muted"></FormText>
+                      </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                    <Col xs="12" md="12">
+                      <TextField
+                        variant="outlined"
+                        type="number"
+                        placeholder="Price of the product (if applicable)?"
+                        name="thingValue"
                         onChange={handleFormChange} />
-                      <FormText color="muted">Enter Thing Name</FormText>
                     </Col>
                   </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Brand / Maker</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <TextField type="thingBrand"
-                        label="Thing Brand"
-                        fullWidth
-                        name="thingBrand"
-                        onChange={handleFormChange} />
-                      <FormText color="muted">Enter Thing Brand</FormText>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Thing description</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <TextField type="thingDescription"
-                        label="Thing Description"
-                        fullWidth
-                        name="thingDescription"
-                        onChange={handleFormChange} />
-                      <FormText color="muted">Enter Thing Description</FormText>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">How is it made?</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <TextField type="text"
-                        label="How is it made?"
-                        fullWidth
-                        name="thingStory"
-                        onChange={handleFormChange} />
-                      <FormText color="muted">Enter Thing Description</FormText>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="file-multiple-input">Thing Images</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Dropzone
-                        onDrop={onDrop}
-                        accept="image/*"
-                        minSize={0}
-                        maxSize={maxSize}
-                        multiple
-                      >
-                      {({ getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles }) => {
-                        const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
-                        return (
-                          <div {...getRootProps()}>
-                            <input {...getInputProps()} />
-                            {!isDragActive && 'Click here or drop upto 3 images'}
-                            {isDragActive && !isDragReject && "Drop it here"}
-                            {isDragReject && "File type not accepted, sorry!"}
-                            {isFileTooLarge && (
-                              <div className="text-danger mt-2">
-                                File is too large.
-                              </div>
-                            )}
-                            <div style={previewStyle} />
-                          </div>
-                        )
-                      }}
-                      </Dropzone>
-                      {imageFiles.length > 0 ? <div>
-                        <h4>{imageFiles.length} images uploaded</h4>
-                        <div>{imageFiles.map((file) => <img src={file} height="50px" width="50px" />)}</div>
-                      </div> : null}
-                      <FormText color="muted"></FormText>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="text-input">Monetary Value</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                    <Input type="number"
-                      placeholder="Price of the thing (if applicable)?"
-                      name="thingValue"
+                <FormGroup row>
+                  <Col xs="12" md="12">
+                    <TextField
+                      variant="outlined"
+                      type="number"
+                      min={1} defaultValue={1}
+                      name="quantity"
                       onChange={handleFormChange} />
                   </Col>
                 </FormGroup>
-              <FormGroup row>
-                <Col md="3">
-                  <Label htmlFor="text-input">Quantity</Label>
-                </Col>
-                <Col xs="12" md="9">
-                  <Input type="number"
-                    min={1} defaultValue={1}
-                    name="quantity"
-                    onChange={handleFormChange} />
-                </Col>
-              </FormGroup>
-                <FormGroup row>
-                  <Col md="3">
-                    <Label htmlFor="text-input">Claims</Label>
-                  </Col>
-                  <Col xs="12" md="9">
-                  <Input
-                    id="add"
-                    type="text"
-                    name="claims"
-                    autoComplete="off"
-                    maxLength="1000"
-                    onFocus={handleFocus}
-                    onChange= {handleChange}
-                    value={content_add}
-                    onKeyPress={handleKeypress}
-                    onBlur={handleBlur}
-                  />
-                  <FormText color="muted">Hit "Enter" to confirm</FormText>
-                  <span style={{ whiteSpace: "pre", visibility: "hidden", position: "absolute", pointerEvents: "none" }} ref={el => (helperspan = el)}>
-                    {content_add}
-                  </span>
-                    </Col>
-                  </FormGroup>
-                      <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="text-input">Claim list</Label>
-                      </Col>
-                    <Col xs="12" md="9">
-                    <ListGroupItem>
-                      {makeAddedList()}
-                    </ListGroupItem>
-                    <FormText color="muted">Click a pill to remove.</FormText>
-                      </Col>
-                      </FormGroup>
-                      {/*    <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="text-input">Certificate Name</Label>
-                      </Col>
-                    <Col xs="12" md="9">
-                    <Input type="text" placeholder="Enter Certificate File Name" name="certificateName" value={certificateName} onChange={handleNameChange} />
-                    <FormText color="muted">Name of the certificate.</FormText>
-                      </Col>
-                      </FormGroup>
-                      <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="text-input"> Certificate Image</Label>
-                      </Col>
-                    <Col xs="12" md="9">
-                    <Row>
-                      <Col sm="12" xl="6">
-                    <Dropzone onDrop={onCertificateDrop} accept="image/*" minSize={0} maxSize={maxSize} multiple={false}>
-                      {
-                        ({ getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles }) => {
-                          const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
-                          return (<div {...getRootProps()}>
-                            <input {...getInputProps()} /> {!isDragActive && 'Click here or drop an images'}
-                            {isDragActive && !isDragReject && "Drop it here"}
-                            {isDragReject && "File type not accepted, sorry!"}
-                            {
-                              isFileTooLarge && (<div className="text-danger mt-2">
-                                File is too large.
-                          </div>)
-                            }
-                            <div style={previewStyle} />
-                          </div>)
-                        }
-                      }
-                    </Dropzone>
-                    </Col>
-                    <Col sm="12" xl="6">
-                      {
-                        imageFilesWithurl.length > 0
-                          ? <div>
-                            <h4>{imageFilesWithurl.length}
-                              images uploaded</h4>
-                            <div>{imageFilesWithurl.map((file) => <img src={file} height="170px" key={0} width="170px" />)}</div>
-                          </div>
-                          : null
-                      }
-                    </Col>
-                  </Row>
-                    <br/>
-                      <Button color="primary" onClick={uploadImages}>Upload Certificates</Button>
-                      </Col>
-                      </FormGroup>
                   <FormGroup row>
-                      <Col md="3">
-                        <Label htmlFor="text-input">Uploaded Certificates</Label>
+                    <Col xs="12" md="12">
+                    <Input
+                      id="add"
+                      type="text"
+                      name="claims"
+                      autoComplete="off"
+                      maxLength="1000"
+                      onFocus={handleFocus}
+                      onChange= {handleChange}
+                      value={content_add}
+                      onKeyPress={handleKeypress}
+                      onBlur={handleBlur}
+                    />
+                    <FormText color="muted">Hit "Enter" to confirm</FormText>
+                    <span style={{ whiteSpace: "pre", visibility: "hidden", position: "absolute", pointerEvents: "none" }} ref={el => (helperspan = el)}>
+                      {content_add}
+                    </span>
                       </Col>
-                    <Col xs="12" md="9">
-                    {
-                      urls.length !== 0 && urls.map((url, i) => {
-                        // return (<ListGroupItem><a href={url}>{url}</a></ListGroupItem>)
-                        return (<ListGroupItem>
-                          Certificate Name : {url.name}
-                          <img style={{
-                            padding: 10
-                          }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListGroupItem>)
-                      })
-                    }
+                    </FormGroup>
+                        <FormGroup row>
+                      <Col xs="12" md="12">
+                      <ListGroupItem>
+                        {makeAddedList()}
+                      </ListGroupItem>
+                      <FormText color="muted">Click a pill to remove.</FormText>
+                        </Col>
+                        </FormGroup>
+                        {/*    <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Certificate Name</Label>
+                        </Col>
+                      <Col xs="12" md="12">
+                      <Input type="text" placeholder="Enter Certificate File Name" name="certificateName" value={certificateName} onChange={handleNameChange} />
+                      <FormText color="muted">Name of the certificate.</FormText>
+                        </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input"> Certificate Image</Label>
+                        </Col>
+                      <Col xs="12" md="12">
+                      <Row>
+                        <Col sm="12" xl="6">
+                      <Dropzone onDrop={onCertificateDrop} accept="image/*" minSize={0} maxSize={maxSize} multiple={false}>
+                        {
+                          ({ getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles }) => {
+                            const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > maxSize;
+                            return (<div {...getRootProps()}>
+                              <input {...getInputProps()} /> {!isDragActive && 'Click here or drop an images'}
+                              {isDragActive && !isDragReject && "Drop it here"}
+                              {isDragReject && "File type not accepted, sorry!"}
+                              {
+                                isFileTooLarge && (<div className="text-danger mt-2">
+                                  File is too large.
+                            </div>)
+                              }
+                              <div style={previewStyle} />
+                            </div>)
+                          }
+                        }
+                      </Dropzone>
                       </Col>
-                      </FormGroup> */}
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary"  onClick={onSubmit}>Add new Thing</Button>
-                </ModalFooter>
-              </Form>
-              {props.errors.thingError && (<FormGroup>
-                    <Col md="12" className="center">
+                      <Col sm="12" xl="6">
+                        {
+                          imageFilesWithurl.length > 0
+                            ? <div>
+                              <h4>{imageFilesWithurl.length}
+                                images uploaded</h4>
+                              <div>{imageFilesWithurl.map((file) => <img src={file} height="170px" key={0} width="170px" />)}</div>
+                            </div>
+                            : null
+                        }
+                      </Col>
+                    </Row>
+                      <br/>
+                        <Button color="primary" onClick={uploadImages}>Upload Certificates</Button>
+                        </Col>
+                        </FormGroup>
+                    <FormGroup row>
+                        <Col md="3">
+                          <Label htmlFor="text-input">Uploaded Certificates</Label>
+                        </Col>
+                      <Col xs="12" md="12">
+                      {
+                        urls.length !== 0 && urls.map((url, i) => {
+                          // return (<ListGroupItem><a href={url}>{url}</a></ListGroupItem>)
+                          return (<ListGroupItem>
+                            Certificate Name : {url.name}
+                            <img style={{
+                              padding: 10
+                            }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListGroupItem>)
+                        })
+                      }
+                        </Col>
+                        </FormGroup> */}
+                </Form>
 
-              <Alert color="danger">
-                {props.errors.thingError.message}
-              </Alert>
-
-          </Col>
-              </FormGroup>  )
               }
-            </Modal>
+              action={
+                <Button color="primary"  onClick={onSubmit}>Add new Thing</Button>
+              }
+              />
+
           </Col>
         </Row>
       </div>

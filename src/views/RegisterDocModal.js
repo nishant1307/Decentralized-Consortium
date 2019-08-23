@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,7 +16,7 @@ import { connect } from 'react-redux';
 import { addNewDoc, closeDocModal } from '../actions/userActions';
 import UploadFile from "views/DocConekt/UploadFile";
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
+  return <Slide direction="down" timeout={5000} ref={ref} {...props} />;
 });
 
 
@@ -60,7 +61,7 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
-const RegisterDocModal = (props) =>  {  
+const RegisterDocModal = (props) =>  {
 
   return (
     <div>
@@ -70,7 +71,7 @@ const RegisterDocModal = (props) =>  {
         TransitionComponent={Transition}
         open={props.user.docModalOpen}
         maxWidth = "xl"
-        
+
       >
         <DialogTitle id="customized-dialog-title" onClose={props.closeDocModal}>
           {/* DocConekt */} &nbsp;

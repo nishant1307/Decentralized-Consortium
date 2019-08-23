@@ -79,7 +79,7 @@ const Sidebar = ({ ...props }) => {
   var brand = (
     <div className={classes.logo}>
       <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
+        href="https://www.arthanium.org"
         className={classes.logoLink}
         target="_blank"
       >

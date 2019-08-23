@@ -23,7 +23,9 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import ProjectFormModal from "views/ProjectFormModal.js";
+const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
+// const RegisterThingModal = React.lazy(() => import('views/RegisterThingModal.js'));
+// import ProjectFormModal from "views/ProjectFormModal.js";
 import RegisterThingModal from "views/RegisterThingModal.js";
 import Table from "components/Table/Table.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
@@ -41,19 +43,17 @@ const Dashboard = (props) => {
     <div>
       {props.user && <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <Link to="/dashboard/projects">
-              <CardHeader color="warning" stats icon>
-                <CardIcon color="warning">
-                  <Icon>content_copy</Icon>
-                </CardIcon>
-                <p className={classes.cardCategory}>Projects</p>
-                <h3 className={classes.cardTitle}>
-                  {props.user.projectCount}
-                </h3>
-              </CardHeader>
-            </Link>
-            <CardFooter stats onClick={props.openProjectModal}>
+          <Card onClick={props.openProjectModal}>
+            <CardHeader color="warning" stats icon>
+              <CardIcon color="warning">
+                <Icon>content_copy</Icon>
+              </CardIcon>
+              <p className={classes.cardCategory}>Projects</p>
+              <h3 className={classes.cardTitle}>
+                {props.user.projectCount}
+              </h3>
+            </CardHeader>
+            <CardFooter stats>
               <div className={classes.stats}>
                 <Icon>add</Icon>
                 Create new Project
@@ -62,7 +62,7 @@ const Dashboard = (props) => {
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
-          <Link to="/dashboard/partners"><Card>
+          <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <Accessibility />
@@ -76,7 +76,7 @@ const Dashboard = (props) => {
                 Just Updated
               </div>
             </CardFooter>
-          </Card></Link>
+          </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>

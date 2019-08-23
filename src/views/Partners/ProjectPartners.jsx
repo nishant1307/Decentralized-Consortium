@@ -8,28 +8,19 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Table from "components/Table/Table.jsx";
+import MaterialTable from "material-table";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import Slide from '@material-ui/core/Slide';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+import Button from "components/CustomButtons/Button";
+import Modal from "components/CustomModal/Modal";
 const styles = theme => ({
   root: {
     margin: 0,
@@ -43,34 +34,6 @@ const styles = theme => ({
   },
 });
 
-const DialogTitle = withStyles(styles)(props => {
-  const { children, classes, onClose } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
-    width:theme.spacing(104)
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
-
 import {registryContract} from "registryContract";
 import {inviteUserToConsortium} from "actions/userActions";
 // import CustomLoader from 'components/Loaders/CustomLoader';
@@ -82,20 +45,25 @@ const ProjectPartners = (props) => {
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteOrg, setInviteOrg] = useState('');
   const [invitePublicKey, setInvitePublicKey] = useState('');
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [error, setError] = useState('');
 
   const checkForUser = () => {
     registryContract.methods.getPublicKeyFromEmail(inviteEmail).call({
       from: props.auth.user.publicKey
     })
     .then(userAddress => {
-      setInvitePublicKey(userAddress);
-      registryContract.methods.getOrganizationDetails().call({
-        from: userAddress
-      }).then(org => {
-        setInviteOrg(org.name)
-      })
 
+      if(userAddress=="0x0000000000000000000000000000000000000000"){
+        setError("No user found with the Entered email")
+      }else {
+        setInvitePublicKey(userAddress);
+        registryContract.methods.getOrganizationDetails().call({
+          from: userAddress
+        }).then(org => {
+          setInviteOrg(org.name)
+        })
+      }
     })
     .catch(err => {
       console.log(err);
@@ -112,6 +80,7 @@ const ProjectPartners = (props) => {
 
   return (
     <div>
+      <AddCircleOutlineIcon onClick={() => setModal(true)}/>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
@@ -122,11 +91,19 @@ const ProjectPartners = (props) => {
             </CardHeader>
             {
                 <CardBody>
-                  <Table
-                    tableHeaderColor="primary"
-                    tableHead={["Public Key", "OrganizationID", "Email", "KYC Status", "User KYC Hash", "User Role"]}
-                    tableData={partners}
-                  />
+                  <MaterialTable
+                      columns={[
+                        { title: "Email", field: "email" },
+                        { title: "PublicKey", field: "publicKey" },
+                        { title: "OrganizationID", field: "organizationID"}
+                      ]}
+                      data={partners}
+                      title="List of all current participants"
+                      options={{
+                        search: true,
+                        exportButton: true
+                      }}
+                    />
                 </CardBody>
             }
           </Card>
@@ -134,38 +111,24 @@ const ProjectPartners = (props) => {
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
             <CardHeader>
-            <Dialog
-              onClose={() => setModal(false)}
-              aria-labelledby="customized-dialog-title"
-              TransitionComponent={Transition}
+            <Modal
               open={modal}
-              maxWidth = "xl"
-
-            >
-              <DialogTitle id="customized-dialog-title" onClose={() => setModal(false)}>
-                {/* DocConekt */} &nbsp;
-              </DialogTitle>
-              <DialogContent dividers>
+              onClose={() => setModal(false)}
+              title= "Invite User To Consortium"
+              content={
                 <TextField type="text"
                   name="InviteEmail to invite to Consortium"
                   value={inviteEmail}
                   onChange={(e) => {setInviteEmail(e.target.value)}}
                   label="Enter email"  />
-                <Button type="button" onClick={checkForUser}>Check for user </Button>
-                {inviteOrg && <p>Invite {inviteOrg} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
-              </DialogContent>
-              {/**<DialogActions>
-                <Button onClick={() => {props.addNewLocation({
-                  latitude: String(latitude),
-                  longitude: String(longitude),
-                  name: name,
-                  projectID: props.projectID
-                })}} color="primary">
-                  Add Location
-                </Button>
-              </DialogActions> */}
-            </Dialog>
-
+              }
+              action={
+                <div>
+                <Button color="primary" onClick={checkForUser}>Check for user </Button>
+                  {inviteOrg && <p>Invite {inviteOrg} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
+                </div>
+              }
+              />
             </CardHeader>
           </Card>
         </GridItem>

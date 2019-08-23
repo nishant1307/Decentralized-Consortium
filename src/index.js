@@ -9,9 +9,6 @@ import Kyc from 'views/KYC/Kyc';
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
-//v1
-const Landing = React.lazy(() => import('views/LandingPagev1/Landing'));
-
 const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
 const Login = React.lazy(() => import('views/Login.jsx'));
 const Signup = React.lazy(() => import('views/Signup.jsx'));
@@ -26,6 +23,8 @@ const AboutUsPage = React.lazy(() => import('views/LandingPage/AboutUsPage.jsx')
 const Contact = React.lazy(() => import('views/LandingPage/Contact.jsx'));
 const TeamPage = React.lazy(() => import('views/LandingPage/TeamPage.jsx'));
 import "assets/css/material-dashboard-react.css?v=1.7.0";
+//v1
+const Landing = React.lazy(() => import('views/LandingPagev1/Landing'));
 
 const loading = <div className="loader"></div>;
 ReactDOM.render(

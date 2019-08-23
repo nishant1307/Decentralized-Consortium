@@ -72,26 +72,16 @@ const Partners = (props) => {
   let partnerRender = [];
   partners.forEach(partner => {
     partnerRender.push(
-      <GridItem key={Math.random()} xs={12} sm={6} md={3}>
+      <GridItem key={Math.random()} xs={12} sm={12} md={4}>
         <Link to= {"/"}>
-        <Card>
-          <CardHeader color="danger" stats icon>
-            <CardIcon color="danger">
-              <Icon>apps</Icon>
-            </CardIcon>
-            <p className={classes.cardCategory} style={{
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis"
-            }}>
-              {partner[1]}
-            </p>
+        <Card >
+        <CardHeader color="danger" stats icon>
             <h3 className={classes.cardTitle} style={{
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis"
             }}>
-              {partner[0]}
+              {partner[1]}
             </h3>
           </CardHeader>
           <CardFooter stats>
@@ -113,11 +103,9 @@ const Partners = (props) => {
           <ListItem
             button
             aria-haspopup="true"
-            aria-controls="lock-menu"
-            aria-label="Organization Type"
             onClick={handleClickListItem}
           >
-            <ListItemText primary="Organization Type" secondary={options[selectedIndex]} />
+            <ListItemText primary="Select Organization Type" secondary={options[selectedIndex]} />
           </ListItem>
       </List>
       <Menu
@@ -139,13 +127,11 @@ const Partners = (props) => {
       </Menu>
       <Divider/>
       <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
         {!loader?
           partners.length>0 ?
           partnerRender:
             "No organizations in the selected Category":
         <CustomLoader/>}
-        </GridItem>
       </GridContainer>
     </div>
   );

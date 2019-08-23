@@ -53,15 +53,14 @@ const Projects = (props) => {
                 overflow: "hidden",
                 textOverflow: "ellipsis"
             }}>
-              {project[0]}
             </p>
-            <h3 className={classes.cardTitle} style={{
+            <p className={classes.cardTitle} style={{
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis"
             }}>
               {project[1]}
-            </h3>
+            </p>
           </CardHeader>
           <CardFooter stats>
             <div className={classes.stats}>

@@ -13,7 +13,6 @@ module.exports = merge(common, {
     }),
   ],
   devServer: {
-    contentBase: path.join(__dirname),
     port: 4001,
     historyApiFallback: true,
     inline: true,
@@ -27,7 +26,7 @@ module.exports = merge(common, {
       errors: true
     },
     publicPath: '',
-    contentBase: './',
+    contentBase: './'
   },
   output: {
     filename: '[name].[hash].js',

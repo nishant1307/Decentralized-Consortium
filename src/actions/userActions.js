@@ -134,7 +134,8 @@ export const createNewProject = projectDetails => async (dispatch) => {
           projectDetails.name,
           projectDetails.description,
           projectDetails.industry,
-          projectDetails.partnerRole
+          projectDetails.partnerRole,
+          web3.utils.keccak256(projectDetails.passcode)
         ).encodeABI()
       };
 
@@ -142,6 +143,7 @@ export const createNewProject = projectDetails => async (dispatch) => {
       transaction["gasLimit"] = 4700000;
       web3.eth.accounts.signTransaction(transaction, privateKey)
         .then(res => {
+          console.log(res);
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
               console.log(receipt);

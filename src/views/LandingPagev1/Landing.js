@@ -9,15 +9,15 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import "../../WA/projects/ferrari/template/assets/css/font-awesome.min.css"
-import "../../WA/projects/ferrari/template/assets/css/prettyPhoto.css"
-import "../../WA/projects/ferrari/template/assets/css/swiper.min.css"
-import "../../WA/projects/ferrari/template/assets/css/owl.carousel.min.css"
-import "../../WA/projects/ferrari/template/assets/css/sliderDefault.css"
-import "../../WA/projects/ferrari/template/assets/css/sliderCustom.css"
-import "../../WA/projects/ferrari/template/assets/css/style.css"
-import "../../WA/projects/ferrari/template/assets/css/responsive.css"
-
+import "WA/projects/ferrari/template/assets/css/font-awesome.min.css"
+import "WA/projects/ferrari/template/assets/css/prettyPhoto.css"
+import "WA/projects/ferrari/template/assets/css/swiper.min.css"
+import "WA/projects/ferrari/template/assets/css/owl.carousel.min.css"
+import "WA/projects/ferrari/template/assets/css/sliderDefault.css"
+import "WA/projects/ferrari/template/assets/css/sliderCustom.css"
+import "WA/projects/ferrari/template/assets/css/style.css"
+import "WA/projects/ferrari/template/assets/css/responsive.css"
+// import "WA/projects/ferrari/template/assets/css/bootstrap.min.css"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -45,7 +45,7 @@ export default function Landing(props) {
                 <div className="container">
                     <nav className="navbar navbar-default">
                         <a className="logo" href="#">
-                            <img src={require("../../WA/projects/ferrari/template/assets/img/logo1.png")} alt="logo" />
+                            <img src={require("WA/projects/ferrari/template/assets/img/logo1.png")} alt="logo" />
                             {/* CreativeLogo */}
                         </a>
                         <div className="open">
@@ -170,13 +170,13 @@ export default function Landing(props) {
                             {/* <div className="swiper-wrapper"> */}
                             <AutoPlaySwipeableViews>
                                 <div className="swiper-slide">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/slider/slider-dashboard.jpg")} alt="..." />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/slider/slider-dashboard.jpg")} alt="..." />
                                 </div>
                                 <div className="swiper-slide">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/slider/slider-admin.jpg")} alt="..." />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/slider/slider-admin.jpg")} alt="..." />
                                 </div>
                                 <div className="swiper-slide">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/slider/slider-items.jpg")} alt="..." />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/slider/slider-items.jpg")} alt="..." />
                                 </div>
                             </AutoPlaySwipeableViews>
                             {/* </div> */}
@@ -198,7 +198,7 @@ export default function Landing(props) {
                     <div className="row">
                         <div className="features-wrap">
                             <div className="col-md-4 col-sm-12 text-center">
-                                <img src={require("../../WA/projects/ferrari/template/assets//img/ipad-img.png")} alt="" className="ipad-img" />
+                                <img src={require("WA/projects/ferrari/template/assets//img/ipad-img.png")} alt="" className="ipad-img" />
                             </div>
                             <div className="col-md-8 col-sm-12">
                                 <div className="row">
@@ -331,7 +331,7 @@ export default function Landing(props) {
                             <div className="ssingle-pricing">
                                 <h4>PRO</h4>
                                 <div className="pricing-icon">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
                                 </div>
                                 <div className="pricing-content">
                                     <ul>
@@ -351,7 +351,7 @@ export default function Landing(props) {
                             <div className="ssingle-pricing">
                                 <h4>BUSINESS</h4>
                                 <div className="pricing-icon">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
                                 </div>
                                 <div className="pricing-content">
                                     <ul>
@@ -371,7 +371,7 @@ export default function Landing(props) {
                             <div className="ssingle-pricing">
                                 <h4>ENTERPRISE</h4>
                                 <div className="pricing-icon">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/1.png")} alt="images" />
                                 </div>
                                 <div className="pricing-content">
                                     <ul>
@@ -518,7 +518,7 @@ export default function Landing(props) {
                     </header>
                     <div className="col-md-4 col-sm-12">
                         <div className="item-inner-wrapper">
-                            <img width="300px" height="300" src={require("../../WA/projects/ferrari/template/assets//img/portfolio/portfolio-1.jpg")} alt="" className="portfolio-thumb" />
+                            <img width="300px" height="300" src={require("WA/projects/ferrari/template/assets//img/portfolio/portfolio-1.jpg")} alt="" className="portfolio-thumb" />
                             <div className="overlay" />
                             <div className="portfolio-content">
                                 <a data-gal="prettyPhoto[product-gallery]" rel="bookmark" href="https://medium.com/@sandesh.hegde/internet-of-things-iot-b13cc2d9637a"><i className="fa fa-eye" aria-hidden="true" /></a>
@@ -552,7 +552,7 @@ export default function Landing(props) {
 
                 </div>
             </section>
-            <section id="testimonial" className="section reviews bg-grey">
+            <section id="Team" className="section reviews bg-grey">
                 <div className="container">
                     <header className="section-header">
                         <small>Team</small>
@@ -564,7 +564,7 @@ export default function Landing(props) {
                         <div className="row">
                             <div className="col-md-3 col-sm-6">
                                 <div className="single-team">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/1.png")} alt="Team" />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/team/1.png")} alt="Team" />
                                     <div className="team-overlay" />
                                     <div className="team-content">
                                         <div className="team-text">
@@ -586,7 +586,7 @@ export default function Landing(props) {
                             </div>
                             <div className="col-md-3 col-sm-6">
                                 <div className="single-team">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/2.png")} alt="Team" />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/team/2.png")} alt="Team" />
                                     <div className="team-overlay" />
                                     <div className="team-content">
                                         <div className="team-text">
@@ -608,7 +608,7 @@ export default function Landing(props) {
                             </div>
                             <div className="col-md-3 col-sm-6">
                                 <div className="single-team">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/3.png")} alt="Team" />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/team/3.png")} alt="Team" />
                                     <div className="team-overlay" />
                                     <div className="team-content">
                                         <div className="team-text">
@@ -630,7 +630,7 @@ export default function Landing(props) {
                             </div>
                             <div className="col-md-3 col-sm-6">
                                 <div className="single-team">
-                                    <img src={require("../../WA/projects/ferrari/template/assets//img/team/4.png")} alt="Team" />
+                                    <img src={require("WA/projects/ferrari/template/assets//img/team/4.png")} alt="Team" />
                                     <div className="team-overlay" />
                                     <div className="team-content">
                                         <div className="team-text">

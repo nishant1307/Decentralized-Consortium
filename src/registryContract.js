@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0x32026cfcf9e2cff600742ff7d810574ec0ac79ec';
+export const registryAddress = '0x7eebb6234ec78c8f25be55848ad4881faa4b5628';
 export const registryABI = [
 	{
 		"constant": false,
@@ -80,6 +80,11 @@ export const registryABI = [
 				"internalType": "enum StorageDefinition.partnerRoles",
 				"name": "partnerRole",
 				"type": "uint8"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "passcode",
+				"type": "bytes32"
 			}
 		],
 		"name": "addNewProject",
@@ -189,6 +194,32 @@ export const registryABI = [
 			}
 		],
 		"name": "removeEmailFromMapping",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "passcode",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "requestProjectInvite",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -653,6 +684,27 @@ export const registryABI = [
 	},
 	{
 		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "fetchProjectInvites",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "getAllOrganizations",
 		"outputs": [
@@ -851,6 +903,11 @@ export const registryABI = [
 						"internalType": "string",
 						"name": "industry",
 						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "projectAdmin",
+						"type": "address"
 					}
 				],
 				"internalType": "struct StorageDefinition.Project[]",
@@ -900,6 +957,27 @@ export const registryABI = [
 	},
 	{
 		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "organizationID",
+				"type": "string"
+			}
+		],
+		"name": "getOrganizationAdminEmail",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "getOrganizationDetails",
 		"outputs": [
@@ -937,13 +1015,7 @@ export const registryABI = [
 	},
 	{
 		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "organizationID",
-				"type": "string"
-			}
-		],
+		"inputs": [],
 		"name": "getOrganizationEmployees",
 		"outputs": [
 			{
@@ -1110,6 +1182,11 @@ export const registryABI = [
 						"internalType": "string",
 						"name": "industry",
 						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "projectAdmin",
+						"type": "address"
 					}
 				],
 				"internalType": "struct StorageDefinition.Project",
@@ -1314,6 +1391,6 @@ export const registryABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+];
 
 export const registryContract =  new web3.eth.Contract(registryABI, registryAddress);

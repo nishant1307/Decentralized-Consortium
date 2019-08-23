@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const devMode = process.env.NODE_ENV !== 'production'
 const VENDOR_LIBS = ['react', 'react-dom'];
-
+const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: {
 		bundle: './src/index.js',
@@ -25,6 +25,9 @@ module.exports = {
 	},
 
   plugins: [
+    new CopyPlugin([
+      { from: './src/WA/projects/ferrari/template/assets/js', to: 'js' }
+    ]),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
@@ -48,8 +51,6 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          'postcss-loader',
-          'sass-loader',
         ],
       },
       {

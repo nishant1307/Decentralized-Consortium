@@ -8,10 +8,10 @@
     Support: http://codeshaper.net/contact.php
 ============================================================*/
 /*==========================================================
-    
+
     CSS INDEX
     ===================
-  
+
   1. Theme Default CSS
   2. Menu Area
   3. About Area
@@ -24,8 +24,8 @@
   10. Pricing Area
   11. Contact Area
   12. Footer Area
-  13. vide slider Area 
-  
+  13. vide slider Area
+
 ==========================================================*/
 /*----------------------------------------*/
 /*  1. Theme Default CSS
@@ -241,12 +241,12 @@ img {
     height: 100%;
     width: 100%;
   }
-  
+
   .middle {
     display: table-cell;
     vertical-align: middle;
   }
-  
+
   .inner {
     margin-left: 100px;
     margin-right: auto;
@@ -1407,7 +1407,7 @@ textarea::-moz-placeholder {
     color: #606060;
 }
 /*----------------------------------------*/
-/*  12. Footer Area 
+/*  12. Footer Area
 /*----------------------------------------*/
 
 .footer-area {
@@ -1442,7 +1442,7 @@ textarea::-moz-placeholder {
 
 
 /*----------------------------------------*/
-/*  13. vide slider Area 
+/*  13. vide slider Area
 /*----------------------------------------*/
 
 .videosize {

@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Switch, Route } from "react-router-dom";
 // creates a beautiful scrollbar
-import PerfectScrollbar from "perfect-scrollbar";
-import "perfect-scrollbar/css/perfect-scrollbar.css";
+// import PerfectScrollbar from "perfect-scrollbar";
+// import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
@@ -19,7 +19,7 @@ import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/logo.png";
 import routes from "routes.js"
 
-let ps;
+// let ps;
 
 const switchRoutes = (
   <Switch>
@@ -62,9 +62,9 @@ class Dashboard extends React.Component {
     if (!this.props.auth.isAuthenticated) {
       this.props.history.push('/login');
     }
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps = new PerfectScrollbar(this.mainPanel.current);
-    }
+    // if (navigator.platform.indexOf("Win") > -1) {
+    //   ps = new PerfectScrollbar(this.mainPanel.current);
+    // }
     window.addEventListener("resize", this.resizeFunction);
   }
 
@@ -77,9 +77,9 @@ class Dashboard extends React.Component {
     }
   }
   componentWillUnmount() {
-    if (navigator.platform.indexOf("Win") > -1) {
-      ps.destroy();
-    }
+    // if (navigator.platform.indexOf("Win") > -1) {
+    //   ps.destroy();
+    // }
     window.removeEventListener("resize", this.resizeFunction);
   }
   render() {

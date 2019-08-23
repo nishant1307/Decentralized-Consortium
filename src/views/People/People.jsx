@@ -21,6 +21,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
+import MaterialTable from "material-table";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {registryContract} from "registryContract";
 import { connect } from 'react-redux';
@@ -32,7 +33,7 @@ const People = (props) => {
   const [alert, setAlert] = useState('');
 
   useEffect(() => {
-    registryContract.methods.getAllUsers().call({
+    registryContract.methods.getOrganizationEmployees().call({
       from : props.auth.user.publicKey
     }).then(res => {
       setPeople(res);
@@ -55,36 +56,23 @@ const People = (props) => {
   }
 
   const {classes} = props;
-  let peopleRender = [];
-  allPeople.forEach(people => {
-    peopleRender.push(
-      <GridItem xs={12} sm={6} md={3}>
-        <Card>
-          <CardHeader color="danger" stats icon>
-            <CardIcon color="danger">
-              <Icon>apps</Icon>
-            </CardIcon>
-            <p className={classes.cardCategory}>{people.publicKey}</p>
-            <h4 className={classes.cardTitle}></h4>
-          </CardHeader>
-          <CardBody>
-            {people.email}
-          </CardBody>
-          <CardFooter stats>
-            <div className={classes.stats}>
-              <LocalOffer />
-              Add to a consortium
-            </div>
-          </CardFooter>
-        </Card>
-      </GridItem>
-    )
-  })
 
   return (
     <div>
+    <MaterialTable
+        columns={[
+          { title: "Email", field: "email" },
+          { title: "PublicKey", field: "publicKey" }
+        ]}
+        data={allPeople}
+        title="Employees in your Organization"
+        options={{
+          search: true,
+          exportButton: true
+        }}
+      />
+
       <GridContainer>
-        {peopleRender}
         <GridItem xs={12} sm={6} md={3}>
           {props.user.user[5]==="1" && <Card onClick={renderColleagueForm}>
             <CardHeader color="danger" stats icon>

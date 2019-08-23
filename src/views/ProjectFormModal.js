@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Alert, Button, Card, CardBody, CardHeader, Form, FormFeedback, FormGroup, Label, Input, FormText, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import { Alert, Button, Card, CardBody, CardHeader, Form, FormFeedback, FormGroup, Label, Input, FormText, Col,  Row } from 'reactstrap';
 import axios from "axios";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { createNewProject, closeProjectModal } from '../actions/userActions';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Modal from "components/CustomModal/Modal";
 import { industryList } from '../dataset/industries';
 import { functionalRoles } from '../dataset/functionalRoles';
 import { renderFromArray } from '../utils';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 const useStyles = makeStyles(theme => ({
   progress: {
     margin: theme.spacing(2),
@@ -30,6 +29,7 @@ function ProjectFormModal(props) {
 
   const [state, setState] = useState(initialState);
   const [projectName, setProjectName] = useState('');
+  const [projectPasscode, setProjectPasscode] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [industry, setIndustry] = useState('');
   const [role, setRole] = useState(0);
@@ -41,8 +41,9 @@ function ProjectFormModal(props) {
   }
 
   const toggle = () => {
-    props.closeProjectModal();
     setState(initialState);
+    props.closeProjectModal();
+
   }
 
   // useEffect(() => {
@@ -69,33 +70,37 @@ function ProjectFormModal(props) {
 
   const submitProject = () => {
     // console.log({ name: projectName, description: projectDescription, industry: industry, partnerRole: role });
-    props.createNewProject({ name: projectName, description: projectDescription, industry: industry, partnerRole: role });
+    props.createNewProject({ name: projectName, description: projectDescription, industry: industry, partnerRole: role, passcode: projectPasscode });
     setLoading(true)
   }
 
   return (
     <div className="animated fadeIn">
       {!isReadyForProject &&
-        <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
-          <ModalHeader toggle={toggle}><strong>Please wait till your account gets registered on the Open Registry</strong></ModalHeader>
-          <ModalFooter>
-            {isLoading && <CircularProgress className={classes.progress} />}
-          </ModalFooter>
-        </Modal>
+        <Modal
+          open={props.user.projectModalOpen}
+          onClose={toggle} className={props.className}
+          title={"Please wait till your account gets registered on the Open Registry"}
+          action={isLoading && <CircularProgress className={classes.progress} />}
+          />
       }
       {isReadyForProject &&
         <Row>
           <Col>
-            <Modal isOpen={props.user.projectModalOpen} toggle={toggle} className={props.className}>
+            <Modal
+            open={props.user.projectModalOpen}
+            onClose={toggle}
+            title={"New Project Form"}
+            content= {
               <Form className="form-horizontal">
-                <ModalHeader toggle={toggle}><strong>New Project Form</strong></ModalHeader>
-                <ModalBody>
                   <FormGroup row>
                     <Col xs="12" md="9">
                       <TextField type="text"
+                        variant="outlined"
                         label= "Project Name"
                         name="name"
                         required
+                        value={projectName}
                         onChange={(e => setProjectName(e.target.value))}
                       />
                       <FormText color="muted">Enter a name for your Project (For example: TestProject)</FormText>
@@ -104,9 +109,11 @@ function ProjectFormModal(props) {
                   <FormGroup row>
                     <Col xs="12" md="9">
                       <TextField type="text"
+                        variant="outlined"
                         label="Project Description"
                         name="description"
                         required
+                        value={projectDescription}
                         onChange={(e => setProjectDescription(e.target.value))}
                       />
                       <FormText color="muted">Describe your project</FormText>
@@ -130,39 +137,54 @@ function ProjectFormModal(props) {
                       <FormText color="muted">What industry does your project cover?</FormText>
                     </Col>
                   </FormGroup>
+
                   <FormGroup row>
                     <Col md="3">
                       <Label htmlFor="select">Select Role</Label>
                     </Col>
                     <Col xs="12" md="9">
                       <Label check>
-                        <Input type="radio" name="role" value={0} onChange={(e)=> setRole(e.target.value)}/>{' '}
+                        <Input type="radio" name="role" value={1} onChange={(e)=> setRole(e.target.value)}/>{' '}
                         Buyer
                     </Label><br />
                       <Label check>
-                        <Input type="radio" name="role" value={1} onChange={(e)=> setRole(e.target.value)}/>{' '}
+                        <Input type="radio" name="role" value={2} onChange={(e)=> setRole(e.target.value)}/>{' '}
                         Seller
                       </Label>
                     </Col>
                   </FormGroup>
-                </ModalBody>
-                <ModalFooter>
-                  {isLoading && <CircularProgress className={classes.progress} /> }
-                  {!isLoading && <Button color="primary" type="button" onClick={submitProject}>Create Project</Button>
-                  }
-                </ModalFooter>
+                  <FormGroup row>
+                    <Col xs="12" md="9">
+                      <TextField type="text"
+                        variant="outlined"
+                        label= "Project Passcode"
+                        name="name"
+                        required
+                        value={projectPasscode}
+                        onChange={(e => setProjectPasscode(e.target.value))}
+                      />
+                      <FormText color="muted">Enter a secure passcode. Your invitees might use this to join this Project.</FormText>
+                    </Col>
+                  </FormGroup>
               </Form>
-              {props.errors.projectError && (<FormGroup>
-                <Col md="12" className="center">
 
-                  <Alert color="danger">
-                    {props.errors.projectError.message}
-                  </Alert>
+            }
+            action={
+              <div>
+                {!isLoading? <Button color="primary" type="button" onClick={submitProject}>Create Project</Button> : <CircularProgress className={classes.progress} />}
+                {props.errors.projectError && (<FormGroup>
+                  <Col md="12" className="center">
 
-                </Col>
-              </FormGroup>)
-              }
-            </Modal>
+                    <Alert color="danger">
+                      {props.errors.projectError.message}
+                    </Alert>
+
+                  </Col>
+                </FormGroup>)
+                }
+              </div>
+            }
+            />
           </Col>
         </Row>}
     </div>
