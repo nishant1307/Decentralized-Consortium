@@ -9,6 +9,10 @@ import '../../WA/css/kergan.detheme.css'
 
 export default function Landing(props) {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+    const [projects, setProjects] = React.useState(0);
+    const [partners, setPartners] = React.useState(0);
+    const [products, setProducts] = React.useState(0);
+
     return (
         <div className="body">
             <div data-collapse="medium" data-animation="default" data-duration={400} className="nav-bar w-nav">
@@ -204,7 +208,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                     <div className="wrapper">
                         <h2 style={{ paddingBottom: 30 }} className="section-header withdesc">Pricing Plan</h2>
                         <div className="row-2">
-                            <div className="col lg-4" style={{paddingBottom:10}}>
+                            <div className="col lg-4" style={{ paddingBottom: 10 }}>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
@@ -223,7 +227,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col lg-4" style={{paddingBottom:10}}>
+                            <div className="col lg-4" style={{ paddingBottom: 10 }}>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
@@ -242,7 +246,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col lg-4" style={{paddingBottom:10}}>
+                            <div className="col lg-4" style={{ paddingBottom: 10 }}>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
@@ -280,27 +284,39 @@ Validity of plan & credits is one month and it cannot be carried forward.
 Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
                             </div>
                         </div>
-                        <div className=" w-col w-col-6" style={{ textAlign: "-webkit-center", paddingTop: 50 }}>
+                        <div className=" w-col w-col-6" style={{ textAlign: "-webkit-center", paddingTop: 50, paddingBottom: 50 }}>
                             <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
                                 <table className="tg">
                                     <tr>
-                                        <th className="tg-rnhl" colspan="2">Credit Chart</th>
+                                        <th className="tg-rnhl" colspan="4">Credit Chart</th>
                                     </tr>
                                     <tr>
-                                        <td className="tg-rnhl"></td>
+                                        <td className="tg-rnhl">name</td>
                                         <td className="tg-rnhl">Credits Used</td>
+                                        <td className="tg-rnhl" colspan="2">Credit Calculator</td>
                                     </tr>
                                     <tr>
                                         <td className="tg-rnhl">Projects</td>
                                         <td className="tg-rnhl">75</td>
+                                        <td className="tg-rnhl"><input type="number" style={{width:50}} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{width:50}}  value={parseInt(projects) * 75} readOnly /></td>
                                     </tr>
                                     <tr>
                                         <td className="tg-rnhl">Partners</td>
                                         <td className="tg-rnhl">15</td>
+                                        <td className="tg-rnhl"><input type="number" style={{width:50}}  value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{width:50}}   value={parseInt(partners) * 15} readOnly /></td>
                                     </tr>
                                     <tr>
                                         <td className="tg-rnhl">Products / Docs / Devices</td>
                                         <td className="tg-g2pk">1</td>
+                                        <td className="tg-rnhl"><input type="number"  style={{width:50}}  value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{width:50}}   value={products} readOnly /></td>
+                                    </tr>
+                                    <tr>
+                                        <td className="tg-g2pk" colspan="1"></td>
+                                        <td className="tg-g2pk" colspan="2">Total</td>
+                                        <td className="tg-rnhl"><input type="number" style={{width:50}}  value={parseInt(projects * 75) + parseInt(partners * 15) + parseInt(products)}  readOnly placeholder="Total" /></td>
                                     </tr>
                                 </table>
                             </div>
