@@ -37,7 +37,7 @@ const Products = (props) => {
     }).then(res => {
       setTokenIDList(res);
       res.forEach(tokenId => {
-        productContract.methods.getDeviceDetails(tokenId).call({
+        productContract.methods.getProductDetails(tokenId).call({
           from: props.auth.user.publicKey
         }).then(productDetails => {
           setProductList(productList => [

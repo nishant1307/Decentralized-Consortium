@@ -2,6 +2,7 @@ pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
 import "./EternalStorage.sol";
 import "./Consortium.sol";
+import './StorageDefinition.sol';
 library SafeMath {
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
@@ -124,7 +125,7 @@ contract ERC721 is ERC165, Ownable   {
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
     EternalStorage s;
-    Registry registerContract;
+    Consortium registerContract;
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
@@ -150,11 +151,11 @@ contract ERC721 is ERC165, Ownable   {
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721);
         s = EternalStorage(storageAddress);
-        registerContract = Registry(registryAddress);
+        registerContract = Consortium(registryAddress);
     }
 
     modifier onlyRegistrant() {
-        require(s.getUserDetails().role == EternalStorage.roles.admin || s.getUserDetails().role == EternalStorage.roles.registrant);
+        require(s.getUserDetails().role == StorageDefinition.roles.admin || s.getUserDetails().role == StorageDefinition.roles.registrant);
         _;
     }
 
@@ -475,6 +476,7 @@ contract ERC721Metadata is ERC165, ERC721{
         string deviceType;
         string sensor;
         uint256 timeStamp;
+        string projectId;
     }
 
 
@@ -549,6 +551,12 @@ contract ERC721Metadata is ERC165, ERC721{
         require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
         _tokenURIs[tokenId] = uri;
         // _projectIds[tokenId] = projectId;
+    }
+    
+      function _setProjectId (string memory tokenId, string memory projectId) internal{
+        deviceDetails memory temp = _tokenDetails[tokenId];
+        temp.projectId = projectId;
+         _tokenDetails[tokenId] = temp;
     }
 
     function _setDeviceDetails(string memory tokenId,string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor ) internal {
@@ -823,17 +831,24 @@ contract DeviceContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Minta
         emit MetadataChanged(tokenId,metadata);
         return true;
     }
-
-    function stringToBytes32(string memory source) private pure returns (bytes32 result) {
-    bytes memory tempEmptyStringTest = bytes(source);
-    if (tempEmptyStringTest.length == 0) {
-        return 0x0;
+    
+     function setProjectId(string memory tokenId, string memory projectId ) public onlyRegistrant returns (bool) {
+        require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
+        _setProjectId(tokenId , projectId);
+        return true;
     }
 
-    assembly {
-        result := mload(add(source, 32))
-    }
-    }
+
+    // function stringToBytes32(string memory source) private pure returns (bytes32 result) {
+    // bytes memory tempEmptyStringTest = bytes(source);
+    // if (tempEmptyStringTest.length == 0) {
+    //     return 0x0;
+    // }
+
+    // assembly {
+    //     result := mload(add(source, 32))
+    // }
+    // }
 
     function MintWithDetails(address to, string memory tokenId, bytes32 projectId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor) public onlyRegistrant returns (bool) {
         _setDeviceDetails(tokenId, communicationProtocol, dataProtocol, deviceType, sensor);

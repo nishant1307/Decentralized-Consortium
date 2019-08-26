@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-export const deviceAddress = '0xd565eb0b778d5c80fe01c4ccd2c6d25c7a585a96';
+export const deviceAddress = '0x45f769016ae779757fad148e42fecac1683235dc';
 export const abi = [
 	{
 		"constant": true,
@@ -21,6 +21,32 @@ export const abi = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "projectId",
+				"type": "string"
+			}
+		],
+		"name": "setProjectId",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -372,6 +398,11 @@ export const abi = [
 						"internalType": "uint256",
 						"name": "timeStamp",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "projectId",
+						"type": "string"
 					}
 				],
 				"internalType": "struct ERC721Metadata.deviceDetails",
