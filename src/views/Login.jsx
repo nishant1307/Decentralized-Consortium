@@ -86,6 +86,7 @@ function Login(props) {
     passworder.decrypt(password, keystore)
       .then(function (result) {
         sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
+        sessionStorage.setItem('timestamp', Date.now())
         props.loginUser({address:address,data:result},props.history);
       })
       .catch((reason) => {
@@ -93,7 +94,7 @@ function Login(props) {
         setOpen(true);
       })
   }
-  
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />

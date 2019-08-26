@@ -22,7 +22,7 @@ import {
   GET_SUBSCRIPTION
 } from "./types";
 import { setAuthToken } from '../axiosConfig';
-import productContract from '../productContract.js'
+import {productAddress, productContract} from '../productContract.js'
 import {deviceContract, deviceAddress} from '../deviceContract.js'
 import DocContract from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
@@ -135,7 +135,7 @@ export const createNewProject = projectDetails => async (dispatch) => {
           projectDetails.description,
           projectDetails.industry,
           projectDetails.partnerRole,
-          web3.utils.keccak256(projectDetails.passcode)
+          web3.utils.utf8ToHex(projectDetails.passcode)
         ).encodeABI()
       };
 
@@ -313,7 +313,7 @@ export const createNewThing = thingDetails =>  async (dispatch) => {
       for (var i = from; i <= to; i++ , nonce++) {
         var transaction = {
           "nonce": nonce,
-          "to": "0x650d285cb4c3b9b656d5fa07c9d20824d7083eeb",
+          "to": productAddress,
           "data": productContract.methods.MintWithDetails(
             address,
             uuidv1(),
@@ -332,7 +332,7 @@ export const createNewThing = thingDetails =>  async (dispatch) => {
         web3.eth.accounts.signTransaction(transaction, privateKey).then((result) => {
           // console.log("Adding", i, count);
           batch.add(web3.eth.sendSignedTransaction(result.rawTransaction).on('receipt', (receipt) => {
-            // console.log(receipt);
+            console.log(receipt);
             dispatch({
               type: NEW_THING_CREATED,
               payload: 1

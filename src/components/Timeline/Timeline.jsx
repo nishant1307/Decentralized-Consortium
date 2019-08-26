@@ -16,6 +16,7 @@ const TimelineComponent = (props) => {
       topics: [null, props.match.params.projectID]
     })
     .then(events => {
+      console.log(events);
       setJourney(events);
     })
   }, []);
@@ -96,7 +97,7 @@ const TimelineComponent = (props) => {
 
   return (
     <Timeline lineColor={'#ddd'}>
-      {timelineRender}
+      {journey ? timelineRender: "Fetching Product Journey. Please wait..."}
     </Timeline>
   )
 }

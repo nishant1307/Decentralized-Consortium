@@ -172,13 +172,13 @@ const UserProfile = props => {
             :
             (
             <React.Fragment>
-              <Skeleton width="60%"/>
+              <Skeleton width="100%"/>
               <Skeleton width="60%" />
+              <Skeleton width="100%" />
               <Skeleton width="60%" />
+              <Skeleton width="100%" />
               <Skeleton width="60%" />
-              <Skeleton width="60%" />
-              <Skeleton width="60%" />
-              <Skeleton width="60%" />
+              <Skeleton width="100%" />
             </React.Fragment>
           )
           }

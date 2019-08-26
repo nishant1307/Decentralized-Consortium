@@ -1,6 +1,6 @@
 import web3 from './web3';
-const address = '0x650d285cb4c3b9b656d5fa07c9d20824d7083eeb';
-const abi =[
+export const productAddress = '0x650d285cb4c3b9b656d5fa07c9d20824d7083eeb';
+export const productABI =[
 	{
 		"constant": true,
 		"inputs": [
@@ -647,4 +647,4 @@ const abi =[
 		"type": "event"
 	}
 ]
-export default new web3.eth.Contract(abi, address);
+export const productContract =  new web3.eth.Contract(productABI, productAddress);

@@ -7,6 +7,7 @@ import TrendingUp from "@material-ui/icons/TrendingUp"
 import DescriptionIcon from '@material-ui/icons/Description';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import Store from "@material-ui/icons/Store";
 const dashboardRoutes = [
   {
     path: "/home",
@@ -24,6 +25,12 @@ const dashboardRoutes = [
     path: "/partners",
     name: "Partners",
     icon: AccessibilityIcon,
+    layout: "/dashboard"
+  },
+  {
+    path: "/products",
+    name: "Products",
+    icon: Store,
     layout: "/dashboard"
   },
   {

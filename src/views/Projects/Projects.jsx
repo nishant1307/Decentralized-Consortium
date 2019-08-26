@@ -46,35 +46,26 @@ const Projects = (props) => {
   return (
     <div>
       <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card plain>
+            <CardHeader plain color="primary">
+              <h4 className={classes.cardTitleWhite}>
+                My Projects
+              </h4>
+              <AddBoxIcon onClick={props.openProjectModal}/>
+            </CardHeader>
         {loader ?
           <React.Fragment>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card plain>
-              <CardHeader plain color="primary">
-                <h4 className={classes.cardTitleWhite}>
-                  My Projects
-                </h4>
-                <AddBoxIcon onClick={props.openProjectModal}/>
-              </CardHeader>
-            <Skeleton width="80%"/>
-            <Skeleton width="80%" />
-            <Skeleton width="80%" />
-            <Skeleton width="80%" />
-            <Skeleton width="80%" />
-            <Skeleton width="80%" />
-            <Skeleton width="80%" />
-            </Card>
-          </GridItem>
+
+                <Skeleton width="100%"/>
+                <Skeleton width="60%" />
+                <Skeleton width="100%" />
+                <Skeleton width="60%" />
+                <Skeleton width="100%" />
+                <Skeleton width="60%" />
+                <Skeleton width="100%" />
           </React.Fragment> :
           projectList.length !== 0  ?
-          <GridItem xs={12} sm={12} md={12}>
-            <Card plain>
-              <CardHeader plain color="primary">
-                <h4 className={classes.cardTitleWhite}>
-                  My Projects
-                </h4>
-                <AddBoxIcon onClick={props.openProjectModal}/>
-              </CardHeader>
               <MaterialTable
                   columns={[
                     { title: "Project Name", field: "projectID" , render: rowData => <Link to= {projectURL(rowData.projectID)}>Go to Project</Link>},
@@ -91,11 +82,11 @@ const Projects = (props) => {
                     exportButton: true
                   }}
                 />
-            </Card>
-          </GridItem>
              :
             <h3>No Projects Found!</h3>
         }
+        </Card>
+        </GridItem>
       </GridContainer>
       <ProjectFormModal />
     </div>

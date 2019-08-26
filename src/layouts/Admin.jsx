@@ -15,7 +15,7 @@ import sidebarRoutes from "sidebarRoutes.js";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import { connect } from 'react-redux';
 import {logoutUser} from "actions/authentication";
-import image from "assets/img/sidebar-2.jpg";
+import image from "assets/images/secure-min.jpg";
 import logo from "assets/img/logo.png";
 import routes from "routes.js"
 
@@ -73,6 +73,33 @@ class Dashboard extends React.Component {
       this.mainPanel.current.scrollTop = 0;
       if (this.state.mobileOpen) {
         this.setState({ mobileOpen: false });
+      }
+    }
+  }
+  componentWillMount(){
+    this.checkSessionStatus();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.checkSessionStatus();
+    }
+    else if ((this.props.user.projectModalOpen !== prevProps.user.projectModalOpen)|| (this.props.user.deviceModalOpen !== prevProps.user.deviceModalOpen) || (this.props.user.thingModalOpen !== prevProps.user.thingModalOpen)) {
+      this.checkSessionStatus();
+    }
+  }
+
+  checkSessionStatus= () => {
+    if(sessionStorage.timestamp) {
+      const currentTime = Date.now();
+      let expiration = new Date(parseInt(sessionStorage.timestamp));
+      expiration.setMinutes(expiration.getMinutes()+30);
+      if(expiration < currentTime) {
+        sessionStorage.removeItem('privateKey');
+        this.props.logoutUser(this.props.history);
+        setTimeout(function() {
+              alert('Your session has expired. Please login again');
+        }, 500);
       }
     }
   }

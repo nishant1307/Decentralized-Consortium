@@ -1,16 +1,11 @@
 import React, {useState} from "react";
-import {
-  Col,
-  Row,
-  ListGroup,
-  ListGroupItem,
-  Button,
-  FormText,
-} from 'reactstrap';
 import TextField from '@material-ui/core/TextField';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from "components/CustomButtons/Button.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
 const Claims = () => {
-  const [contentAdd, setContentAdd] = useState("Add claim +")
+  const [contentAdd, setContentAdd] = useState("Type in to enter claims")
   const [myItems, setMyItems] = useState([]);
 
   let helperspan = null;
@@ -37,7 +32,7 @@ const Claims = () => {
       var currentWidth = helperspan.offsetWidth;
       newArray.push({
         content: currentcontent,
-        id: ++lastId,
+        id: myItems.length+1,
         itemWidth: currentWidth + 2,
         verified: false
       });
@@ -47,11 +42,13 @@ const Claims = () => {
   }
 
   const handleBlur = (event) => {
-    setContentAdd("add +");
+    setContentAdd("Type in to enter claims");
   }
 
-  const handleCancelClick = (event) => {
-    const idToRemove = Number(event.target.dataset["item"]);
+  const handleCancelClick = (idToRemove) => {
+    console.log(idToRemove);
+    // const idToRemove = Number(event.target.dataset["item"]);
+    console.log(myItems);
     const newArray = myItems.filter((listitem) => { return listitem.id !== idToRemove });
     setMyItems(newArray);
   }
@@ -64,56 +61,44 @@ const Claims = () => {
     });
   }
   return (
-    <ListGroup>
-      <ListGroupItem>
-        <Row>
-          <Col sm="12" xl="5">
+    <GridContainer>
+      <GridItem xs={12} sm={12} md={12}>
+          <Tooltip title={"Hit Enter to confirm, Click a pill to remove and click on Update Claims to update it."}>
             <TextField
             variant="outlined"
               id="add"
               type="text"
               name="initvalue"
-              autoComplete="off"
-              maxLength="1000"
               onFocus={handleFocus}
               onChange={handleChange}
               onKeyPress={handleKeypress}
               onBlur={handleBlur}
               value={contentAdd}
             />
-          </Col>
-          <Col sm="12" xl="7">
-            <h6> Hit "Enter" to confirm, Click a pill to remove and click on Update Claims to update it.</h6>
-
-          </Col>
-        </Row>
+            </Tooltip>
 
         <span style={{ whiteSpace: "pre", visibility: "hidden", position: "absolute", pointerEvents: "none" }} ref={el => (helperspan = el)}>
           {contentAdd}
         </span>
-      </ListGroupItem>
-      <ListGroupItem>
-        {
-          myItems.map((listitem, index) => {
-            return(
-              <li
-                key={listitem.id}
-                className="claimList"
-                onClick={handleCancelClick}
-                data-item={listitem.id}
-                style={{ color: "black", borderColor: listitem.verified ? 'green' : 'red' }}
-                value={listitem.content}
-              >
-                {listitem.content}
-              </li>
-            );
-          })}
-      </ListGroupItem>
-      <ListGroupItem>
-        <Button color="primary" onClick={addClaims}>Update Claims</Button>
-      </ListGroupItem>
-    </ListGroup>
-  )
+        </GridItem>
+        <GridItem xs={12} sm={12} md={12}>
+        {myItems.map((listitem, index) => {
+          return(
+            <li
+              key={listitem.id}
+              className="claimList"
+              onClick={(e) => handleCancelClick(listitem.id)}
+              style={{ color: "black", borderColor: listitem.verified ? 'green' : 'red' }}
+            >
+              {listitem.content}
+            </li>
+          )
+        })}
+          <br/>
+        <Button color="primary" onClick={addClaims}>Submit Claims to Blockchain</Button>
+        </GridItem>
+        </GridContainer>
+  );
 }
 
 export default Claims;

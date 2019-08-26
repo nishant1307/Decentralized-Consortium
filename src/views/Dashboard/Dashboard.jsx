@@ -77,7 +77,7 @@ const Dashboard = (props) => {
 
   return (
     <div>
-    <h4>Welcome to Arthanium Dashboard</h4><br/>
+    <h4>Welcome to Arthanium</h4>
       {props.user && <GridContainer>
         <GridItem xs={12} sm={6} md={4}>
         <Link to="/dashboard/projects">
@@ -101,7 +101,8 @@ const Dashboard = (props) => {
           </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
-          <Card  onClick={props.openThingModal}>
+        <Link to="/dashboard/products">
+          <Card>
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
                 <Store />
@@ -116,6 +117,7 @@ const Dashboard = (props) => {
             </div>
             </CardFooter>
           </Card>
+          </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
           <Link to={{ pathname: "/dashboard/people", state: { allPeople: allPeople} }}><Card>
@@ -136,7 +138,7 @@ const Dashboard = (props) => {
         </GridItem>
       </GridContainer>}
       <GridContainer>
-        <GridItem xs={12} sm={6} md={6}>
+        {props.user.organization && <GridItem xs={12} sm={6} md={6}>
           <Card style={{height: "200px"}}>
             <CardHeader>
               <strong>Organization Info</strong>
@@ -147,14 +149,14 @@ const Dashboard = (props) => {
                 <b>Organization ID: </b>{props.user.organization[0]}
             </CardBody>
           </Card>
-        </GridItem>
+        </GridItem>}
         <GridItem xs={12} sm={6} md={6}>
           <Card>
             <CardHeader>
               <strong>Claims & Certifications</strong>
             </CardHeader>
             <Divider/>
-            <CardBody>
+            <CardBody style={{maxHeight: '150px', overflow: 'auto'}} >
               <Tabs value={value}
               onChange={handleChange}
               indicatorColor="primary"

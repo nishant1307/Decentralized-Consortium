@@ -133,13 +133,13 @@ const Partners = (props) => {
                   Partners in the selected category
                 </h4>
                 </CardHeader>
-              <Skeleton width="80%"/>
-              <Skeleton width="80%" />
-              <Skeleton width="80%" />
-              <Skeleton width="80%" />
-              <Skeleton width="80%" />
-              <Skeleton width="80%" />
-              <Skeleton width="80%" />
+                  <Skeleton width="100%"/>
+                  <Skeleton width="60%" />
+                  <Skeleton width="100%" />
+                  <Skeleton width="60%" />
+                  <Skeleton width="100%" />
+                  <Skeleton width="60%" />
+                  <Skeleton width="100%" />
               </Card>
             </GridItem>
             </React.Fragment>}

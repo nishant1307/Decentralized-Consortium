@@ -37,6 +37,7 @@ const styles = theme => ({
 
 import {registryContract} from "registryContract";
 import {inviteUserToConsortium} from "actions/userActions";
+import web3 from "../../web3";
 // import CustomLoader from 'components/Loaders/CustomLoader';
 import {connect} from "react-redux";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
@@ -48,6 +49,7 @@ const ProjectPartners = (props) => {
   const [invitePublicKey, setInvitePublicKey] = useState('');
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
+  const [revealedPasscode, setRevealedPasscode] = useState('');
 
   const checkForUser = () => {
     registryContract.methods.getPublicKeyFromEmail(inviteEmail).call({
@@ -86,6 +88,16 @@ const ProjectPartners = (props) => {
     .then(role => {
       console.log("Role", role);
       return role;
+    });
+  }
+
+  const fetchPasscode = () => {
+    registryContract.methods.fetchProjectPasscode(props.match.params.projectID).call({
+      from: props.auth.user.publicKey
+    })
+    .then(passcode => {
+      setRevealedPasscode(web3.utils.hexToUtf8(passcode));
+      console.log("Role", passcode);
     });
   }
 
@@ -134,6 +146,7 @@ const ProjectPartners = (props) => {
                 <div>
                 <Button color="primary" onClick={checkForUser}>Check for user </Button>
                   {inviteOrg && <p>Invite {inviteOrg} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
+                {revealedPasscode? revealedPasscode: <Button color="primary" onClick={fetchPasscode}>Reveal Passcode</Button>}
                 </div>
               }
               />

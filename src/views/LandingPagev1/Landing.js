@@ -12,6 +12,10 @@ export default function Landing(props) {
     const [projects, setProjects] = React.useState(0);
     const [partners, setPartners] = React.useState(0);
     const [products, setProducts] = React.useState(0);
+    const [feedbackFormName, setFeedbackFormName] = React.useState('');
+    const [feedbackFormEmail, setFeedbackFormEmail] = React.useState('');
+    const [feedbackFormMessage, setFeedbackFormMessage] = React.useState('');
+
 
     return (
         <div className="body">
@@ -279,7 +283,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                 <p>Note -
 Setup and customization charges could be applicable for certain customers.
 For larger customized plans contact us directly.
-Adittional monthly credits packs can be purchased at $ 49 for 400 Credits.
+Additional monthly credits packs can be purchased at $ 49 for 400 Credits.
 Validity of plan & credits is one month and it cannot be carried forward.
 Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
                             </div>
@@ -411,7 +415,12 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                                     <h2 className="heading-4">Get in touch</h2>
                                 </div>
                                 <div className="form w-form">
-                                    <form id="email-form" name="email-form" data-name="Email Form"><input type="text" className="text-field w-input" maxLength={256} name="name-2" data-name="Name 2" placeholder="Enter your name" id="name-2" /><input type="text" className="text-field w-input" maxLength={256} name="email-2" data-name="Email 2" placeholder="Enter your email" id="email-2" required /><textarea id="field-2" name="field-2" placeholder="Your message" maxLength={5000} data-name="Field 2" className="text-area w-input" defaultValue={""} /><input type="submit" defaultValue="Send message" data-wait="Please wait..." className="button2 w-button" /></form>
+                                    <form id="email-form" name="email-form" data-name="Email Form">
+                                    <input type="text" className="text-field w-input" maxLength={256} name="name-2" data-name="Name 2" placeholder="Enter your name" id="name-2" />
+                                    <input type="text" className="text-field w-input" maxLength={256} name="email-2" data-name="Email 2" placeholder="Enter your email" id="email-2" required />
+                                    <textarea id="field-2" name="field-2" placeholder="Your message" maxLength={5000} data-name="Field 2" className="text-area w-input" defaultValue={""} />
+                                    <input type="submit" defaultValue="Send message" data-wait="Please wait..." className="button2 w-button" />
+                                    </form>
                                     <div className="w-form-done">
                                         <div>Thank you! Your submission has been received!</div>
                                     </div>

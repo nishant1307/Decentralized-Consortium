@@ -48,10 +48,6 @@ class OrganizationProfile extends Component {
       invitedProjects: [],
       plan:{}
     };
-
-    this.renderColleagueForm = this.renderColleagueForm.bind(this);
-
-
     this.helperspan = null;
     this.lastId = -1;
 
@@ -73,60 +69,25 @@ class OrganizationProfile extends Component {
     }
   }
 
-  makeAddedList() {
-    const elements = this.state.myItems.map((listitem, index) => (
-      <li
-        key={listitem.id}
-        className="claimList"
-        onClick={this.handleCancelClick}
-        data-item={listitem.id}
-        style={{ color: "black", borderColor: listitem.verified ? 'green' : 'red' }}
-        value={listitem.content}
-      >
-        {listitem.content}
-      </li>
-    ));
-    return elements
-  }
-
-
 
   handleNameChange = event => {
     this.setState({ certificateName: event.target.value });
     this.forceUpdate();
   };
 
-  handleColleagueFormSubmit = status => {
-    this.setState({
-      alertMessage: <Alert color={status === 'User already registered to the platform' ? 'danger' : 'success'}>{status}</Alert>
-    })
-    setTimeout(
-      function () {
-        this.setState({
-          alertMessage: ''
-        })
-      }
-        .bind(this),
-      3000
-    );
-  }
-
-  renderColleagueForm() {
-    this.setState({ 'colleagueForm': <ColleagueForm onColleagueFormSubmit={this.handleColleagueFormSubmit} /> });
-  }
 
   componentDidMount() {
-    axios.post("/api/dashboard/getOrganizationInfo", {}).then(res => {
-      this.setState({ organization: res.data.organization, admin: this.props.user.user.role === "0" ? true : false })
-    });
-    axios.post("/api/dashboard/getSubscriptionInfo", {}).then(res => {
-      const date1 = new Date(res.data.plan.startDate)
-      const date2 = new Date(res.data.plan.endDate)
-      this.setState({ plan:{"startDate":date1.toString() ,"endDate":date2.toString() ,"credits":res.data.plan.credits,"dataUsage":res.data.plan.dataUsage}})
-    });
-    this.forceUpdate();
-    this.fetchCertificateDetails()
-    this.fetchinvitedConsortiumProjectInfo()
+    // axios.post("/api/dashboard/getOrganizationInfo", {}).then(res => {
+    //   this.setState({ organization: res.data.organization, admin: this.props.user.user.role === "0" ? true : false })
+    // });
+    // axios.post("/api/dashboard/getSubscriptionInfo", {}).then(res => {
+    //   const date1 = new Date(res.data.plan.startDate)
+    //   const date2 = new Date(res.data.plan.endDate)
+    //   this.setState({ plan:{"startDate":date1.toString() ,"endDate":date2.toString() ,"credits":res.data.plan.credits,"dataUsage":res.data.plan.dataUsage}})
+    // // });
+    // this.forceUpdate();
+    // this.fetchCertificateDetails()
+    // this.fetchinvitedConsortiumProjectInfo()
   }
 
   fetchinvitedConsortiumProjectInfo = () => {
@@ -284,26 +245,22 @@ class OrganizationProfile extends Component {
               </ListGroup>
             </CardBody>
           </Card>
-              <Card>
+          {this.props.user.user[5]==1 &&
+            <Card>
             <CardHeader>
               <i className="fa fa-align-justify"></i>
               <strong>Organization Admin Info</strong>
             </CardHeader>
-            {
-              admin && <CardBody>
+            <CardBody>
                 <ListGroup>
                   <ListGroupItem>First Name: {this.props.user.user.firstName}</ListGroupItem>
                   <ListGroupItem>Last Name: {this.props.user.user.lastName}</ListGroupItem>
                   <ListGroupItem>Email ID: {this.props.user.user.email}</ListGroupItem>
 
                 </ListGroup>
-                <br />
-                <Button color="primary" onClick={this.renderColleagueForm}>Add your colleagues
-                  </Button>
-                <br /> {colleagueForm}
               </CardBody>
-            }
           </Card>
+        }
         </Col>
         {this.props.user.user[5]==1 && <Col sm="12" xl="6">
           <Card>

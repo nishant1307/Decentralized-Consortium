@@ -22,11 +22,12 @@ const ConsumerPage = React.lazy(() => import('views/LandingPage/ConsumerPage.jsx
 const AboutUsPage = React.lazy(() => import('views/LandingPage/AboutUsPage.jsx'));
 const Contact = React.lazy(() => import('views/LandingPage/Contact.jsx'));
 const TeamPage = React.lazy(() => import('views/LandingPage/TeamPage.jsx'));
+import LinearProgress from '@material-ui/core/LinearProgress';
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 //v1
 const Landing = React.lazy(() => import('views/LandingPagev1/Landing'));
 
-const loading = <div className="loader"></div>;
+const loading = <LinearProgress />;
 ReactDOM.render(
   <Provider store = { store }>
     <PersistGate loading={null} persistor={persistor}>

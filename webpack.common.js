@@ -36,7 +36,8 @@ module.exports = {
       chunkFilename: '[id].css',
     }),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './public/index.html',
+      favicon: "./public/favicon.png"
     })
   ],
   module: {
@@ -44,8 +45,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
-        loader: "babel-loader",
-        options: { presets: ["@babel/env", "@babel/preset-react"] }
+        use: ["babel-loader", "eslint-loader"]
       },
       {
         test: /\.(sa|sc|c)ss$/,

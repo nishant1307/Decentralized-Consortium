@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0x7eebb6234ec78c8f25be55848ad4881faa4b5628';
+export const registryAddress = '0x9c4e4b3aec0361fa47a665c74f25f1b246ad136f';
 export const registryABI = [
 	{
 		"constant": false,
@@ -469,9 +469,9 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"internalType": "address",
+				"internalType": "string",
 				"name": "_by",
-				"type": "address"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -494,9 +494,9 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"internalType": "address",
+				"internalType": "string",
 				"name": "_by",
-				"type": "address"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -531,9 +531,9 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"internalType": "address",
+				"internalType": "string",
 				"name": "_by",
-				"type": "address"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -562,9 +562,9 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"internalType": "address",
+				"internalType": "string",
 				"name": "_by",
-				"type": "address"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -593,9 +593,9 @@ export const registryABI = [
 			},
 			{
 				"indexed": false,
-				"internalType": "address",
+				"internalType": "string",
 				"name": "_by",
-				"type": "address"
+				"type": "string"
 			},
 			{
 				"indexed": false,
@@ -697,6 +697,27 @@ export const registryABI = [
 				"internalType": "address[]",
 				"name": "",
 				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "fetchProjectPasscode",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
 			}
 		],
 		"payable": false,

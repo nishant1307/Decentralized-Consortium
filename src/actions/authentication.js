@@ -1,26 +1,26 @@
 // authentication.js
 
-import axios from 'axios';
+// import axios from 'axios';
 import { GET_ERRORS, SET_CURRENT_USER, CURRENT_USER_INFO, GET_SUBSCRIPTION, FETCH_NOTIFICATION } from './types';
 import { setAuthToken } from '../axiosConfig';
-import jwt_decode from 'jwt-decode';
-import { currentUserInfo, fetchNotifications, fetchSubscription } from './userActions';
-import web3 from '../web3';
+// import jwt_decode from 'jwt-decode';
+import { currentUserInfo} from './userActions';
+// import web3 from '../web3';
 import { registryContract } from "registryContract";
-export const registerUser = (user, history) => dispatch => {
-    // axios.post('/api/users/userRegistration', user)
-    //         .then(res => {
-    //               if(res.data.status== "New User"){
-    //                 history.push('/')
-    //               }
-    //         })
-    //         .catch(err => {
-    //             dispatch({
-    //                 type: GET_ERRORS,
-    //                 payload: {signupError:err.response.data}
-    //             });
-    //         });
-}
+// export const registerUser = (user, history) => dispatch => {
+//     // axios.post('/api/users/userRegistration', user)
+//     //         .then(res => {
+//     //               if(res.data.status== "New User"){
+//     //                 history.push('/')
+//     //               }
+//     //         })
+//     //         .catch(err => {
+//     //             dispatch({
+//     //                 type: GET_ERRORS,
+//     //                 payload: {signupError:err.response.data}
+//     //             });
+//     //         });
+// }
 
 export const loginUser = (user, history) => dispatch => {
     // web3.eth.getBalance(user.address).then((balance) => {
@@ -32,7 +32,7 @@ export const loginUser = (user, history) => dispatch => {
     registryContract.methods.getUserOrganizationDetails().call({
         from: user.address
     }).then(res => {
-      console.log(res,"res");
+      if(res[0]&& res[1]){
         if (res[0].status === '1' && res[1].status === '1') {
             dispatch(setCurrentUser({ publicKey: user.address }));
             history.push('/dashboard/home');
@@ -54,7 +54,9 @@ export const loginUser = (user, history) => dispatch => {
                 type: GET_ERRORS,
                 payload: { message: "KYC Verification Is Not Initiated" }
             });
+            history.push('/register');
         }
+      }
     })
         .catch((err) => {
             history.push('/register');
