@@ -1,25 +1,100 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-
+import { Link } from "react-router-dom";
 import '../../WA/css/normalize.css'
 import '../../WA/css/detheme.css'
 import '../../WA/css/kergan.detheme.css'
+import { Menu, MenuItem, Button } from '@material-ui/core';
 
+const encode = (data) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+        .join("&");
+}
 
 export default function Landing(props) {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     const [projects, setProjects] = React.useState(0);
     const [partners, setPartners] = React.useState(0);
     const [products, setProducts] = React.useState(0);
+    const [name, setName] = React.useState(undefined);
+    const [email, setEmail] = React.useState(undefined);
+    const [message, setMessage] = React.useState(undefined);
+    const [submitted, setSubmitted] = React.useState(true);
+    const [error, setError] = React.useState(true);
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    function handleMenuClick(event) {
+        setAnchorEl(event.currentTarget);
+    }
+
+    function handleMenuClose() {
+        setAnchorEl(null);
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        fetch("/", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: encode({ "form-name": "contact", data: { name: name, email: email, message: message } })
+        })
+            .then(() => {
+                setSubmitted(false);
+            })
+            .catch(error => {
+                setError(false);
+            });
+
+    }
 
     return (
         <div className="body">
             <div data-collapse="medium" data-animation="default" data-duration={400} className="nav-bar w-nav">
                 <div className="wrapper navbar-2 w-container">
-                    <div className="div-block-8"><a href="#" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={75} height={75} alt="" /></a></div>
-                    <nav role="navigation" className="nav-menu-2 w-nav-menu"><a href="#product" className="nav-link-2 w-nav-link">Platform</a><a href="#Solutions" className="nav-link-2 w-nav-link">Partners</a><a href="#features" className="nav-link-2 w-nav-link">Solutions</a><a href="#testimonials" className="nav-link-2 w-nav-link">Industry</a><a href="#contact" className="nav-link-2 w-nav-link">About Us</a>
-                        <div className="nav-cta-button-container"><a href="/login" className="nav-link-2 border w-nav-link">Get Started</a></div>
+                    <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={75} height={75} alt="" /></Link></div>
+                    <nav role="navigation" className="nav-menu-2 w-nav-menu">
+                        <Link to="/platform" className="nav-link-2 w-nav-link">Platform</Link>
+                        <div className="dropdown">
+                            <button className="dropbtn">Partners
+                            <i className="fa fa-caret-down" />
+                            </button>
+                            <div className="dropdown-content">
+                                <Link to="/partners#banks" className="nav-link-2 w-nav-link">Banks</Link>
+                                <Link to="/partners#insurance" className="nav-link-2 w-nav-link">Insurance</Link>
+                                <Link to="/partners#logistivs" className="nav-link-2 w-nav-link">Logistics</Link>
+                                <Link to="/partners#certificationagencies" className="nav-link-2 w-nav-link">Certification Agencies</Link>
+                                <Link to="/partners#government" className="nav-link-2 w-nav-link">Government</Link>
+                                <Link to="/partners#recyclers" className="nav-link-2 w-nav-link">Recyclers</Link>
+                            </div>
+                        </div>
+                        <div className="dropdown">
+                            <button className="dropbtn">Solutions
+                            <i className="fa fa-caret-down" />
+                            </button>
+                            <div className="dropdown-content">
+                                <Link to="/solutions#DApps" className="nav-link-2 w-nav-link">DApps</Link>
+                                <Link to="/solutions#solutionsforBusiness" className="nav-link-2 w-nav-link">For Business</Link>
+                                <Link to="/solutions#solutionsforConsumers" className="nav-link-2 w-nav-link">For Business</Link>
+                            </div>
+                        </div>
+                        <Link to="/industry" className="nav-link-2 w-nav-link">Industry</Link>
+                        <div className="dropdown">
+                            <button className="dropbtn">About Us
+                            <i className="fa fa-caret-down" />
+                            </button>
+                            <div className="dropdown-content">
+                                <Link to="/aboutus" className="nav-link-2 w-nav-link">Company</Link>
+                                <Link to="/aboutus#ourteam" className="nav-link-2 w-nav-link">Our Team</Link>
+                                <Link to="/aboutus#media" className="nav-link-2 w-nav-link">Media</Link>
+                                <Link to="/aboutus#latest" className="nav-link-2 w-nav-link">News & Blogs</Link>
+                            </div>
+                        </div>
+                        <div className="nav-cta-button-container">
+                            <a href="/login" className="nav-link-2 border w-nav-link">Get Started</a>
+                        </div>
                     </nav>
                     <div className="menu-button-2 w-nav-button">
                         <div className="burger-icon w-icon-nav-menu" />
@@ -277,10 +352,10 @@ Unlock new opportunities Eliminate low value activities.</p>
                             <div className="margin-bottom">
                                 <h2 className="heading-2">Note</h2>
                                 <p>Note -
-Setup and customization charges could be applicable for certain customers.
-For larger customized plans contact us directly.
-Adittional monthly credits packs can be purchased at $ 49 for 400 Credits.
-Validity of plan & credits is one month and it cannot be carried forward.
+    Setup and customization charges could be applicable for certain customers.
+    For larger customized plans contact us directly.
+    Adittional monthly credits packs can be purchased at $ 49 for 400 Credits.
+    Validity of plan & credits is one month and it cannot be carried forward.
 Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
                             </div>
                         </div>
@@ -298,25 +373,25 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                                     <tr>
                                         <td className="tg-rnhl">Projects</td>
                                         <td className="tg-rnhl">75</td>
-                                        <td className="tg-rnhl"><input type="number" style={{width:50}} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></td>
-                                        <td className="tg-rnhl"><input type="number" style={{width:50}}  value={parseInt(projects) * 75} readOnly /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={parseInt(projects) * 75} readOnly /></td>
                                     </tr>
                                     <tr>
                                         <td className="tg-rnhl">Partners</td>
                                         <td className="tg-rnhl">15</td>
-                                        <td className="tg-rnhl"><input type="number" style={{width:50}}  value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
-                                        <td className="tg-rnhl"><input type="number" style={{width:50}}   value={parseInt(partners) * 15} readOnly /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={parseInt(partners) * 15} readOnly /></td>
                                     </tr>
                                     <tr>
                                         <td className="tg-rnhl">Products / Docs / Devices</td>
                                         <td className="tg-g2pk">1</td>
-                                        <td className="tg-rnhl"><input type="number"  style={{width:50}}  value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></td>
-                                        <td className="tg-rnhl"><input type="number" style={{width:50}}   value={products} readOnly /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={products} readOnly /></td>
                                     </tr>
                                     <tr>
                                         <td className="tg-g2pk" colspan="1"></td>
                                         <td className="tg-g2pk" colspan="2">Total</td>
-                                        <td className="tg-rnhl"><input type="number" style={{width:50}}  value={parseInt(projects * 75) + parseInt(partners * 15) + parseInt(products)}  readOnly placeholder="Total" /></td>
+                                        <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={parseInt(projects * 75) + parseInt(partners * 15) + parseInt(products)} readOnly placeholder="Total" /></td>
                                     </tr>
                                 </table>
                             </div>
@@ -411,11 +486,16 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                                     <h2 className="heading-4">Get in touch</h2>
                                 </div>
                                 <div className="form w-form">
-                                    <form id="email-form" name="email-form" data-name="Email Form"><input type="text" className="text-field w-input" maxLength={256} name="name-2" data-name="Name 2" placeholder="Enter your name" id="name-2" /><input type="text" className="text-field w-input" maxLength={256} name="email-2" data-name="Email 2" placeholder="Enter your email" id="email-2" required /><textarea id="field-2" name="field-2" placeholder="Your message" maxLength={5000} data-name="Field 2" className="text-area w-input" defaultValue={""} /><input type="submit" defaultValue="Send message" data-wait="Please wait..." className="button2 w-button" /></form>
-                                    <div className="w-form-done">
+                                    <form id="email-form" name="email-form" data-name="Email Form" onSubmit={handleSubmit}>
+                                        <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} className="text-field w-input" maxLength={256} name="name-2" data-name="Name 2" placeholder="Enter your name" id="name-2" />
+                                        <input type="text" value={email} onChange={(e) => { setEmail(e.target.value) }} className="text-field w-input" maxLength={256} name="email-2" data-name="Email 2" placeholder="Enter your email" id="email-2" required />
+                                        <textarea id="field-2" value={message} onChange={(e) => { setMessage(e.target.value) }} name="field-2" placeholder="Your message" maxLength={5000} data-name="Field 2" className="text-area w-input" defaultValue={""} />
+                                        <input type="submit" defaultValue="Send message" data-wait="Please wait..." className="button2 w-button" />
+                                    </form>
+                                    <div hidden={submitted} className="w-form-done">
                                         <div>Thank you! Your submission has been received!</div>
                                     </div>
-                                    <div className="w-form-fail">
+                                    <div hidden={error} className="w-form-fail">
                                         <div>Oops! Something went wrong while submitting the form.</div>
                                     </div>
                                 </div>
