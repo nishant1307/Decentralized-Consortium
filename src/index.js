@@ -30,6 +30,7 @@ const Solutions = React.lazy(() => import('views/LandingPagev1/Solutions'))
 const Partners = React.lazy(() => import('views/LandingPagev1/Partners'))
 const Industry = React.lazy(() => import("views/LandingPagev1/Industry"));
 const AboutUs = React.lazy(() => import("views/LandingPagev1/AboutUs"));
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const loading = <LinearProgress />;
 ReactDOM.render(
