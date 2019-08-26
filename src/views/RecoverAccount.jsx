@@ -68,12 +68,12 @@ export default function RecoverAccount(props) {
         e.preventDefault();
         if (typeOfKey) {
             try {
-                let account = await web3.eth.accounts.privateKeyToAccount(key)
+                let account = await web3.eth.accounts.privateKeyToAccount(key)                
                 if (web3.utils.isAddress(account.address)) {
                     passworder.encrypt(password, JSON.stringify({ mnemonic: "Imported Keystore", privateKey: key }))
                         .then(function (blob) {
                             localStorage.setItem("data", JSON.stringify(blob));
-                            localStorage.setItem("address", account);
+                            localStorage.setItem("address", account.address);
                             props.history.push('/login')
                         })
                 } else {

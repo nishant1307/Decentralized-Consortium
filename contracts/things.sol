@@ -1,7 +1,8 @@
 pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 import "./EternalStorage.sol";
-import "./consortium.sol";
+import "./StorageDefinition.sol";
+import "./Consortium.sol";
 library SafeMath {
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
         uint256 c = a + b;
@@ -124,7 +125,7 @@ contract ERC721 is ERC165, Ownable   {
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
     EternalStorage s;
-    Registry registerContract;
+    Consortium registerContract;
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
@@ -147,11 +148,11 @@ contract ERC721 is ERC165, Ownable   {
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721);
           s = EternalStorage(storageAddress);
-          registerContract = Registry(registryAddress);
+          registerContract = Consortium(registryAddress);
     }
 
     modifier onlyRegistrant() {
-        require(s.getUserDetails().role == EternalStorage.roles.admin || s.getUserDetails().role == EternalStorage.roles.registrant);
+        require(s.getUserDetails().role == StorageDefinition.roles.admin || s.getUserDetails().role == StorageDefinition.roles.registrant);
         _;
     }
 
@@ -460,13 +461,13 @@ contract ERC721Metadata is ERC165, ERC721{
      struct deviceDetails {
         string[] certificateURLs;
         string[] ipfsHash;
-        uint256 quantity;
         string thingBrand;
         string thingDescription;
         string thingName;
         string thingStory;
         string thingValue;
         uint256 timeStamp;
+        string projectId;
     }
 
 
@@ -526,7 +527,7 @@ contract ERC721Metadata is ERC165, ERC721{
         return (_tokenURIs[tokenId]);
     }
 
-    function getDeviceDetails(string calldata tokenId) external view returns (deviceDetails memory) {
+    function getProductDetails(string calldata tokenId) external view returns (deviceDetails memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenDetails[tokenId]);
     }
@@ -542,12 +543,17 @@ contract ERC721Metadata is ERC165, ERC721{
         _tokenURIs[tokenId] = uri;
         // _projectIds[tokenId] = projectId;
     }
+    
+    function _setProjectId (string memory tokenId, string memory projectId) internal{
+        deviceDetails memory temp = _tokenDetails[tokenId];
+        temp.projectId = projectId;
+         _tokenDetails[tokenId] = temp;
+    }
 
-    function _setProductDetails(string memory tokenId,string[] memory certificateURLs, string[] memory ipfsHash, uint256 quantity, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) internal {
+    function _setProductDetails(string memory tokenId,string[] memory certificateURLs, string[] memory ipfsHash, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) internal {
       deviceDetails memory temp;
       temp.certificateURLs = certificateURLs;
       temp.ipfsHash = ipfsHash;
-      temp.quantity = quantity;
       temp.thingBrand = thingBrand;
       temp.thingDescription = thingDescription;
       temp.thingValue = thingValue;
@@ -779,9 +785,15 @@ contract ThingContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintab
         emit MetadataChanged(tokenId,metadata);
         return true;
     }
+    
+     function setProjectId(string memory tokenId, string memory projectId ) public onlyRegistrant returns (bool) {
+        require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
+        _setProjectId(tokenId , projectId);
+        return true;
+    }
 
-    function MintWithDetails(address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, uint256 quantity, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) public onlyRegistrant returns (bool) {
-        _setProductDetails(tokenId,certificateURLs, ipfsHash, quantity, thingBrand, thingDescription,  thingName, thingStory,  thingValue );
+    function MintWithDetails(address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) public onlyRegistrant returns (bool) {
+        _setProductDetails(tokenId,certificateURLs, ipfsHash, thingBrand, thingDescription,  thingName, thingStory,  thingValue );
          mint(to, tokenId);
         //  registerContract.addProductToProject(tokenId,ipfsHash)
         return true;
