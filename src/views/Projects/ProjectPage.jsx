@@ -80,7 +80,7 @@ const ProjectPage = (props) => {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        {/**<GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
@@ -96,7 +96,7 @@ const ProjectPage = (props) => {
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
+        </GridItem>*/}
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
@@ -115,7 +115,7 @@ const ProjectPage = (props) => {
           </Card>
         </GridItem>
       </GridContainer>
-      <RegisterDeviceModal projectList= {[props.match.params.projectID]}/>
+      <RegisterDeviceModal selectedProject= {props.match.params.projectID}/>
       <RegisterDocModal />
     </div>
   );

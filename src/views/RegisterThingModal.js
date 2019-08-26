@@ -195,7 +195,7 @@ const makeAddedList = () => {
     const maxSize = 1048576;
     const previewStyle = {
       position: 'relative',
-      width: '200px',
+      width: '100%',
       height: '200px',
       borderWidth: '2px',
       borderColor: 'rgb(102, 102, 102)',
@@ -213,7 +213,7 @@ const makeAddedList = () => {
               content = {
                 <Form>
                     <FormGroup row>
-                      <Col xs="12" md="12">
+                      <Col xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="thingName"
@@ -223,9 +223,7 @@ const makeAddedList = () => {
                           onChange={handleFormChange} />
                         <FormText color="muted">Enter Product Name</FormText>
                       </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col xs="12" md="12">
+                      <Col xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="thingBrand"
@@ -237,7 +235,7 @@ const makeAddedList = () => {
                       </Col>
                     </FormGroup>
                     <FormGroup row>
-                      <Col xs="12" md="12">
+                      <Col xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="thingDescription"
@@ -249,9 +247,7 @@ const makeAddedList = () => {
                           onChange={handleFormChange} />
                         <FormText color="muted">Enter Product Description</FormText>
                       </Col>
-                    </FormGroup>
-                    <FormGroup row>
-                      <Col xs="12" md="12">
+                      <Col xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="text"
@@ -264,6 +260,26 @@ const makeAddedList = () => {
                         <FormText color="muted">Enter Product Description</FormText>
                       </Col>
                     </FormGroup>
+                    <FormGroup row>
+                    <Col xs="12" md="6">
+                      <TextField
+                        variant="outlined"
+                        label="Product Price"
+                        type="number"
+                        placeholder="Price of the product (if applicable)?"
+                        name="thingValue"
+                        onChange={handleFormChange} />
+                    </Col>
+                    <Col xs="12" md="6">
+                      <TextField
+                        variant="outlined"
+                        label="Product Quantity"
+                        type="number"
+                        min={1} defaultValue={1}
+                        name="quantity"
+                        onChange={handleFormChange} />
+                    </Col>
+                </FormGroup>
                     <FormGroup row>
                       <Col xs="12" md="12">
                         <Dropzone
@@ -298,26 +314,6 @@ const makeAddedList = () => {
                         <FormText color="muted"></FormText>
                       </Col>
                     </FormGroup>
-                    <FormGroup row>
-                    <Col xs="12" md="12">
-                      <TextField
-                        variant="outlined"
-                        type="number"
-                        placeholder="Price of the product (if applicable)?"
-                        name="thingValue"
-                        onChange={handleFormChange} />
-                    </Col>
-                  </FormGroup>
-                <FormGroup row>
-                  <Col xs="12" md="12">
-                    <TextField
-                      variant="outlined"
-                      type="number"
-                      min={1} defaultValue={1}
-                      name="quantity"
-                      onChange={handleFormChange} />
-                  </Col>
-                </FormGroup>
                   <FormGroup row>
                     <Col xs="12" md="12">
                     <Input

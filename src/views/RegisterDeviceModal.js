@@ -22,14 +22,17 @@ const RegisterDeviceModal = (props) => {
   const classes = useStyles();
   const [deviceURN, setDeviceURN] = useState('');
   const [isLoading, setLoading] = useState(false);
-    const [state, setState] = useState({
-      // selectedProject: '',
-      deviceType: '',
-      sensor: '',
-      communicationProtocol: '',
-      dataProtocol: '',
-      number: 1
-    });
+  let selectedProject = "";
+  selectedProject = props.selectedProject;
+  const initialState = {
+    // selectedProject: '',
+    deviceType: '',
+    sensor: '',
+    communicationProtocol: '',
+    dataProtocol: '',
+    number: 1
+  }
+    const [state, setState] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,21 +46,22 @@ const RegisterDeviceModal = (props) => {
     setLoading(true);
     e.preventDefault();
     let deviceURNArray = Array.isArray(deviceURN)? deviceURN : [deviceURN]
-    let tokenURI =  {
+    props.createNewDevice({
+      deviceURN: deviceURNArray,
       communicationProtocol: state.communicationProtocol,
+      selectedProject: selectedProject,
       dataProtocol: state.dataProtocol,
       deviceType: state.deviceType,
-      sensor: state.sensor
-    }
-    props.createNewDevice({
-      selectedProject: props.projectList[0],
-      deviceURN: deviceURNArray,
-      tokenURI: tokenURI,
+      sensor: state.sensor,
+      tokenURI: "",
       number: deviceURNArray.length
     });
   };
 
   const toggle = () => {
+    setState(initialState);
+    setLoading(false);
+    setDeviceURN('');
     props.closeDeviceModal();
   }
 
@@ -82,20 +86,6 @@ const RegisterDeviceModal = (props) => {
             title="New Device Registration "
             content={
               <Form className="form-horizontal">
-                {/*  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="select">Project Name</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="select"
-                        name="selectedProject"
-                        autoFocus={true}
-                        value={props.projectList[0]}
-                        onChange={handleChange}>
-                        {renderFromArray(props.projectList)}
-                      </Input>
-                    </Col>
-                  </FormGroup> */}
                   <FormGroup row>
                     <Col xs="12" md="9">
                       <TextField

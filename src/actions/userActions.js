@@ -263,10 +263,10 @@ export const createNewDevice = deviceDetails =>  async (dispatch) => {
             address,
             deviceDetails.deviceURN[count],
             deviceDetails.selectedProject,
-            deviceDetails.tokenURI.communicationProtocol,
-            deviceDetails.tokenURI.dataProtocol,
-            deviceDetails.tokenURI.deviceType,
-            deviceDetails.tokenURI.sensor,
+            deviceDetails.communicationProtocol,
+            deviceDetails.dataProtocol,
+            deviceDetails.deviceType,
+            deviceDetails.sensor
           ).encodeABI()
         };
         // let gasLimit = await web3.eth.estimateGas(transaction);

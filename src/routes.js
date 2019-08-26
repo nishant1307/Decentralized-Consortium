@@ -19,7 +19,7 @@ const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
 const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
 const People = React.lazy(() => import('views/People/People.jsx'));
 const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
-const DeviceList = React.lazy(()=>import('views/Projects/DeviceList'))
+const Devices = React.lazy(()=>import('views/Devices/Devices'))
 const StructuredDoc = React.lazy(()=>import('views/DocConekt/StructuredDoc'))
 
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
@@ -70,6 +70,12 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
+    path: "/devices",
+    name: "Devices",
+    component: Devices,
+    layout: "/dashboard"
+  },
+  {
     path: "/support",
     name: "Support",
     component: SupportPage,
@@ -88,9 +94,9 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/projects/:projectID/deviceList",
+    path: "/projects/:projectID/devices",
     name: "Device List",
-    component: DeviceList,
+    component: Devices,
     layout: "/dashboard"
   },
   {
