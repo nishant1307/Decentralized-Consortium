@@ -337,12 +337,12 @@ contract ERC721 is ERC165, Ownable   {
      * @param to The address that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, string memory tokenId, bytes32 projectId) internal {
+    function _mint(address to, string memory tokenId) internal {
         require(to != address(0), "ERC721: mint to the zero address");
         require(!_exists(tokenId), "ERC721: token already minted");
 
         _tokenOwner[tokenId] = to;
-        _tokenProject[tokenId]= projectId;
+        // _tokenProject[tokenId]= projectId;
 
         _ownedTokensCount[to].increment();
 
@@ -463,8 +463,8 @@ contract ERC721Mintable is ERC721 {
      * @param tokenId The token id to mint.
      * @return A boolean that indicates if the operation was successful.
      */
-    function mint(address to, string memory tokenId, bytes32 projectId) internal returns (bool) {
-        _mint(to, tokenId, projectId);
+    function mint(address to, string memory tokenId) internal returns (bool) {
+        _mint(to, tokenId);
         return true;
     }
 }
@@ -476,7 +476,7 @@ contract ERC721Metadata is ERC165, ERC721{
         string deviceType;
         string sensor;
         uint256 timeStamp;
-        string projectId;
+        bytes32 projectId;
     }
 
 
@@ -553,7 +553,8 @@ contract ERC721Metadata is ERC165, ERC721{
         // _projectIds[tokenId] = projectId;
     }
     
-      function _setProjectId (string memory tokenId, string memory projectId) internal{
+      function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+        require(_tokenDetails[tokenId].projectId == 0x0, "Project Id reassign denied!");
         deviceDetails memory temp = _tokenDetails[tokenId];
         temp.projectId = projectId;
          _tokenDetails[tokenId] = temp;
@@ -585,7 +586,7 @@ contract ERC721Metadata is ERC165, ERC721{
         }
     }
 }
-contract ERC721Enumerable is ERC165, ERC721 {
+contract ERC721Enumerable is ERC165, ERC721, ERC721Metadata {
     // Mapping from owner to list of owned token IDs
     mapping(address => string[]) private _ownedTokens;
 
@@ -651,6 +652,13 @@ contract ERC721Enumerable is ERC165, ERC721 {
         require(index < totalSupply(), "ERC721Enumerable: global index out of bounds");
         return _allTokens[index];
     }
+    
+    
+    function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+        super._setProjectId(tokenId,projectId);
+       _addTokenToProjectEnumeration(projectId, tokenId);
+    }
+
 
     /**
      * @dev Internal function to transfer ownership of a given token ID to another address.
@@ -676,14 +684,14 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @param to address the beneficiary that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, string memory tokenId, bytes32 projectId) internal {
-        super._mint(to, tokenId,projectId);
+    function _mint(address to, string memory tokenId) internal {
+        super._mint(to, tokenId);
 
         _addTokenToOwnerEnumeration(to, tokenId);
 
         _addTokenToAllTokensEnumeration(tokenId);
 
-        _addTokenToProjectEnumeration(projectId, tokenId);
+        // _addTokenToProjectEnumeration(projectId, tokenId);
     }
 
     /**
@@ -819,7 +827,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _allTokensIndex[tokenId] = 0;
     }
 }
-contract DeviceContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintable, ERC721Burnable {
+contract DeviceContract is ERC721, ERC721Enumerable, ERC721Mintable, ERC721Burnable {
      constructor(address storageAddress, address registryAddress) ERC721(storageAddress,registryAddress) public {
     }
 
@@ -832,9 +840,10 @@ contract DeviceContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Minta
         return true;
     }
     
-     function setProjectId(string memory tokenId, string memory projectId ) public onlyRegistrant returns (bool) {
+     function setProjectId(string memory tokenId, bytes32 projectId ) public onlyRegistrant returns (bool) {
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setProjectId(tokenId , projectId);
+        registerContract.addDeviceToProject(tokenId,projectId);
         return true;
     }
 
@@ -850,10 +859,10 @@ contract DeviceContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Minta
     // }
     // }
 
-    function MintWithDetails(address to, string memory tokenId, bytes32 projectId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor) public onlyRegistrant returns (bool) {
+    function MintWithDetails(address to, string memory tokenId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor) public onlyRegistrant returns (bool) {
         _setDeviceDetails(tokenId, communicationProtocol, dataProtocol, deviceType, sensor);
-         mint(to, tokenId, projectId);
-        registerContract.addDeviceToProject(tokenId, (projectId));
+         mint(to, tokenId);
+        // registerContract.addDeviceToProject(tokenId, (projectId));
         return true;
     }
 }

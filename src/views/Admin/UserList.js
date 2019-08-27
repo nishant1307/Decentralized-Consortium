@@ -8,7 +8,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 import MaterialTable, { MTableToolbar } from "material-table";
-import { registryContract } from '../../registryContract';
+import { registryContract , registryAddress } from '../../registryContract';
 import web3 from '../../web3';
 import axios from 'axios';
 const styles = theme => ({
@@ -50,11 +50,13 @@ const OrgList = props => {
     // setPrivateKey(temp);
     let data = []
     let fetchedData = await registryContract.methods.getAllOrganizations().call();
+    console.log(fetchedData);
+    
     fetchedData.map(async (e, i) => {
-      let dataFromIPFS = await axios.get('https://files.arthanium.org/ipfs/' + e.kycHash)
+      let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + "QmS6rPCZ97ETAdjEYi6ji7pECau2BA5Y5EmVrBC3jDjtbR")
       let KYCStatus = await registryContract.methods.getOrganizationKYCStatus(e.organizationID).call();
       let mainData = {}
-      mainData.docs =  dataFromIPFS.data.Docs
+      mainData.docs = dataFromIPFS.data.Docs
       mainData.userAddress = e.externalKey
       mainData.organizationID = e.organizationID;
       mainData.name = e.name;
@@ -72,7 +74,7 @@ const OrgList = props => {
   }, [])
 
   useEffect(() => {
-   console.log("lets see");
+    console.log("lets see");
   }, [mainData])
 
   return (
@@ -114,7 +116,7 @@ const OrgList = props => {
                           console.log(rowData);
                           let gasPrice = await web3.eth.getGasPrice();
                           var transaction = {
-                            "to": "0x1bc2989c6b4fb2c4d2758a3c9c6229db8697b26d",
+                            "to": registryAddress,
                             "data": registryContract.methods.setOrganizationKYCStatus(
                               rowData.organizationID,
                               status
@@ -128,7 +130,7 @@ const OrgList = props => {
                                 if (receipt.status == true) {
                                   const data = mainData;
                                   console.log(data[rowData.tableData.id]);
-                                  data[rowData.tableData.id].status = status;
+                                  data[rowData.tableData.id].status = "KYC Complete";
                                   setMainData(data);
                                 }
                               }

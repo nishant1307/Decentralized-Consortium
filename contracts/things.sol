@@ -467,7 +467,7 @@ contract ERC721Metadata is ERC165, ERC721{
         string thingStory;
         string thingValue;
         uint256 timeStamp;
-        string projectId;
+        bytes32 projectId;
     }
 
 
@@ -544,7 +544,8 @@ contract ERC721Metadata is ERC165, ERC721{
         // _projectIds[tokenId] = projectId;
     }
     
-    function _setProjectId (string memory tokenId, string memory projectId) internal{
+    function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+        require(_tokenDetails[tokenId].projectId == 0x0, "Project Id reassign denied!");
         deviceDetails memory temp = _tokenDetails[tokenId];
         temp.projectId = projectId;
          _tokenDetails[tokenId] = temp;
@@ -579,12 +580,19 @@ contract ERC721Metadata is ERC165, ERC721{
         }
     }
 }
-contract ERC721Enumerable is ERC165, ERC721 {
+contract ERC721Enumerable is ERC165, ERC721,ERC721Metadata {
     // Mapping from owner to list of owned token IDs
     mapping(address => string[]) private _ownedTokens;
 
     // Mapping from token ID to index of the owner tokens list
     mapping(string => uint256) private _ownedTokensIndex;
+    
+    
+    // Mapping from project to list of owned token IDs
+    mapping(bytes32 => string[]) private _ownedTokensByProject;
+
+    // Mapping from token ID to index of the project tokens list
+    mapping(string => uint256) private _ownedTokensByProjectIndex;
 
     // Array with all token ids, used for enumeration
     string[] private _allTokens;
@@ -638,6 +646,11 @@ contract ERC721Enumerable is ERC165, ERC721 {
         require(index < totalSupply(), "ERC721Enumerable: global index out of bounds");
         return _allTokens[index];
     }
+    
+     function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+       super._setProjectId(tokenId, projectId);
+       _addTokenToProjectEnumeration(projectId,tokenId);
+    }
 
     /**
      * @dev Internal function to transfer ownership of a given token ID to another address.
@@ -655,6 +668,11 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _addTokenToOwnerEnumeration(to, tokenId);
         // _addTokenToProjectEnumeration(projectId, tokenId);
 
+    }
+    
+     function _addTokenToProjectEnumeration(bytes32 projectId , string memory tokenId) private {
+        _ownedTokensIndex[tokenId] = _ownedTokensByProject[projectId].length;
+        _ownedTokensByProject[projectId].push(tokenId);
     }
 
     /**
@@ -695,6 +713,10 @@ contract ERC721Enumerable is ERC165, ERC721 {
      */
     function _tokensOfOwner(address owner) public view returns (string[] memory) {
         return _ownedTokens[owner];
+    }
+    
+     function _tokensOfProject(bytes32 projectId) public view returns (string[] memory) {
+        return _ownedTokensByProject[projectId];
     }
 
     /**
@@ -773,7 +795,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _allTokensIndex[tokenId] = 0;
     }
 }
-contract ThingContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintable, ERC721Burnable {
+contract ThingContract is ERC721, ERC721Enumerable, ERC721Mintable, ERC721Burnable {
      constructor(address storageAddress, address registryAddress) ERC721(storageAddress,registryAddress) public {
     }
 
@@ -786,16 +808,16 @@ contract ThingContract is ERC721, ERC721Enumerable, ERC721Metadata, ERC721Mintab
         return true;
     }
     
-     function setProjectId(string memory tokenId, string memory projectId ) public onlyRegistrant returns (bool) {
+     function setProjectId(string memory tokenId, bytes32 projectId ) public onlyRegistrant returns (bool) {
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setProjectId(tokenId , projectId);
+        registerContract.addProductToProject(tokenId, projectId);
         return true;
     }
 
     function MintWithDetails(address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) public onlyRegistrant returns (bool) {
         _setProductDetails(tokenId,certificateURLs, ipfsHash, thingBrand, thingDescription,  thingName, thingStory,  thingValue );
          mint(to, tokenId);
-        //  registerContract.addProductToProject(tokenId,ipfsHash)
         return true;
     }
 

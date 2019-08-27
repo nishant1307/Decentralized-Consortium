@@ -262,7 +262,7 @@ export const createNewDevice = deviceDetails =>  async (dispatch) => {
           "data": deviceContract.methods.MintWithDetails(
             address,
             deviceDetails.deviceURN[count],
-            deviceDetails.selectedProject,
+            // deviceDetails.selectedProject,
             deviceDetails.communicationProtocol,
             deviceDetails.dataProtocol,
             deviceDetails.deviceType,
