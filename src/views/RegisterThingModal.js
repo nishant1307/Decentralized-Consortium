@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { createNewThing, closeThingModal } from 'actions/userActions';
 import Dropzone from 'react-dropzone'
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Modal from "components/CustomModal/Modal";
 import "assets/css/ClaimPage.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +17,7 @@ const RegisterThingModal = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     props.createNewThing({
       thingName: state.thingName,
       thingDescription: state.thingDescription,
@@ -32,6 +34,8 @@ const RegisterThingModal = (props) => {
     setImageFilesWithURL([]);
   };
 
+  const [isLoading, setLoading] = useState(false);
+
   const [content_add, setContentAdd] = useState("Add claim");
   const [myItems, setMyItems] = useState([]);
   const [urls, setURL] = useState([]);
@@ -42,15 +46,16 @@ const RegisterThingModal = (props) => {
   const [imageCertificateFiles, setImageCertificateFiles] = useState([]);
   const [button, setButton] = useState(true);
   const [claims, setClaims] = useState([]);
-
-  const [state, setState] = useState({
+  const initialState = {
     thingName: '',
     thingDescription: '',
     thingBrand: '',
     thingStory: '',
     thingValue: '',
     quantity: '1'
-  })
+  };
+
+  const [state, setState] = useState(initialState)
   let helperspan = null;
   let lastId = -1;
   const width = Math.max(50)
@@ -73,7 +78,6 @@ const RegisterThingModal = (props) => {
     }));
   }
 
-
 const handleKeypress = (event) => {
   if (event.key == "Enter") {
     var newArray = myItems;
@@ -85,7 +89,6 @@ const handleKeypress = (event) => {
     }
 
     var currentWidth = helperspan.offsetWidth;
-    console.log("Hey", currentWidth);
     newArray.push({
       content: currentcontent,
       id: ++lastId,
@@ -182,6 +185,8 @@ const makeAddedList = () => {
   })
 
   const toggle = () => {
+    setState(initialState);
+    setLoading(false);
     props.closeThingModal();
   }
 
@@ -414,7 +419,9 @@ const makeAddedList = () => {
 
               }
               action={
-                <Button color="primary"  onClick={onSubmit}>Add new Thing</Button>
+                <div>
+                {!isLoading? <Button color="primary" type="button" onClick={onSubmit}>Create Product</Button> : <CircularProgress className={classes.progress} />}
+                </div>
               }
               />
 

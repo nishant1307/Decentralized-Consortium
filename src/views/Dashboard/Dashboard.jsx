@@ -40,7 +40,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Claims from "views/Claims&Certifications/Claims";
 // import ListItemText from '@material-ui/core/ListItemText';
-
 const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);

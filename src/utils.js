@@ -15,3 +15,13 @@ export const parseJSONFromIPFSHash = async (ipfsHash) => {
   let res =  await axios.get("https://files.arthanium.org/ipfs/"+ipfsHash, {});
   return res.data;
 }
+
+export const encryptMessage = (message, secret) => {
+  let AES = require("crypto-js/aes");
+  return AES.encrypt(message, secret).toString();
+}
+
+export const decryptMessage = (encryptedMessage, secret) => {
+  let CryptoJS = require("crypto-js");
+  return CryptoJS.AES.decrypt(encryptedMessage, secret).toString(CryptoJS.enc.Utf8);
+}

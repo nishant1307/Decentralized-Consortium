@@ -17,32 +17,32 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
-const RegisterThingModal = React.lazy(() => import('views/RegisterThingModal.js'));
-import {openThingModal } from 'actions/userActions';
+const RegisterDeviceModal = React.lazy(() => import('views/RegisterDeviceModal.js'));
+import {openDeviceModal } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
-import {productContract} from 'productContract';
+import docContract from 'DocContract';
 import moment from "moment";
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
-const Products = (props) => {
+const Documents = (props) => {
 
   const [tokenIDList, setTokenIDList] = useState([])
-  const [productList, setProductList] = useState([])
+  const [docList, setDocList] = useState([])
   const [loader, setLoader] = useState(true);
 
   useEffect(()=> {
-    productContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
+    docContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
     }).then(res => {
       setTokenIDList(res);
       res.forEach(tokenId => {
-        productContract.methods.getProductDetails(tokenId).call({
+        docContract.methods.getDeviceDetails(tokenId).call({
           from: props.auth.user.publicKey
-        }).then(productDetails => {
-          setProductList(productList => [
-            ...productList,
-            productDetails
+        }).then(docDetails => {
+          setDocList(docList => [
+            ...docList,
+            docDetails
           ])
           setLoader(false);
         });
@@ -51,8 +51,8 @@ const Products = (props) => {
   }, []);
 
   useEffect(()=> {
-    console.log(productList);
-  }, [productList])
+    console.log(docList);
+  }, [docList]);
   const projectURL = (projectID) => {
     return "/dashboard/projects/"+ projectID;
   }
@@ -65,9 +65,9 @@ const Products = (props) => {
           <Card plain>
             <CardHeader plain color="primary">
               <h4 className={classes.cardTitleWhite}>
-                My Products
+                My Documents
               </h4>
-              <AddBoxIcon onClick={props.openThingModal}/>
+              <AddBoxIcon onClick={props.openDeviceModal}/>
             </CardHeader>
         {loader ?
           <React.Fragment>
@@ -80,36 +80,36 @@ const Products = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
           </React.Fragment> :
-            productList.length !== 0  ?
+            docList.length !== 0  ?
               <MaterialTable
                   columns={[
-                    { title: "Product Name", field: "thingName" },
-                    { title: "Product Brand", field: "thingBrand" },
-                    { title: "Product Images", field: "ipfsHash", render: rowData => <img src={"https://gateway.arthanium.org/ipfs/"+rowData.ipfsHash} height="50px" width="50px"/>},
-                    { title: "Product Description", field: "thingDescription"},
-                    { title: "Product Story", field: "thingStory"},
-                    { title: "Product Value", field: "thingValue"},
+                    { title: "Device URN", render: rowData => tokenIDList[rowData.tableData.id]},
+                    { title: "Device Type", field: "deviceType" },
+                    { title: "Communication Protocol", field: "communicationProtocol" },
+                    { title: "Data Protocol", field: "dataProtocol"},
+                    { title: "Sensor", field: "sensor"},
                     { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp*1000).format("DD-MM-YYYY h:mm:ss")},
                   ]}
-                  data={productList}
+                  data={docList}
                   title=""
                   options={{
                     search: true,
                     exportButton: true,
-                    grouping: true
+                    grouping: true,
+                    paginationType: "stepped"
                   }}
                 />:
-                <h3>No Products Found!</h3>
+                <h3>No Documents Found!</h3>
         }
         </Card>
         </GridItem>
       </GridContainer>
-      <RegisterThingModal />
+      <RegisterDeviceModal />
     </div>
   );
 }
 
-Products.propTypes = {
+Documents.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -118,4 +118,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.user
 })
-export default connect(mapStateToProps, {openThingModal}) (withStyles(dashboardStyle)(Products));
+export default connect(mapStateToProps, {openDeviceModal}) (withStyles(dashboardStyle)(Documents));

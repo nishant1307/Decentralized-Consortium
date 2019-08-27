@@ -12,6 +12,7 @@ const UserInfo = React.lazy(() => import('views/UserProfile/UserInfo.jsx'));
 // const Apps = React.lazy(() => import('views/Apps/Apps.jsx'));
 const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
 const Products = React.lazy(() => import('views/Products/Products.jsx'));
+const Documents = React.lazy(() => import('views/DocConekt/Documents.jsx'));
 const ProjectPage = React.lazy(() => import('views/Projects/ProjectPage.jsx'));
 const SupportPage = React.lazy(() => import('views/SupportPage'));
 const Partners = React.lazy(() => import('views/Partners/Partners.jsx'));
@@ -67,6 +68,12 @@ const dashboardRoutes = [
     path: "/products",
     name: "Products",
     component: Products,
+    layout: "/dashboard"
+  },
+  {
+    path: "/documents",
+    name: "Documents",
+    component: Documents,
     layout: "/dashboard"
   },
   {
