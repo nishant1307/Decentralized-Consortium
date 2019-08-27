@@ -83,11 +83,11 @@ const Devices = (props) => {
             deviceList.length !== 0  ?
               <MaterialTable
                   columns={[
-                    { title: "Product Name", field: "thingName" },
-                    { title: "Product Brand", field: "thingBrand" },
-                    { title: "Product Description", field: "thingDescription"},
-                    { title: "Product Story", field: "thingStory"},
-                    { title: "Product Value", field: "thingValue"},
+                    { title: "Device URN", render: rowData => tokenIDList[rowData.tableData.id]},
+                    { title: "Device Type", field: "deviceType" },
+                    { title: "Communication Protocol", field: "communicationProtocol" },
+                    { title: "Data Protocol", field: "dataProtocol"},
+                    { title: "Sensor", field: "sensor"},
                     { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp*1000).format("DD-MM-YYYY h:mm:ss")},
                   ]}
                   data={deviceList}
@@ -95,7 +95,8 @@ const Devices = (props) => {
                   options={{
                     search: true,
                     exportButton: true,
-                    grouping: true
+                    grouping: true,
+                    paginationType: "stepped"
                   }}
                 />:
                 <h3>No Devices Found!</h3>

@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 // core components
-import Admin from "layouts/Admin.jsx";
-import AdminPanel from "layouts/AdminPanel.jsx";
-import Kyc from 'views/KYC/Kyc';
+const Admin = React.lazy(() => import('layouts/Admin.jsx'));
+const AdminPanel = React.lazy(() => import('layouts/AdminPanel.jsx'));
+// import Admin from "layouts/Admin.jsx";
+// import AdminPanel from "layouts/AdminPanel.jsx";
+const Kyc = React.lazy(() => import('views/KYC/Kyc'));
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'

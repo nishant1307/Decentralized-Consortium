@@ -43,7 +43,7 @@ import {connect} from "react-redux";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 const ProjectPartners = (props) => {
   const {classes} = props;
-  const {partners} = props.location.state
+  const [partners, setPartners] = useState([]);
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteOrg, setInviteOrg] = useState('');
   const [invitePublicKey, setInvitePublicKey] = useState('');
@@ -72,6 +72,13 @@ const ProjectPartners = (props) => {
       console.log(err);
     })
   }
+
+  useEffect(() => {
+    if(!props.location.state)
+      props.history.push("/dashboard/home")
+    else
+      setPartners(props.location.state.partners);
+  }, []);
 
   const inviteUser = () => {
     props.inviteUserToConsortium({

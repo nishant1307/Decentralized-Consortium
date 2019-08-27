@@ -25,7 +25,7 @@ const etherHDkey = require('ethereumjs-wallet/hdkey')
 const jsPDF = require('jspdf');
 var passworder = require('browser-passworder')
 
-
+console.log(bip39.wordlists.japanese);
 const useStyles = makeStyles(theme => ({
     root: {
         height: '100vh',

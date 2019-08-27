@@ -25,8 +25,6 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
-import RegisterThingModal from "views/RegisterThingModal.js";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
 import productContract from "productContract";
@@ -139,6 +137,23 @@ const Dashboard = (props) => {
           </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
+              <CardIcon color="info">
+                <Icon>file_copy</Icon>
+              </CardIcon>
+              <p className={classes.cardCategory}>Docs</p>
+              <h3 className={classes.cardTitle}>{props.user.docCount}</h3>
+            </CardHeader>
+            <CardFooter onClick={props.openDocModal} stats>
+              <div className={classes.stats}>
+                <VisibilityIcon/>
+                Upload Doc on DocConekt
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
           <Link to={{ pathname: "/dashboard/people", state: { allPeople: allPeople} }}><Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
@@ -216,7 +231,6 @@ const Dashboard = (props) => {
           </Card>
         </GridItem>
         </GridContainer>
-      <RegisterThingModal />
     </div>
   );
 }

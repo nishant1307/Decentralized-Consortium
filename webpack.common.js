@@ -10,21 +10,15 @@ module.exports = {
 		bundle: './src/index.js',
 		vendor: VENDOR_LIBS
 	},
-  optimization: {
-		splitChunks: {
-			cacheGroups: {
-				vendor: {
-					chunks: 'initial',
-					name: 'vendor',
-					test: 'vendor',
-					enforce: true
-				},
-			}
-		},
-		runtimeChunk: true
-	},
-
   plugins: [
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^.\/wordlists\/(?!english)/,
+      contextRegExp: /bip39\/src/
+    }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /^\.\/locale$/,
+      contextRegExp: /moment$/
+    }),
     new CopyPlugin([
       { from: './src/WA/js', to: 'js' },
       { from: './src/WA/images', to: 'images' }
@@ -32,14 +26,29 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
     }),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: "./public/favicon.png"
     })
   ],
+  optimization: {
+    splitChunks: {
+        cacheGroups: {
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendor",
+            chunks: "all",
+          },
+        },
+      },
+		runtimeChunk: true
+	},
+  performance: {
+    hints: 'warning'
+  },
   module: {
     rules: [
       {

@@ -24,8 +24,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
-import { country, currency , currencyCode } from '../../../assets/data/countryList'
-import { seaPorts } from '../../../assets/data/seaPort'
+import { country, currency , currencyCode } from 'assets/data/countryList'
+import { seaPorts } from 'assets/data/seaPort'
 const styles = theme => ({
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",

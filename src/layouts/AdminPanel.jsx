@@ -4,10 +4,10 @@ import { Switch, Route } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
-import Navbar from "components/Navbars/Navbar.jsx";
-import Footer from "components/Footer/Footer.jsx";
-import Sidebar from "components/Sidebar/Sidebar.jsx";
-import Page404 from "views/ErrorPages/Page404.js";
+const Navbar = React.lazy(() => import('components/Navbars/Navbar.jsx'));
+const Footer = React.lazy(() => import('components/Footer/Footer.jsx'));
+const Sidebar = React.lazy(() => import('components/Sidebar/Sidebar.jsx'));
+const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
 import sidebarRoutes from "adminSidebarRoutes.js";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import { connect } from 'react-redux';
