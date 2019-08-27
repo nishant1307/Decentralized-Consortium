@@ -1,106 +1,16 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Link } from "react-router-dom";
-import '../../WA/css/normalize.css'
-import '../../WA/css/detheme.css'
-import '../../WA/css/kergan.detheme.css'
-import { Menu, MenuItem, Button } from '@material-ui/core';
-
-const encode = (data) => {
-    return Object.keys(data)
-        .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-        .join("&");
-}
-
-export default function Landing(props) {
+import Header from './Header';
+import Footer from './Footer';
+export default function Landing() {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     const [projects, setProjects] = React.useState(0);
     const [partners, setPartners] = React.useState(0);
     const [products, setProducts] = React.useState(0);
-    const [name, setName] = React.useState(undefined);
-    const [email, setEmail] = React.useState(undefined);
-    const [message, setMessage] = React.useState(undefined);
-    const [submitted, setSubmitted] = React.useState(true);
-    const [error, setError] = React.useState(true);
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    function handleMenuClick(event) {
-        setAnchorEl(event.currentTarget);
-    }
-
-    function handleMenuClose() {
-        setAnchorEl(null);
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        fetch("/", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: encode({ "form-name": "contact", data: { name: name, email: email, message: message } })
-        })
-            .then(() => {
-                setSubmitted(false);
-            })
-            .catch(error => {
-                setError(false);
-            });
-
-    }
-
     return (
         <div className="body">
-            <div data-collapse="medium" data-animation="default" data-duration={400} className="nav-bar w-nav">
-                <div className="wrapper navbar-2 w-container">
-                    <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={75} height={75} alt="" /></Link></div>
-                    <nav role="navigation" className="nav-menu-2 w-nav-menu">
-                        <Link to="/platform" className="nav-link-2 w-nav-link">Platform</Link>
-                        <div className="dropdown">
-                            <button className="dropbtn">Partners
-                            <i className="fa fa-caret-down" />
-                            </button>
-                            <div className="dropdown-content">
-                                <Link to="/partners#banks" className="nav-link-2 w-nav-link">Banks</Link>
-                                <Link to="/partners#insurance" className="nav-link-2 w-nav-link">Insurance</Link>
-                                <Link to="/partners#logistivs" className="nav-link-2 w-nav-link">Logistics</Link>
-                                <Link to="/partners#certificationagencies" className="nav-link-2 w-nav-link">Certification Agencies</Link>
-                                <Link to="/partners#government" className="nav-link-2 w-nav-link">Government</Link>
-                                <Link to="/partners#recyclers" className="nav-link-2 w-nav-link">Recyclers</Link>
-                            </div>
-                        </div>
-                        <div className="dropdown">
-                            <button className="dropbtn">Solutions
-                            <i className="fa fa-caret-down" />
-                            </button>
-                            <div className="dropdown-content">
-                                <Link to="/solutions#DApps" className="nav-link-2 w-nav-link">DApps</Link>
-                                <Link to="/solutions#solutionsforBusiness" className="nav-link-2 w-nav-link">For Business</Link>
-                                <Link to="/solutions#solutionsforConsumers" className="nav-link-2 w-nav-link">For Business</Link>
-                            </div>
-                        </div>
-                        <Link to="/industry" className="nav-link-2 w-nav-link">Industry</Link>
-                        <div className="dropdown">
-                            <button className="dropbtn">About Us
-                            <i className="fa fa-caret-down" />
-                            </button>
-                            <div className="dropdown-content">
-                                <Link to="/aboutus" className="nav-link-2 w-nav-link">Company</Link>
-                                <Link to="/aboutus#ourteam" className="nav-link-2 w-nav-link">Our Team</Link>
-                                <Link to="/aboutus#media" className="nav-link-2 w-nav-link">Media</Link>
-                                <Link to="/aboutus#latest" className="nav-link-2 w-nav-link">News & Blogs</Link>
-                            </div>
-                        </div>
-                        <div className="nav-cta-button-container">
-                            <a href="/login" className="nav-link-2 border w-nav-link">Get Started</a>
-                        </div>
-                    </nav>
-                    <div className="menu-button-2 w-nav-button">
-                        <div className="burger-icon w-icon-nav-menu" />
-                    </div>
-                </div>
-            </div>
+            <Header />
             <div className="section full-screen background-image-side">
                 <AutoPlaySwipeableViews>
                     <div className="wrapper">
@@ -185,7 +95,7 @@ export default function Landing(props) {
                     <div className="wrapper">
                         <div className="row-2 sm-reverse">
                             <div className="col lg-1 hidden-lg-down" />
-                            <div className="col lg-4 sm-2 lg-vertical-align">
+                            <div className="col lg-5 sm-2 lg-vertical-align">
                                 <div className="sm-align-centre">
                                     <h2 className="ondark">How does it work?</h2>
                                     {/* <p className="margin-bottom ondark">Our optimized configuration process saves your team time when running and scaling distributed applications, AI &amp; machine learning workloads, hosted services, client websites, or CI/CD environments.</p> */}
@@ -210,7 +120,7 @@ export default function Landing(props) {
                                 </div> */}
                             </div>
                             <div className="col lg-1 hidden-lg-down" />
-                            <div className="col lg-6"><iframe width="550" height="350"
+                            <div className="col lg-5"><iframe width="450" height="350"
                                 src="https://www.youtube.com/embed/SSo_EIwHSd4" frameborder="0" allowfullscreen>
                             </iframe></div>
                         </div>
@@ -222,34 +132,36 @@ export default function Landing(props) {
             <div id="features" className="section">
                 <div className="wrapper">
                     <h2 data-w-id="7b5c466a-962a-8742-1d10-203f426a0c19" style={{ opacity: 1 }} className="section-header withdesc">Why Arthanium?</h2>
-                    {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
-                    <div className="row-2">
-                        <div className="col lg-3">
-                            <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, justifyContent: 'center' }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/commision.png" width={150} alt="" className="icon" />
-                                <h4>Blockchain</h4>
-                                <p className="paragraph"><strong>Secure &nbsp;</strong>
-                                    Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
+                    <div style={{ marginLeft:70, marginTop:50 }}>
+                        {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
+                        <div className="row-2">
+                            <div className="col lg-3">
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, justifyContent: 'center' }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/commision.png" width={150} alt="" className="icon" />
+                                    <h4>Blockchain</h4>
+                                    <p className="paragraph"><strong>Secure &nbsp;</strong>
+                                        Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col lg-3">
-                            <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} alt="" className="icon" />
-                                <h4>DApps</h4>
-                                <p className="paragraph">Automate
+                            <div className="col lg-3">
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} alt="" className="icon" />
+                                    <h4>DApps</h4>
+                                    <p className="paragraph">Automate
 Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col lg-3">
-                            <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/team.png" width={150} alt="" className="icon" />
-                                <h4>Partners</h4>
-                                <p className="paragraph">Collaborate
+                            <div className="col lg-3">
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/team.png" width={150} alt="" className="icon" />
+                                    <h4>Partners</h4>
+                                    <p className="paragraph">Collaborate
 Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="col lg-3">
-                            <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/report.png" width={150} alt="" className="icon" />
-                                <h4>Industry 4.0</h4>
-                                <p className="paragraph">Innovate
+                            <div className="col lg-3">
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/report.png" width={150} alt="" className="icon" />
+                                    <h4>Industry 4.0</h4>
+                                    <p className="paragraph">Innovate
 Unlock new opportunities Eliminate low value activities.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -348,18 +260,18 @@ Unlock new opportunities Eliminate low value activities.</p>
             <div className="wrapper">
                 <div className="row">
                     <div className="columns-2 w-row">
-                        <div className="column-2 w-col w-col-6">
+                        <div className="column-2 w-col w-col-7">
                             <div className="margin-bottom">
                                 <h2 className="heading-2">Note</h2>
                                 <p>Note -
-Setup and customization charges could be applicable for certain customers.
-For larger customized plans contact us directly.
-Additional monthly credits packs can be purchased at $ 49 for 400 Credits.
-Validity of plan & credits is one month and it cannot be carried forward.
+Setup and customization charges could be applicable for certain customers.<br/>
+For larger customized plans contact us directly.<br/>
+Additional monthly credits packs can be purchased at $ 49 for 400 Credits.<br/>
+Validity of plan & credits is one month and it cannot be carried forward.<br/>
 Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
                             </div>
                         </div>
-                        <div className=" w-col w-col-6" style={{ textAlign: "-webkit-center", paddingTop: 50, paddingBottom: 50 }}>
+                        <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: 50, paddingBottom: 50 }}>
                             <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
                                 <table className="tg">
                                     <tr>
@@ -471,47 +383,7 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                     </div>
                 </div>
             </div>
-            <div id="contact" className="section bgform">
-                <div className="wrapper">
-                    <div className="row-2">
-                        <div className="col lg-6" />
-                        <div className="col lg-1" />
-                    </div>
-                    <div className="row-2">
-                        <div className="col lg-5 align-vertically" />
-                        <div className="col lg-6">
-                            <div className="contact-form-container card">
-                                <div className="margin-bottom">
-                                    <p>Have some question or feedback?<br /></p>
-                                    <h2 className="heading-4">Get in touch</h2>
-                                </div>
-                                <div className="form w-form">
-                                    <form id="email-form" name="email-form" data-name="Email Form" onSubmit={handleSubmit}>
-                                        <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} className="text-field w-input" maxLength={256} name="name-2" data-name="Name 2" placeholder="Enter your name" id="name-2" />
-                                        <input type="text" value={email} onChange={(e) => { setEmail(e.target.value) }} className="text-field w-input" maxLength={256} name="email-2" data-name="Email 2" placeholder="Enter your email" id="email-2" required />
-                                        <textarea id="field-2" value={message} onChange={(e) => { setMessage(e.target.value) }} name="field-2" placeholder="Your message" maxLength={5000} data-name="Field 2" className="text-area w-input" defaultValue={""} />
-                                        <input type="submit" defaultValue="Send message" data-wait="Please wait..." className="button2 w-button" />
-                                    </form>
-                                    <div hidden={submitted} className="w-form-done">
-                                        <div>Thank you! Your submission has been received!</div>
-                                    </div>
-                                    <div hidden={error} className="w-form-fail">
-                                        <div>Oops! Something went wrong while submitting the form.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><img src="/images/r5.png" width="500" data-w-id="47dfd708-6a6f-0d86-c48a-9297d9394903" style={{ WebkitTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', MozTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', msTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', transform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)' }} alt="" className="image-6" /></div>
-            <div className="section bggradient">
-                <div className="wrapper">
-                    <div className="flex-horizontal-space-between footer"><a href="#" className="w-inline-block"><img src="/images/logo2.png" width={75} height={75} alt="" className="footer-logo" /></a>
-                        <div className="horizontal-footer-links-container"><a href="#" className="footer-link-2 spacing">
-                            Platform</a><a href="/partner" className="footer-link-2 spacing">Partners</a><a href="#" className="footer-link-2 spacing">Solutions</a><a href="#" className="footer-link-2 spacing">Industry</a><a href="#" className="footer-link-2 spacing">About Us</a><a href="/login" className="footer-link-2 spacing">Get Started</a></div>
-                        <div className="footer-social-links-container"><a href="#" className="footer-link-2 no-padding w-inline-block"><img src="images/iconmonstr-youtube-6.png" width={30} alt="" className="social-media-icon" /></a><a href="#" className="footer-link-2 no-padding w-inline-block"><img src="images/iconmonstr-twitter-1.png" width={30} alt="" className="social-media-icon" /></a><a href="#" className="footer-link-2 no-padding w-inline-block"><img src="images/iconmonstr-instagram-11.png" width={30} alt="" className="social-media-icon" /></a><a href="#" className="footer-link-2 no-padding w-inline-block"><img src="images/iconmonstr-facebook-1.png" width={24} alt="" className="social-media-icon" /></a></div>
-                    </div>
-                </div>
-            </div>
+            <Footer />
         </div>
     );
 }
