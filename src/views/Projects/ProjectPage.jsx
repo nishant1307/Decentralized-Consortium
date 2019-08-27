@@ -34,6 +34,8 @@ const ProjectPage = (props) => {
   const journeyPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/journey";
   const addDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/adddevices";
   const getDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/alldevices";
+  const addProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/addproducts";
+  const getProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/allproducts";
   const [partners, setPartners] = useState([]);
   useEffect(() => {
     registryContract.methods.getConsortiumMember(props.match.params.projectID).call({
@@ -84,16 +86,33 @@ const ProjectPage = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
+            <CardHeader onClick={()=>{props.history.push(getProductPageURL)} } color="info" stats icon>
+              <CardIcon color="info">
+                <Icon>device_hub</Icon>
+              </CardIcon>
+              <p className={classes.cardCategory}>View Product List</p>
+              {/* <h4 className={classes.cardTitle}></h4> */}
+            </CardHeader>
+            <CardFooter onClick={()=>{props.history.push(addProductPageURL)} }  stats>
+              <div className={classes.stats}>
+                {/* <VisibilityIcon/> */}
+               Add Product To Project
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
             <CardHeader onClick={()=>{props.history.push(getDevicePageURL)} } color="info" stats icon>
               <CardIcon color="info">
                 <Icon>device_hub</Icon>
               </CardIcon>
-              <p className={classes.cardCategory}>Devices</p>
-              <h4 className={classes.cardTitle}>{props.user.deviceCount}</h4>
+              <p className={classes.cardCategory}>View Device List</p>
+              {/* <h4 className={classes.cardTitle}></h4> */}
             </CardHeader>
             <CardFooter onClick={()=>{props.history.push(addDevicePageURL)} }  stats>
               <div className={classes.stats}>
-                <VisibilityIcon/>
+                {/* <VisibilityIcon/> */}
                Add Devices To Project
               </div>
             </CardFooter>
