@@ -1,16 +1,15 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Link } from "react-router-dom";
-import '../../WA/css/normalize.css'
-import '../../WA/css/detheme.css'
-import '../../WA/css/kergan.detheme.css'
+import Header from './Header';
+import Footer from './Footer';
 
 export default function Solutions(props) {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
     return (
         <div className="body">
+            <Header />
             <div className="section full-screen background-image-side">
                 <div className="wrapper">
                     <div className="columns column w-row">
@@ -231,18 +230,18 @@ Create digital identity and  provenance		</p>
                             <div className="col lg-1" />
                             <div className="col lg-5">
                                 <div className="margin-bottom">
-                                    <h2  style={{color:"#333", marginTop:50}}>For Consumer</h2>
+                                    <h2 style={{ color: "#333", marginTop: 50 }}>For Consumer</h2>
                                     <h4>Look out for Arthanium compliant, products, assets & application</h4>
-                                    <p style={{color:"#333"}}>Use our consumer mobile app to scan custom NFC tags & know the journey and story behind the things you buy to make more confident 												
-& informed choices.<br/> At Arthanium, we’re bringing provenance to the supply chain & empowering shopper’s with accurate information and powering the transparency movement through technology. 	<br/>											
-We work with reliable businesses and products to open verified information about their producers, origins and ingredients – creating transparency and accountability so you can trust what you buy.												</p>
+                                    <p style={{ color: "#333" }}>Use our consumer mobile app to scan custom NFC tags & know the journey and story behind the things you buy to make more confident
+& informed choices.<br /> At Arthanium, we’re bringing provenance to the supply chain & empowering shopper’s with accurate information and powering the transparency movement through technology. 	<br />
+                                        We work with reliable businesses and products to open verified information about their producers, origins and ingredients – creating transparency and accountability so you can trust what you buy.												</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <Footer />
         </div>
     );
 }

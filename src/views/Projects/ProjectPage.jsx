@@ -32,6 +32,8 @@ const ProjectPage = (props) => {
   const locationPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/location";
   const partnerPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/partners";
   const journeyPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/journey";
+  const addDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/adddevices";
+  const getDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/alldevices";
   const [partners, setPartners] = useState([]);
   useEffect(() => {
     registryContract.methods.getConsortiumMember(props.match.params.projectID).call({
@@ -80,23 +82,23 @@ const ProjectPage = (props) => {
             </CardFooter>
           </Card>
         </GridItem>
-        {/**<GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={3}>
           <Card>
-            <CardHeader color="info" stats icon>
+            <CardHeader onClick={()=>{props.history.push(getDevicePageURL)} } color="info" stats icon>
               <CardIcon color="info">
                 <Icon>device_hub</Icon>
               </CardIcon>
               <p className={classes.cardCategory}>Devices</p>
               <h4 className={classes.cardTitle}>{props.user.deviceCount}</h4>
             </CardHeader>
-            <CardFooter stats onClick={props.openDeviceModal }>
+            <CardFooter onClick={()=>{props.history.push(addDevicePageURL)} }  stats>
               <div className={classes.stats}>
-                <Icon>forward</Icon>
-                  Register a device
+                <VisibilityIcon/>
+               Add Devices To Project
               </div>
             </CardFooter>
           </Card>
-        </GridItem>*/}
+        </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>

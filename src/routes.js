@@ -4,6 +4,8 @@ import React from "react";
 const DocConekt = React.lazy(() => import('views/DocConekt/UploadFile'));
 // import Wallet from './views/DocConekt/Wallet';
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
+import AddDeviceToProject from "views/Devices/AddDeviceToProject";
+import DevicesOfProject from "views/Devices/DevicesOfProject";
 const Wallet = React.lazy(() => import('views/DocConekt/Wallet'));
 // const DashboardPage = React.lazy(() => import('views/Dashboard/Dashboard.jsx'));
 const UserProfile = React.lazy(() => import('views/UserProfile/UserProfile.jsx'));
@@ -13,6 +15,7 @@ const UserInfo = React.lazy(() => import('views/UserProfile/UserInfo.jsx'));
 const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
 const Products = React.lazy(() => import('views/Products/Products.jsx'));
 const Documents = React.lazy(() => import('views/DocConekt/Documents.jsx'));
+const AddProductToProject = React.lazy(() => import('views/Products/AddProductToProject.jsx'));
 const ProjectPage = React.lazy(() => import('views/Projects/ProjectPage.jsx'));
 const SupportPage = React.lazy(() => import('views/SupportPage'));
 const Partners = React.lazy(() => import('views/Partners/Partners.jsx'));
@@ -20,8 +23,8 @@ const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
 const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
 const People = React.lazy(() => import('views/People/People.jsx'));
 const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
-const Devices = React.lazy(()=>import('views/Devices/Devices'))
-const StructuredDoc = React.lazy(()=>import('views/DocConekt/StructuredDoc'))
+const Devices = React.lazy(() => import('views/Devices/Devices'))
+const StructuredDoc = React.lazy(() => import('views/DocConekt/StructuredDoc'))
 
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
@@ -101,9 +104,15 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/projects/:projectID/devices",
+    path: "/projects/:projectID/adddevices",
     name: "Device List",
-    component: Devices,
+    component: AddDeviceToProject,
+    layout: "/dashboard"
+  },
+  {
+    path: "/projects/:projectID/alldevices",
+    name: "Device List",
+    component: DevicesOfProject,
     layout: "/dashboard"
   },
   {
@@ -116,6 +125,12 @@ const dashboardRoutes = [
     path: "/projects/:projectID/journey",
     name: "Project Journey",
     component: TimelineComponent,
+    layout: "/dashboard"
+  },
+  {
+    path: "/projects/:projectID/products",
+    name: "Products",
+    component: AddProductToProject,
     layout: "/dashboard"
   },
   {

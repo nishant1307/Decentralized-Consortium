@@ -1,16 +1,14 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Link } from "react-router-dom";
-import '../../WA/css/normalize.css'
-import '../../WA/css/detheme.css'
-import '../../WA/css/kergan.detheme.css'
-
+import Header from './Header';
+import Footer from './Footer';
 export default function Partners(props) {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
     return (
         <div className="body">
+            <Header />
             <div className="section full-screen background-image-side">
                 <div className="wrapper">
                     <div className="columns column w-row">
@@ -159,6 +157,7 @@ export default function Partners(props) {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

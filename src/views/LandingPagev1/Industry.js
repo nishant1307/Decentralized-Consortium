@@ -1,16 +1,14 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-import { Link } from "react-router-dom";
-import '../../WA/css/normalize.css'
-import '../../WA/css/detheme.css'
-import '../../WA/css/kergan.detheme.css'
-
+import Header from './Header';
+import Footer from './Footer';
 export default function Industry(props) {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
     return (
         <div className="body">
+            <Header />
             <div className="div-block-9">
                 <div className="section">
                     {/* <div className="wrapper-2 space-around">
@@ -163,6 +161,7 @@ export default function Industry(props) {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

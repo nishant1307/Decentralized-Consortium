@@ -2,15 +2,14 @@ import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import { Link } from "react-router-dom";
-import '../../WA/css/normalize.css'
-import '../../WA/css/detheme.css'
-import '../../WA/css/kergan.detheme.css'
-
+import Header from './Header';
+import Footer from './Footer';
 export default function Landing(props) {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
     return (
         <div className="body">
+            <Header />
             <div className="div-block-9">
                 <div className="section">
                     {/* <div className="wrapper-2 space-around">
@@ -44,7 +43,7 @@ export default function Landing(props) {
                                 </div>
                                 <Link to="/" style={{ textDecoration: 'none', margin: 0, padding: 0 }}>
                                     <div class="flex-readmore">
-                                        <div className="readmore ondark" style={{backgroundColor:'transparent'}}>Learn More Here</div>
+                                        <div className="readmore ondark" style={{ backgroundColor: 'transparent' }}>Learn More Here</div>
                                         <div className="icon"><br />‍</div>
                                     </div>
                                 </Link>
@@ -86,6 +85,7 @@ export default function Landing(props) {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }

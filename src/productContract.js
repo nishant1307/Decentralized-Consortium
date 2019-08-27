@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const productAddress = '0x51120091fdf990cc0d0b7f52165deb9ad6800859';
+export const productAddress = '0x40514f876966ff28d0c50fafb612cf6e8d87c7cc';
 export const productABI =[
 	{
 		"constant": false,
@@ -170,9 +170,9 @@ export const productABI =[
 				"type": "string"
 			},
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "projectId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "setProjectId",
@@ -395,6 +395,27 @@ export const productABI =[
 		"constant": true,
 		"inputs": [
 			{
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
+			}
+		],
+		"name": "_tokensOfProject",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "owner",
 				"type": "address"
@@ -487,9 +508,9 @@ export const productABI =[
 						"type": "uint256"
 					},
 					{
-						"internalType": "string",
+						"internalType": "bytes32",
 						"name": "projectId",
-						"type": "string"
+						"type": "bytes32"
 					}
 				],
 				"internalType": "struct ERC721Metadata.deviceDetails",
