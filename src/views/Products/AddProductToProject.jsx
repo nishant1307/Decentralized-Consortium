@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -18,21 +18,22 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
 const RegisterThingModal = React.lazy(() => import('views/RegisterThingModal.js'));
-import {openThingModal } from 'actions/userActions';
+import { openThingModal } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
-import {productContract} from 'productContract';
+import { productContract, productAddress } from 'productContract';
 import moment from "moment";
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import web3 from '../../web3';
 const Products = (props) => {
-  console.log(props.match.params.projectID,"in herereerre");
-  
+  // console.log(props.match.params.projectID, "in herereerre");
+
   const [tokenIDList, setTokenIDList] = useState([])
   const [productList, setProductList] = useState([])
   const [loader, setLoader] = useState(true);
 
-  useEffect(()=> {
+  useEffect(() => {
     productContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
     }).then(res => {
@@ -41,23 +42,59 @@ const Products = (props) => {
         productContract.methods.getProductDetails(tokenId).call({
           from: props.auth.user.publicKey
         }).then(productDetails => {
-          setProductList(productList => [
-            ...productList,
-            productDetails
-          ])
+          productDetails.tokenId = tokenId;
+          if (productDetails.projectId === "0x0000000000000000000000000000000000000000000000000000000000000000") {
+            setProductList(productList => [
+              ...productList,
+              productDetails
+            ])
+          }
           setLoader(false);
         });
       });
     });
   }, []);
 
-  useEffect(()=> {
-    console.log(productList);
+  useEffect(() => {
+    console.log(".");
   }, [productList])
   const projectURL = (projectID) => {
-    return "/dashboard/projects/"+ projectID;
+    return "/dashboard/projects/" + projectID;
   }
-  const {classes} = props;
+
+  async function addProductsToProject(data1) {
+    console.log(data1);
+
+    let address = localStorage.getItem("address");
+    let privateKey = await sessionStorage.getItem('privateKey');
+    let nonce = await web3.eth.getTransactionCount(address);
+    var batch = new web3.BatchRequest();
+    console.log(nonce);
+    data1.forEach(element => {
+      var transaction = {
+        "nonce": nonce,
+        "to": productAddress,
+        "data": productContract.methods.setProjectId(
+          element.tokenId,
+          props.match.params.projectID
+        ).encodeABI()
+      };
+      // console.log(transaction);
+      // let gasLimit = await web3.eth.estimateGas(transaction);
+      transaction["gasLimit"] = 4700000;
+      web3.eth.accounts.signTransaction(transaction, privateKey)
+        .then((result) => {
+          batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
+            .once('receipt', (receipt) => {
+              console.log(receipt);
+            }));
+        })
+      nonce++
+    })
+    batch.execute();
+  }
+
+  const { classes } = props;
 
   return (
     <div>
@@ -70,38 +107,47 @@ const Products = (props) => {
               </h4>
               {/* <AddBoxIcon onClick={props.openThingModal}/> */}
             </CardHeader>
-        {loader ?
-          <React.Fragment>
+            {loader ?
+              <React.Fragment>
 
-                <Skeleton width="100%"/>
-                <Skeleton width="60%" />
                 <Skeleton width="100%" />
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
-          </React.Fragment> :
-            productList.length !== 0  ?
-              <MaterialTable
+                <Skeleton width="60%" />
+                <Skeleton width="100%" />
+              </React.Fragment> :
+              productList.length !== 0 ?
+                <MaterialTable
                   columns={[
+                    { title: "Product Id", field: "tokenId" },
                     { title: "Product Name", field: "thingName" },
                     { title: "Product Brand", field: "thingBrand" },
-                    { title: "Product Description", field: "thingDescription"},
-                    { title: "Product Story", field: "thingStory"},
-                    { title: "Product Value", field: "thingValue"},
-                    { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp*1000).format("DD-MM-YYYY h:mm:ss")},
+                    { title: "Product Description", field: "thingDescription" },
+                    { title: "Product Story", field: "thingStory" },
+                    { title: "Product Value", field: "thingValue" },
+                    { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp * 1000).format("DD-MM-YYYY h:mm:ss") },
                   ]}
                   data={productList}
                   title=""
                   options={{
                     search: true,
                     exportButton: true,
-                    grouping: true
+                    grouping: true,
+                    selection: true
                   }}
-                />:
+                  actions={[
+                    {
+                      tooltip: 'Add Selected Devices To Project',
+                      icon: 'add',
+                      onClick: (evt, data) => { addProductsToProject(data) }
+                    }
+                  ]}
+                /> :
                 <h3>No Products Found!</h3>
-        }
-        </Card>
+            }
+          </Card>
         </GridItem>
       </GridContainer>
       <RegisterThingModal />
@@ -118,4 +164,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.user
 })
-export default connect(mapStateToProps, {openThingModal}) (withStyles(dashboardStyle)(Products));
+export default connect(mapStateToProps, { openThingModal })(withStyles(dashboardStyle)(Products));

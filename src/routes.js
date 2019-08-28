@@ -6,6 +6,7 @@ const DocConekt = React.lazy(() => import('views/DocConekt/UploadFile'));
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import AddDeviceToProject from "views/Devices/AddDeviceToProject";
 import DevicesOfProject from "views/Devices/DevicesOfProject";
+import ProductsOfProject from "views/Products/ProductsOfProject";
 const Wallet = React.lazy(() => import('views/DocConekt/Wallet'));
 // const DashboardPage = React.lazy(() => import('views/Dashboard/Dashboard.jsx'));
 const UserProfile = React.lazy(() => import('views/UserProfile/UserProfile.jsx'));
@@ -128,9 +129,15 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/projects/:projectID/products",
+    path: "/projects/:projectID/addproducts",
     name: "Products",
     component: AddProductToProject,
+    layout: "/dashboard"
+  },
+  {
+    path: "/projects/:projectID/allproducts",
+    name: "Products",
+    component: ProductsOfProject,
     layout: "/dashboard"
   },
   {
