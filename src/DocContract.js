@@ -1,18 +1,20 @@
 import web3 from './web3';
 
-const address = '0x5e76fad4e6d429ac60109d377555ded794aa2f12';
-const abi =[
+const address = '0x8cfd76504556227d0ba4e00c716a5b521a55b120';
+const abi = [
 	{
 		"constant": true,
 		"inputs": [
 			{
-				"name": "interfaceId",
-				"type": "bytes4"
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
 			}
 		],
-		"name": "supportsInterface",
+		"name": "getReviewStatusForIndividual",
 		"outputs": [
 			{
+				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -23,43 +25,17 @@ const abi =[
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "name",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "totalSupply",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
 		"inputs": [
 			{
-				"name": "owner",
-				"type": "address"
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
 			}
 		],
-		"name": "tokenOfOwner",
+		"name": "_tokensOfProject",
 		"outputs": [
 			{
+				"internalType": "string[]",
 				"name": "",
 				"type": "string[]"
 			}
@@ -69,84 +45,10 @@ const abi =[
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "approve",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"name": "tokenId",
-				"type": "string"
-			},
-			{
-				"name": "transferReason",
-				"type": "string"
-			}
-		],
-		"name": "transferFrom",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"name": "tokenId",
-				"type": "string"
-			},
-			{
-				"name": "uri",
-				"type": "string"
-			},
-			{
-				"name": "info",
-				"type": "string"
-			}
-		],
-		"name": "mint",
-		"outputs": [
-			{
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
+				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			}
@@ -154,35 +56,7 @@ const abi =[
 		"name": "tokenURI",
 		"outputs": [
 			{
-				"components": [
-					{
-						"name": "info",
-						"type": "string"
-					},
-					{
-						"name": "url",
-						"type": "string"
-					}
-				],
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "index",
-				"type": "uint256"
-			}
-		],
-		"name": "tokenByIndex",
-		"outputs": [
-			{
+				"internalType": "string",
 				"name": "",
 				"type": "string"
 			}
@@ -192,9 +66,56 @@ const abi =[
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "metadata",
+				"type": "string"
+			}
+		],
+		"name": "setMetadata",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "status",
+				"type": "bool"
+			}
+		],
+		"name": "addReview",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [
 			{
+				"internalType": "address",
 				"name": "owner",
 				"type": "address"
 			}
@@ -202,6 +123,7 @@ const abi =[
 		"name": "balanceOf",
 		"outputs": [
 			{
+				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
@@ -211,60 +133,10 @@ const abi =[
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "acceptOwnership",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "tokenToAccept",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
+				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			}
@@ -272,6 +144,7 @@ const abi =[
 		"name": "ownerOf",
 		"outputs": [
 			{
+				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
@@ -281,94 +154,28 @@ const abi =[
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "symbol",
-		"outputs": [
+		"constant": false,
+		"inputs": [
 			{
-				"name": "",
+				"internalType": "string",
+				"name": "tokenId",
 				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "addMinter",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "renounceMinter",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "to",
-				"type": "address"
 			},
 			{
-				"name": "approved",
-				"type": "bool"
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
 			}
 		],
-		"name": "setApprovalForAll",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "isMinter",
+		"name": "setProjectId",
 		"outputs": [
 			{
+				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "acceptToken",
-		"outputs": [],
-		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
@@ -376,15 +183,17 @@ const abi =[
 		"constant": true,
 		"inputs": [
 			{
+				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			}
 		],
-		"name": "getApproved",
+		"name": "getReviewersList",
 		"outputs": [
 			{
-				"name": "",
-				"type": "address"
+				"internalType": "address[]",
+				"name": "reviewer",
+				"type": "address[]"
 			}
 		],
 		"payable": false,
@@ -395,25 +204,44 @@ const abi =[
 		"constant": true,
 		"inputs": [
 			{
+				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			}
 		],
-		"name": "getTransferReason",
+		"name": "getDocumentDetails",
 		"outputs": [
 			{
 				"components": [
 					{
-						"name": "oldOwner",
-						"type": "address"
+						"internalType": "string",
+						"name": "encryptedData",
+						"type": "string"
 					},
 					{
-						"name": "message",
+						"internalType": "string",
+						"name": "encryptedPassword",
 						"type": "string"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "projectId",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timeStamp",
+						"type": "uint256"
 					}
 				],
+				"internalType": "struct ERC721Metadata.docDetails",
 				"name": "",
 				"type": "tuple"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -424,6 +252,7 @@ const abi =[
 		"constant": false,
 		"inputs": [
 			{
+				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			}
@@ -435,20 +264,54 @@ const abi =[
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"name": "owner",
+				"internalType": "address",
+				"name": "to",
 				"type": "address"
 			},
 			{
-				"name": "operator",
-				"type": "address"
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedData",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedPassword",
+				"type": "string"
 			}
 		],
-		"name": "isApprovedForAll",
+		"name": "MintWithDetails",
 		"outputs": [
 			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "getReviewStatus",
+		"outputs": [
+			{
+				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -461,18 +324,36 @@ const abi =[
 		"constant": false,
 		"inputs": [
 			{
-				"name": "newOwner",
-				"type": "address"
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "address[]",
+				"name": "reviewer",
+				"type": "address[]"
 			}
 		],
-		"name": "transferOwnership",
-		"outputs": [],
+		"name": "addReviewers",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "storageAddress",
+				"type": "address"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -481,119 +362,57 @@ const abi =[
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": true,
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "MinterAdded",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "MinterRemoved",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "to",
-				"type": "address"
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
 			},
 			{
 				"indexed": false,
-				"name": "tokenId",
+				"internalType": "string",
+				"name": "metadata",
 				"type": "string"
 			}
 		],
-		"name": "Transfer",
+		"name": "MetadataChanged",
 		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": true,
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "approved",
-				"type": "address"
-			},
-			{
 				"indexed": false,
+				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
-			}
-		],
-		"name": "Approval",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"name": "operator",
-				"type": "address"
 			},
 			{
 				"indexed": false,
-				"name": "approved",
-				"type": "bool"
+				"internalType": "address[]",
+				"name": "listOfAddress",
+				"type": "address[]"
 			}
 		],
-		"name": "ApprovalForAll",
+		"name": "ReviewersAdded",
 		"type": "event"
 	},
 	{
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipRenounced",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"name": "previousOwner",
-				"type": "address"
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
 			},
 			{
-				"indexed": true,
-				"name": "newOwner",
+				"indexed": false,
+				"internalType": "address",
+				"name": "reviewer",
 				"type": "address"
 			}
 		],
-		"name": "OwnershipTransferred",
+		"name": "ReviewAdded",
 		"type": "event"
 	}
 ]

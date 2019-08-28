@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-export const deviceAddress = '0x99edd1a4cbe4224c51286b946a16d2e612404fb9';
+export const deviceAddress = '0x89d5e2a7ceadfbf1de8a08e6a2e32cae2f4a3ff7';
 export const abi = [
 	{
 		"constant": false,
@@ -218,11 +218,6 @@ export const abi = [
 			{
 				"internalType": "address",
 				"name": "storageAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "registryAddress",
 				"type": "address"
 			}
 		],
@@ -487,6 +482,11 @@ export const abi = [
 				"internalType": "struct ERC721Metadata.deviceDetails",
 				"name": "",
 				"type": "tuple"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
