@@ -15,20 +15,21 @@ import {
   CLOSE_DOC_MODAL,
   FETCH_NOTIFICATION,
   EDIT_PROFILE,
-  GET_SUBSCRIPTION
+  GET_SUBSCRIPTION,
+  NEW_DOCUMENT_CREATED
 } from '../actions/types';
 import isEmpty from '../is-empty';
 
 const initialState = {
   user: '',
   organization: '',
-  docCount:0,
+  docCount: 0,
   projectCount: 0,
   deviceCount: 0,
   thingCount: 0,
-  partners:0,
-  apps:0,
-  people:0,
+  partners: 0,
+  apps: 0,
+  people: 0,
   userInfoLoader: true,
   projectModalOpen: false,
   deviceModalOpen: false,
@@ -36,7 +37,7 @@ const initialState = {
   docModalOpen: false,
   notificationList: [],
   projectList: [],
-  productList:[],
+  productList: [],
   subscription: ''
 }
 
@@ -49,10 +50,10 @@ export default function (state = initialState, action) {
         // organization: action.payload.organization,
         projectCount: action.payload.projectCount,
         deviceCount: action.payload.deviceCount,
-        projectList:action.payload.projectList,
+        projectList: action.payload.projectList,
         thingCount: action.payload.thingCount,
-        productList:action.payload.productList,
-        docCount:action.payload.docCount,
+        productList: action.payload.productList,
+        docCount: action.payload.docCount,
         user: action.payload.userInfo,
         organization: action.payload.organizationInfo
         // etherAddress:action.payload.etherAddress,
@@ -95,24 +96,30 @@ export default function (state = initialState, action) {
         thingModalOpen: false
       }
       break;
-      case OPEN_DOC_MODAL:
-        return {
-          ...state,
-          docModalOpen: true
-        }
-        break;
-      case CLOSE_DOC_MODAL:
-        return {
-          ...state,
-          docModalOpen: false
-        }
-        break;
+    case OPEN_DOC_MODAL:
+      return {
+        ...state,
+        docModalOpen: true
+      }
+      break;
+    case CLOSE_DOC_MODAL:
+      return {
+        ...state,
+        docModalOpen: false
+      }
+      break;
+    case NEW_DOCUMENT_CREATED:
+      return {
+        ...state,
+        docCount: parseInt(state.docCount) + 1,
+      }
+      break;
     case NEW_PROJECT_CREATED:
       return {
         ...state,
         projectCount: parseInt(state.projectCount) + 1,
         projectModalOpen: false,
-        notificationList: [...state.notificationList, "New Project "+action.payload + " created"]
+        notificationList: [...state.notificationList, "New Project " + action.payload + " created"]
       }
       break;
     case NEW_DEVICE_CREATED:
@@ -128,7 +135,7 @@ export default function (state = initialState, action) {
         ...state,
         thingCount: state.thingCount + parseInt(action.payload),
         thingModalOpen: false,
-        notificationList: [...state.notificationList, action.payload+ " new things created"]
+        notificationList: [...state.notificationList, action.payload + " new things created"]
       }
       break;
     case FETCH_NOTIFICATION:
@@ -142,7 +149,7 @@ export default function (state = initialState, action) {
         ...state,
         user: {
           ...state.user,
-          email:action.payload.email
+          email: action.payload.email
         }
       }
     case GET_SUBSCRIPTION:

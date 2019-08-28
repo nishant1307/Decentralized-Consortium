@@ -42,7 +42,7 @@ const Products = (props) => {
         }).then(productDetails => {
           setProductList(productList => [
             ...productList,
-            productDetails
+            productDetails[0]
           ])
           setLoader(false);
         });

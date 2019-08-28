@@ -9,16 +9,24 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import DateFnsUtils from "@date-io/date-fns";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import { connect } from 'react-redux';
+import { addNewDoc } from 'actions/userActions';
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
+import { encryptMessage } from 'utils'
 import ipfs from '../../../ipfs';
 const Ipfs = require('ipfs-http-client')
 
@@ -48,6 +56,7 @@ const styles = theme => ({
 const PurchaseOrder = props => {
     const { classes } = props;
     const [struture, setStruture] = useState({});
+    const [password, setPassword] = useState("");
     const [maintable, setMainTable] = React.useState({
         columns: [
             { title: 'Product Code', field: 'productCode' },
@@ -61,11 +70,26 @@ const PurchaseOrder = props => {
 
         ],
     });
-    const updateProfile = async () => {
-        // console.log("Updated", struture, maintable.data);
+
+    const [open, setOpen] = React.useState(false);
+
+    function handleClickOpen() {
+        setOpen(true);
+    }
+
+    function handleClose() {
+        setOpen(false);
+    }
+
+    const submitDocument = async () => {
+        let privateKey = await sessionStorage.getItem('privateKey');
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        console.log("IPFS cid:", cid);
+        let encryptData = await encryptMessage(cid[0].hash, password)
+        let encryptedPassword = await encryptMessage(password, privateKey)
+        console.log(encryptData, encryptedPassword);
+
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
     }
 
     const handleChangeValue = e => {
@@ -376,14 +400,52 @@ const PurchaseOrder = props => {
                             </GridContainer>
                         </CardBody>
                         <CardFooter>
-                            <Button color="primary" onClick={updateProfile}>Submit</Button>
+                            <Button color="primary" onClick={handleClickOpen}>Submit</Button>
                         </CardFooter>
                     </Card>
                 </GridItem>
             </GridContainer>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Enter password to secure your document"}</DialogTitle>
+                <DialogContent>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <CustomInput
+                                labelText="Password"
+                                id="password"
+                                type="password"
+                                formControlProps={{
+                                    fullWidth: true
+                                }}
+                                onChangeValue={((e) => { setPassword(e.target.value) })}
+                                value={password}
+
+                            />
+                        </GridItem>
+                    </GridContainer>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancel
+          </Button>
+                    <Button onClick={submitDocument} color="primary" autoFocus>
+                        Submit
+          </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };
 
+const mapStateToProps = (state) => ({
+    user: state.user,
+    errors: state.errors
+});
 
-export default withStyles(styles, customInputStyle)(PurchaseOrder);
+export default connect(mapStateToProps, { addNewDoc })(withStyles(styles, customInputStyle)(PurchaseOrder));
+

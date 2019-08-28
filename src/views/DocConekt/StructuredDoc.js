@@ -4,11 +4,6 @@ const CommercialInvoice = React.lazy(() => import('./Types/CommercialInvoice'));
 const PackingList = React.lazy(() => import('./Types/PackingList'));
 const SeawayBill = React.lazy(() => import('./Types/SeawayBill'));
 const ShippingInstructions = React.lazy(() => import('./Types/ShippingInstructions'));
-// import PurchaseOrder from './Types/PurchaseOrder'
-// import CommercialInvoice  from  './Types/CommercialInvoice'
-// import PackingList from './Types/PackingList'
-// import SeawayBill from './Types/SeawayBill'
-// import ShippingInstructions from './Types/ShippingInstructions'
 const UserProfile = props => {
     function getPage() {
         switch (props.match.params.structuredDocId) {

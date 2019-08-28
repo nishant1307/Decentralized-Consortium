@@ -1,5 +1,8 @@
- pragma solidity ^0.5.0;
+pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
+import "./EternalStorage.sol";
+import "./Consortium.sol";
+import './StorageDefinition.sol';
 
 library SafeMath {
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
@@ -177,7 +180,8 @@ contract ERC721 {
     event ReviewersAdded(string tokenId, address[] listOfAddress);
     event ReviewAdded(string tokenId, address reviewer);
 
-
+    EternalStorage s;
+    Consortium registerContract;
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
@@ -194,6 +198,17 @@ contract ERC721 {
 
     //Mapping from owner to number of owned token
     mapping (address => Counters.Counter) private _ownedTokensCount;
+    
+    
+     constructor (address storageAddress) public {
+        s = EternalStorage(storageAddress);
+        // registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
+    }
+
+    modifier onlyRegistrant() {
+        require(s.getUserDetails().role == StorageDefinition.roles.admin || s.getUserDetails().role == StorageDefinition.roles.registrant);
+        _;
+    }
     
     
     function addReview(string memory tokenId, bool status) public{
@@ -310,10 +325,38 @@ contract ERC721 {
     }
 
 }
+
+/**
+ * @title ERC721Mintable
+ * @dev ERC721 minting logic.
+ */
+contract ERC721Mintable is ERC721 {
+    /**
+     * @dev Function to mint tokens.
+     * @param to The address that will receive the minted tokens.
+     * @param tokenId The token id to mint.
+     * @return A boolean that indicates if the operation was successful.
+     */
+    function mint(address to, string memory tokenId) internal returns (bool) {
+        _mint(to, tokenId);
+        return true;
+    }
+}
 contract ERC721Metadata is  ERC721 {
+    
+      struct docDetails {
+        string encryptedData;
+        string encryptedPassword;
+        bytes32 projectId;
+        uint256 timeStamp;
+
+    }
     
     // Optional mapping for token URIs
     mapping(string  => string) private _tokenURIs;
+    
+      // mapping for token deviceDetails
+    mapping(string => docDetails) private _tokenDetails;
 
     /*
      *     bytes4(keccak256('name()')) == 0x06fdde03
@@ -333,6 +376,11 @@ contract ERC721Metadata is  ERC721 {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return _tokenURIs[tokenId];
     }
+    
+     function getDocumentDetails(string calldata tokenId) external view returns (docDetails memory,string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        return (_tokenDetails[tokenId],_tokenURIs[tokenId]);
+    }
 
     /**
      * @dev Internal function to set the token URI for a given token.
@@ -343,6 +391,22 @@ contract ERC721Metadata is  ERC721 {
     function _setTokenURI(string memory tokenId, string memory uri) internal {
         require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
         _tokenURIs[tokenId] = uri;
+    }
+    
+      function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+        require(_tokenDetails[tokenId].projectId == 0x0, "Project Id reassign denied!");
+        docDetails memory temp = _tokenDetails[tokenId];
+        temp.projectId = projectId;
+         _tokenDetails[tokenId] = temp;
+    }
+    
+    
+    function _setDocumentDetails(string memory tokenId,string memory encryptedData, string memory encryptedPassword ) internal {
+      docDetails memory temp;
+      temp.encryptedData = encryptedData;
+      temp.encryptedPassword = encryptedPassword;
+      temp.timeStamp = block.timestamp;
+      _tokenDetails[tokenId] = temp;
     }
 
     /**
@@ -362,21 +426,21 @@ contract ERC721Metadata is  ERC721 {
     }
 }
 
-contract ERC721MetadataMintable is ERC721, ERC721Metadata {
-    /**
-     * @dev Function to mint tokens.
-     * @param to The address that will receive the minted tokens.
-     * @param tokenId The token id to mint.
-     * @param tokenURI The token URI of the minted token.
-     * @return A boolean that indicates if the operation was successful.
-     */
-    function mintWithTokenURI(address to, string memory tokenId, string memory tokenURI) public returns (bool) {
-        _mint(to, tokenId);
-        _setTokenURI(tokenId, tokenURI);
-        return true;
-    }
-}
-contract ERC721Enumerable is ERC721 {
+// contract ERC721MetadataMintable is ERC721, ERC721Metadata {
+//     /**
+//      * @dev Function to mint tokens.
+//      * @param to The address that will receive the minted tokens.
+//      * @param tokenId The token id to mint.
+//      * @param tokenURI The token URI of the minted token.
+//      * @return A boolean that indicates if the operation was successful.
+//      */
+//     function mintWithTokenURI(address to, string memory tokenId, string memory tokenURI) public returns (bool) {
+//         _mint(to, tokenId);
+//         _setTokenURI(tokenId, tokenURI);
+//         return true;
+//     }
+// }
+contract ERC721Enumerable is ERC721 , ERC721Metadata {
     // Mapping from owner to list of owned token IDs
     mapping(address => string[]) private _ownedTokens;
 
@@ -388,6 +452,12 @@ contract ERC721Enumerable is ERC721 {
 
     // Mapping from token id to position in the allTokens array
     mapping(string => uint256) private _allTokensIndex;
+    
+        // Mapping from project to list of owned token IDs
+    mapping(bytes32 => string[]) private _ownedTokensByProject;
+
+    // Mapping from token ID to index of the project tokens list
+    mapping(string => uint256) private _ownedTokensByProjectIndex;
 
     /**
      * @dev Internal function to mint a new token.
@@ -428,7 +498,21 @@ contract ERC721Enumerable is ERC721 {
     function _tokensOfOwner(address owner) internal view returns (string[] storage) {
         return _ownedTokens[owner];
     }
-
+    
+     function _tokensOfProject(bytes32 projectId) public view returns (string[] memory) {
+        return _ownedTokensByProject[projectId];
+    }
+    
+     function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+        super._setProjectId(tokenId,projectId);
+       _addTokenToProjectEnumeration(projectId, tokenId);
+    }
+    
+     function _addTokenToProjectEnumeration(bytes32 projectId , string memory tokenId) private {
+        _ownedTokensIndex[tokenId] = _ownedTokensByProject[projectId].length;
+        _ownedTokensByProject[projectId].push(tokenId);
+    }
+    
     /**
      * @dev Private function to add a token to this extension's ownership-tracking data structures.
      * @param to address representing the new owner of the given token ID
@@ -515,7 +599,31 @@ contract ERC721Burnable is ERC721 {
         _burn(tokenId);
     }
 }
-contract ERC721Full is ERC721, ERC721Enumerable,ERC721Burnable, ERC721Metadata, ERC721MetadataMintable {
-    constructor () public {
+contract DocContract is ERC721, ERC721Enumerable,ERC721Burnable,ERC721Mintable {
+    constructor(address storageAddress) ERC721(storageAddress) public {
+    }
+
+    event MetadataChanged(string tokenId , string metadata);
+
+    function setMetadata(string memory tokenId, string memory metadata ) public onlyRegistrant returns (bool) {
+        require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
+        _setTokenURI(tokenId , metadata);
+        emit MetadataChanged(tokenId,metadata);
+        return true;
+    }
+    
+     function setProjectId(string memory tokenId, bytes32 projectId ) public onlyRegistrant returns (bool) {
+        registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
+        require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
+        _setProjectId(tokenId , projectId);
+        registerContract.addDeviceToProject(tokenId,projectId);
+        return true;
+    }
+
+    function MintWithDetails(address to, string memory tokenId,string memory encryptedData, string memory encryptedPassword ) public onlyRegistrant returns (bool) {
+        _setDocumentDetails(tokenId, encryptedData, encryptedPassword);
+         mint(to, tokenId);
+        // registerContract.addDeviceToProject(tokenId, (projectId));
+        return true;
     }
 }

@@ -1,7 +1,7 @@
 import web3 from './web3';
 
-const address = '0x8cfd76504556227d0ba4e00c716a5b521a55b120';
-const abi = [
+export const docAddress = '0x83300f757e0531bff45bdcd23132ede7b700a3d2';
+export const abi = [
 	{
 		"constant": true,
 		"inputs": [
@@ -147,6 +147,27 @@ const abi = [
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "_tokensOfOwner",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
 		"payable": false,
@@ -416,4 +437,4 @@ const abi = [
 		"type": "event"
 	}
 ]
-export default new web3.eth.Contract(abi, address);
+export const docContract = new web3.eth.Contract(abi, docAddress);;

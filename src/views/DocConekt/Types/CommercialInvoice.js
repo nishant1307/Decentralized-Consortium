@@ -69,7 +69,7 @@ const CommercialInvoice = props => {
 
         ],
     });
-    const updateProfile = () => {
+    const submitDoc = () => {
         console.log("Updated", struture);
     }
 
@@ -604,7 +604,7 @@ const CommercialInvoice = props => {
                             </GridContainer>
                         </CardBody>
                         <CardFooter>
-                            <Button color="primary" onClick={updateProfile}>Submit</Button>
+                            <Button color="primary" onClick={submitDoc}>Submit</Button>
                         </CardFooter>
                     </Card>
                 </GridItem>

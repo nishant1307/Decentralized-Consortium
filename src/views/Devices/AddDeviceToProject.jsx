@@ -42,10 +42,10 @@ const Devices = (props) => {
         let deviceDetails = await deviceContract.methods.getDeviceDetails(tokenId).call({
           from: props.auth.user.publicKey
         })
-         deviceDetails.tokenId =  tokenId
+         deviceDetails[0].tokenId =  tokenId
         //  console.log(deviceDetails, "in1", key);
         // console.log(deviceDetails, "deviceDetails");
-        if (deviceDetails.projectId === "0x0000000000000000000000000000000000000000000000000000000000000000")
+        if (deviceDetails[0].projectId === "0x0000000000000000000000000000000000000000000000000000000000000000")
           setDeviceList(deviceList => [
             ...deviceList,
             deviceDetails

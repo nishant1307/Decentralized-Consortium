@@ -8,6 +8,7 @@ import {
   NEW_PROJECT_CREATED,
   NEW_DEVICE_CREATED,
   NEW_THING_CREATED,
+  NEW_DOCUMENT_CREATED,
   OPEN_PROJECT_MODAL,
   CLOSE_PROJECT_MODAL,
   OPEN_DEVICE_MODAL,
@@ -22,40 +23,40 @@ import {
   GET_SUBSCRIPTION
 } from "./types";
 import { setAuthToken } from '../axiosConfig';
-import {productAddress, productContract} from '../productContract.js'
-import {deviceContract, deviceAddress} from '../deviceContract.js'
-import DocContract from '../DocContract';
+import { productAddress, productContract } from '../productContract.js'
+import { deviceContract, deviceAddress } from '../deviceContract.js'
+import { docContract, docAddress } from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
 let address = localStorage.getItem("address");
 let privateKey = '';
 export const currentUserInfo = clientToken => dispatch => {
   console.log(clientToken);
 
-  DocContract.methods.balanceOf(clientToken).call().then(docCount => {
+  docContract.methods.balanceOf(clientToken).call().then(docCount => {
     registryContract.methods.getUserOrganizationDetails().call({
-      from : localStorage.getItem("address")
+      from: localStorage.getItem("address")
     }).then(userOrgDetails => {
       productContract.methods._tokensOfOwner(clientToken).call().then(productArray => {
         console.log(clientToken);
-      deviceContract.methods.balanceOf(clientToken).call().then(deviceCount => {
-        registryContract.methods.getMyProjectsCount().call({
-          from: clientToken
-        }).then(res => {
-          dispatch({
-            type: CURRENT_USER_INFO,
-            payload: {
-              projectCount: res,
-              thingCount: productArray.length,
-              productList: productArray,
-              docCount:docCount,
-              userInfo: userOrgDetails[0],
-              organizationInfo: userOrgDetails[1],
-              deviceCount:deviceCount
-            }
-          });
+        deviceContract.methods.balanceOf(clientToken).call().then(deviceCount => {
+          registryContract.methods.getMyProjectsCount().call({
+            from: clientToken
+          }).then(res => {
+            dispatch({
+              type: CURRENT_USER_INFO,
+              payload: {
+                projectCount: res,
+                thingCount: productArray.length,
+                productList: productArray,
+                docCount: docCount,
+                userInfo: userOrgDetails[0],
+                organizationInfo: userOrgDetails[1],
+                deviceCount: deviceCount
+              }
+            });
+          })
         })
       })
-    })
     })
   })
 };
@@ -155,7 +156,7 @@ export const createNewProject = projectDetails => async (dispatch) => {
               }
             })
             .on('error', async function (error) {
-                console.log(error);
+              console.log(error);
               dispatch({
                 type: GET_ERRORS,
                 payload: error
@@ -210,7 +211,7 @@ export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
               }
             })
             .on('error', async function (error) {
-                console.log(error);
+              console.log(error);
               dispatch({
                 type: GET_ERRORS,
                 payload: error
@@ -236,11 +237,63 @@ export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
   })
 };
 
-export const addNewDoc = docDetails => dispatch => {
-  console.log("Hey");
+export const addNewDoc = docDetails => async dispatch => {
+  // console.log(docDetails);
+  privateKey = await sessionStorage.getItem('privateKey');
+  web3.eth.getBalance(address).then((balance) => {
+    console.log(balance);
+    if (balance > 1000000000000000000) {
+      var transaction = {
+        "to": docAddress,
+        "data": docContract.methods.MintWithDetails(
+          address,
+          uuidv1(),
+          docDetails.encryptData,
+          docDetails.encryptedPassword
+        ).encodeABI()
+      };
+      // web3.eth.estimateGas(transaction).then(gasLimit => {
+      transaction["gasLimit"] = 4700000;
+      web3.eth.accounts.signTransaction(transaction, privateKey)
+        .then(res => {
+          web3.eth.sendSignedTransaction(res.rawTransaction)
+            .on('receipt', async function (receipt) {
+              console.log(receipt);
+              if (receipt.status == true) {
+                dispatch({
+                  type: NEW_DOCUMENT_CREATED,
+                  payload: ""
+                });
+              }
+            })
+            .on('error', async function (error) {
+              console.log(error);
+              dispatch({
+                type: GET_ERRORS,
+                payload: error
+              });
+            })
+        })
+        .catch(err => {
+          console.log(err);
+          dispatch({
+            type: GET_ERRORS,
+            payload: "Error Occured While Creating New Document."
+          });
+        });
+    } else {
+      axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address": address, "amount": 30000000000000000000 })
+        .then(res => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: "Network Error."
+          });
+        })
+    }
+  })
 };
 
-export const createNewDevice = deviceDetails =>  async (dispatch) => {
+export const createNewDevice = deviceDetails => async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');
   console.log(deviceDetails);
   var batch = new web3.BatchRequest();
@@ -272,17 +325,17 @@ export const createNewDevice = deviceDetails =>  async (dispatch) => {
         // let gasLimit = await web3.eth.estimateGas(transaction);
         transaction["gasLimit"] = 4700000;
         web3.eth.accounts.signTransaction(transaction, privateKey)
-        .then((result) => {
-          // console.log("Adding", i, count, deviceDetails.deviceURN[count]);
-          batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
-          .once('receipt', (receipt) => {
-            console.log(receipt);
-            dispatch({
-              type: NEW_DEVICE_CREATED,
-              payload: 1
-            });
-          }));
-        })
+          .then((result) => {
+            // console.log("Adding", i, count, deviceDetails.deviceURN[count]);
+            batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
+              .once('receipt', (receipt) => {
+                console.log(receipt);
+                dispatch({
+                  type: NEW_DEVICE_CREATED,
+                  payload: 1
+                });
+              }));
+          })
         count++;
       }
       batch.execute();
@@ -290,11 +343,11 @@ export const createNewDevice = deviceDetails =>  async (dispatch) => {
   })
 };
 
-export const createNewThing = thingDetails =>  async (dispatch) => {
+export const createNewThing = thingDetails => async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');
   // console.log(thingDetails);
   var batch = new web3.BatchRequest();
-    productContract.methods.totalSupply().call().then((totalSupply) => {
+  productContract.methods.totalSupply().call().then((totalSupply) => {
     let from = parseInt(totalSupply) + 1;
     let to = from + parseInt(thingDetails.quantity) - 1;
     console.log("From is", from);

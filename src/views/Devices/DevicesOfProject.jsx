@@ -40,7 +40,7 @@ const Devices = (props) => {
                 deviceContract.methods.getDeviceDetails(tokenId).call({
                     from: props.auth.user.publicKey
                 }).then(deviceDetails => {
-                    deviceDetails.tokenId = tokenId
+                    deviceDetails[0].tokenId = tokenId
                     setDeviceList(deviceList => [
                         ...deviceList,
                         deviceDetails

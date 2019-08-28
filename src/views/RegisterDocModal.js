@@ -71,7 +71,7 @@ const RegisterDocModal = (props) =>  {
         TransitionComponent={Transition}
         open={props.user.docModalOpen}
         maxWidth = "xl"
-
+        full
       >
         <DialogTitle id="customized-dialog-title" onClose={props.closeDocModal}>
           {/* DocConekt */} &nbsp;

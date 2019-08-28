@@ -42,8 +42,8 @@ const Products = (props) => {
         productContract.methods.getProductDetails(tokenId).call({
           from: props.auth.user.publicKey
         }).then(productDetails => {
-          productDetails.tokenId = tokenId;
-          if (productDetails.projectId === "0x0000000000000000000000000000000000000000000000000000000000000000") {
+          productDetails[0].tokenId = tokenId;
+          if (productDetails[0].projectId === "0x0000000000000000000000000000000000000000000000000000000000000000") {
             setProductList(productList => [
               ...productList,
               productDetails

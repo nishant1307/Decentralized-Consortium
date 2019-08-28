@@ -147,11 +147,10 @@ contract ERC721 is ERC165, Ownable   {
 
     bytes4 private constant _INTERFACE_ID_ERC721 = 0x80ac58cd;
 
-    constructor (address storageAddress, address registryAddress) public {
+    constructor (address storageAddress) public {
         // register the supported interfaces to conform to ERC721 via ERC165
         _registerInterface(_INTERFACE_ID_ERC721);
         s = EternalStorage(storageAddress);
-        registerContract = Consortium(registryAddress);
     }
 
     modifier onlyRegistrant() {
@@ -536,9 +535,9 @@ contract ERC721Metadata is ERC165, ERC721{
         return (_tokenURIs[tokenId]);
     }
 
-    function getDeviceDetails(string calldata tokenId) external view returns (deviceDetails memory) {
+    function getDeviceDetails(string calldata tokenId) external view returns (deviceDetails memory,string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        return (_tokenDetails[tokenId]);
+        return (_tokenDetails[tokenId],_tokenURIs[tokenId]);
     }
 
     /**
@@ -828,7 +827,7 @@ contract ERC721Enumerable is ERC165, ERC721, ERC721Metadata {
     }
 }
 contract DeviceContract is ERC721, ERC721Enumerable, ERC721Mintable, ERC721Burnable {
-     constructor(address storageAddress, address registryAddress) ERC721(storageAddress,registryAddress) public {
+     constructor(address storageAddress) ERC721(storageAddress) public {
     }
 
     event MetadataChanged(string tokenId , string metadata);
@@ -841,6 +840,7 @@ contract DeviceContract is ERC721, ERC721Enumerable, ERC721Mintable, ERC721Burna
     }
     
      function setProjectId(string memory tokenId, bytes32 projectId ) public onlyRegistrant returns (bool) {
+        registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setProjectId(tokenId , projectId);
         registerContract.addDeviceToProject(tokenId,projectId);

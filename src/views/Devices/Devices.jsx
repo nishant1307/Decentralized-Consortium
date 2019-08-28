@@ -42,7 +42,7 @@ const Devices = (props) => {
         }).then(deviceDetails => {
           setDeviceList(deviceList => [
             ...deviceList,
-            deviceDetails
+            deviceDetails[0]
           ])
           setLoader(false);
         });
