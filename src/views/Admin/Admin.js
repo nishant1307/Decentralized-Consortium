@@ -2,6 +2,7 @@
 import React from "react";
 const OrgList = React.lazy(() => import('./OrgList'));
 const UserList = React.lazy(() => import('./UserList'));
+
 const adminRoutes = [
   {
     path: "/orglist",

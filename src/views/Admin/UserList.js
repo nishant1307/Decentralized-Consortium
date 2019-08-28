@@ -42,7 +42,7 @@ const OrgList = props => {
     { title: "KYC Status", field: "status" },
     { title: "Address", field: "address" },
   ]);
-  const [privateKey, setPrivateKey] = React.useState("0x0BD03BEF202592AE5ACA04B41A591B2C4D95E2124F81EDB3A2D657BF09754325");
+  const [privateKey, setPrivateKey] = React.useState("");
   const [mainData, setMainData] = React.useState([])
 
   async function fetchData() {
@@ -51,7 +51,8 @@ const OrgList = props => {
     let data = []
     let fetchedData = await registryContract.methods.getAllOrganizations().call();
     console.log(fetchedData);
-    
+    let temp = await sessionStorage.getItem("privateKey")
+    setPrivateKey(temp);
     fetchedData.map(async (e, i) => {
       let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + "QmS6rPCZ97ETAdjEYi6ji7pECau2BA5Y5EmVrBC3jDjtbR")
       let KYCStatus = await registryContract.methods.getOrganizationKYCStatus(e.organizationID).call();
