@@ -15,12 +15,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import TextField from "@material-ui/core/TextField";
 import Button from "components/CustomButtons/Button";
 import Modal from "components/CustomModal/Modal";
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import {parseJSONFromIPFSHash} from "utils";
 const styles = theme => ({
   root: {
@@ -50,13 +50,12 @@ const ProjectPartners = (props) => {
   const [modal, setModal] = useState(false);
   const [error, setError] = useState('');
   const [revealedPasscode, setRevealedPasscode] = useState('');
-
+  const [partnerRoles, setPartnerRoles] = useState([]);
   const checkForUser = () => {
     registryContract.methods.getPublicKeyFromEmail(inviteEmail).call({
       from: props.auth.user.publicKey
     })
     .then(userAddress => {
-
       if(userAddress=="0x0000000000000000000000000000000000000000"){
         setError("No user found with the Entered email")
       }else {
@@ -74,10 +73,37 @@ const ProjectPartners = (props) => {
   }
 
   useEffect(() => {
-    if(!props.location.state)
+    if(!props.location.state){
       props.history.push("/dashboard/home")
-    else
+    }
+    else{
       setPartners(props.location.state.partners);
+      props.location.state.partners.forEach(partner => {
+        registryContract.methods.getPartnerRole(props.match.params.projectID, partner.publicKey).call({
+          from: props.auth.user.publicKey
+        }).then(role=> {
+          let decodedRole;
+          switch (parseInt(role)) {
+            case 0: decodedRole = "Role Unassigned"
+                    break;
+            case 1: decodedRole = "Buyer";
+                    break;
+            case 2: decodedRole = "Seller";
+                    break;
+            case 3: decodedRole = "Logistics";
+                    break;
+            case 4: decodedRole = "Agent";
+                    break;
+            case 5: decodedRole = "Bank";
+                    break;
+          }
+          setPartnerRoles(partnerRoles => [
+            ...partnerRoles,
+            decodedRole
+          ])
+        })
+      })
+    }
   }, []);
 
   const inviteUser = () => {
@@ -86,16 +112,6 @@ const ProjectPartners = (props) => {
       inviteAddress: invitePublicKey,
       partnerRole: 1
     })
-  }
-
-  const fetchPartnerRole = (publicKey) => {
-    registryContract.methods.getPartnerRole(props.match.params.projectID, publicKey).call({
-      from: props.auth.user.publicKey
-    })
-    .then(role => {
-      console.log("Role", role);
-      return role;
-    });
   }
 
   const fetchPasscode = () => {
@@ -110,7 +126,6 @@ const ProjectPartners = (props) => {
 
   return (
     <div>
-      <AddCircleOutlineIcon onClick={() => setModal(true)}/>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
@@ -118,13 +133,14 @@ const ProjectPartners = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 List of all current participants
               </h4>
+              <AddBoxIcon onClick={() => setModal(true)} />
             </CardHeader>
               <MaterialTable
                   columns={[
                     { title: "Email", field: "email" },
                     { title: "PublicKey", field: "publicKey" },
                     { title: "OrganizationID", field: "organizationID"},
-                    { title: "Role in Consortium", field: "publicKey" , render: rowData => <Button color="primary" onClick = {fetchPartnerRole(rowData.publicKey)}> Fetch Role</Button>},
+                    { title: "Role in Consortium", field: "publicKey" , render: rowData => partnerRoles[rowData.tableData.id]},
                   ]}
                   data={partners}
                   title=""

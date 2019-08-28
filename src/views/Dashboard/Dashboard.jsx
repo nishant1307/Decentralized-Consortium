@@ -76,7 +76,7 @@ const Dashboard = (props) => {
     <div>
     <h4>Welcome to Arthanium</h4>
       {props.user && <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
         <Link to="/dashboard/projects">
           <Card>
             <CardHeader color="warning" stats icon>
@@ -97,7 +97,7 @@ const Dashboard = (props) => {
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
         <Link to="/dashboard/devices">
           <Card>
             <CardHeader color="info" stats icon>
@@ -116,7 +116,7 @@ const Dashboard = (props) => {
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
         <Link to="/dashboard/products">
           <Card>
             <CardHeader color="success" stats icon>
@@ -135,7 +135,7 @@ const Dashboard = (props) => {
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
           <Card>
             <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
               <CardIcon color="info">
@@ -152,7 +152,7 @@ const Dashboard = (props) => {
             </CardFooter>
           </Card>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
           <Link to={{ pathname: "/dashboard/people", state: { allPeople: allPeople} }}><Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">

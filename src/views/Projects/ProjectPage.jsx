@@ -26,6 +26,7 @@ import RegisterDeviceModal from "views/RegisterDeviceModal";
 import RegisterDocModal from "views/RegisterDocModal";
 import {registryContract} from 'registryContract';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import Divider from '@material-ui/core/Divider';
 const ProjectPage = (props) => {
   const {classes} = props;
 
@@ -34,8 +35,14 @@ const ProjectPage = (props) => {
   const journeyPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/journey";
   const addDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/adddevices";
   const getDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/alldevices";
+  const [projectDetails, setProjectDetails] = useState('');
+
   const [partners, setPartners] = useState([]);
   useEffect(() => {
+    if(!props.location.state)
+      props.history.push("/dashboard/home")
+    else
+      setProjectDetails(props.location.state.projectDetails);
     registryContract.methods.getConsortiumMember(props.match.params.projectID).call({
       from : props.auth.user.publicKey
     }).then(res => {
@@ -116,6 +123,20 @@ const ProjectPage = (props) => {
             </CardFooter>
           </Card>
         </GridItem>
+        {projectDetails && <GridItem xs={12} sm={12} md={9}>
+          <Card style={{height: "200px"}}>
+            <CardHeader>
+              <strong>Project Info</strong>
+            </CardHeader>
+            <Divider/>
+            <CardBody>
+                <b>Project Name:</b> {projectDetails.name}<br/>
+                <b>Project ID: </b>{projectDetails.projectID}<br/>
+                <b>Project Description:</b> {projectDetails.description}<br/>
+                <b>Project Industry:</b> {projectDetails.industry}<br/>
+            </CardBody>
+          </Card>
+        </GridItem>}
       </GridContainer>
       <RegisterDeviceModal selectedProject= {props.match.params.projectID}/>
       <RegisterDocModal />

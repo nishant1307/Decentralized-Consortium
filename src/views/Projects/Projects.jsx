@@ -9,13 +9,11 @@ import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Table from "components/Table/Table.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
 const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
@@ -56,7 +54,6 @@ const Projects = (props) => {
             </CardHeader>
         {loader ?
           <React.Fragment>
-
                 <Skeleton width="100%"/>
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
@@ -68,10 +65,9 @@ const Projects = (props) => {
           projectList.length !== 0  ?
               <MaterialTable
                   columns={[
-                    { title: "Project Name", field: "projectID" , render: rowData => <Link to= {projectURL(rowData.projectID)}>Go to Project</Link>},
+                    { title: "Project Name", field: "projectID" , render: rowData => <Link to={{ pathname: projectURL(rowData.projectID), state: { projectDetails: rowData} }}>Go to Project</Link>},
                     { title: "Project Name", field: "name" },
                     { title: "Project ID", field: "projectID" },
-                    { title: "Description", field: "description"},
                     { title: "Industry", field: "industry"},
                     { title: "Project Admin", field: "projectAdmin"},
                   ]}
