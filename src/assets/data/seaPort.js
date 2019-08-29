@@ -1,6 +1,6 @@
 export const seaPorts = [
     {
-      "Type": "Seaport",
+
       "Country": "Albania ",
       "Port": "Durres (Durazzo) ",
       "CODE": "AL DRZ ",
@@ -10,7 +10,7 @@ export const seaPorts = [
       "Web": "www.apdurres.com.al "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Albania ",
       "Port": "Sarande ",
       "CODE": "AL SAR ",
@@ -20,7 +20,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Albania ",
       "Port": "Shengjjin ",
       "CODE": "AL SHG ",
@@ -30,7 +30,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Albania ",
       "Port": "Vlore (Vlora, Vlone) ",
       "CODE": "AL VOA ",
@@ -40,7 +40,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Algiers ",
       "CODE": "DZ ALG ",
@@ -50,7 +50,7 @@ export const seaPorts = [
       "Web": "www.portalger.com.dz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Annaba (Ex Bone) ",
       "CODE": "DZ AAE ",
@@ -60,7 +60,7 @@ export const seaPorts = [
       "Web": "www.annaba-port.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Arzew ",
       "CODE": "DZ AZW ",
@@ -70,7 +70,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Bejaia (Ex Bougie) ",
       "CODE": "DZ BJA ",
@@ -80,7 +80,7 @@ export const seaPorts = [
       "Web": "www.portdebejaia.com.dz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Dellys ",
       "CODE": "DZ DEL ",
@@ -90,7 +90,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Ghazaouet ",
       "CODE": "DZ GHA ",
@@ -100,7 +100,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Mostaganem ",
       "CODE": "DZ MOS ",
@@ -110,7 +110,7 @@ export const seaPorts = [
       "Web": "www.port-mostaganem.dz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Oran ",
       "CODE": "DZ ORN ",
@@ -120,7 +120,7 @@ export const seaPorts = [
       "Web": "www.port-oran.dz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Skikda (Ex Philippeville) ",
       "CODE": "DZ SKI ",
@@ -130,7 +130,7 @@ export const seaPorts = [
       "Web": "www.skikda-port.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Algeria ",
       "Port": "Tenes ",
       "CODE": "DZ TEN ",
@@ -140,7 +140,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "American Samoa ",
       "Port": "Pago Pago ",
       "CODE": "AS PPG ",
@@ -150,7 +150,7 @@ export const seaPorts = [
       "Web": "http://americansamoa.gov "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Angola ",
       "Port": "Cabinda ",
       "CODE": "AO CAB ",
@@ -160,7 +160,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Angola ",
       "Port": "Lobito ",
       "CODE": "AO LOB ",
@@ -170,7 +170,7 @@ export const seaPorts = [
       "Web": "www.eplobito.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Angola ",
       "Port": "Luanda ",
       "CODE": "AO LAD ",
@@ -180,7 +180,7 @@ export const seaPorts = [
       "Web": "www.otal.com/angola/index.htm#luanda "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Angola ",
       "Port": "Namibe ",
       "CODE": "AO MSZ ",
@@ -190,7 +190,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Angola ",
       "Port": "Porto Amboim ",
       "CODE": "AO PBN ",
@@ -200,7 +200,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Angola ",
       "Port": "Soyo ",
       "CODE": "AO SOQ ",
@@ -210,7 +210,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Bahia Blanca ",
       "CODE": "AR BHI ",
@@ -220,7 +220,7 @@ export const seaPorts = [
       "Web": "www.puertobahiablanca.com.ar "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Buenos Aires ",
       "CODE": "AR BUE ",
@@ -230,7 +230,7 @@ export const seaPorts = [
       "Web": "www.puertobuenosaires.gov.ar "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Comodoro Rivadavia ",
       "CODE": "AR CRD ",
@@ -240,7 +240,7 @@ export const seaPorts = [
       "Web": "www.puertocomodororivadavia.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Concepcion del Uruguay ",
       "CODE": "AR COU ",
@@ -250,7 +250,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Mar del Plata ",
       "CODE": "AR MDQ ",
@@ -260,7 +260,7 @@ export const seaPorts = [
       "Web": "www.niverlines.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Necochea ",
       "CODE": "AR NEC ",
@@ -270,7 +270,7 @@ export const seaPorts = [
       "Web": "www.puertoquequen.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Puerto Madryn ",
       "CODE": "AR PMY ",
@@ -280,7 +280,7 @@ export const seaPorts = [
       "Web": "www.appm.com.ar "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Rio Gallegos ",
       "CODE": "AR RGL ",
@@ -290,7 +290,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Rosario ",
       "CODE": "AR ROS ",
@@ -300,7 +300,7 @@ export const seaPorts = [
       "Web": "www.enapro.com.ar "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Santa Fe ",
       "CODE": "AR SFN ",
@@ -310,7 +310,7 @@ export const seaPorts = [
       "Web": "www.puertosfe.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Argentina ",
       "Port": "Ushuaia ",
       "CODE": "AR USH ",
@@ -320,7 +320,7 @@ export const seaPorts = [
       "Web": "www.puertoushuaia.com.ar "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Aruba ",
       "Port": "Oranjestad ",
       "CODE": "AW ORJ ",
@@ -330,7 +330,7 @@ export const seaPorts = [
       "Web": "www.arubaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ascension Island ",
       "Port": "Georgetown ",
       "CODE": "SH ASI ",
@@ -340,7 +340,7 @@ export const seaPorts = [
       "Web": "www.ascension-island.gov.ac "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Adelaide ",
       "CODE": "AU PAE ",
@@ -350,7 +350,7 @@ export const seaPorts = [
       "Web": "www.flindersports.com.au/portfacilities2. html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Brisbane ",
       "CODE": "AU BNE ",
@@ -360,7 +360,7 @@ export const seaPorts = [
       "Web": "www.portbris.com.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Cairns ",
       "CODE": "AU CNS ",
@@ -370,7 +370,7 @@ export const seaPorts = [
       "Web": "www.cairnsport.com.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Darwin ",
       "CODE": "AU DRW ",
@@ -380,7 +380,7 @@ export const seaPorts = [
       "Web": "www.darwinport.nt.gov.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Devonport ",
       "CODE": "AU DPO ",
@@ -390,7 +390,7 @@ export const seaPorts = [
       "Web": "/www.tasports.com.au/port_services/dev onport_info.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Fremantle ",
       "CODE": "AU FRE ",
@@ -400,7 +400,7 @@ export const seaPorts = [
       "Web": "www.fremantleports.com.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Geelong ",
       "CODE": "AU GEX ",
@@ -410,7 +410,7 @@ export const seaPorts = [
       "Web": "www.geelongport.com.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Hobart ",
       "CODE": "AU HBA ",
@@ -420,7 +420,7 @@ export const seaPorts = [
       "Web": "www.tasports.com.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Mackay ",
       "CODE": "AU MKY ",
@@ -430,7 +430,7 @@ export const seaPorts = [
       "Web": "www.mackayports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Melbourne ",
       "CODE": "AU MEL ",
@@ -440,7 +440,7 @@ export const seaPorts = [
       "Web": "www.portofmelbourne.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Sydney ",
       "CODE": "AU SYD ",
@@ -450,7 +450,7 @@ export const seaPorts = [
       "Web": "www.sydneyports.com.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Australia ",
       "Port": "Townsville ",
       "CODE": "AU TSV ",
@@ -460,7 +460,7 @@ export const seaPorts = [
       "Web": "www.townsville-port.com.au "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Azerbaijan ",
       "Port": "Baku ",
       "CODE": "AZ BAK ",
@@ -470,7 +470,7 @@ export const seaPorts = [
       "Web": "www.bakuseaport.az "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bahamas ",
       "Port": "Freeport ",
       "CODE": "BS FPO ",
@@ -480,7 +480,7 @@ export const seaPorts = [
       "Web": "http://gbpa.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bahamas ",
       "Port": "Nassau ",
       "CODE": "BS NAS ",
@@ -490,7 +490,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bahrain ",
       "Port": "Mina Salman ",
       "CODE": "BH MIN ",
@@ -500,7 +500,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bahrain ",
       "Port": "Sitra ",
       "CODE": "BH SIT ",
@@ -510,7 +510,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bangladesh ",
       "Port": "Chittagong ",
       "CODE": "BD CGP ",
@@ -520,7 +520,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.bd "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bangladesh ",
       "Port": "Mongla ",
       "CODE": "BD MGL ",
@@ -530,7 +530,7 @@ export const seaPorts = [
       "Web": "http://ports.com/bangladesh/port-of- mongla "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Barbados ",
       "Port": "Bridgetown ",
       "CODE": "BB BGI ",
@@ -540,7 +540,7 @@ export const seaPorts = [
       "Web": "www.barbadosport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Belgium ",
       "Port": "Antwerp ",
       "CODE": "BE ANR ",
@@ -550,7 +550,7 @@ export const seaPorts = [
       "Web": "www.portofantwerp.be "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Belgium ",
       "Port": "Brussels (Bruxelles) ",
       "CODE": "BE BRU ",
@@ -560,7 +560,7 @@ export const seaPorts = [
       "Web": "www.portdebruxelles.irisnet.be "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Belgium ",
       "Port": "Ghent ",
       "CODE": "BE GNE ",
@@ -570,7 +570,7 @@ export const seaPorts = [
       "Web": "www.portofghent.be "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Belgium ",
       "Port": "Liege ",
       "CODE": "BE LGG ",
@@ -580,7 +580,7 @@ export const seaPorts = [
       "Web": "www.portdeliege.be "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Belgium ",
       "Port": "Zeebrugge ",
       "CODE": "BE ZEE ",
@@ -590,7 +590,7 @@ export const seaPorts = [
       "Web": "www.zeebruggeport.be "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Belize ",
       "Port": "Belize City ",
       "CODE": "BZ BZE ",
@@ -600,7 +600,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Benin ",
       "Port": "Cotonou ",
       "CODE": "BJ COO ",
@@ -610,7 +610,7 @@ export const seaPorts = [
       "Web": "www.portdecotonou.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bermuda ",
       "Port": "Hamilton ",
       "CODE": "BM BDA ",
@@ -620,7 +620,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bermuda ",
       "Port": "St Georges ",
       "CODE": "BM SGE ",
@@ -630,7 +630,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Belem ",
       "CODE": "BR BEL ",
@@ -640,7 +640,7 @@ export const seaPorts = [
       "Web": "www.cdp.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Fortaleza ",
       "CODE": "BR FOR ",
@@ -650,7 +650,7 @@ export const seaPorts = [
       "Web": "www.docasdoceara.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Imbituba ",
       "CODE": "BR IBB ",
@@ -660,7 +660,7 @@ export const seaPorts = [
       "Web": "www.cdiport.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Manaus ",
       "CODE": "BR MAO ",
@@ -670,7 +670,7 @@ export const seaPorts = [
       "Web": "www.portodemanaus.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Paranagua ",
       "CODE": "BR PNG ",
@@ -680,7 +680,7 @@ export const seaPorts = [
       "Web": "www.portosdoparana.pr.gov.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Porto Alegre ",
       "CODE": "BR POA ",
@@ -690,7 +690,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Recife ",
       "CODE": "BR REC ",
@@ -700,7 +700,7 @@ export const seaPorts = [
       "Web": "www.portodorecife.pe.gov.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Rio De Janeiro ",
       "CODE": "BR RIO ",
@@ -710,7 +710,7 @@ export const seaPorts = [
       "Web": "www.portosrio.gov.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Rio Grande ",
       "CODE": "BR RIG ",
@@ -720,7 +720,7 @@ export const seaPorts = [
       "Web": "www.portoriogrande.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Salvador ",
       "CODE": "BR SSA ",
@@ -730,7 +730,7 @@ export const seaPorts = [
       "Web": "www.codeba.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Santos ",
       "CODE": "BR SSZ ",
@@ -740,7 +740,7 @@ export const seaPorts = [
       "Web": "www.portodesantos.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brazil ",
       "Port": "Vitoria ",
       "CODE": "BR VIX ",
@@ -750,7 +750,7 @@ export const seaPorts = [
       "Web": "www.portodevitoria.com.br "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brunei Darussalam ",
       "Port": "Kuala Belait ",
       "CODE": "BN KUB ",
@@ -760,7 +760,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Brunei Darussalam ",
       "Port": "Muara ",
       "CODE": "BN MUA ",
@@ -770,7 +770,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.bn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Bulgaria ",
       "Port": "Varna ",
       "CODE": "BG VAR ",
@@ -780,7 +780,7 @@ export const seaPorts = [
       "Web": "www.port-varna.bg "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cambodia ",
       "Port": "Kompongsom (also known as: ",
       "CODE": "KH KOS ",
@@ -790,7 +790,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cambodia ",
       "Port": "Phnom Penh ",
       "CODE": "KH PNH ",
@@ -800,7 +800,7 @@ export const seaPorts = [
       "Web": "www.ppap.com.kh "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cameroon ",
       "Port": "Douala ",
       "CODE": "CM DLA ",
@@ -810,7 +810,7 @@ export const seaPorts = [
       "Web": "www.otal.com/cameroon/index.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cameroon ",
       "Port": "Kribi ",
       "CODE": "CM KBI ",
@@ -820,7 +820,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cameroon ",
       "Port": "Tiko ",
       "CODE": "CM TKC ",
@@ -830,7 +830,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Alberni ",
       "CODE": "CM PAB ",
@@ -840,7 +840,7 @@ export const seaPorts = [
       "Web": "http://portalberniportauthority.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Becancour ",
       "CODE": "CA BEC ",
@@ -850,7 +850,7 @@ export const seaPorts = [
       "Web": "www.spipb.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Churchill ",
       "CODE": "CA CHV ",
@@ -860,7 +860,7 @@ export const seaPorts = [
       "Web": "www.portofchurchill.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Fraser River Port (Port of New Westminster) ",
       "CODE": "CA NWE ",
@@ -870,7 +870,7 @@ export const seaPorts = [
       "Web": "www.portmetrovancouver.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Halifax ",
       "CODE": "CA HAL ",
@@ -880,7 +880,7 @@ export const seaPorts = [
       "Web": "www.portofhalifax.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Hamilton ",
       "CODE": "CA HAM ",
@@ -890,7 +890,7 @@ export const seaPorts = [
       "Web": "www.hamiltonport.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Halifax ",
       "CODE": "CA HAL ",
@@ -900,7 +900,7 @@ export const seaPorts = [
       "Web": "www.portofhalifax.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Montreal ",
       "CODE": "CA MTR ",
@@ -910,7 +910,7 @@ export const seaPorts = [
       "Web": "www.port-montreal.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Nanaimo ",
       "CODE": "CA NNO ",
@@ -920,7 +920,7 @@ export const seaPorts = [
       "Web": "www.npa.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Saguenay ",
       "CODE": "n/a ",
@@ -930,7 +930,7 @@ export const seaPorts = [
       "Web": "www.portsaguenay.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Sept Iles (Seven Islands) ",
       "CODE": "CA SEI ",
@@ -940,7 +940,7 @@ export const seaPorts = [
       "Web": "www.portsi.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "St Johns ",
       "CODE": "CA SJF ",
@@ -950,7 +950,7 @@ export const seaPorts = [
       "Web": "www.sjpa.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Sydney ",
       "CODE": "CA SYD ",
@@ -960,7 +960,7 @@ export const seaPorts = [
       "Web": "www.portofsydney.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Thunder Bay ",
       "CODE": "CA THU ",
@@ -970,7 +970,7 @@ export const seaPorts = [
       "Web": "www.portofthunderbay.ca "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Toronto ",
       "CODE": "CA TOR ",
@@ -980,7 +980,7 @@ export const seaPorts = [
       "Web": "www.torontoport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Trois-Rivieres ",
       "CODE": "CA TRR ",
@@ -990,7 +990,7 @@ export const seaPorts = [
       "Web": "www.porttr.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Vancouver ",
       "CODE": "CA VAN ",
@@ -1000,7 +1000,7 @@ export const seaPorts = [
       "Web": "www.portmetrovancouver.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canada ",
       "Port": "Windsor ",
       "CODE": "CA WND ",
@@ -1010,7 +1010,7 @@ export const seaPorts = [
       "Web": "www.portwindsor.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canary Islands ",
       "Port": "Las Palmas ",
       "CODE": "ES LPA ",
@@ -1020,7 +1020,7 @@ export const seaPorts = [
       "Web": "www.palmasport.es "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Canary Islands ",
       "Port": "Santa Cruz de Tenerife ",
       "CODE": "ES SCT ",
@@ -1030,7 +1030,7 @@ export const seaPorts = [
       "Web": "www.puertosdetenerife.org/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cape Verde ",
       "Port": "Porto Grande ",
       "CODE": "CV PGR ",
@@ -1040,7 +1040,7 @@ export const seaPorts = [
       "Web": "www.enapor.cv "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cayman Islands ",
       "Port": "Georgetown, Grand Cayman ",
       "CODE": "KY GEC ",
@@ -1050,7 +1050,7 @@ export const seaPorts = [
       "Web": "www.caymanport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Antofagasta ",
       "CODE": "CL ANF ",
@@ -1060,7 +1060,7 @@ export const seaPorts = [
       "Web": "www.puertoantofagasta.cl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Arica ",
       "CODE": "CL ARI ",
@@ -1070,7 +1070,7 @@ export const seaPorts = [
       "Web": "www.puertoarica.cl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Chanaral ",
       "CODE": "CL CNR ",
@@ -1080,7 +1080,7 @@ export const seaPorts = [
       "Web": "www.directemar.cl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Iquique ",
       "CODE": "CL IQQ ",
@@ -1090,7 +1090,7 @@ export const seaPorts = [
       "Web": "www.epi.cl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Puerto Montt ",
       "CODE": "CL PMC ",
@@ -1100,7 +1100,7 @@ export const seaPorts = [
       "Web": "www.empormontt.cl/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Punta Arenas ",
       "CODE": "CL PUQ ",
@@ -1110,7 +1110,7 @@ export const seaPorts = [
       "Web": "www.epa.co.cl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "San Antonio ",
       "CODE": "CL SAI ",
@@ -1120,7 +1120,7 @@ export const seaPorts = [
       "Web": "www.saiport.cl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "San Vicente ",
       "CODE": "CL SVE ",
@@ -1130,7 +1130,7 @@ export const seaPorts = [
       "Web": "www.worldportsource.com/ports/CHL_Po rt_of_San_Vicente_1742.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Talcahuano ",
       "CODE": "CL TAL ",
@@ -1140,7 +1140,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Chile ",
       "Port": "Valparaiso ",
       "CODE": "CL VAP ",
@@ -1150,7 +1150,7 @@ export const seaPorts = [
       "Web": "www.portvalparaiso.cl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Dalian ",
       "CODE": "CN DLC ",
@@ -1160,7 +1160,7 @@ export const seaPorts = [
       "Web": "www.portdalian.com.cn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Fuzhou ",
       "CODE": "CN FOC ",
@@ -1170,7 +1170,7 @@ export const seaPorts = [
       "Web": "www.fjgh.gov.cn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Guangzhou ",
       "CODE": "CN CAN ",
@@ -1180,7 +1180,7 @@ export const seaPorts = [
       "Web": "www.gzport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Haikou ",
       "CODE": "CN HAK ",
@@ -1190,7 +1190,7 @@ export const seaPorts = [
       "Web": "www.infomarine.gr/china/haikou "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Lianyungang ",
       "CODE": "CN LYG ",
@@ -1200,7 +1200,7 @@ export const seaPorts = [
       "Web": "www.lygport.com.cn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Nantong ",
       "CODE": "CN NTG ",
@@ -1210,7 +1210,7 @@ export const seaPorts = [
       "Web": "www.ntport.com.cn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Ningbo ",
       "CODE": "CN NGB ",
@@ -1220,7 +1220,7 @@ export const seaPorts = [
       "Web": "www.nbport.com.cn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Qingdao ",
       "CODE": "CN TAO ",
@@ -1230,7 +1230,7 @@ export const seaPorts = [
       "Web": "www.qdport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Qinhuangdao ",
       "CODE": "CN SHP ",
@@ -1240,7 +1240,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Shanghai ",
       "CODE": "CN SHA ",
@@ -1250,7 +1250,7 @@ export const seaPorts = [
       "Web": "www.portshanghai.com.cn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Shantou ",
       "CODE": "CN SWA ",
@@ -1260,7 +1260,7 @@ export const seaPorts = [
       "Web": "www.infomarine.gr/china/shantou "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Tianjin ",
       "CODE": "CN TSN ",
@@ -1270,7 +1270,7 @@ export const seaPorts = [
       "Web": "www.ptacn.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Xiamen ",
       "CODE": "CN XMN ",
@@ -1280,7 +1280,7 @@ export const seaPorts = [
       "Web": "www.portxiamen.com.cn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "China ",
       "Port": "Zhanjiang ",
       "CODE": "CN ZHA ",
@@ -1290,7 +1290,7 @@ export const seaPorts = [
       "Web": "www.zjport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Colombia ",
       "Port": "Barranquilla ",
       "CODE": "CO BAQ ",
@@ -1300,7 +1300,7 @@ export const seaPorts = [
       "Web": "www.sprb.com.co "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Colombia ",
       "Port": "Buenaventura ",
       "CODE": "CO BUN ",
@@ -1310,7 +1310,7 @@ export const seaPorts = [
       "Web": "www.sprbun.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Colombia ",
       "Port": "Cartagena ",
       "CODE": "CO CTG ",
@@ -1320,7 +1320,7 @@ export const seaPorts = [
       "Web": "www.puertocartagena.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Colombia ",
       "Port": "Puerto Bolivar ",
       "CODE": "CO PBO ",
@@ -1330,7 +1330,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Colombia ",
       "Port": "Tumaco ",
       "CODE": "CO TCO ",
@@ -1340,7 +1340,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Colombia ",
       "Port": "Turbo ",
       "CODE": "CO TRB ",
@@ -1350,7 +1350,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Comoros ",
       "Port": "Moroni ",
       "CODE": "KM YVA ",
@@ -1360,7 +1360,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Comoros ",
       "Port": "Mutsamudu ",
       "CODE": "KM MUT ",
@@ -1370,7 +1370,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Congo ",
       "Port": "Pointe Noire ",
       "CODE": "CG PNR ",
@@ -1380,7 +1380,7 @@ export const seaPorts = [
       "Web": "www.otal.com/congo "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Congo, Dem. Republic of ",
       "Port": "Banana ",
       "CODE": "ZR BNW ",
@@ -1390,7 +1390,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Congo, Dem. Republic of ",
       "Port": "Boma ",
       "CODE": "ZR BOA ",
@@ -1400,7 +1400,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Costa Rica ",
       "Port": "Caldera ",
       "CODE": "CR CAL ",
@@ -1410,7 +1410,7 @@ export const seaPorts = [
       "Web": "www.worldportsource.com/ports/CRI_Pu erto_de_Caldera_1462.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Costa Rica ",
       "Port": "Golfito ",
       "CODE": "CR GLF ",
@@ -1420,7 +1420,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Costa Rica ",
       "Port": "Puntarenas ",
       "CODE": "CR PAS ",
@@ -1430,7 +1430,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Costa Rica ",
       "Port": "Quepos ",
       "CODE": "CR XQP ",
@@ -1440,7 +1440,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Côte d'Ivoire ",
       "Port": "Abidjan ",
       "CODE": "CI ABJ ",
@@ -1450,7 +1450,7 @@ export const seaPorts = [
       "Web": "www.paa-ci.org "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Rijeka Bakar ",
       "CODE": "HR RJK ",
@@ -1460,7 +1460,7 @@ export const seaPorts = [
       "Web": "www.portauthority.hr/english/rijeka/port _rijeka_authority.shtml "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Zadar ",
       "CODE": "HR ZAD ",
@@ -1470,7 +1470,7 @@ export const seaPorts = [
       "Web": "www.portauthority.hr/zadar.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Dubrovnik ",
       "CODE": "HR DBV ",
@@ -1480,7 +1480,7 @@ export const seaPorts = [
       "Web": "www.portauthority.hr/dubrovni.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Omisalj ",
       "CODE": "HR OMI ",
@@ -1490,7 +1490,7 @@ export const seaPorts = [
       "Web": "http://ports.com/croatia/port-of-omisalj "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Ploce ",
       "CODE": "HR PLE ",
@@ -1500,7 +1500,7 @@ export const seaPorts = [
       "Web": "www.port-authority-ploce.hr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Pula ",
       "CODE": "HR PUY ",
@@ -1510,7 +1510,7 @@ export const seaPorts = [
       "Web": "http://ports.com/croatia/port-of-pula "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Sibenik ",
       "CODE": "HR SIB ",
@@ -1520,7 +1520,7 @@ export const seaPorts = [
       "Web": "www.portauthority-sibenik.hr/en "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Croatia ",
       "Port": "Split ",
       "CODE": "HR SPU ",
@@ -1530,7 +1530,7 @@ export const seaPorts = [
       "Web": "www.portauthority.hr/split.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cuba ",
       "Port": "Havana ",
       "CODE": "CU HAV ",
@@ -1540,7 +1540,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cuba ",
       "Port": "Manzanillo ",
       "CODE": "CU MZO ",
@@ -1550,7 +1550,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cuba ",
       "Port": "Matanzas ",
       "CODE": "CU QMA ",
@@ -1560,7 +1560,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cuba ",
       "Port": "Nuevitas ",
       "CODE": "CU NVT ",
@@ -1570,7 +1570,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cuba ",
       "Port": "Santiago de Cuba ",
       "CODE": "CU SCU ",
@@ -1580,7 +1580,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cyprus ",
       "Port": "Akrotiri ",
       "CODE": "CY AKT ",
@@ -1590,7 +1590,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.cy "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cyprus ",
       "Port": "Famagusta ",
       "CODE": "CY FMG ",
@@ -1600,7 +1600,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cyprus ",
       "Port": "Larnaca ",
       "CODE": "CY LAT ",
@@ -1610,7 +1610,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.cy "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cyprus ",
       "Port": "Limassol ",
       "CODE": "CY LMS ",
@@ -1620,7 +1620,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.cy "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cyprus ",
       "Port": "Paphos ",
       "CODE": "CY PFO ",
@@ -1630,7 +1630,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.cy "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Cyprus ",
       "Port": "Vassiliko ",
       "CODE": "CY VAS ",
@@ -1640,7 +1640,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.cy "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Denmark ",
       "Port": "Aarhus ",
       "CODE": "DK AAR ",
@@ -1650,7 +1650,7 @@ export const seaPorts = [
       "Web": "www.aarhushavn.dk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Denmark ",
       "Port": "Esbjerg ",
       "CODE": "DK EBJ ",
@@ -1660,7 +1660,7 @@ export const seaPorts = [
       "Web": "www.portesbjerg.dk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Denmark ",
       "Port": "Fredericia ",
       "CODE": "DK FRC ",
@@ -1670,7 +1670,7 @@ export const seaPorts = [
       "Web": "www.adp-as.dk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Denmark ",
       "Port": "Frederikshavn ",
       "CODE": "DK FDH ",
@@ -1680,7 +1680,7 @@ export const seaPorts = [
       "Web": "www.frederikshavnhavn.dk/en "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Denmark ",
       "Port": "Grenaa ",
       "CODE": "DK GRE ",
@@ -1690,7 +1690,7 @@ export const seaPorts = [
       "Web": "www.port-of-grenaa.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Denmark ",
       "Port": "Odense ",
       "CODE": "DK ODE ",
@@ -1700,7 +1700,7 @@ export const seaPorts = [
       "Web": "www.odensehavn.dk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Denmark ",
       "Port": "Ronne ",
       "CODE": "DK RNN ",
@@ -1710,7 +1710,7 @@ export const seaPorts = [
       "Web": "www.roennehavn.dk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Djibouti ",
       "Port": "Djibouti ",
       "CODE": "DJ JIB ",
@@ -1720,7 +1720,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominica ",
       "Port": "Portsmouth ",
       "CODE": "DM POR ",
@@ -1730,7 +1730,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominica ",
       "Port": "Roseau ",
       "CODE": "DM RSU ",
@@ -1740,7 +1740,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominican Republic ",
       "Port": "Barahona ",
       "CODE": "DO BRX ",
@@ -1750,7 +1750,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominican Republic ",
       "Port": "La Romana ",
       "CODE": "DO LRM ",
@@ -1760,7 +1760,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominican Republic ",
       "Port": "Puerto Plata ",
       "CODE": "DO POP ",
@@ -1770,7 +1770,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominican Republic ",
       "Port": "Rio Haina ",
       "CODE": "DO HAI ",
@@ -1780,7 +1780,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominican Republic ",
       "Port": "San Pedro de Macoris ",
       "CODE": "DO SPM ",
@@ -1790,7 +1790,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Dominican Republic ",
       "Port": "Santo Domingo ",
       "CODE": "DO SDQ ",
@@ -1800,7 +1800,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ecuador ",
       "Port": "Esmeraldas ",
       "CODE": "EC ESM ",
@@ -1810,7 +1810,7 @@ export const seaPorts = [
       "Web": "www.puertodeesmeraldas.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ecuador ",
       "Port": "Guayaquil ",
       "CODE": "EC GYE ",
@@ -1820,7 +1820,7 @@ export const seaPorts = [
       "Web": "www.apg.com.ec "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ecuador ",
       "Port": "La Libertad ",
       "CODE": "EC LLD ",
@@ -1830,7 +1830,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ecuador ",
       "Port": "Manta ",
       "CODE": "EC MEC ",
@@ -1840,7 +1840,7 @@ export const seaPorts = [
       "Web": "www.apmanta.gov.ec "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ecuador ",
       "Port": "Puerto Bolivar ",
       "CODE": "EC PBO ",
@@ -1850,7 +1850,7 @@ export const seaPorts = [
       "Web": "www.worldportsource.com/ports/ECU_P ort_of_Puerto_Bol_var_95.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ecuador ",
       "Port": "San Lorenzo ",
       "CODE": "EC SLR ",
@@ -1860,7 +1860,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Egypt ",
       "Port": "Alexandria ",
       "CODE": "EG EDK ",
@@ -1870,7 +1870,7 @@ export const seaPorts = [
       "Web": "www.imsalex.com/alexport.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Egypt ",
       "Port": "Damietta ",
       "CODE": "EG DAM ",
@@ -1880,7 +1880,7 @@ export const seaPorts = [
       "Web": "www.worldportsource.com/ports/EGY_Po rt_of_Damietta_670.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Egypt ",
       "Port": "Port Said ",
       "CODE": "EG PSD ",
@@ -1890,7 +1890,7 @@ export const seaPorts = [
       "Web": "www.scctportsaid.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Egypt ",
       "Port": "Suez (Al Suweis) ",
       "CODE": "EG ",
@@ -1900,7 +1900,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "El Salvador ",
       "Port": "Acajutla ",
       "CODE": "SV AQJ ",
@@ -1910,7 +1910,7 @@ export const seaPorts = [
       "Web": "www.puertoacajutla.gob.sv "
     },
     {
-      "Type": "Seaport",
+
       "Country": "El Salvador ",
       "Port": "Cutuco ",
       "CODE": "SV CUT ",
@@ -1920,7 +1920,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Equatorial Guinea ",
       "Port": "Bata ",
       "CODE": "GQ BSG ",
@@ -1930,7 +1930,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Equatorial Guinea ",
       "Port": "Ceiba Marine Terminal ",
       "CODE": "n/a ",
@@ -1940,7 +1940,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Equatorial Guinea ",
       "Port": "Malabo (Rey Malabo) ",
       "CODE": "GQ SSG ",
@@ -1950,7 +1950,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Estonia ",
       "Port": "Pärnu ",
       "CODE": "EE PYA ",
@@ -1960,7 +1960,7 @@ export const seaPorts = [
       "Web": "www.transcom.ee/parnusadam_eng.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Estonia ",
       "Port": "Tallinn ",
       "CODE": "EE TLL ",
@@ -1970,7 +1970,7 @@ export const seaPorts = [
       "Web": "www.portoftallinn.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Faroe Islands ",
       "Port": "Klaksvik ",
       "CODE": "FO KVI ",
@@ -1980,7 +1980,7 @@ export const seaPorts = [
       "Web": "www.klhavn.fo "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Faroe Islands ",
       "Port": "Torshavn ",
       "CODE": "FO THO ",
@@ -1990,7 +1990,7 @@ export const seaPorts = [
       "Web": "www.portoftorshavn.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Fiji ",
       "Port": "Labasa (Lambasa) ",
       "CODE": "FJ LBS ",
@@ -2000,7 +2000,7 @@ export const seaPorts = [
       "Web": "www.fijiports.com.fj "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Fiji ",
       "Port": "Lautoka ",
       "CODE": "FJ LTK ",
@@ -2010,7 +2010,7 @@ export const seaPorts = [
       "Web": "www.fijiports.com.fj "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Fiji ",
       "Port": "Levuka ",
       "CODE": "FJ LEV ",
@@ -2020,7 +2020,7 @@ export const seaPorts = [
       "Web": "www.fijiports.com.fj "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Fiji ",
       "Port": "Savu Savu ",
       "CODE": "FJ SVU ",
@@ -2030,7 +2030,7 @@ export const seaPorts = [
       "Web": "www.fijiports.com.fj "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Fiji ",
       "Port": "Suva ",
       "CODE": "FJ SUV ",
@@ -2040,7 +2040,7 @@ export const seaPorts = [
       "Web": "www.fijiports.com.fj "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Hamina ",
       "CODE": "FI HMN ",
@@ -2050,7 +2050,7 @@ export const seaPorts = [
       "Web": "www.portofhamina.fi "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Helsinki ",
       "CODE": "FI HEL ",
@@ -2060,7 +2060,7 @@ export const seaPorts = [
       "Web": "www.portofhelsinki.fi "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Kokkola ",
       "CODE": "FI KOK ",
@@ -2070,7 +2070,7 @@ export const seaPorts = [
       "Web": "www.port.of.kokkola.fi "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Kotka ",
       "CODE": "FI KTK ",
@@ -2080,7 +2080,7 @@ export const seaPorts = [
       "Web": "www.portofkotka.fi "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Loviisa ",
       "CODE": "FI LOV ",
@@ -2090,7 +2090,7 @@ export const seaPorts = [
       "Web": "www.loviisa.fi/en/services/portofloviisa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Oulu ",
       "CODE": "FI OUL ",
@@ -2100,7 +2100,7 @@ export const seaPorts = [
       "Web": "www.ouluport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Pori ",
       "CODE": "FI POR ",
@@ -2110,7 +2110,7 @@ export const seaPorts = [
       "Web": "www.pori.fi/port "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Rauma ",
       "CODE": "FI RAU ",
@@ -2120,7 +2120,7 @@ export const seaPorts = [
       "Web": "www.portofrauma.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Turku ",
       "CODE": "FI TKU ",
@@ -2130,7 +2130,7 @@ export const seaPorts = [
       "Web": "www.port.turku.fi "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Uusikaupunki ",
       "CODE": "FI UKI ",
@@ -2140,7 +2140,7 @@ export const seaPorts = [
       "Web": "www.portofuki.fi "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Finland ",
       "Port": "Vaasa ",
       "CODE": "FI VAA ",
@@ -2150,7 +2150,7 @@ export const seaPorts = [
       "Web": "www.vaasa.fi/port/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Bordeaux ",
       "CODE": "FR BOD ",
@@ -2160,7 +2160,7 @@ export const seaPorts = [
       "Web": "www.bordeaux-port.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Boulogne Sur Mer ",
       "CODE": "FR BOL ",
@@ -2170,7 +2170,7 @@ export const seaPorts = [
       "Web": "www.boulogne-sur-mer.cci.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Cherbourg ",
       "CODE": "FR CER ",
@@ -2180,7 +2180,7 @@ export const seaPorts = [
       "Web": "www.port-cherbourg.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Dunkerque ",
       "CODE": "FR DKK ",
@@ -2190,7 +2190,7 @@ export const seaPorts = [
       "Web": "www.portdedunkerque.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "La Rochelle-Pallice ",
       "CODE": "FR LPE ",
@@ -2200,7 +2200,7 @@ export const seaPorts = [
       "Web": "www.larochelle.port.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Le Havre ",
       "CODE": "FR LEH ",
@@ -2210,7 +2210,7 @@ export const seaPorts = [
       "Web": "www.havre-port.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Marseille ",
       "CODE": "FR MRS ",
@@ -2220,7 +2220,7 @@ export const seaPorts = [
       "Web": "www.marseille-port.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Nantes-St. Nazaire ",
       "CODE": "FR NTE ",
@@ -2230,7 +2230,7 @@ export const seaPorts = [
       "Web": "www.nantes.port.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Paris ",
       "CODE": "FR PAR ",
@@ -2240,7 +2240,7 @@ export const seaPorts = [
       "Web": "www.paris-ports.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Rouen ",
       "CODE": "FR URO ",
@@ -2250,7 +2250,7 @@ export const seaPorts = [
       "Web": "www.rouen.port.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "St Malo ",
       "CODE": "FR SML ",
@@ -2260,7 +2260,7 @@ export const seaPorts = [
       "Web": "www.saint-malo.cci.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Strasbourg ",
       "CODE": "FR SXB ",
@@ -2270,7 +2270,7 @@ export const seaPorts = [
       "Web": "www.strasbourg.port.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "France ",
       "Port": "Toulon ",
       "CODE": "FR TLN ",
@@ -2280,7 +2280,7 @@ export const seaPorts = [
       "Web": "www.var.equipement.gouv.fr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "French Guiana ",
       "Port": "Cayenne ",
       "CODE": "GF CAY ",
@@ -2290,7 +2290,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "French Polynesia ",
       "Port": "Papeete ",
       "CODE": "PF PPT ",
@@ -2300,7 +2300,7 @@ export const seaPorts = [
       "Web": "www.portdepapeete.pf "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Gabon ",
       "Port": "Cap Lopez ",
       "CODE": "GA CLZ ",
@@ -2310,7 +2310,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Gabon ",
       "Port": "Libreville ",
       "CODE": "GA LBV ",
@@ -2320,7 +2320,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Gabon ",
       "Port": "Owendo ",
       "CODE": "GA OWE ",
@@ -2330,7 +2330,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Gabon ",
       "Port": "Port Gentil ",
       "CODE": "GA POG ",
@@ -2340,7 +2340,7 @@ export const seaPorts = [
       "Web": "www.otal.com/gabon/gabon.htm#luanda "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Gambia ",
       "Port": "Banjul ",
       "CODE": "GM BJL ",
@@ -2350,7 +2350,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Georgia ",
       "Port": "Batumi ",
       "CODE": "GE BUS ",
@@ -2360,7 +2360,7 @@ export const seaPorts = [
       "Web": "www.batumiport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Georgia ",
       "Port": "Poti ",
       "CODE": "GE PTI ",
@@ -2370,7 +2370,7 @@ export const seaPorts = [
       "Web": "www.potiseaport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Georgia ",
       "Port": "Sukhumi ",
       "CODE": "GE SUI ",
@@ -2380,7 +2380,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Brake ",
       "CODE": "DE BKE ",
@@ -2390,7 +2390,7 @@ export const seaPorts = [
       "Web": "www.brake-port.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Bremen ",
       "CODE": "DE BRE ",
@@ -2400,7 +2400,7 @@ export const seaPorts = [
       "Web": "www.bremen-ports.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Bremerhaven ",
       "CODE": "DE BRV ",
@@ -2410,7 +2410,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Duisburg ",
       "CODE": "DE DUI ",
@@ -2420,7 +2420,7 @@ export const seaPorts = [
       "Web": "www.duisport.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Dusseldorf ",
       "CODE": "DE DUS ",
@@ -2430,7 +2430,7 @@ export const seaPorts = [
       "Web": "www.nd-haefen.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Emden ",
       "CODE": "DE EME ",
@@ -2440,7 +2440,7 @@ export const seaPorts = [
       "Web": "www.emden-port.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Hamburg ",
       "CODE": "DE HAM ",
@@ -2450,7 +2450,7 @@ export const seaPorts = [
       "Web": "www.hafen-hamburg.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Karlsruhe ",
       "CODE": "DE KAE ",
@@ -2460,7 +2460,7 @@ export const seaPorts = [
       "Web": "www.rheinhafen.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Kiel ",
       "CODE": "DE KEL ",
@@ -2470,7 +2470,7 @@ export const seaPorts = [
       "Web": "www.port-of-kiel.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Lubeck ",
       "CODE": "DE LBC ",
@@ -2480,7 +2480,7 @@ export const seaPorts = [
       "Web": "www.luebeck.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Mannheim ",
       "CODE": "DE MHG ",
@@ -2490,7 +2490,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Rostock ",
       "CODE": "DE RSK ",
@@ -2500,7 +2500,7 @@ export const seaPorts = [
       "Web": "www.rostock.de/hafenamt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Germany ",
       "Port": "Wilhelmshavn ",
       "CODE": "DE WVN ",
@@ -2510,7 +2510,7 @@ export const seaPorts = [
       "Web": "www.wilhelmshaven-port.de "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ghana ",
       "Port": "Takoradi ",
       "CODE": "GH TKD ",
@@ -2520,7 +2520,7 @@ export const seaPorts = [
       "Web": "www.ghanaports.gov.gh "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ghana ",
       "Port": "Tema ",
       "CODE": "GH TEM ",
@@ -2530,7 +2530,7 @@ export const seaPorts = [
       "Web": "www.ghanaports.gov.gh "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Gibraltar ",
       "Port": "Gibraltar ",
       "CODE": "GI GIB ",
@@ -2540,7 +2540,7 @@ export const seaPorts = [
       "Web": "www.gibraltarport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greece ",
       "Port": "Eleusis ",
       "CODE": "GR EEU ",
@@ -2550,7 +2550,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greece ",
       "Port": "Iraklion (Heraklion) ",
       "CODE": "GR HER ",
@@ -2560,7 +2560,7 @@ export const seaPorts = [
       "Web": "www.portheraklion.gr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greece ",
       "Port": "Kavala ",
       "CODE": "GR KVA ",
@@ -2570,7 +2570,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greece ",
       "Port": "Patras ",
       "CODE": "GR GPA ",
@@ -2580,7 +2580,7 @@ export const seaPorts = [
       "Web": "www.patrasport.gr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greece ",
       "Port": "Piraeus ",
       "CODE": "GR PIR ",
@@ -2590,7 +2590,7 @@ export const seaPorts = [
       "Web": "www.olp.gr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greece ",
       "Port": "Thessaloniki ",
       "CODE": "GR SKG ",
@@ -2600,7 +2600,7 @@ export const seaPorts = [
       "Web": "www.thpa.gr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greece ",
       "Port": "Volos ",
       "CODE": "GR VOL ",
@@ -2610,7 +2610,7 @@ export const seaPorts = [
       "Web": "www.port-volos.gr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greenland ",
       "Port": "Holsteinsborg (Sisimiut) ",
       "CODE": "GL JHS ",
@@ -2620,7 +2620,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greenland ",
       "Port": "Nanortalik ",
       "CODE": "GL JNN ",
@@ -2630,7 +2630,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greenland ",
       "Port": "Narsarsuaq ",
       "CODE": "GL UAK ",
@@ -2640,7 +2640,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Greenland ",
       "Port": "Nuuk (Godthaab) ",
       "CODE": "GL GOH ",
@@ -2650,7 +2650,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guadeloupe ",
       "Port": "Gustavia ",
       "CODE": "GP GUS ",
@@ -2660,7 +2660,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guadeloupe ",
       "Port": "Pointe-a-Pitre ",
       "CODE": "GP PTP ",
@@ -2670,7 +2670,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guam ",
       "Port": "Apra (Agana) ",
       "CODE": "GU APR ",
@@ -2680,7 +2680,7 @@ export const seaPorts = [
       "Web": "www.portguam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guatemala ",
       "Port": "Champerico ",
       "CODE": "GT CHR ",
@@ -2690,7 +2690,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guatemala ",
       "Port": "Puerto Barrios ",
       "CODE": "GT PBR ",
@@ -2700,7 +2700,7 @@ export const seaPorts = [
       "Web": "www.worldportsource.com/ports/GTM_P uerto_Barrios_1612.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guatemala ",
       "Port": "Santo Tomas De Castilla ",
       "CODE": "GT STC ",
@@ -2710,7 +2710,7 @@ export const seaPorts = [
       "Web": "www.cpn.gob.gt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guinea ",
       "Port": "Conakry ",
       "CODE": "GN CKY ",
@@ -2720,7 +2720,7 @@ export const seaPorts = [
       "Web": "www.otal.com/guinea/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guinea ",
       "Port": "Port Kamsar ",
       "CODE": "GN KMR ",
@@ -2730,7 +2730,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guinea-Bissau ",
       "Port": "Bissau ",
       "CODE": "GW BXO ",
@@ -2740,7 +2740,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guyana ",
       "Port": "Georgetown ",
       "CODE": "GY GEO ",
@@ -2750,7 +2750,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Guyana ",
       "Port": "New Amsterdam ",
       "CODE": "GY QSK ",
@@ -2760,7 +2760,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Haiti ",
       "Port": "Port Au Prince ",
       "CODE": "HT PAP ",
@@ -2770,7 +2770,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Honduras ",
       "Port": "La Ceiba ",
       "CODE": "HN LCE ",
@@ -2780,7 +2780,7 @@ export const seaPorts = [
       "Web": "www.enp.hn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Honduras ",
       "Port": "Puerto Castilla ",
       "CODE": "HN PCA ",
@@ -2790,7 +2790,7 @@ export const seaPorts = [
       "Web": "www.enp.hn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Honduras ",
       "Port": "Puerto Cortes ",
       "CODE": "HN PCR ",
@@ -2800,7 +2800,7 @@ export const seaPorts = [
       "Web": "www.enp.hn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Honduras ",
       "Port": "San Lorenzo ",
       "CODE": "HN SLO ",
@@ -2810,7 +2810,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Honduras ",
       "Port": "Tela ",
       "CODE": "HN TEA ",
@@ -2820,7 +2820,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Hong Kong ",
       "Port": "Hong Kong ",
       "CODE": "HK HKG ",
@@ -2830,7 +2830,7 @@ export const seaPorts = [
       "Web": "www.info.gov.hk/mardep "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iceland ",
       "Port": "Akureyri ",
       "CODE": "IS AKU ",
@@ -2840,7 +2840,7 @@ export const seaPorts = [
       "Web": "www.port.is "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iceland ",
       "Port": "Hafnarfjordur (Straumsvik) ",
       "CODE": "IS HAF ",
@@ -2850,7 +2850,7 @@ export const seaPorts = [
       "Web": "www.portofhafnarfjordur.is "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iceland ",
       "Port": "Isafjordur ",
       "CODE": "IS ISA ",
@@ -2860,7 +2860,7 @@ export const seaPorts = [
       "Web": "www.isafjordur.is "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iceland ",
       "Port": "Keflavik ",
       "CODE": "IS KEV ",
@@ -2870,7 +2870,7 @@ export const seaPorts = [
       "Web": "www.randburg.com/is/portkefl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iceland ",
       "Port": "Reykjavik ",
       "CODE": "IS REY ",
@@ -2880,7 +2880,7 @@ export const seaPorts = [
       "Web": "www.faxaports.is "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iceland ",
       "Port": "Vestmannaeyjar ",
       "CODE": "IS VES ",
@@ -2890,7 +2890,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Mumbai (Bombay)",
       "CODE": "IN BOM ",
@@ -2900,7 +2900,7 @@ export const seaPorts = [
       "Web": "http://mumbaiport.gov.in "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Kolkata (Calcutta) ",
       "CODE": "IN CCU ",
@@ -2910,7 +2910,7 @@ export const seaPorts = [
       "Web": "www.kolkataporttrust.gov.in "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Chennai (Madras) ",
       "CODE": "IN MAA ",
@@ -2920,7 +2920,7 @@ export const seaPorts = [
       "Web": "www.chennaiport.gov.in "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Cochin ",
       "CODE": "IN COK ",
@@ -2930,7 +2930,7 @@ export const seaPorts = [
       "Web": "www.cochinport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Kandla ",
       "CODE": "IN IXY ",
@@ -2940,7 +2940,7 @@ export const seaPorts = [
       "Web": "www.kandlaport.gov.in "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Nhava Sheva (Jawaharlal Nehru) ",
       "CODE": "IN NSA ",
@@ -2950,7 +2950,7 @@ export const seaPorts = [
       "Web": "www.jnport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Tuticorin ",
       "CODE": "IN TUT ",
@@ -2960,7 +2960,7 @@ export const seaPorts = [
       "Web": "www.tuticorinport.gov.in "
     },
     {
-      "Type": "Seaport",
+
       "Country": "India ",
       "Port": "Vishakhapatnam ",
       "CODE": "IN VTZ ",
@@ -2970,7 +2970,7 @@ export const seaPorts = [
       "Web": "www.vizagport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Cilacap, Java (Tanjung Intan) ",
       "CODE": "ID CXP ",
@@ -2980,7 +2980,7 @@ export const seaPorts = [
       "Web": "http://ports.com/indonesia/port-of- cilacap "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Cirebon, Java ",
       "CODE": "ID CBN ",
@@ -2990,7 +2990,7 @@ export const seaPorts = [
       "Web": "www.priokport.co.id "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Jakarta, Java (Tanjung Priok) ",
       "CODE": "ID TPP ",
@@ -3000,7 +3000,7 @@ export const seaPorts = [
       "Web": "www.priokport.co.id "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Kupang, Timor ",
       "CODE": "ID KOE ",
@@ -3010,7 +3010,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Palembang, Sumatra ",
       "CODE": "ID PLM ",
@@ -3020,7 +3020,7 @@ export const seaPorts = [
       "Web": "http://ports.com/indonesia/port-of- palembang "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Semarang, Java (Tanjung Emas) ",
       "CODE": "ID SRG ",
@@ -3030,7 +3030,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Surabaya, Java (Tanjung Perak) ",
       "CODE": "ID SUB ",
@@ -3040,7 +3040,7 @@ export const seaPorts = [
       "Web": "www.tps.co.id "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Indonesia ",
       "Port": "Ujung Pandang, Sulawesi (Makassar) ",
       "CODE": "ID UPG ",
@@ -3050,7 +3050,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Abadan ",
       "CODE": "IR ABD ",
@@ -3060,7 +3060,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Bandar Abbas ",
       "CODE": "IR BND ",
@@ -3070,7 +3070,7 @@ export const seaPorts = [
       "Web": "http://bikport.pmo.ir "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Bandar Anzali ",
       "CODE": "IR BAZ ",
@@ -3080,7 +3080,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Bandar Mahshahr ",
       "CODE": "IR MRX ",
@@ -3090,7 +3090,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Bushehr ",
       "CODE": "IR BUZ ",
@@ -3100,7 +3100,7 @@ export const seaPorts = [
       "Web": "http://bushehrport.pmo.ir "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Imam Khomeini ",
       "CODE": "IR BKM ",
@@ -3110,7 +3110,7 @@ export const seaPorts = [
       "Web": "http://bikport.pmo.ir "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Khorramshahr ",
       "CODE": "IR KHO ",
@@ -3120,7 +3120,7 @@ export const seaPorts = [
       "Web": "http://khorramshahrport.pmo.ir "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Lavan ",
       "CODE": "IR LVP ",
@@ -3130,7 +3130,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iran ",
       "Port": "Sirri Island ",
       "CODE": "IR SXI ",
@@ -3140,7 +3140,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iraq ",
       "Port": "Basra ",
       "CODE": "IQ BSR ",
@@ -3150,7 +3150,7 @@ export const seaPorts = [
       "Web": "http://scp.gov.iq/english "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iraq ",
       "Port": "Khor al Zubair ",
       "CODE": "IQ KAZ ",
@@ -3160,7 +3160,7 @@ export const seaPorts = [
       "Web": "http://scp.gov.iq/english "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Iraq ",
       "Port": "Umm Qasr ",
       "CODE": "IQ UQR ",
@@ -3170,7 +3170,7 @@ export const seaPorts = [
       "Web": "http://scp.gov.iq/english "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "Arklow ",
       "CODE": "IE ARK ",
@@ -3180,7 +3180,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "Cork ",
       "CODE": "IE ORK ",
@@ -3190,7 +3190,7 @@ export const seaPorts = [
       "Web": "www.portofcork.ie "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "Drogheda ",
       "CODE": "IE DRO ",
@@ -3200,7 +3200,7 @@ export const seaPorts = [
       "Web": "www.droghedaport.ie "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "Dublin ",
       "CODE": "IE DUB ",
@@ -3210,7 +3210,7 @@ export const seaPorts = [
       "Web": "www.dublinport.ie "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "Foynes (Shannon Foynes Port) ",
       "CODE": "IE FOV ",
@@ -3220,7 +3220,7 @@ export const seaPorts = [
       "Web": "www.sfpc.ie "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "Galway ",
       "CODE": "IE GWY ",
@@ -3230,7 +3230,7 @@ export const seaPorts = [
       "Web": "www.galwayharbour.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "New Ross ",
       "CODE": "IE NRS ",
@@ -3240,7 +3240,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ireland ",
       "Port": "Waterford ",
       "CODE": "IE WAT ",
@@ -3250,7 +3250,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Israel ",
       "Port": "Ashdod ",
       "CODE": "IL ASH ",
@@ -3260,7 +3260,7 @@ export const seaPorts = [
       "Web": "www.ashdodport.org.il "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Israel ",
       "Port": "Ashkelon ",
       "CODE": "IL AKL ",
@@ -3270,7 +3270,7 @@ export const seaPorts = [
       "Web": "www.unishipping.co.il/ashkelon.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Israel ",
       "Port": "Eilat ",
       "CODE": "IL ETH ",
@@ -3280,7 +3280,7 @@ export const seaPorts = [
       "Web": "http://www.eilatport.co.il/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Israel ",
       "Port": "Hadera ",
       "CODE": "IL HAD ",
@@ -3290,7 +3290,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Israel ",
       "Port": "Haifa ",
       "CODE": "IL HFA ",
@@ -3300,7 +3300,7 @@ export const seaPorts = [
       "Web": "www.haifaport.org.il "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Augusta ",
       "CODE": "IT AUG ",
@@ -3310,7 +3310,7 @@ export const seaPorts = [
       "Web": "www.harbours.net/augusta/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Bagnoli ",
       "CODE": "IT BLN ",
@@ -3320,7 +3320,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Bari ",
       "CODE": "IT BRI ",
@@ -3330,7 +3330,7 @@ export const seaPorts = [
       "Web": "www.aplevante.org "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Brindisi ",
       "CODE": "IT BDS ",
@@ -3340,7 +3340,7 @@ export const seaPorts = [
       "Web": "www.porto.br.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Gela ",
       "CODE": "IT GEA ",
@@ -3350,7 +3350,7 @@ export const seaPorts = [
       "Web": "www.harbours.net/gela "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Genoa ",
       "CODE": "IT GOA ",
@@ -3360,7 +3360,7 @@ export const seaPorts = [
       "Web": "www.porto.genova.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "La Spezia ",
       "CODE": "IT SPE ",
@@ -3370,7 +3370,7 @@ export const seaPorts = [
       "Web": "www.porto.la-spezia.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Livorno ",
       "CODE": "IT LIV ",
@@ -3380,7 +3380,7 @@ export const seaPorts = [
       "Web": "www.portauthority.li.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Messina ",
       "CODE": "IT MSN ",
@@ -3390,7 +3390,7 @@ export const seaPorts = [
       "Web": "www.harbours.net/messina "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Milazzo ",
       "CODE": "IT MLZ ",
@@ -3400,7 +3400,7 @@ export const seaPorts = [
       "Web": "www.harbours.net/milazzo "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Napoli (Naples) ",
       "CODE": "IT NAP ",
@@ -3410,7 +3410,7 @@ export const seaPorts = [
       "Web": "www.porto.napoli.it/en "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Palermo ",
       "CODE": "IT PMO ",
@@ -3420,7 +3420,7 @@ export const seaPorts = [
       "Web": "www.autport.pa.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Porto Torres ",
       "CODE": "IT PTO ",
@@ -3430,7 +3430,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Ravenna ",
       "CODE": "IT RAN ",
@@ -3440,7 +3440,7 @@ export const seaPorts = [
       "Web": "www.port.ravenna.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Sarroch (Porto Foxi) ",
       "CODE": "IT PFX ",
@@ -3450,7 +3450,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Savona-Vado ",
       "CODE": "IT SVN ",
@@ -3460,7 +3460,7 @@ export const seaPorts = [
       "Web": "www.porto.sv.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Taranto ",
       "CODE": "IT TAR ",
@@ -3470,7 +3470,7 @@ export const seaPorts = [
       "Web": "www.port.taranto.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Trieste ",
       "CODE": "IT TRS ",
@@ -3480,7 +3480,7 @@ export const seaPorts = [
       "Web": "www.porto.trieste.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Italy ",
       "Port": "Venice ",
       "CODE": "IT VCE ",
@@ -3490,7 +3490,7 @@ export const seaPorts = [
       "Web": "www.port.venice.it "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Jamaica ",
       "Port": "Kingston ",
       "CODE": "JM KIN ",
@@ -3500,7 +3500,7 @@ export const seaPorts = [
       "Web": "www.portjam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Jamaica ",
       "Port": "Montego Bay ",
       "CODE": "JM MBJ ",
@@ -3510,7 +3510,7 @@ export const seaPorts = [
       "Web": "www.portjam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Jamaica ",
       "Port": "Ocho Rios ",
       "CODE": "JM OCJ ",
@@ -3520,7 +3520,7 @@ export const seaPorts = [
       "Web": "www.portjam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Jamaica ",
       "Port": "Port Antonio ",
       "CODE": "JM POT ",
@@ -3530,7 +3530,7 @@ export const seaPorts = [
       "Web": "www.portjam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Jamaica ",
       "Port": "Port Esquivel ",
       "CODE": "JM PEV ",
@@ -3540,7 +3540,7 @@ export const seaPorts = [
       "Web": "www.portjam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Jamaica ",
       "Port": "Rocky Point ",
       "CODE": "JM ROP ",
@@ -3550,7 +3550,7 @@ export const seaPorts = [
       "Web": "www.portjam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Akita ",
       "CODE": "JP AXT ",
@@ -3560,7 +3560,7 @@ export const seaPorts = [
       "Web": "www.city.akita.akita.jp/city/in/hb/port "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Amagasaki ",
       "CODE": "JP AMA ",
@@ -3570,7 +3570,7 @@ export const seaPorts = [
       "Web": ""
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Chiba ",
       "CODE": "JP CHB ",
@@ -3580,7 +3580,7 @@ export const seaPorts = [
       "Web": "www.pref.chiba.jp/business/kowan/chiba port-e.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Hachinohe ",
       "CODE": "JP HHE ",
@@ -3590,7 +3590,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Hakodate, Hokkaido ",
       "CODE": "JP HKD ",
@@ -3600,7 +3600,7 @@ export const seaPorts = [
       "Web": "www.jptmk.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Higashiharima ",
       "CODE": "JP HHR ",
@@ -3610,7 +3610,7 @@ export const seaPorts = [
       "Web": "www.kobelco.co.jp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Himeji ",
       "CODE": "JP HIM ",
@@ -3620,7 +3620,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Hiroshima ",
       "CODE": "JP HIJ ",
@@ -3630,7 +3630,7 @@ export const seaPorts = [
       "Web": "www.pref.hiroshima.lg.jp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Kawasaki ",
       "CODE": "JP KWS ",
@@ -3640,7 +3640,7 @@ export const seaPorts = [
       "Web": "www.city.kawasaki.jp/58/58yuuti/home/e top.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Kinuura ",
       "CODE": "JP KNU ",
@@ -3650,7 +3650,7 @@ export const seaPorts = [
       "Web": "www.pref.aichi.jp/kensetsu- somu/kinuura-komu "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Kobe ",
       "CODE": "JP UKB ",
@@ -3660,7 +3660,7 @@ export const seaPorts = [
       "Web": "www.city.kobe.jp/cityoffice/39/port/inde x_e.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Kushiro, Hokkaido ",
       "CODE": "JP KUH ",
@@ -3670,7 +3670,7 @@ export const seaPorts = [
       "Web": "www.city.kushiro.hokkaido.jp/minato "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Mizushima ",
       "CODE": "JP MIZ ",
@@ -3680,7 +3680,7 @@ export const seaPorts = [
       "Web": "www.pref.okayama.jp/bichu/mizu/port.ht m "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Moji ",
       "CODE": "JP MOJ ",
@@ -3690,7 +3690,7 @@ export const seaPorts = [
       "Web": "www.japanwelcomesyou.com/cssweb/po rts/port/html/kitakyushu.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Nagoya ",
       "CODE": "JP NGO ",
@@ -3700,7 +3700,7 @@ export const seaPorts = [
       "Web": "www.port-of-nagoya.jp/english "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Osaka ",
       "CODE": "JP OSA ",
@@ -3710,7 +3710,7 @@ export const seaPorts = [
       "Web": "www.city.osaka.jp/port/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Sakai ",
       "CODE": "JP SAK ",
@@ -3720,7 +3720,7 @@ export const seaPorts = [
       "Web": "www.sakaiminato-faz.co.jp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Sakata ",
       "CODE": "JP SKT ",
@@ -3730,7 +3730,7 @@ export const seaPorts = [
       "Web": "www.port-of-sakata.jp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Shimizu ",
       "CODE": "JP SMZ ",
@@ -3740,7 +3740,7 @@ export const seaPorts = [
       "Web": "www.portofshimizu.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Tokyo ",
       "CODE": "JP TYO ",
@@ -3750,7 +3750,7 @@ export const seaPorts = [
       "Web": "www.kouwan.metro.tokyo.jp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Tomakomai, Hokkaido ",
       "CODE": "JP TMK ",
@@ -3760,7 +3760,7 @@ export const seaPorts = [
       "Web": "www.jptmk.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Japan ",
       "Port": "Yokohama ",
       "CODE": "JP YOK ",
@@ -3770,7 +3770,7 @@ export const seaPorts = [
       "Web": "www.city.yokohama.jp/port/index-e.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Jordan ",
       "Port": "Aqaba (El Akaba) ",
       "CODE": "JO AQJ ",
@@ -3780,7 +3780,7 @@ export const seaPorts = [
       "Web": "www.aqabaports.gov.jo "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Kenya ",
       "Port": "Lamu ",
       "CODE": "KE LAU ",
@@ -3790,7 +3790,7 @@ export const seaPorts = [
       "Web": "www.kpa.co.ke "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Kenya ",
       "Port": "Mombasa ",
       "CODE": "KE MBA ",
@@ -3800,7 +3800,7 @@ export const seaPorts = [
       "Web": "www.kpa.co.ke "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Kiribati ",
       "Port": "Betio (Tarawa) ",
       "CODE": "KI TRW ",
@@ -3810,7 +3810,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (North) ",
       "Port": "Chongjin ",
       "CODE": "KP CHO ",
@@ -3820,7 +3820,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (North) ",
       "Port": "Haeju ",
       "CODE": "KP HAE ",
@@ -3830,7 +3830,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (North) ",
       "Port": "Nampo ",
       "CODE": "KP NAM ",
@@ -3840,7 +3840,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (North) ",
       "Port": "Wonsan ",
       "CODE": "KP WON ",
@@ -3850,7 +3850,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Busan (Pusan) ",
       "CODE": "KR PUS ",
@@ -3860,7 +3860,7 @@ export const seaPorts = [
       "Web": "www.busanpa.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Chinhae ",
       "CODE": "KR CHF ",
@@ -3870,7 +3870,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Inchon ",
       "CODE": "KR INC ",
@@ -3880,7 +3880,7 @@ export const seaPorts = [
       "Web": "www.portincheon.go.kr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Masan ",
       "CODE": "KR MAS ",
@@ -3890,7 +3890,7 @@ export const seaPorts = [
       "Web": "http://masan.mltm.go.kr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Mokpo ",
       "CODE": "KR MOK ",
@@ -3900,7 +3900,7 @@ export const seaPorts = [
       "Web": "www.mokpoport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Pohang ",
       "CODE": "KR KPO ",
@@ -3910,7 +3910,7 @@ export const seaPorts = [
       "Web": "www.ark.co.kr/information/asia/korea/Po rt-Asia-Unit-KoreaSouth_Pohang.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Tonghae ",
       "CODE": "KR TGH ",
@@ -3920,7 +3920,7 @@ export const seaPorts = [
       "Web": "http://donghae.mltm.go.kr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Ulsan ",
       "CODE": "KR USN ",
@@ -3930,7 +3930,7 @@ export const seaPorts = [
       "Web": "http://ulsan.mltm.go.kr/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Korea (South) ",
       "Port": "Yosu (Yeosu) ",
       "CODE": "KR YOS ",
@@ -3940,7 +3940,7 @@ export const seaPorts = [
       "Web": "www.worldportsource.com/ports/KOR_P ort_of_Yeosu_1916.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Kuwait ",
       "Port": "Mina al Ahmadi ",
       "CODE": "KW MEA ",
@@ -3950,7 +3950,7 @@ export const seaPorts = [
       "Web": "www.kpa.gov.kw "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Kuwait ",
       "Port": "Mina Saud ",
       "CODE": "KW MIS ",
@@ -3960,7 +3960,7 @@ export const seaPorts = [
       "Web": "www.kpa.gov.kw "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Kuwait ",
       "Port": "Shuwaikh ",
       "CODE": "KW SWK ",
@@ -3970,7 +3970,7 @@ export const seaPorts = [
       "Web": "www.kpa.gov.kw "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Latvia ",
       "Port": "Liepaja ",
       "CODE": "LV LPX ",
@@ -3980,7 +3980,7 @@ export const seaPorts = [
       "Web": "www.liepaja.lv/page.php?id=241 "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Latvia ",
       "Port": "Riga ",
       "CODE": "SU RIX ",
@@ -3990,7 +3990,7 @@ export const seaPorts = [
       "Web": "www.rop.lv "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Latvia ",
       "Port": "Ventspils ",
       "CODE": "LV VNT ",
@@ -4000,7 +4000,7 @@ export const seaPorts = [
       "Web": "www.portofventspils.lv "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Lebanon ",
       "Port": "Beirut ",
       "CODE": "LB BEY ",
@@ -4010,7 +4010,7 @@ export const seaPorts = [
       "Web": "www.portdebeyrouth.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Lebanon ",
       "Port": "Chekka ",
       "CODE": "LB CHK ",
@@ -4020,7 +4020,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Lebanon ",
       "Port": "Selaata ",
       "CODE": "LB SEL ",
@@ -4030,7 +4030,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Lebanon ",
       "Port": "Sidon ",
       "CODE": "LB SDN ",
@@ -4040,7 +4040,7 @@ export const seaPorts = [
       "Web": "http://ports.com/lebanon/port-of- sidonsaida "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Lebanon ",
       "Port": "Tripoli ",
       "CODE": "LB KYE ",
@@ -4050,7 +4050,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Liberia ",
       "Port": "Buchanan ",
       "CODE": "LR UCN ",
@@ -4060,7 +4060,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Liberia ",
       "Port": "Greenville ",
       "CODE": "LR GRE ",
@@ -4070,7 +4070,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Liberia ",
       "Port": "Monrovia ",
       "CODE": "LR MLW ",
@@ -4080,7 +4080,7 @@ export const seaPorts = [
       "Web": "www.nationalportauthorityliberia.org "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Bingazi (Benghazi) ",
       "CODE": "LY BEN ",
@@ -4090,7 +4090,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Derna ",
       "CODE": "LY DNF ",
@@ -4100,7 +4100,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Marsa El Brega ",
       "CODE": "LY LMQ ",
@@ -4110,7 +4110,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Misurata (Qasr Ahmed) ",
       "CODE": "LY MRA ",
@@ -4120,7 +4120,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Ras Lanuf ",
       "CODE": "LY RLA ",
@@ -4130,7 +4130,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Tobruk ",
       "CODE": "LY TOB ",
@@ -4140,7 +4140,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Tripoli ",
       "CODE": "LY TIP ",
@@ -4150,7 +4150,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Libya ",
       "Port": "Zuara ",
       "CODE": "LY ZUA ",
@@ -4160,7 +4160,7 @@ export const seaPorts = [
       "Web": "www.lpclibya.com/en/seaports.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Lithuania ",
       "Port": "Klaipeda (includes sixsubports: ) ",
       "CODE": "LT KLJ ",
@@ -4170,7 +4170,7 @@ export const seaPorts = [
       "Web": "www.portofklaipeda.lt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Macau ",
       "Port": "Macau (Macao, Aomen) ",
       "CODE": "MOMFM ",
@@ -4180,7 +4180,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Madagascar ",
       "Port": "Antsiranana (Diego Suarez) ",
       "CODE": "MG DIE ",
@@ -4190,7 +4190,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Madagascar ",
       "Port": "Majunga (Mahajanga) ",
       "CODE": "MG MJN ",
@@ -4200,7 +4200,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Madagascar ",
       "Port": "Toamasina (Tamatave) ",
       "CODE": "MG TOA ",
@@ -4210,7 +4210,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Madagascar ",
       "Port": "Tulear (Toliara) ",
       "CODE": "MG TLE ",
@@ -4220,7 +4220,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Bintulu, Sarawak ",
       "CODE": "MY BTU ",
@@ -4230,7 +4230,7 @@ export const seaPorts = [
       "Web": "www.bpsb.com.my "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Kota Kinabalu, Sabah ",
       "CODE": "MY BKI ",
@@ -4240,7 +4240,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Kuantan (Tanjong Gelang) ",
       "CODE": "MY KUA ",
@@ -4250,7 +4250,7 @@ export const seaPorts = [
       "Web": "www.lpktn.gov.my/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Kuching, Sarawak ",
       "CODE": "MY KCH ",
@@ -4260,7 +4260,7 @@ export const seaPorts = [
       "Web": "www.kpa.gov.my/it.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Kudat, Sabah ",
       "CODE": "MY KUD ",
@@ -4270,7 +4270,7 @@ export const seaPorts = [
       "Web": "www.portsworld.com/Ports/kudat.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Labuan, Sabah ",
       "CODE": "MY LBU ",
@@ -4280,7 +4280,7 @@ export const seaPorts = [
       "Web": "www.portsworld.com/Ports/labuanport.h tm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Lahad Datu, Sabah ",
       "CODE": "MY LDU ",
@@ -4290,7 +4290,7 @@ export const seaPorts = [
       "Web": "www.portsworld.com/Ports/lahaddatu.ht m "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Lumut ",
       "CODE": "MY LUM ",
@@ -4300,7 +4300,7 @@ export const seaPorts = [
       "Web": "www.lumutport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Miri, Sarawak ",
       "CODE": "MY MYY ",
@@ -4310,7 +4310,7 @@ export const seaPorts = [
       "Web": "www.miriport.gov.my "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Pasir Gudang, Johor ",
       "CODE": "MY PGU ",
@@ -4320,7 +4320,7 @@ export const seaPorts = [
       "Web": "www.johorport.com.my "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Penang (Georgetown) ",
       "CODE": "MY PEN ",
@@ -4330,7 +4330,7 @@ export const seaPorts = [
       "Web": "www.penangport.com.my "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Port Dickson ",
       "CODE": "MY PDI ",
@@ -4340,7 +4340,7 @@ export const seaPorts = [
       "Web": "www.portsworld.com/Ports/portdickson. htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Port Klang (Kelang) ",
       "CODE": "MY PKL ",
@@ -4350,7 +4350,7 @@ export const seaPorts = [
       "Web": "www.pka.gov.my "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Sandakan, Sabah ",
       "CODE": "MY SDK ",
@@ -4360,7 +4360,7 @@ export const seaPorts = [
       "Web": "www.portsworld.com/Ports/sandakan.ht m "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Sibu, Sarawak ",
       "CODE": "MY SBW ",
@@ -4370,7 +4370,7 @@ export const seaPorts = [
       "Web": "www.rajangport.gov.my "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Tanjung Pelepas, Johor ",
       "CODE": "MY TPP ",
@@ -4380,7 +4380,7 @@ export const seaPorts = [
       "Web": "www.ptp.com.my "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malaysia ",
       "Port": "Tawau, Sabah ",
       "CODE": "MY TWU ",
@@ -4390,7 +4390,7 @@ export const seaPorts = [
       "Web": "www.etawau.com/HTML/Government/Po rtAuthority.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Malta ",
       "Port": "Valletta ",
       "CODE": "MT MLA ",
@@ -4400,7 +4400,7 @@ export const seaPorts = [
       "Web": "http://transport.gov.mt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Martinique ",
       "Port": "Fort de France ",
       "CODE": "MQ FDF ",
@@ -4410,7 +4410,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mauritania ",
       "Port": "Nouadhibou ",
       "CODE": "MR NDB ",
@@ -4420,7 +4420,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mauritania ",
       "Port": "Nouakchott ",
       "CODE": "MR NKC ",
@@ -4430,7 +4430,7 @@ export const seaPorts = [
       "Web": "www.otal.com/mauritania/index.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mauritius ",
       "Port": "Port Louis ",
       "CODE": "MU PLU ",
@@ -4440,7 +4440,7 @@ export const seaPorts = [
       "Web": "www.mauport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Acapulco ",
       "CODE": "MX ACA ",
@@ -4450,7 +4450,7 @@ export const seaPorts = [
       "Web": "www.tmm.com.mx/esp/english/services/ port/api "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Coatzacoalcos ",
       "CODE": "MX COA ",
@@ -4460,7 +4460,7 @@ export const seaPorts = [
       "Web": "www.apicoatza.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Guaymas ",
       "CODE": "MX GYM ",
@@ -4470,7 +4470,7 @@ export const seaPorts = [
       "Web": "www.puertodeguaymas.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "La Paz ",
       "CODE": "MX LAP ",
@@ -4480,7 +4480,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Lazaro Cardenas ",
       "CODE": "MX LZC ",
@@ -4490,7 +4490,7 @@ export const seaPorts = [
       "Web": "www.puertolazarocardenas.com.mx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Manzanillo ",
       "CODE": "MX ZLO ",
@@ -4500,7 +4500,7 @@ export const seaPorts = [
       "Web": "www.puertomanzanillo.com.mx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Mazatlan ",
       "CODE": "MX MZT ",
@@ -4510,7 +4510,7 @@ export const seaPorts = [
       "Web": "www.apimazatlan.com.mx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Progreso ",
       "CODE": "MX PGO ",
@@ -4520,7 +4520,7 @@ export const seaPorts = [
       "Web": "www.puertosyucatan.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Salina Cruz ",
       "CODE": "MX SCX ",
@@ -4530,7 +4530,7 @@ export const seaPorts = [
       "Web": "www.apisal.com.mx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Tampico ",
       "CODE": "MX TAM ",
@@ -4540,7 +4540,7 @@ export const seaPorts = [
       "Web": "www.puertodetampico.com.mx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Topolobampo ",
       "CODE": "MX TPB ",
@@ -4550,7 +4550,7 @@ export const seaPorts = [
       "Web": "http://ports.com/mexico/port-of- topolobampo "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Tuxpan ",
       "CODE": "MX TUX ",
@@ -4560,7 +4560,7 @@ export const seaPorts = [
       "Web": "http://ports.com/mexico/port-of-tuxpan "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mexico ",
       "Port": "Veracruz ",
       "CODE": "MX VER ",
@@ -4570,7 +4570,7 @@ export const seaPorts = [
       "Web": "http://puertodeveracruz.com.mx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Micronesia ",
       "Port": "Pohnpei (Ex Ponape) ",
       "CODE": "FM PNI ",
@@ -4580,7 +4580,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Monaco ",
       "Port": "Monaco ",
       "CODE": "MC MON ",
@@ -4590,7 +4590,7 @@ export const seaPorts = [
       "Web": "www.ports-monaco.com/lang-en/le-port- hercule/11-le-port-hercule-en- "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Montenegro ",
       "Port": "Bar ",
       "CODE": "CS BAR ",
@@ -4600,7 +4600,7 @@ export const seaPorts = [
       "Web": "www.lukabar.me/eng/Port_of_Bar.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Montenegro ",
       "Port": "Kotor ",
       "CODE": "CS KOT ",
@@ -4610,7 +4610,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Montserrat ",
       "Port": "Plymouth ",
       "CODE": "MS PLY ",
@@ -4620,7 +4620,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Morocco ",
       "Port": "Agadir ",
       "CODE": "MA AGA ",
@@ -4630,7 +4630,7 @@ export const seaPorts = [
       "Web": "www.mtpnet.gov.ma/infrastructure/patri moine/port/p_AGADIR.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Morocco ",
       "Port": "Casablanca ",
       "CODE": "MA CAS ",
@@ -4640,7 +4640,7 @@ export const seaPorts = [
       "Web": "www.mtpnet.gov.ma/infrastructure/patri moine/port/p_CASABLANCA.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Morocco ",
       "Port": "El Jadida ",
       "CODE": "MA ELJ ",
@@ -4650,7 +4650,7 @@ export const seaPorts = [
       "Web": "http://ma.kompass.com/profile_MA2214 588_en/agence-nationale-des-ports-port- "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Morocco ",
       "Port": "Kenitra ",
       "CODE": "MA NNA ",
@@ -4660,7 +4660,7 @@ export const seaPorts = [
       "Web": "www.mtpnet.gov.ma/infrastructure/patri moine/port/p_KENITRA.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Morocco ",
       "Port": "Mohammedia ",
       "CODE": "MA MOH ",
@@ -4670,7 +4670,7 @@ export const seaPorts = [
       "Web": "www.mtpnet.gov.ma/infrastructure/patri moine/port/p_MOHAMMEDIA.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Morocco ",
       "Port": "Safi ",
       "CODE": "MA SFI ",
@@ -4680,7 +4680,7 @@ export const seaPorts = [
       "Web": "www.mtpnet.gov.ma/infrastructure/patri moine/port/p_SAFI.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Morocco ",
       "Port": "Tangier ",
       "CODE": "MA TNG ",
@@ -4690,7 +4690,7 @@ export const seaPorts = [
       "Web": "www.mtpnet.gov.ma/infrastructure/patri moine/port/p_TANGER.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mozambique ",
       "Port": "Beira ",
       "CODE": "MZ BEW ",
@@ -4700,7 +4700,7 @@ export const seaPorts = [
       "Web": "http://ports.co.za/beira.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mozambique ",
       "Port": "Inhambane ",
       "CODE": "MZ INH ",
@@ -4710,7 +4710,7 @@ export const seaPorts = [
       "Web": "www.portmaputo.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mozambique ",
       "Port": "Maputo ",
       "CODE": "MZ MPM ",
@@ -4720,7 +4720,7 @@ export const seaPorts = [
       "Web": "www.portmaputo.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mozambique ",
       "Port": "Nacala ",
       "CODE": "MZ MNC ",
@@ -4730,7 +4730,7 @@ export const seaPorts = [
       "Web": "www.ports.co.za/nacala.php "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mozambique ",
       "Port": "Pemba ",
       "CODE": "MZ POL ",
@@ -4740,7 +4740,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Mozambique ",
       "Port": "Quelimane ",
       "CODE": "MZ UEL ",
@@ -4750,7 +4750,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Myanmar ",
       "Port": "Bassein ",
       "CODE": "MM BSX ",
@@ -4760,7 +4760,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Myanmar ",
       "Port": "Moulmein ",
       "CODE": "MM MNU ",
@@ -4770,7 +4770,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Myanmar ",
       "Port": "Yangon ",
       "CODE": "MM RGN ",
@@ -4780,7 +4780,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Namibia ",
       "Port": "Luderitz ",
       "CODE": "NA LUD ",
@@ -4790,7 +4790,7 @@ export const seaPorts = [
       "Web": "www.namport.com.na "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Namibia ",
       "Port": "Walvis Bay ",
       "CODE": "NA WVB ",
@@ -4800,7 +4800,7 @@ export const seaPorts = [
       "Web": "www.namport.com.na "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nauru ",
       "Port": "Nauru Island ",
       "CODE": "NR INU ",
@@ -4810,7 +4810,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "Amsterdam ",
       "CODE": "NL AMS ",
@@ -4820,7 +4820,7 @@ export const seaPorts = [
       "Web": "www.portofamsterdam.nl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "Delfzijl ",
       "CODE": "NL DZL ",
@@ -4830,7 +4830,7 @@ export const seaPorts = [
       "Web": "www.groningen-seaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "Dordrecht ",
       "CODE": "NL DOR ",
@@ -4840,7 +4840,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "Eemshaven ",
       "CODE": "NL EEM ",
@@ -4850,7 +4850,7 @@ export const seaPorts = [
       "Web": "www.groningen-seaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "Groningen ",
       "CODE": "NL GRQ ",
@@ -4860,7 +4860,7 @@ export const seaPorts = [
       "Web": "www.groningen-seaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "IJmuiden ",
       "CODE": "NL IJM ",
@@ -4870,7 +4870,7 @@ export const seaPorts = [
       "Web": "www.zeehaven.nl/jluk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "Rotterdam ",
       "CODE": "NL RTM ",
@@ -4880,7 +4880,7 @@ export const seaPorts = [
       "Web": "www.portofrotterdam.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands ",
       "Port": "Terneuzen ",
       "CODE": "NL TNZ ",
@@ -4890,7 +4890,7 @@ export const seaPorts = [
       "Web": "www.portofzeeland.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands Antilles ",
       "Port": "Kralendijk, Bonaire ",
       "CODE": "AN KRA ",
@@ -4900,7 +4900,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands Antilles ",
       "Port": "Philipsburg ",
       "CODE": "AN PHI ",
@@ -4910,7 +4910,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Netherlands Antilles ",
       "Port": "Willemstad ",
       "CODE": "AN WIL ",
@@ -4920,7 +4920,7 @@ export const seaPorts = [
       "Web": "www.curports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "New Caledonia ",
       "Port": "Noumea ",
       "CODE": "NC NOU ",
@@ -4930,7 +4930,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "New Caledonia ",
       "Port": "Thio ",
       "CODE": "NC THI ",
@@ -4940,7 +4940,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "New Zealand ",
       "Port": "Auckland ",
       "CODE": "NZ AKL ",
@@ -4950,7 +4950,7 @@ export const seaPorts = [
       "Web": "www.poal.co.nz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "New Zealand ",
       "Port": "Otago Harbour (Dunedin, Port Chalmers, Ravensbourne) ",
       "CODE": "NZ ORR ",
@@ -4960,7 +4960,7 @@ export const seaPorts = [
       "Web": "www.portotago.co.nz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "New Zealand ",
       "Port": "Tauranga ",
       "CODE": "NZ TRG ",
@@ -4970,7 +4970,7 @@ export const seaPorts = [
       "Web": "www.port-tauranga.co.nz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "New Zealand ",
       "Port": "Wellington ",
       "CODE": "NZ WLG ",
@@ -4980,7 +4980,7 @@ export const seaPorts = [
       "Web": "www.centreport.co.nz "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nicaragua ",
       "Port": "Bluefields ",
       "CODE": "NI BEF ",
@@ -4990,7 +4990,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nicaragua ",
       "Port": "Corinto ",
       "CODE": "NI CIO ",
@@ -5000,7 +5000,7 @@ export const seaPorts = [
       "Web": "www.epn.com.ni "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nicaragua ",
       "Port": "El Bluff ",
       "CODE": "NI ELB ",
@@ -5010,7 +5010,7 @@ export const seaPorts = [
       "Web": "www.epn.com.ni "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nicaragua ",
       "Port": "Puerto Cabezas ",
       "CODE": "NI PUZ ",
@@ -5020,7 +5020,7 @@ export const seaPorts = [
       "Web": "www.epn.com.ni "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nicaragua ",
       "Port": "Puerto Sandino ",
       "CODE": "NI PSN ",
@@ -5030,7 +5030,7 @@ export const seaPorts = [
       "Web": "www.epn.com.ni "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nicaragua ",
       "Port": "San Juan Del Sur ",
       "CODE": "NI SJS ",
@@ -5040,7 +5040,7 @@ export const seaPorts = [
       "Web": "www.epn.com.ni "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nigeria ",
       "Port": "Calabar ",
       "CODE": "NG CBQ ",
@@ -5050,7 +5050,7 @@ export const seaPorts = [
       "Web": "www.nigerianports.org/calabar.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nigeria ",
       "Port": "Lagos ",
       "CODE": "NG LOS ",
@@ -5060,7 +5060,7 @@ export const seaPorts = [
       "Web": "www.otal.com/nigeria/index.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nigeria ",
       "Port": "Onne ",
       "CODE": "NG ONN ",
@@ -5070,7 +5070,7 @@ export const seaPorts = [
       "Web": "www.nigerianports.org/AboutUsOnnePor t.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nigeria ",
       "Port": "Port Harcourt ",
       "CODE": "NG PHC ",
@@ -5080,7 +5080,7 @@ export const seaPorts = [
       "Web": "www.nigerianports.org/PortHarcourt.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nigeria ",
       "Port": "Sapele ",
       "CODE": "NG SPL ",
@@ -5090,7 +5090,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nigeria ",
       "Port": "Tin Can Island ",
       "CODE": "NG TIN ",
@@ -5100,7 +5100,7 @@ export const seaPorts = [
       "Web": "www.nigerianports.org/AboutUsTinCanPo rt.aspx "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Nigeria ",
       "Port": "Warri ",
       "CODE": "NG WAR ",
@@ -5110,7 +5110,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Northern Mariana Islands ",
       "Port": "Saipan ",
       "CODE": "MP SPN ",
@@ -5120,7 +5120,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.mp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Bergen ",
       "CODE": "NO BGO ",
@@ -5130,7 +5130,7 @@ export const seaPorts = [
       "Web": "www.bergenhavn.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Drammen ",
       "CODE": "NO DRM ",
@@ -5140,7 +5140,7 @@ export const seaPorts = [
       "Web": "www.drammenhavn.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Grenland Harbour (Rafnes, Heroya, ",
       "CODE": "n/a ",
@@ -5150,7 +5150,7 @@ export const seaPorts = [
       "Web": "www.port.of.grenland.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Hammerfest ",
       "CODE": "NO HFT ",
@@ -5160,7 +5160,7 @@ export const seaPorts = [
       "Web": "www.hammerfesthavn.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Harstad ",
       "CODE": "NO HRD ",
@@ -5170,7 +5170,7 @@ export const seaPorts = [
       "Web": "www.harstadhavn.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Haugesund ",
       "CODE": "NO HAU ",
@@ -5180,7 +5180,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Kristiansand ",
       "CODE": "NO KRS ",
@@ -5190,7 +5190,7 @@ export const seaPorts = [
       "Web": "www.kristiansand-havn.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Larvik ",
       "CODE": "NO LAR ",
@@ -5200,7 +5200,7 @@ export const seaPorts = [
       "Web": "www.larvikhavn.vf.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Oslo ",
       "CODE": "NO OSL ",
@@ -5210,7 +5210,7 @@ export const seaPorts = [
       "Web": "www.ohv.oslo.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Stavanger ",
       "CODE": "NO SVG ",
@@ -5220,7 +5220,7 @@ export const seaPorts = [
       "Web": "www.stavanger-havn.no "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Norway ",
       "Port": "Trondheim ",
       "CODE": "NO TRD ",
@@ -5230,7 +5230,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Pakistan ",
       "Port": "Karachi ",
       "CODE": "PK KHI ",
@@ -5240,7 +5240,7 @@ export const seaPorts = [
       "Web": "www.kpt.gov.pk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Pakistan ",
       "Port": "Muhammad Bin Qasim ",
       "CODE": "PK BQM ",
@@ -5250,7 +5250,7 @@ export const seaPorts = [
       "Web": "www.portqasim.org.pk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Panama ",
       "Port": "Colon ",
       "CODE": "PA ONX ",
@@ -5260,7 +5260,7 @@ export const seaPorts = [
       "Web": "www.ppc.com.pa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Panama ",
       "Port": "Cristobal ",
       "CODE": "PA CTB ",
@@ -5270,7 +5270,7 @@ export const seaPorts = [
       "Web": "www.ppc.com.pa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Panama ",
       "Port": "Vacamonte ",
       "CODE": "PA VAC ",
@@ -5280,7 +5280,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Papua New Guinea ",
       "Port": "Kieta ",
       "CODE": "PG KIE ",
@@ -5290,7 +5290,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Papua New Guinea ",
       "Port": "Lae ",
       "CODE": "PG LAE ",
@@ -5300,7 +5300,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Papua New Guinea ",
       "Port": "Madang ",
       "CODE": "PG MAG ",
@@ -5310,7 +5310,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Papua New Guinea ",
       "Port": "Port Moresby ",
       "CODE": "PG POM ",
@@ -5320,7 +5320,7 @@ export const seaPorts = [
       "Web": "www.pngports.com.pg/portmoresby.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Papua New Guinea ",
       "Port": "Rabaul ",
       "CODE": "PG RAB ",
@@ -5330,7 +5330,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Peru ",
       "Port": "Callao ",
       "CODE": "PE CLL ",
@@ -5340,7 +5340,7 @@ export const seaPorts = [
       "Web": "www.enapu.com.pe "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Peru ",
       "Port": "Chimbote ",
       "CODE": "PE CHM ",
@@ -5350,7 +5350,7 @@ export const seaPorts = [
       "Web": "www.enapu.com.pe "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Peru ",
       "Port": "Ilo ",
       "CODE": "PE ILO ",
@@ -5360,7 +5360,7 @@ export const seaPorts = [
       "Web": "www.enapu.com.pe "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Peru ",
       "Port": "Matarani ",
       "CODE": "PE MRI ",
@@ -5370,7 +5370,7 @@ export const seaPorts = [
       "Web": "www.enapu.com.pe "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Peru ",
       "Port": "Paita ",
       "CODE": "PE PAI ",
@@ -5380,7 +5380,7 @@ export const seaPorts = [
       "Web": "www.enapu.com.pe "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Peru ",
       "Port": "Salaverry ",
       "CODE": "PE SVY ",
@@ -5390,7 +5390,7 @@ export const seaPorts = [
       "Web": "www.enapu.com.pe "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Peru ",
       "Port": "Talara ",
       "CODE": "PE TYL ",
@@ -5400,7 +5400,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Batangas ",
       "CODE": "PH BTG ",
@@ -5410,7 +5410,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Cagayan de Oro, Mindanao ",
       "CODE": "PH CGY ",
@@ -5420,7 +5420,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Cebu ",
       "CODE": "PH CEB ",
@@ -5430,7 +5430,7 @@ export const seaPorts = [
       "Web": "www.cpa.gov.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Davao, Mindanao ",
       "CODE": "PH DVO ",
@@ -5440,7 +5440,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Iligan, Mindanao ",
       "CODE": "PH IGN ",
@@ -5450,7 +5450,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Iloilo ",
       "CODE": "PH ILO ",
@@ -5460,7 +5460,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Jolo ",
       "CODE": "PH JOL ",
@@ -5470,7 +5470,7 @@ export const seaPorts = [
       "Web": "www.norteam.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Legaspi, Davao ",
       "CODE": "PH LGP ",
@@ -5480,7 +5480,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Manila ",
       "CODE": "PH MNL ",
@@ -5490,7 +5490,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Puerto Princesa, Palawan ",
       "CODE": "PH PPS ",
@@ -5500,7 +5500,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "San Fernando, Luzon ",
       "CODE": "PH SFE ",
@@ -5510,7 +5510,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Subic Bay ",
       "CODE": "PH SFS ",
@@ -5520,7 +5520,7 @@ export const seaPorts = [
       "Web": "www.sbma.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Philippines ",
       "Port": "Zamboanga, Mindanao ",
       "CODE": "PH ZAM ",
@@ -5530,7 +5530,7 @@ export const seaPorts = [
       "Web": "www.ppa.com.ph "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Poland ",
       "Port": "Gdansk ",
       "CODE": "PL GDN ",
@@ -5540,7 +5540,7 @@ export const seaPorts = [
       "Web": "www.portgdansk.pl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Poland ",
       "Port": "Gdynia ",
       "CODE": "PL GDY ",
@@ -5550,7 +5550,7 @@ export const seaPorts = [
       "Web": "www.port.gdynia.pl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Poland ",
       "Port": "Kolobrzeg ",
       "CODE": "PL KOL ",
@@ -5560,7 +5560,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Poland ",
       "Port": "Swinoujscie ",
       "CODE": "PL SWI ",
@@ -5570,7 +5570,7 @@ export const seaPorts = [
       "Web": "www.phs.com.pl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Poland ",
       "Port": "Szczecin ",
       "CODE": "PL SZZ ",
@@ -5580,7 +5580,7 @@ export const seaPorts = [
       "Web": "www.portofszczecin.pl "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Poland ",
       "Port": "Ustka ",
       "CODE": "PL UST ",
@@ -5590,7 +5590,7 @@ export const seaPorts = [
       "Web": "www.polfracht.pl/polfracht/psal/localinf/ ust/portust.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Portugal ",
       "Port": "Aveiro ",
       "CODE": "PT AVE ",
@@ -5600,7 +5600,7 @@ export const seaPorts = [
       "Web": "www.portodeaveiro.pt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Portugal ",
       "Port": "Leixoes ",
       "CODE": "PT LEI ",
@@ -5610,7 +5610,7 @@ export const seaPorts = [
       "Web": "www.portodeleixoes.pt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Portugal ",
       "Port": "Lisbon ",
       "CODE": "PT LIS ",
@@ -5620,7 +5620,7 @@ export const seaPorts = [
       "Web": "www.porto-de-lisboa.pt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Portugal ",
       "Port": "Portimao ",
       "CODE": "PT PRM ",
@@ -5630,7 +5630,7 @@ export const seaPorts = [
       "Web": "www.imarpor.pt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Portugal ",
       "Port": "Setubal ",
       "CODE": "PT SET ",
@@ -5640,7 +5640,7 @@ export const seaPorts = [
       "Web": "www.portodesetubal.pt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Portugal ",
       "Port": "Viana Do Castelo ",
       "CODE": "PT VDC ",
@@ -5650,7 +5650,7 @@ export const seaPorts = [
       "Web": "www.ipnorte.pt "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Puerto Rico ",
       "Port": "Guanica Harbour ",
       "CODE": "PR GUX ",
@@ -5660,7 +5660,7 @@ export const seaPorts = [
       "Web": "www.prpa.gobierno.pr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Puerto Rico ",
       "Port": "Guayanilla ",
       "CODE": "PR GUY ",
@@ -5670,7 +5670,7 @@ export const seaPorts = [
       "Web": "www.prpa.gobierno.pr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Puerto Rico ",
       "Port": "Las Mareas ",
       "CODE": "PR LAM ",
@@ -5680,7 +5680,7 @@ export const seaPorts = [
       "Web": "www.prpa.gobierno.pr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Puerto Rico ",
       "Port": "Ponce ",
       "CODE": "PR PSE ",
@@ -5690,7 +5690,7 @@ export const seaPorts = [
       "Web": "www.prpa.gobierno.pr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Puerto Rico ",
       "Port": "San Juan ",
       "CODE": "PR SJU ",
@@ -5700,7 +5700,7 @@ export const seaPorts = [
       "Web": "www.prpa.gobierno.pr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Qatar ",
       "Port": "Doha ",
       "CODE": "QA DOH ",
@@ -5710,7 +5710,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Qatar ",
       "Port": "Halul Island ",
       "CODE": "QA HAL ",
@@ -5720,7 +5720,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Qatar ",
       "Port": "Ras Laffan ",
       "CODE": "QA RLF ",
@@ -5730,7 +5730,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Qatar ",
       "Port": "Umm Said (Mesaieed) ",
       "CODE": "QA UMS ",
@@ -5740,7 +5740,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Reunion ",
       "Port": "Port Reunion (Pointe des Galets) ",
       "CODE": "RE PDG ",
@@ -5750,7 +5750,7 @@ export const seaPorts = [
       "Web": "www.maritime- database.com/port.php?pid=795 "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Romania ",
       "Port": "Braila ",
       "CODE": "RO BRA ",
@@ -5760,7 +5760,7 @@ export const seaPorts = [
       "Web": "www.romanian- ports.ro/html/porturi_mfbr_en.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Romania ",
       "Port": "Constantza ",
       "CODE": "RO CND ",
@@ -5770,7 +5770,7 @@ export const seaPorts = [
       "Web": "www.portofconstantza.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Romania ",
       "Port": "Mangalia ",
       "CODE": "RO MAG ",
@@ -5780,7 +5780,7 @@ export const seaPorts = [
       "Web": "www.portofconstantza.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Romania ",
       "Port": "Sulina ",
       "CODE": "RO SUL ",
@@ -5790,7 +5790,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Kaliningrad ",
       "CODE": "SU KGD ",
@@ -5800,7 +5800,7 @@ export const seaPorts = [
       "Web": "http://mapkld.ru/?lang=en "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Kholmsk ",
       "CODE": "RU KHO ",
@@ -5810,7 +5810,7 @@ export const seaPorts = [
       "Web": "http://ports.com/russia/port-of-kholmsk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Murmansk ",
       "CODE": "RU MMK ",
@@ -5820,7 +5820,7 @@ export const seaPorts = [
       "Web": "www.portmurmansk.ru "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Nakhodka ",
       "CODE": "RU NJK ",
@@ -5830,7 +5830,7 @@ export const seaPorts = [
       "Web": "www.ncsp.ru "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Novorossiysk ",
       "CODE": "RU NVS ",
@@ -5840,7 +5840,7 @@ export const seaPorts = [
       "Web": "www.nmtp.info/en "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "St Petersburg ",
       "CODE": "RU LED ",
@@ -5850,7 +5850,7 @@ export const seaPorts = [
       "Web": "www.pasp.ru "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Tuapse ",
       "CODE": "RU TUA ",
@@ -5860,7 +5860,7 @@ export const seaPorts = [
       "Web": "www.ust-luga.ru "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Vladivostok ",
       "CODE": "RU VVO ",
@@ -5870,7 +5870,7 @@ export const seaPorts = [
       "Web": "www.vmtp.ru "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Russia ",
       "Port": "Vyborg ",
       "CODE": "RU VYG ",
@@ -5880,7 +5880,7 @@ export const seaPorts = [
       "Web": "www.vyborg.ru/org/baff/index.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saint Kitts and Nevis ",
       "Port": "Basseterre ",
       "CODE": "KN BAS ",
@@ -5890,7 +5890,7 @@ export const seaPorts = [
       "Web": "www.scaspa.com/cargo_port.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saint Lucia ",
       "Port": "Castries (St Lucia) ",
       "CODE": "LC SLU ",
@@ -5900,7 +5900,7 @@ export const seaPorts = [
       "Web": "www.slaspa.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saint Lucia ",
       "Port": "Vieux Fort ",
       "CODE": "LC VIF ",
@@ -5910,7 +5910,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saint Vincent and the Grenadines ",
       "Port": "Kingstown ",
       "CODE": "VC KTN ",
@@ -5920,7 +5920,7 @@ export const seaPorts = [
       "Web": "http://ports.com/saint-vincent-and-the- grenadines/port-of-kingstown "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Samoa ",
       "Port": "Apia ",
       "CODE": "WS APW ",
@@ -5930,7 +5930,7 @@ export const seaPorts = [
       "Web": "www.spasamoa.ws "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sao Tome and Principe ",
       "Port": "Santo Antonio ",
       "CODE": "ST SAA ",
@@ -5940,7 +5940,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sao Tome and Principe ",
       "Port": "Sao Tome ",
       "CODE": "ST TMS ",
@@ -5950,7 +5950,7 @@ export const seaPorts = [
       "Web": "www.enaport.st "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Dammam ",
       "CODE": "SA DMN ",
@@ -5960,7 +5960,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Dhuba ",
       "CODE": "SA DHU ",
@@ -5970,7 +5970,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Gizan ",
       "CODE": "SA GIZ ",
@@ -5980,7 +5980,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Jeddah ",
       "CODE": "SA JED ",
@@ -5990,7 +5990,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Jubail ",
       "CODE": "SA JUB ",
@@ -6000,7 +6000,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Rabigh ",
       "CODE": "SA RAB ",
@@ -6010,7 +6010,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Ras al Mishab ",
       "CODE": "SA RAM ",
@@ -6020,7 +6020,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Ras Tanura ",
       "CODE": "SA RTA ",
@@ -6030,7 +6030,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Saudi Arabia ",
       "Port": "Yanbu ",
       "CODE": "SA YNB ",
@@ -6040,7 +6040,7 @@ export const seaPorts = [
       "Web": "www.ports.gov.sa "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Senegal ",
       "Port": "Dakar ",
       "CODE": "SN DKR ",
@@ -6050,7 +6050,7 @@ export const seaPorts = [
       "Web": "www.portdakar.sn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Seychelles ",
       "Port": "Port Victoria ",
       "CODE": "SC POV ",
@@ -6060,7 +6060,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sierra Leone ",
       "Port": "Freetown ",
       "CODE": "SL FNA ",
@@ -6070,7 +6070,7 @@ export const seaPorts = [
       "Web": "www.otal.com/sierra "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sierra Leone ",
       "Port": "Pepel ",
       "CODE": "SL PEP ",
@@ -6080,7 +6080,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Singapore ",
       "Port": "Singapore ",
       "CODE": "SG SIN ",
@@ -6090,7 +6090,7 @@ export const seaPorts = [
       "Web": "www.mpa.gov.sg "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Slovenia ",
       "Port": "Izola ",
       "CODE": "SI IZO ",
@@ -6100,7 +6100,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Slovenia ",
       "Port": "Koper ",
       "CODE": "SI KOP ",
@@ -6110,7 +6110,7 @@ export const seaPorts = [
       "Web": "www.up.gov.si "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Slovenia ",
       "Port": "Piran ",
       "CODE": "SI PIR ",
@@ -6120,7 +6120,7 @@ export const seaPorts = [
       "Web": "www.up.gov.si "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Solomon Islands ",
       "Port": "Honiara ",
       "CODE": "SB HIR ",
@@ -6130,7 +6130,7 @@ export const seaPorts = [
       "Web": "http://ports.com/solomon-islands/port-of- honiara "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Solomon Islands ",
       "Port": "Noro, New Georgia ",
       "CODE": "SB NOR ",
@@ -6140,7 +6140,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Solomon Islands ",
       "Port": "Viru Harbour ",
       "CODE": "SB VIU ",
@@ -6150,7 +6150,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Solomon Islands ",
       "Port": "Yandina, Pavuvu Island ",
       "CODE": "SB XYA ",
@@ -6160,7 +6160,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Somalia ",
       "Port": "Berbera ",
       "CODE": "SO BBO ",
@@ -6170,7 +6170,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Somalia ",
       "Port": "Kismayu ",
       "CODE": "SO KMU ",
@@ -6180,7 +6180,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Somalia ",
       "Port": "Merca ",
       "CODE": "SO MER ",
@@ -6190,7 +6190,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Somalia ",
       "Port": "Mogadishu ",
       "CODE": "SO MGQ ",
@@ -6200,7 +6200,7 @@ export const seaPorts = [
       "Web": "http://mogadishoport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "South Africa ",
       "Port": "Cape Town ",
       "CODE": "ZA CPT ",
@@ -6210,7 +6210,7 @@ export const seaPorts = [
       "Web": "www.transnetnationalportsauthority.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "South Africa ",
       "Port": "Durban ",
       "CODE": "ZA DUR ",
@@ -6220,7 +6220,7 @@ export const seaPorts = [
       "Web": "www.transnetnationalportsauthority.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "South Africa ",
       "Port": "Mossel Bay ",
       "CODE": "ZA MZY ",
@@ -6230,7 +6230,7 @@ export const seaPorts = [
       "Web": "www.transnetnationalportsauthority.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "South Africa ",
       "Port": "Port Elizabeth ",
       "CODE": "ZA PLZ ",
@@ -6240,7 +6240,7 @@ export const seaPorts = [
       "Web": "www.transnetnationalportsauthority.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "South Africa ",
       "Port": "Richards Bay ",
       "CODE": "ZA RCB ",
@@ -6250,7 +6250,7 @@ export const seaPorts = [
       "Web": "www.transnetnationalportsauthority.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "South Africa ",
       "Port": "Saldanha Bay ",
       "CODE": "ZA SDB ",
@@ -6260,7 +6260,7 @@ export const seaPorts = [
       "Web": "www.transnetnationalportsauthority.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Aviles ",
       "CODE": "ES AVS ",
@@ -6270,7 +6270,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Barcelona ",
       "CODE": "ES BCN ",
@@ -6280,7 +6280,7 @@ export const seaPorts = [
       "Web": "www.apb.es "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Bilbao ",
       "CODE": "ES BIO ",
@@ -6290,7 +6290,7 @@ export const seaPorts = [
       "Web": "www.bilbaoport.es "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Cadiz ",
       "CODE": "ES CAD ",
@@ -6300,7 +6300,7 @@ export const seaPorts = [
       "Web": "www.puertocadiz.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Cartagena ",
       "CODE": "ES CAR ",
@@ -6310,7 +6310,7 @@ export const seaPorts = [
       "Web": "www.apc.es "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Castellon ",
       "CODE": "ES CAS ",
@@ -6320,7 +6320,7 @@ export const seaPorts = [
       "Web": "www.portcastello.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Ceuta ",
       "CODE": "ES CEU ",
@@ -6330,7 +6330,7 @@ export const seaPorts = [
       "Web": "www.puertodeceuta.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Huelva ",
       "CODE": "ES HUV ",
@@ -6340,7 +6340,7 @@ export const seaPorts = [
       "Web": "www.puertohuelva.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Malaga ",
       "CODE": "ES AGP ",
@@ -6350,7 +6350,7 @@ export const seaPorts = [
       "Web": "www.puertomalaga.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Pasajes ",
       "CODE": "ES PAS ",
@@ -6360,7 +6360,7 @@ export const seaPorts = [
       "Web": "www.puertopasajes.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Santander ",
       "CODE": "ES SDR ",
@@ -6370,7 +6370,7 @@ export const seaPorts = [
       "Web": "www.puertosantander.es "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Tarragona ",
       "CODE": "ES TAR ",
@@ -6380,7 +6380,7 @@ export const seaPorts = [
       "Web": "www.porttarragona.es "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Valencia ",
       "CODE": "ES VLC ",
@@ -6390,7 +6390,7 @@ export const seaPorts = [
       "Web": "www.valenciaport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Spain ",
       "Port": "Vigo ",
       "CODE": "ES VGO ",
@@ -6400,7 +6400,7 @@ export const seaPorts = [
       "Web": "www.apvigo.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sri Lanka ",
       "Port": "Colombo ",
       "CODE": "LK CMB ",
@@ -6410,7 +6410,7 @@ export const seaPorts = [
       "Web": "www.slpa.lk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sri Lanka ",
       "Port": "Jaffna ",
       "CODE": "LK JAF ",
@@ -6420,7 +6420,7 @@ export const seaPorts = [
       "Web": "www.slpa.lk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sri Lanka ",
       "Port": "Trincomalee ",
       "CODE": "LK TRR ",
@@ -6430,7 +6430,7 @@ export const seaPorts = [
       "Web": "www.slpa.lk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "St. Helena ",
       "Port": "Jamestown ",
       "CODE": "SH SHN ",
@@ -6440,7 +6440,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "St. Pierre and Miquelon ",
       "Port": "St Pierre ",
       "CODE": "PM FSP ",
@@ -6450,7 +6450,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sudan ",
       "Port": "Port Sudan ",
       "CODE": "SD PZU ",
@@ -6460,7 +6460,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Suriname ",
       "Port": "Moengo ",
       "CODE": "SR MOJ ",
@@ -6470,7 +6470,7 @@ export const seaPorts = [
       "Web": "www.mas.sr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Suriname ",
       "Port": "Nieuw Nickerie ",
       "CODE": "SR ICK ",
@@ -6480,7 +6480,7 @@ export const seaPorts = [
       "Web": "www.mas.sr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Suriname ",
       "Port": "Paramaribo ",
       "CODE": "SR PBM ",
@@ -6490,7 +6490,7 @@ export const seaPorts = [
       "Web": "www.mas.sr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Suriname ",
       "Port": "Paranam ",
       "CODE": "SR PRM ",
@@ -6500,7 +6500,7 @@ export const seaPorts = [
       "Web": "www.mas.sr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Suriname ",
       "Port": "Wageningen ",
       "CODE": "SR AGI ",
@@ -6510,7 +6510,7 @@ export const seaPorts = [
       "Web": "www.mas.sr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Gavle ",
       "CODE": "SE GVX ",
@@ -6520,7 +6520,7 @@ export const seaPorts = [
       "Web": "www.gavle-port.se "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Gothenburg (Goteborg) ",
       "CODE": "SE GOT ",
@@ -6530,7 +6530,7 @@ export const seaPorts = [
       "Web": "www.portgot.se/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Halmstad ",
       "CODE": "SE HAD ",
@@ -6540,7 +6540,7 @@ export const seaPorts = [
       "Web": "www.halmstadharbour.se "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Kalmar ",
       "CODE": "SE KLR ",
@@ -6550,7 +6550,7 @@ export const seaPorts = [
       "Web": "www.kalmar.se/kalmarhamn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Karlshamn ",
       "CODE": "SE KAN ",
@@ -6560,7 +6560,7 @@ export const seaPorts = [
       "Web": "www.karlshamnshamn.se "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Malmo ",
       "CODE": "SE MMA ",
@@ -6570,7 +6570,7 @@ export const seaPorts = [
       "Web": "www.cmport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Solvesborg ",
       "CODE": "SE SOL ",
@@ -6580,7 +6580,7 @@ export const seaPorts = [
       "Web": "www.stuverihamn.se "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Stockholm ",
       "CODE": "SE STO ",
@@ -6590,7 +6590,7 @@ export const seaPorts = [
       "Web": "www.portsofstockholm.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Sweden ",
       "Port": "Sundsvall ",
       "CODE": "SE SDL ",
@@ -6600,7 +6600,7 @@ export const seaPorts = [
       "Web": "www.sundsvallshamn.se/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Switzerland ",
       "Port": "Basel ",
       "CODE": "CH BSL ",
@@ -6610,7 +6610,7 @@ export const seaPorts = [
       "Web": "http://port-of-switzerland.ch "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Syria ",
       "Port": "Baniyas ",
       "CODE": "SY BAN ",
@@ -6620,7 +6620,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Taiwan ",
       "Port": "Hualien ",
       "CODE": "TW HUN ",
@@ -6630,7 +6630,7 @@ export const seaPorts = [
       "Web": "www.hlhb.gov.tw/english/about.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Taiwan ",
       "Port": "Kaohsiung ",
       "CODE": "TW KHH ",
@@ -6640,7 +6640,7 @@ export const seaPorts = [
       "Web": "www.khb.gov.tw "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Taiwan ",
       "Port": "Kaohsiung ",
       "CODE": "TW KHH ",
@@ -6650,7 +6650,7 @@ export const seaPorts = [
       "Web": "www.khb.gov.tw/english "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Taiwan ",
       "Port": "Keelung (Chilung) ",
       "CODE": "TW KEL ",
@@ -6660,7 +6660,7 @@ export const seaPorts = [
       "Web": "www.klhb.gov.tw "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Taiwan ",
       "Port": "Suao ",
       "CODE": "TW SUO ",
@@ -6670,7 +6670,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Taiwan ",
       "Port": "Taichung ",
       "CODE": "TW TXG ",
@@ -6680,7 +6680,7 @@ export const seaPorts = [
       "Web": "www.tchb.gov.tw "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tanzania ",
       "Port": "Dar Es Salaam ",
       "CODE": "TZ DAR ",
@@ -6690,7 +6690,7 @@ export const seaPorts = [
       "Web": "www.tanzaniaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tanzania ",
       "Port": "Kilwa Masoko ",
       "CODE": "TZ KIM ",
@@ -6700,7 +6700,7 @@ export const seaPorts = [
       "Web": "www.tanzaniaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tanzania ",
       "Port": "Lindi ",
       "CODE": "TZ LDI ",
@@ -6710,7 +6710,7 @@ export const seaPorts = [
       "Web": "www.tanzaniaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tanzania ",
       "Port": "Mtwara ",
       "CODE": "TZ MYW ",
@@ -6720,7 +6720,7 @@ export const seaPorts = [
       "Web": "www.tanzaniaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tanzania ",
       "Port": "Pangani ",
       "CODE": "TZ PAN ",
@@ -6730,7 +6730,7 @@ export const seaPorts = [
       "Web": "www.tanzaniaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tanzania ",
       "Port": "Tanga ",
       "CODE": "TZ TGT ",
@@ -6740,7 +6740,7 @@ export const seaPorts = [
       "Web": "www.tanzaniaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Thailand ",
       "Port": "Bangkok ",
       "CODE": "TH BKK ",
@@ -6750,7 +6750,7 @@ export const seaPorts = [
       "Web": "www.port.co.th "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Thailand ",
       "Port": "Laem Chabang ",
       "CODE": "TH LCH ",
@@ -6760,7 +6760,7 @@ export const seaPorts = [
       "Web": "www.port.co.th "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Thailand ",
       "Port": "Pattani ",
       "CODE": "TH PAN ",
@@ -6770,7 +6770,7 @@ export const seaPorts = [
       "Web": "www.port.co.th "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Thailand ",
       "Port": "Phuket ",
       "CODE": "TH HKT ",
@@ -6780,7 +6780,7 @@ export const seaPorts = [
       "Web": "www.port.co.th "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Thailand ",
       "Port": "Sattahip ",
       "CODE": "TH SAT ",
@@ -6790,7 +6790,7 @@ export const seaPorts = [
       "Web": "www.port.co.th "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Thailand ",
       "Port": "Songkhla ",
       "CODE": "TH SGZ ",
@@ -6800,7 +6800,7 @@ export const seaPorts = [
       "Web": "www.port.co.th "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Thailand ",
       "Port": "Sriracha ",
       "CODE": "TH SRI ",
@@ -6810,7 +6810,7 @@ export const seaPorts = [
       "Web": "www.port.co.th "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Togo ",
       "Port": "Kpeme ",
       "CODE": "TG KPE ",
@@ -6820,7 +6820,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Togo ",
       "Port": "Lome ",
       "CODE": "TG LFW ",
@@ -6830,7 +6830,7 @@ export const seaPorts = [
       "Web": "www.togoport.tg "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tonga ",
       "Port": "Neiafu ",
       "CODE": "TO NEI ",
@@ -6840,7 +6840,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tonga ",
       "Port": "Nukualofa ",
       "CODE": "TO TBU ",
@@ -6850,7 +6850,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tonga ",
       "Port": "Pangai ",
       "CODE": "TO PAN ",
@@ -6860,7 +6860,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Trinidad and Tobago ",
       "Port": "Point Fortin ",
       "CODE": "TT PTF ",
@@ -6870,7 +6870,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Trinidad and Tobago ",
       "Port": "Point Lisas ",
       "CODE": "TT PTS ",
@@ -6880,7 +6880,7 @@ export const seaPorts = [
       "Web": "www.plipdeco.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Trinidad and Tobago ",
       "Port": "Pointe a Pierre ",
       "CODE": "TT PTP ",
@@ -6890,7 +6890,7 @@ export const seaPorts = [
       "Web": "www.patnt.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Trinidad and Tobago ",
       "Port": "Scarborough ",
       "CODE": "TT SCA ",
@@ -6900,7 +6900,7 @@ export const seaPorts = [
       "Web": "www.patnt.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Trinidad and Tobago ",
       "Port": "Spain ",
       "CODE": "TT POS ",
@@ -6910,7 +6910,7 @@ export const seaPorts = [
       "Web": "www.patnt.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Trinidad and Tobago ",
       "Port": "Tembladora ",
       "CODE": "TT TEM ",
@@ -6920,7 +6920,7 @@ export const seaPorts = [
       "Web": "www.patnt.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tunisia ",
       "Port": "Bizerte ",
       "CODE": "TN BIZ ",
@@ -6930,7 +6930,7 @@ export const seaPorts = [
       "Web": "www.ommp.nat.tn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tunisia ",
       "Port": "Gabes ",
       "CODE": "TN GAE ",
@@ -6940,7 +6940,7 @@ export const seaPorts = [
       "Web": "www.ommp.nat.tn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tunisia ",
       "Port": "La Goulette ",
       "CODE": "TN LGN ",
@@ -6950,7 +6950,7 @@ export const seaPorts = [
       "Web": "www.ommp.nat.tn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tunisia ",
       "Port": "Sfax ",
       "CODE": "TN SFA ",
@@ -6960,7 +6960,7 @@ export const seaPorts = [
       "Web": "www.ommp.nat.tn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tunisia ",
       "Port": "Sousse ",
       "CODE": "TN SUS ",
@@ -6970,7 +6970,7 @@ export const seaPorts = [
       "Web": "www.ommp.nat.tn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tunisia ",
       "Port": "Tunis ",
       "CODE": "TN TUN ",
@@ -6980,7 +6980,7 @@ export const seaPorts = [
       "Web": "www.ommp.nat.tn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turkey ",
       "Port": "Derince ",
       "CODE": "TR DRC ",
@@ -6990,7 +6990,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turkey ",
       "Port": "Dikili ",
       "CODE": "TR DIK ",
@@ -7000,7 +7000,7 @@ export const seaPorts = [
       "Web": "http://ports.com/turkey/port-of-dikili "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turkey ",
       "Port": "Gemlik ",
       "CODE": "TR GEM ",
@@ -7010,7 +7010,7 @@ export const seaPorts = [
       "Web": "www.gemport.com.tr "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turkey ",
       "Port": "Hopa, Artvin ",
       "CODE": "TR HOP ",
@@ -7020,7 +7020,7 @@ export const seaPorts = [
       "Web": "www.portfocus.com/turkey/hopa/index.h tml "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turkey ",
       "Port": "Iskenderun, Hatay ",
       "CODE": "TR ISK ",
@@ -7030,7 +7030,7 @@ export const seaPorts = [
       "Web": "http://ports.com/turkey/port-of- iskenderun-isdemir "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turkey ",
       "Port": "Istanbul ",
       "CODE": "TR IST ",
@@ -7040,7 +7040,7 @@ export const seaPorts = [
       "Web": "www.nrlmry.navy.mil/~cannon/medports /Istanbul/index.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turkey ",
       "Port": "Trabzon ",
       "CODE": "TR TZX ",
@@ -7050,7 +7050,7 @@ export const seaPorts = [
       "Web": "http://portfocus.com/turkey/trabzon/ind ex.html "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turks and Caicos Islands ",
       "Port": "Grand Turk Island ",
       "CODE": "TC GDT ",
@@ -7060,7 +7060,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Turks and Caicos Islands ",
       "Port": "Providenciales ",
       "CODE": "TC PLS ",
@@ -7070,7 +7070,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Tuvalu ",
       "Port": "Funafuti ",
       "CODE": "TV FUN ",
@@ -7080,7 +7080,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Aberdeen ",
       "CODE": "GB ABD ",
@@ -7090,7 +7090,7 @@ export const seaPorts = [
       "Web": "http://www.aberdeen-harbour.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Belfast ",
       "CODE": "GB BEL ",
@@ -7100,7 +7100,7 @@ export const seaPorts = [
       "Web": "www.belfast-harbour.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Bristol ",
       "CODE": "GB BRS ",
@@ -7110,7 +7110,7 @@ export const seaPorts = [
       "Web": "www.bristolport.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Dover ",
       "CODE": "GB DVR ",
@@ -7120,7 +7120,7 @@ export const seaPorts = [
       "Web": "www.doverport.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Falmouth ",
       "CODE": "GB FAL ",
@@ -7130,7 +7130,7 @@ export const seaPorts = [
       "Web": "www.falmouthport.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Felixstowe ",
       "CODE": "GB FXT ",
@@ -7140,7 +7140,7 @@ export const seaPorts = [
       "Web": "www.portoffelixstowe.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Glasgow ",
       "CODE": "GB GLW ",
@@ -7150,7 +7150,7 @@ export const seaPorts = [
       "Web": "www.clydeport.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Grangemouth ",
       "CODE": "GB GRG ",
@@ -7160,7 +7160,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Hull ",
       "CODE": "GB HUL ",
@@ -7170,7 +7170,7 @@ export const seaPorts = [
       "Web": "www.abports.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Leith ",
       "CODE": "GB LEI ",
@@ -7180,7 +7180,7 @@ export const seaPorts = [
       "Web": "www.forthports.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Liverpool ",
       "CODE": "GB LIV ",
@@ -7190,7 +7190,7 @@ export const seaPorts = [
       "Web": "www.portofliverpool.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "London ",
       "CODE": "GB LON ",
@@ -7200,7 +7200,7 @@ export const seaPorts = [
       "Web": "www.portoflondon.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Manchester ",
       "CODE": "GB MNC ",
@@ -7210,7 +7210,7 @@ export const seaPorts = [
       "Web": "www.shipcanal.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Peterhead Bay ",
       "CODE": "GB PHD ",
@@ -7220,7 +7220,7 @@ export const seaPorts = [
       "Web": "www.peterheadport.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Plymouth ",
       "CODE": "GB PLY ",
@@ -7230,7 +7230,7 @@ export const seaPorts = [
       "Web": "www.plymouthport.org.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Portsmouth ",
       "CODE": "GB PME ",
@@ -7240,7 +7240,7 @@ export const seaPorts = [
       "Web": "www.portsmouth-port.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Scapa Flow ",
       "CODE": "GB SFW ",
@@ -7250,7 +7250,7 @@ export const seaPorts = [
       "Web": "www.orkney.gov.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Southampton ",
       "CODE": "GB SOU ",
@@ -7260,7 +7260,7 @@ export const seaPorts = [
       "Web": "www.abpmer.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Sullom Voe ",
       "CODE": "GB SUL ",
@@ -7270,7 +7270,7 @@ export const seaPorts = [
       "Web": "www.shetland.gov.uk/pandharb/mo3fra mes.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Teesport ",
       "CODE": "GB TEE ",
@@ -7280,7 +7280,7 @@ export const seaPorts = [
       "Web": "www.thpal.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Thamesport ",
       "CODE": "GB RCS ",
@@ -7290,7 +7290,7 @@ export const seaPorts = [
       "Web": "www.londonthamesport.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Kingdom ",
       "Port": "Tyne ",
       "CODE": "GB TYN ",
@@ -7300,7 +7300,7 @@ export const seaPorts = [
       "Web": "www.portoftyne.co.uk "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ukraine ",
       "Port": "Berdyansk ",
       "CODE": "UA ERD ",
@@ -7310,7 +7310,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ukraine ",
       "Port": "Kherson ",
       "CODE": "UA KHE ",
@@ -7320,7 +7320,7 @@ export const seaPorts = [
       "Web": "www.ceebd.co.uk/ceebd/kherson.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ukraine ",
       "Port": "Odessa ",
       "CODE": "UA ODS ",
@@ -7330,7 +7330,7 @@ export const seaPorts = [
       "Web": "www.port.odessa.ua "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ukraine ",
       "Port": "Reni ",
       "CODE": "UA RNI ",
@@ -7340,7 +7340,7 @@ export const seaPorts = [
       "Web": "http://www.portreni.com.ua "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Ukraine ",
       "Port": "Sevastopol ",
       "CODE": "UA SVP ",
@@ -7350,7 +7350,7 @@ export const seaPorts = [
       "Web": "www.morport.sebastopol.ua "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Ajman ",
       "CODE": "AE AJM ",
@@ -7360,7 +7360,7 @@ export const seaPorts = [
       "Web": "www.ajmanport.gov.ae "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Das Island ",
       "CODE": "AE DAS ",
@@ -7370,7 +7370,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Dubai (Port Rashid) ",
       "CODE": "AE DXB ",
@@ -7380,7 +7380,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Fujairah ",
       "CODE": "AE FJR ",
@@ -7390,7 +7390,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Jebel Dhanna/Ruwais ",
       "CODE": "AE JEA ",
@@ -7400,7 +7400,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Khor Fakkan ",
       "CODE": "AE KLF ",
@@ -7410,7 +7410,7 @@ export const seaPorts = [
       "Web": "www.gulftainer.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Mina Saqr ",
       "CODE": "AE MSA ",
@@ -7420,7 +7420,7 @@ export const seaPorts = [
       "Web": "www.saqrport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United Arab Emirates ",
       "Port": "Mina Zayed ",
       "CODE": "AE MZD ",
@@ -7430,7 +7430,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Anacortes ",
       "CODE": "US AOT ",
@@ -7440,7 +7440,7 @@ export const seaPorts = [
       "Web": "www.portofanacortes.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Ashtabula ",
       "CODE": "US ASF ",
@@ -7450,7 +7450,7 @@ export const seaPorts = [
       "Web": "www.ashtabulacityport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Baltimore ",
       "CODE": "US BAL ",
@@ -7460,7 +7460,7 @@ export const seaPorts = [
       "Web": "www.mpa.maryland.gov "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Baton Rouge ",
       "CODE": "US BTR ",
@@ -7470,7 +7470,7 @@ export const seaPorts = [
       "Web": "www.portgbr.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Beaumont ",
       "CODE": "US BPT ",
@@ -7480,7 +7480,7 @@ export const seaPorts = [
       "Web": "www.portofbeaumont.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Boston ",
       "CODE": "US BOS ",
@@ -7490,7 +7490,7 @@ export const seaPorts = [
       "Web": "www.massport.com/port-of-boston "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Charleston ",
       "CODE": "US CHS ",
@@ -7500,7 +7500,7 @@ export const seaPorts = [
       "Web": "www.scspa.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Chicago ",
       "CODE": "US CHI ",
@@ -7510,7 +7510,7 @@ export const seaPorts = [
       "Web": "www.illinoisinternationalportdistrict.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Cleveland ",
       "CODE": "US CLE ",
@@ -7520,7 +7520,7 @@ export const seaPorts = [
       "Web": "www.portofcleveland.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Corpus Christi ",
       "CODE": "US CRP ",
@@ -7530,7 +7530,7 @@ export const seaPorts = [
       "Web": "www.portofcorpuschristi.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Detroit ",
       "CODE": "US DET ",
@@ -7540,7 +7540,7 @@ export const seaPorts = [
       "Web": "www.portdetroit.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Duluth-Superior ",
       "CODE": "US DLH ",
@@ -7550,7 +7550,7 @@ export const seaPorts = [
       "Web": "www.duluthport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Freeport ",
       "CODE": "US FRP ",
@@ -7560,7 +7560,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Hampton Roads (Norfolk, Chesapeake, ",
       "CODE": "US HNV ",
@@ -7570,7 +7570,7 @@ export const seaPorts = [
       "Web": "www.vaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Honolulu ",
       "CODE": "US HNL ",
@@ -7580,7 +7580,7 @@ export const seaPorts = [
       "Web": "www.hawaii.gov/dot "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Houston ",
       "CODE": "US HOU ",
@@ -7590,7 +7590,7 @@ export const seaPorts = [
       "Web": "www.portofhouston.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Huntington - Tri-State (WV) ",
       "CODE": "US HTS ",
@@ -7600,7 +7600,7 @@ export const seaPorts = [
       "Web": "www.huntingtonwaterways.com/ "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Jacksonville ",
       "CODE": "US JAX ",
@@ -7610,7 +7610,7 @@ export const seaPorts = [
       "Web": "www.jaxport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Lake Charles ",
       "CODE": "US LCH ",
@@ -7620,7 +7620,7 @@ export const seaPorts = [
       "Web": "www.portlc.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Long Beach ",
       "CODE": "US LGB ",
@@ -7630,7 +7630,7 @@ export const seaPorts = [
       "Web": "www.polb.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Los Angeles ",
       "CODE": "US LAX ",
@@ -7640,7 +7640,7 @@ export const seaPorts = [
       "Web": "www.portoflosangeles.org "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Manatee ",
       "CODE": "US MEE ",
@@ -7650,7 +7650,7 @@ export const seaPorts = [
       "Web": "www.portmanatee.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Memphis ",
       "CODE": "US MEM ",
@@ -7660,7 +7660,7 @@ export const seaPorts = [
       "Web": "www.portofmemphis.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Miami ",
       "CODE": "US MIA ",
@@ -7670,7 +7670,7 @@ export const seaPorts = [
       "Web": "www.miamidade.gov/portofmiami "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Mobile ",
       "CODE": "US MOB ",
@@ -7680,7 +7680,7 @@ export const seaPorts = [
       "Web": "www.asdd.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "New Orleans ",
       "CODE": "US ",
@@ -7690,7 +7690,7 @@ export const seaPorts = [
       "Web": "www.portno.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "New York/New Jersey ",
       "CODE": "US NYC ",
@@ -7700,7 +7700,7 @@ export const seaPorts = [
       "Web": "www.panynj.gov "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Oakland ",
       "CODE": "US OAK ",
@@ -7710,7 +7710,7 @@ export const seaPorts = [
       "Web": "www.portofoakland.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Pascagoula ",
       "CODE": "US PGL ",
@@ -7720,7 +7720,7 @@ export const seaPorts = [
       "Web": "www.portofpascagoula.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Philadelphia ",
       "CODE": "US PHL ",
@@ -7730,7 +7730,7 @@ export const seaPorts = [
       "Web": "www.philaport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Pittsburgh ",
       "CODE": "US PIT ",
@@ -7740,7 +7740,7 @@ export const seaPorts = [
       "Web": "www.port.pittsburgh.pa.us "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Plaquemines (Louisiana) ",
       "CODE": "US PLQ ",
@@ -7750,7 +7750,7 @@ export const seaPorts = [
       "Web": "www.lded.state.la.us "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Port Arthur ",
       "CODE": "US POA ",
@@ -7760,7 +7760,7 @@ export const seaPorts = [
       "Web": "www.portofportarthur.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Port Everglades ",
       "CODE": "US PEF ",
@@ -7770,7 +7770,7 @@ export const seaPorts = [
       "Web": "www.porteverglades.net "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Portland (Maine) ",
       "CODE": "US PWM ",
@@ -7780,7 +7780,7 @@ export const seaPorts = [
       "Web": "www.portofportlandmaine.org "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Portland (Oregon) ",
       "CODE": "US PDX ",
@@ -7790,7 +7790,7 @@ export const seaPorts = [
       "Web": "www.portofportland.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Richmond (CA) ",
       "CODE": "US RCH ",
@@ -7800,7 +7800,7 @@ export const seaPorts = [
       "Web": "www.ci.richmond.ca.us "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Richmond (VA) ",
       "CODE": "US RIC ",
@@ -7810,7 +7810,7 @@ export const seaPorts = [
       "Web": "www.portofrichmond.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Savannah ",
       "CODE": "US SAV ",
@@ -7820,7 +7820,7 @@ export const seaPorts = [
       "Web": "www.gaports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Seattle ",
       "CODE": "US SEA ",
@@ -7830,7 +7830,7 @@ export const seaPorts = [
       "Web": "www.portseattle.org "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "South Louisiana ",
       "CODE": "US LUA ",
@@ -7840,7 +7840,7 @@ export const seaPorts = [
       "Web": "www.portsl.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Tacoma ",
       "CODE": "US ACI ",
@@ -7850,7 +7850,7 @@ export const seaPorts = [
       "Web": "www.portoftacoma.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Tampa ",
       "CODE": "US TPA ",
@@ -7860,7 +7860,7 @@ export const seaPorts = [
       "Web": "www.tampaport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Texas City ",
       "CODE": "US TXT ",
@@ -7870,7 +7870,7 @@ export const seaPorts = [
       "Web": "www.railporttc.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Valdez ",
       "CODE": "US VDZ ",
@@ -7880,7 +7880,7 @@ export const seaPorts = [
       "Web": "www.ci.valdez.ak.us/port "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Wilmington (DE) ",
       "CODE": "US ILM ",
@@ -7890,7 +7890,7 @@ export const seaPorts = [
       "Web": "www.portofwilmingtonde.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Wilmington (NC) ",
       "CODE": "US ILG ",
@@ -7900,7 +7900,7 @@ export const seaPorts = [
       "Web": "www.ncports.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "United States ",
       "Port": "Yakutat ",
       "CODE": "US YAK ",
@@ -7910,7 +7910,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Uruguay ",
       "Port": "Fray Bentos ",
       "CODE": "UY FZB ",
@@ -7920,7 +7920,7 @@ export const seaPorts = [
       "Web": "www.anp.com.uy/fraybentos/default.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Uruguay ",
       "Port": "Montevideo ",
       "CODE": "UY MVD ",
@@ -7930,7 +7930,7 @@ export const seaPorts = [
       "Web": "www.anp.com.uy/montevideo/default.as p "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Uruguay ",
       "Port": "Nueva Palmira ",
       "CODE": "UY NVP ",
@@ -7940,7 +7940,7 @@ export const seaPorts = [
       "Web": "www.anp.com.uy/nuevapalmira/default.a sp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Uruguay ",
       "Port": "Paysandu ",
       "CODE": "UY PDU ",
@@ -7950,7 +7950,7 @@ export const seaPorts = [
       "Web": "www.anp.com.uy/paysandu/default.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Vanuatu ",
       "Port": "Port Vila ",
       "CODE": "VU VLI ",
@@ -7960,7 +7960,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Vanuatu ",
       "Port": "Santo ",
       "CODE": "VU SAN ",
@@ -7970,7 +7970,7 @@ export const seaPorts = [
       "Web": "www.sofrana.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Bajo Grande Refinery ",
       "CODE": "VE BJV ",
@@ -7980,7 +7980,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Cumana (Puerto Sucre) ",
       "CODE": "VE CUM ",
@@ -7990,7 +7990,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "La Guaira ",
       "CODE": "VE LAG ",
@@ -8000,7 +8000,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "La Salina ",
       "CODE": "VE LSV ",
@@ -8010,7 +8010,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Maracaibo ",
       "CODE": "VE MAR ",
@@ -8020,7 +8020,7 @@ export const seaPorts = [
       "Web": "www.puertodemaracaibo.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Matanzas ",
       "CODE": "VE MTV ",
@@ -8030,7 +8030,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Palua ",
       "CODE": "VE PLA ",
@@ -8040,7 +8040,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Puerto Cabello ",
       "CODE": "VE PBL ",
@@ -8050,7 +8050,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Puerto La Cruz ",
       "CODE": "VE PCZ ",
@@ -8060,7 +8060,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Venezuela ",
       "Port": "Punta Cardon ",
       "CODE": "VE PCN ",
@@ -8070,7 +8070,7 @@ export const seaPorts = [
       "Web": "www.seaport.com.ve/ports.asp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Vietnam ",
       "Port": "Danang ",
       "CODE": "VN DAD ",
@@ -8080,7 +8080,7 @@ export const seaPorts = [
       "Web": "www.danangportvn.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Vietnam ",
       "Port": "Haiphong ",
       "CODE": "VN HPH ",
@@ -8090,7 +8090,7 @@ export const seaPorts = [
       "Web": "www.haiphongport.com.vn "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Vietnam ",
       "Port": "Ho Chi Minh City ",
       "CODE": "VN SGN ",
@@ -8100,7 +8100,7 @@ export const seaPorts = [
       "Web": "www.csg.com.vn/index.jsp "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Vietnam ",
       "Port": "Hon Gay ",
       "CODE": "VN HON ",
@@ -8110,7 +8110,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Vietnam ",
       "Port": "Nha Trang ",
       "CODE": "VN NHA ",
@@ -8120,7 +8120,7 @@ export const seaPorts = [
       "Web": "www.nhatrangport.com.vn/MainE.htm "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Virgin Islands (US) ",
       "Port": "Charlotte Amalie, St. Thomas ",
       "CODE": "VI STT ",
@@ -8130,7 +8130,7 @@ export const seaPorts = [
       "Web": "www.viport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Virgin Islands (US) ",
       "Port": "Christiansted, St. Croix ",
       "CODE": "VI CTD ",
@@ -8140,7 +8140,7 @@ export const seaPorts = [
       "Web": "www.viport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Virgin Islands (US) ",
       "Port": "Limetree Bay ",
       "CODE": "VI LIB ",
@@ -8150,7 +8150,7 @@ export const seaPorts = [
       "Web": "www.viport.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Yemen ",
       "Port": "Aden ",
       "CODE": "YE ADE ",
@@ -8160,7 +8160,7 @@ export const seaPorts = [
       "Web": "www.portofaden.com "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Yemen ",
       "Port": "Hodeidah ",
       "CODE": "YE HOD ",
@@ -8170,7 +8170,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Yemen ",
       "Port": "Mokha ",
       "CODE": "YE MOK ",
@@ -8180,7 +8180,7 @@ export const seaPorts = [
       "Web": "n/a "
     },
     {
-      "Type": "Seaport",
+
       "Country": "Yemen ",
       "Port": "Mukalla ",
       "CODE": "YE MKX ",

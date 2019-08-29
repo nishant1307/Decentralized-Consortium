@@ -6,6 +6,7 @@ import ShoppingCart from "@material-ui/icons/ShoppingCart"
 import TrendingUp from "@material-ui/icons/TrendingUp"
 import DescriptionIcon from '@material-ui/icons/Description';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import Store from "@material-ui/icons/Store";
 const dashboardRoutes = [
@@ -25,6 +26,12 @@ const dashboardRoutes = [
     path: "/partners",
     name: "Partners",
     icon: AccessibilityIcon,
+    layout: "/dashboard"
+  },
+  {
+    path: "/devices",
+    name: "Devices",
+    icon: DeviceHubIcon,
     layout: "/dashboard"
   },
   {

@@ -21,6 +21,7 @@ const ProjectPage = React.lazy(() => import('views/Projects/ProjectPage.jsx'));
 const SupportPage = React.lazy(() => import('views/SupportPage'));
 const Partners = React.lazy(() => import('views/Partners/Partners.jsx'));
 const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
+const Checkout = React.lazy(() => import('views/Pricing/Checkout.jsx'));
 const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
 const People = React.lazy(() => import('views/People/People.jsx'));
 const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
@@ -150,6 +151,12 @@ const dashboardRoutes = [
     name: 'Plans',
     path: '/pricing',
     component: PricingPage,
+    layout: "/dashboard"
+  },
+  {
+    name: 'Checkout',
+    path: '/checkout',
+    component: Checkout,
     layout: "/dashboard"
   },
 ];

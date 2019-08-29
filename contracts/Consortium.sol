@@ -24,6 +24,11 @@ contract Consortium is StorageDefinition {
         _;
     }
 
+    modifier onlyProjectAdmin(bytes32 projectID) {
+        require(projectRegistry[projectID].projectAdmin == msg.sender);
+        _;
+    }
+
     modifier onlyRegistrant() {
         require(s.getUserDetails().role == roles.admin || s.getUserDetails().role == roles.registrant);
         _;
@@ -33,6 +38,10 @@ contract Consortium is StorageDefinition {
         require(!Utils.compareStrings(s.getUserDetails().organizationID, ""));
         _;
     }
+
+    // modifer belongsToProject(bytes32 projectID) {
+    //     require()
+    // }
 
     modifier uniqueEmail(string memory email) {
         require(s.getAddress(keccak256(abi.encodePacked("EmailToPKMapping", email))) == address(0x0));
@@ -58,6 +67,9 @@ contract Consortium is StorageDefinition {
     // mapping between ProjectId and Users
     mapping (bytes32 => User[]) internal consortium;
 
+    // mapping between ProjectId and Consortium Requests
+    mapping (bytes32 => address[]) consortiumRequests;
+
     // mapping between userPublicKey and Projects
     mapping (address => Project[]) internal myProjects;
 
@@ -68,6 +80,7 @@ contract Consortium is StorageDefinition {
         s.setOrganization(organizationID, name, orgKYCHash);
         s.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
         s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
+        s.setString(keccak256(abi.encodePacked("OrganizationAdmin", organizationID)), email);
         s.setUser(organizationID, email, userKYCHash, roles.admin);
     }
 
@@ -104,22 +117,39 @@ contract Consortium is StorageDefinition {
         return s.getUserOrganizationDetails();
     }
 
-    function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole) public onlyRegistrant {
+    function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole, bytes32 passcode) public onlyRegistrant {
         Project memory project;
         project.projectID = projectID;
         project.name = name;
         project.description = description;
         project.industry = industry;
+        project.projectAdmin = msg.sender;
         projectRegistry[projectID] = project;
-        emit ProjectCreated(projectID, name, msg.sender, now);
+        emit ProjectCreated(projectID, name, s.getUserDetails().email, now);
+        s.setBytes32(keccak256(abi.encodePacked("ProjectPasscode", projectID)), passcode);
         addUserToProject(projectID, msg.sender, partnerRole);
     }
 
-    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public onlyRegistrant {
+    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public onlyProjectAdmin(projectID) {
         consortium[projectID].push(s.getUserDetailsFromPublicKey(userAddress));
         myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][userAddress] = partnerRole;
-        emit PartnerAddedToConsortium(projectID, msg.sender, userAddress, partnerRole, now);
+        s.setBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress)), true);
+        emit PartnerAddedToConsortium(projectID, s.getOrganizationDetails().name, s.getUserDetailsFromPublicKey(userAddress).email, partnerRole, now);
+    }
+
+    function requestProjectInvite(bytes32 passcode, bytes32 projectID) external userExists returns(bool){
+        require(s.getBytes32(keccak256(abi.encodePacked("ProjectPasscode", projectID)))==passcode);
+        consortiumRequests[projectID].push(msg.sender);
+        return true;
+    }
+
+    function fetchProjectInvites(bytes32 projectID) onlyProjectAdmin(projectID) external view returns(address[] memory){
+        return consortiumRequests[projectID];
+    }
+
+    function fetchProjectPasscode(bytes32 projectID) onlyProjectAdmin(projectID) external view returns(bytes32){
+        return s.getBytes32(keccak256(abi.encodePacked("ProjectPasscode", projectID)));
     }
 
     function getProjectDetails(bytes32 projectID) public view returns (Project memory) {
@@ -146,8 +176,8 @@ contract Consortium is StorageDefinition {
         return s.getAllOrganizations();
     }
 
-    function getOrganizationEmployees(string memory organizationID) public view returns (User[] memory) {
-        return s.getOrganizationEmployees(organizationID);
+    function getOrganizationEmployees() external view returns (User[] memory) {
+        return s.getOrganizationEmployees(s.getUserDetails().organizationID);
     }
 
     function getPartnerRole(bytes32 projectID, address publicKey) external view returns (partnerRoles) {
@@ -184,17 +214,17 @@ contract Consortium is StorageDefinition {
     }
 
     function addDocumentToProject(string calldata docID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit DocumentAdded(_projectID,  tx.origin, docID, now);
+        emit DocumentAdded(_projectID,  s.getOrganizationDetails().name, docID, now);
         return true;
     }
 
     function addDeviceToProject(string calldata deviceID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit DeviceAdded(_projectID, tx.origin, deviceID, now);
+        emit DeviceAdded(_projectID, s.getOrganizationDetails().name, deviceID, now);
         return true;
     }
 
     function addProductToProject(string calldata productID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
-        emit ProductAdded(_projectID,  tx.origin, productID, now);
+        emit ProductAdded(_projectID,  s.getOrganizationDetails().name, productID, now);
         return true;
     }
 
@@ -213,7 +243,8 @@ contract Consortium is StorageDefinition {
     }
 
     function createPartnershipRequest(string calldata organizationID, string calldata partnershipType, string calldata partnershipDoc) external onlyOrgAdmin{
-        s.createPartnershipRequest(organizationID, partnershipType, partnershipDoc);
+        uint256 length = s.createPartnershipRequest(organizationID, partnershipType, partnershipDoc);
+        s.setUint(keccak256(abi.encodePacked("PartnershipRequestDirectory", partnershipType, s.getUserDetails().organizationID)), length-1);
     }
 
     function getAllPartnershipRequests() external view returns(PartnershipRequest[] memory) {
@@ -224,7 +255,12 @@ contract Consortium is StorageDefinition {
         s.updatePartnershipStatus(organizationID, partnershipType, partnershipStatus);
     }
 
-    function getPartnersByType(string memory orgType) public view returns (Organization[] memory) {
+    function getPartnersByType(string calldata orgType) external view returns (Organization[] memory) {
         return s.getPartnersByType(orgType);
     }
+
+    function getOrganizationAdminEmail(string calldata organizationID) external view returns (string memory) {
+        return s.getString(keccak256(abi.encodePacked("OrganizationAdmin", organizationID)));
+    }
+
 }

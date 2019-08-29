@@ -35,6 +35,8 @@ const Devices = (props) => {
     deviceContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
     }).then(res => {
+      if(res.length==0)
+        setLoader(false);
       setTokenIDList(res);
       res.forEach(tokenId => {
         deviceContract.methods.getDeviceDetails(tokenId).call({

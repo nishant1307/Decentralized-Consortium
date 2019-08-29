@@ -35,6 +35,8 @@ const Products = (props) => {
     productContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
     }).then(res => {
+      if(res.length==0)
+        setLoader(false);
       setTokenIDList(res);
       res.forEach(tokenId => {
         productContract.methods.getProductDetails(tokenId).call({
@@ -71,7 +73,6 @@ const Products = (props) => {
             </CardHeader>
         {loader ?
           <React.Fragment>
-
                 <Skeleton width="100%"/>
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
@@ -80,7 +81,7 @@ const Products = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
           </React.Fragment> :
-            productList.length !== 0  ?
+            productList.length != 0  ?
               <MaterialTable
                   columns={[
                     { title: "Product Name", field: "thingName" },

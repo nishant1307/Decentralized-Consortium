@@ -25,7 +25,9 @@ const Products = (props) => {
   useEffect(() => {
     docContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
-    }).then(res => {      
+    }).then(res => {
+      if(res.length==0)
+        setLoader(false);
       setTokenIDList(res);
       res.forEach(tokenId => {
         docContract.methods.getProductDetails(tokenId).call({

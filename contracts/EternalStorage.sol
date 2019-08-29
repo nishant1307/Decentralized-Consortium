@@ -56,7 +56,7 @@ contract EternalStorage is StorageDefinition {
    * @dev Throws if called by any account other than the registeredContract.
    */
   modifier onlyRegisteredContract() {
-    require(registeredContracts[msg.sender]||msg.sender==address(this));
+    require((registeredContracts[msg.sender])||(msg.sender==address(this)));
     _;
   }
 
@@ -76,16 +76,16 @@ contract EternalStorage is StorageDefinition {
    * @param newOwner The address to transfer ownership to.
    */
   function transferOwnership(address newOwner) external onlyOwner {
-    require(newOwner != address(0));
+    require(newOwner != address(0x0));
     emit OwnershipTransferred(owner, newOwner);
     owner = newOwner;
   }
 
   function addRegisteredContract(address contractAddress, string calldata contractType) external onlyOwner {
-    require(contractAddress != address(0));
+    require(contractAddress != address(0x0));
     emit ContractRegistered(contractAddress, contractType, now);
     if(this.getAddress(keccak256(abi.encodePacked("ContractRegistry", contractType)))!=address(0x0)){
-        revokeRegisteredContract(contractAddress, contractType);
+        revokeRegisteredContract(this.getAddress(keccak256(abi.encodePacked("ContractRegistry", contractType))), contractType);
     }
     this.setAddress(keccak256(abi.encodePacked("ContractRegistry", contractType)), contractAddress);
     registeredContracts[contractAddress] = true;
@@ -96,11 +96,11 @@ contract EternalStorage is StorageDefinition {
   }
 
   function isRegisteredContract(address contractAddress) external view onlyRegisteredContract returns (bool) {
-      return(registeredContracts[contractAddress]||contractAddress==address(this));
+      return ((registeredContracts[contractAddress])||(contractAddress==address(this)));
   }
 
   function revokeRegisteredContract(address contractAddress, string memory contractType) internal onlyOwner {
-    require(contractAddress != address(0));
+    require(contractAddress != address(0x0));
     emit ContractRevoked(contractAddress, contractType, now);
     registeredContracts[contractAddress] = false;
   }
@@ -203,7 +203,7 @@ contract EternalStorage is StorageDefinition {
    * @dev Get the value stored of a bytes variable by the hash name
    * @param h The keccak256 hash of the variable name
    */
-  function getBytes(bytes32 h) external view returns (bytes32){
+  function getBytes32(bytes32 h) external view returns (bytes32){
     return s._bytes32[h];
   }
 
@@ -260,7 +260,6 @@ contract EternalStorage is StorageDefinition {
         newOrganization.status = KYCStatus.kycPending;
         organizationDirectory[organizationID] = newOrganization;
         organizations.push(newOrganization);
-        partners["All"].push(newOrganization);
     }
 
     function getAllUsers() external view onlyRegisteredContract returns (User[] memory) {
@@ -281,6 +280,10 @@ contract EternalStorage is StorageDefinition {
 
     function getOrganizationDetails() external view onlyRegisteredContract returns (Organization memory) {
         return (organizationDirectory[userDirectory[tx.origin].organizationID]);
+    }
+
+    function getOrganizationDetailsFromPublicKey(address userAddress) external view onlyRegisteredContract returns (Organization memory) {
+        return (organizationDirectory[userDirectory[userAddress].organizationID]);
     }
 
     function getUserOrganizationDetails() external view onlyRegisteredContract returns (User memory, Organization memory) {
@@ -332,14 +335,14 @@ contract EternalStorage is StorageDefinition {
         return userDirectory[tx.origin].status;
     }
 
-    function createPartnershipRequest(string calldata organizationID, string calldata partnershipType, string calldata partnershipDoc) external onlyRegisteredContract{
+    function createPartnershipRequest(string calldata organizationID, string calldata partnershipType, string calldata partnershipDoc) external onlyRegisteredContract returns(uint256) {
         PartnershipRequest memory newRequest;
         newRequest.organizationID = organizationID;
         newRequest.partnershipDoc = partnershipDoc;
         newRequest.partnershipType = partnershipType;
         newRequest.partnershipStatus = KYCStatus.kycPending;
         partnershipRequests.push(newRequest);
-        this.setUint(keccak256(abi.encodePacked("PartnershipRequestDirectory", partnershipType, this.getUserDetails().organizationID)), partnershipRequests.length-1);
+        return partnershipRequests.length;
     }
 
     function getAllPartnershipRequests() external view onlyRegisteredContract returns(PartnershipRequest[] memory) {
@@ -357,4 +360,5 @@ contract EternalStorage is StorageDefinition {
     function confirmPartnershipStatus(string memory organizationID, string memory partnershipType) internal {
         partners[partnershipType].push(organizationDirectory[organizationID]);
     }
+
 }
