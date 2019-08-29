@@ -85,7 +85,7 @@ const PurchaseOrder = props => {
         let privateKey = await sessionStorage.getItem('privateKey');
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(cid[0].hash, password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Purchase Order" }), password)
         let encryptedPassword = await encryptMessage(password, privateKey)
         console.log(encryptData, encryptedPassword);
 

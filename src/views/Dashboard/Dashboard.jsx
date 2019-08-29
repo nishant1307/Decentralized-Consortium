@@ -137,7 +137,7 @@ const Dashboard = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
           <Card>
-            <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
+            <CardHeader onClick={()=>{props.history.push('/dashboard/documents')} }  color="info" stats icon>
               <CardIcon color="info">
                 <Icon>file_copy</Icon>
               </CardIcon>

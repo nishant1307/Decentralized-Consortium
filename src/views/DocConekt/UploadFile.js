@@ -28,39 +28,41 @@ import Select from '@material-ui/core/Select';
 
 const uuidv1 = require('uuid/v1');
 
-const salesTypes = ["Request for Quotation",
-    "Quotation",
+const salesTypes = [
+    // "Request for Quotation",
+    // "Quotation",
     "Purchase Order",
-    "Proforma Invoice",
-    "Order Confirmation",
-    "Sales Confirmation",
-    "Sales Contract",
-    "Debit Note",
-    "Credit Note"]
+    // "Proforma Invoice",
+    // "Order Confirmation",
+    // "Sales Confirmation",
+    // "Sales Contract",
+    // "Debit Note",
+    // "Credit Note"
+]
 
 const shippingType = [
     "Commercial Invoice",
     "Packing List",
-    "Container Packing List",
-    "Packing Declaration",
-    "Verified Gross Mass Declaration",
-    "Certificate of Origin",
-    "Declaration of Origin",
-    "Packing list  Item",
-    "Shippers Letter of Instruction",
+    // "Container Packing List",
+    // "Packing Declaration",
+    // "Verified Gross Mass Declaration",
+    // "Certificate of Origin",
+    // "Declaration of Origin",
+    // "Packing list  Item",
+    // "Shippers Letter of Instruction",
     "Seaway / Airway Bill",
-    "Bill of Lading",
-    "Forwarding Instruction",
+    // "Bill of Lading",
+    // "Forwarding Instruction",
     "Shipping Instruction",
-    "Importer Security Filing",
-    "Declaration",
-    "Foreign Exchange Control Form",
-    "Cargo Release Order",
-    "Bill of Entry",
+    // "Importer Security Filing",
+    // "Declaration",
+    // "Foreign Exchange Control Form",
+    // "Cargo Release Order",
+    // "Bill of Entry",
 ]
 
 const bankType = [
-    "Letter of Credit"
+    // "Letter of Credit"
 ]
 
 const mainDocType = [

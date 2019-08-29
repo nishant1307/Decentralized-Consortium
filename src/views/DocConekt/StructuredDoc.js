@@ -5,10 +5,12 @@ const PackingList = React.lazy(() => import('./Types/PackingList'));
 const SeawayBill = React.lazy(() => import('./Types/SeawayBill'));
 const ShippingInstructions = React.lazy(() => import('./Types/ShippingInstructions'));
 const UserProfile = props => {
+    console.log(props, "pros");
+
     function getPage() {
         switch (props.match.params.structuredDocId) {
             case "Purchase Order":
-                return <PurchaseOrder  />;
+                return <PurchaseOrder />;
             case "Commercial Invoice":
                 return <CommercialInvoice />;
             case "Packing List":
@@ -24,9 +26,9 @@ const UserProfile = props => {
 
     return (
         <div>
-         {
-             getPage()
-         }
+            {
+                getPage()
+            }
         </div>
     );
 };
