@@ -85,7 +85,7 @@ const PackingList = props => {
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Purchase Order" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash,  "type": "Packing List" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         // props.history.push("/dashboard/home")
