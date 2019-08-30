@@ -107,7 +107,7 @@ const ProjectPartners = (props) => {
   }, []);
 
   const inviteUser = () => {
-    props.inviteUserToConsortium({
+    props.addUserToConsortium({
       projectID: props.match.params.projectID,
       inviteAddress: invitePublicKey,
       partnerRole: 5

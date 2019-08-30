@@ -69,7 +69,7 @@ const Devices = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 My Devices
               </h4>
-              <AddBoxIcon onClick={props.openDeviceModal}/>
+              {props.user.user[5]!=0 && <AddBoxIcon onClick={props.openDeviceModal}/>}
             </CardHeader>
         {loader ?
           <React.Fragment>

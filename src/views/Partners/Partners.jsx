@@ -105,7 +105,6 @@ const Partners = (props) => {
             ))}
         </Menu>
         </GridItem>
-        <Divider orientation="vertical"/>
         <GridItem xs={12} sm={12} md={6}>
           <Button color="primary">Enlist your organization as Partner</Button>
           <TextField/>

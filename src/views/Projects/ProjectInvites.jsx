@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // react plugin for creating charts
@@ -9,55 +8,68 @@ import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Table from "components/Table/Table.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
-const RegisterThingModal = React.lazy(() => import('views/RegisterThingModal.js'));
-import {openThingModal } from 'actions/userActions';
+const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
+import Button from '@material-ui/core/Button';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import { openProjectModal, inviteUserToConsortium } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
-import {productContract} from 'productContract';
-import moment from "moment";
+import {registryContract} from 'registryContract';
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
-const Products = (props) => {
+import Modal from "components/CustomModal/Modal";
+import Divider from '@material-ui/core/Divider';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import TextField from '@material-ui/core/TextField';
+const Projects = (props) => {
 
-  const [tokenIDList, setTokenIDList] = useState([])
-  const [productList, setProductList] = useState([])
+  const [projectInviteList, setProjectInviteList] = useState([]);
+  const [inviteUserList, setInviteUserList] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [joinProjectModal, setJoinProjectModal] = useState(false);
+  const [inviteProjectID, setInviteProjectID] = useState('');
+  const [inviteProjectPasscode, setInviteProjectPasscode] = useState('');
+  const [inviteSent, setInviteSent] = useState(false);
 
   useEffect(()=> {
-    productContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
+    registryContract.methods.fetchProjectInvites(props.match.params.projectID).call({
       from: props.auth.user.publicKey
     }).then(res => {
       if(res.length==0)
         setLoader(false);
-      setTokenIDList(res);
-      res.forEach(tokenId => {
-        productContract.methods.getProductDetails(tokenId).call({
+      setProjectInviteList(res);
+      res.forEach(userAddress => {
+        registryContract.methods.getUserDetails(userAddress).call({
           from: props.auth.user.publicKey
-        }).then(productDetails => {
-          setProductList(productList => [
-            ...productList,
-            productDetails[0]
+        }).then(userDetails => {
+          setInviteUserList(inviteUserList => [
+            ...inviteUserList,
+            userDetails
           ])
           setLoader(false);
         });
       });
+      setProjectInviteList(res);
     });
-  }, []);
-
-  useEffect(()=> {
-    console.log(productList);
-  }, [productList])
+  }, [props.user.projectCount]);
   const projectURL = (projectID) => {
     return "/dashboard/projects/"+ projectID;
   }
+
+  const acceptInvite = (publicKey) => {
+      props.inviteUserToConsortium({
+        projectID: props.match.params.projectID,
+        inviteAddress: publicKey,
+        partnerRole: 2
+      })
+  }
+
   const {classes} = props;
 
   return (
@@ -67,9 +79,8 @@ const Products = (props) => {
           <Card plain>
             <CardHeader plain color="primary">
               <h4 className={classes.cardTitleWhite}>
-                My Products
+                Projects Invites
               </h4>
-              {props.user.user[5]!=0 && <AddBoxIcon onClick={props.openThingModal}/>}
             </CardHeader>
         {loader ?
           <React.Fragment>
@@ -81,36 +92,32 @@ const Products = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
           </React.Fragment> :
-            productList.length != 0  ?
+          projectInviteList.length !== 0  ?
               <MaterialTable
                   columns={[
-                    { title: "Product Name", field: "thingName" },
-                    { title: "Product Brand", field: "thingBrand" },
-                    { title: "Product Images", field: "ipfsHash", render: rowData => <img src={"https://gateway.arthanium.org/ipfs/"+rowData.ipfsHash} height="50px" width="50px"/>},
-                    { title: "Product Description", field: "thingDescription"},
-                    { title: "Product Story", field: "thingStory"},
-                    { title: "Product Value", field: "thingValue"},
-                    { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp*1000).format("DD-MM-YYYY h:mm:ss")},
+                    { title: "User Email", field: "email" },
+                    { title: "Organization ID", field: "organizationID" },
+                    { render: rowData => <Button onClick = {(e) => acceptInvite(projectInviteList[rowData.tableData.id])}>Accept Invite</Button>}
                   ]}
-                  data={productList}
+                  data={inviteUserList}
                   title=""
                   options={{
                     search: true,
-                    exportButton: true,
-                    grouping: true
+                    exportButton: true
                   }}
-                />:
-                <h3>No Products Found!</h3>
+                />
+             :
+            <h3>No Projects Found!</h3>
         }
         </Card>
         </GridItem>
       </GridContainer>
-      <RegisterThingModal />
+      <ProjectFormModal />
     </div>
   );
 }
 
-Products.propTypes = {
+Projects.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -119,4 +126,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.user
 })
-export default connect(mapStateToProps, {openThingModal}) (withStyles(dashboardStyle)(Products));
+export default connect(mapStateToProps, {openProjectModal, inviteUserToConsortium}) (withStyles(dashboardStyle)(Projects));

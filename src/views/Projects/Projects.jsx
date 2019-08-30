@@ -16,18 +16,26 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
 const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
+import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
+import { openProjectModal, joinProjectRequest } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
 import {registryContract} from 'registryContract';
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import Modal from "components/CustomModal/Modal";
 import Divider from '@material-ui/core/Divider';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import TextField from '@material-ui/core/TextField';
 const Projects = (props) => {
 
   const [projectList, setProjectList] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [joinProjectModal, setJoinProjectModal] = useState(false);
+  const [inviteProjectID, setInviteProjectID] = useState('');
+  const [inviteProjectPasscode, setInviteProjectPasscode] = useState('');
+  const [inviteSent, setInviteSent] = useState(false);
 
   useEffect(()=> {
     registryContract.methods.getMyProjects().call({
@@ -41,6 +49,15 @@ const Projects = (props) => {
   const projectURL = (projectID) => {
     return "/dashboard/projects/"+ projectID;
   }
+
+  const joinProject = () => {
+    props.joinProjectRequest({
+      projectID: inviteProjectID,
+      projectPasscode: inviteProjectPasscode
+    });
+    setInviteSent(true);
+  }
+
   const {classes} = props;
 
   return (
@@ -52,7 +69,35 @@ const Projects = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 My Projects
               </h4>
-              <AddBoxIcon onClick={props.openProjectModal}/>
+              {props.user.user[5]!=0 && <AddBoxIcon style={{float: "right"}} onClick={props.openProjectModal}/>}
+              <ChevronRightIcon style={{float: "right"}} onClick={() => setJoinProjectModal(true)}/>
+              <Modal
+                open={joinProjectModal}
+                title="Join Project"
+                onClose={() => setJoinProjectModal(false)}
+                content={
+                  <>
+                    <TextField type="text"
+                      variant="outlined"
+                      label= "Project ID"
+
+                      required
+                      onChange={(e => setInviteProjectID(e.target.value))}
+                    />
+                    &nbsp;
+                    <TextField type="text"
+                      variant="outlined"
+                      label= "Project Passcode"
+
+                      required
+                      onChange={(e => setInviteProjectPasscode(e.target.value))}
+                    />
+                  </>
+                }
+                action= {
+                  <Button onClick={joinProject}>{!inviteSent ? "Send Join Project Request": "Request being sent to Blockchain. Please wait..."}</Button>
+                }
+                />
             </CardHeader>
         {loader ?
           <React.Fragment>
@@ -120,4 +165,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.user
 })
-export default connect(mapStateToProps, {openProjectModal}) (withStyles(dashboardStyle)(Projects));
+export default connect(mapStateToProps, {openProjectModal, joinProjectRequest}) (withStyles(dashboardStyle)(Projects));

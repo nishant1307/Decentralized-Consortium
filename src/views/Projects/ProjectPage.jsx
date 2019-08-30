@@ -128,6 +128,24 @@ const ProjectPage = (props) => {
           </Card>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
+          <Link to={"/dashboard/projects/"+ props.match.params.projectID + "/invites"}><Card>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <DeviceHubIcon/>
+              </CardIcon>
+              <p className={classes.cardCategory}>View Project Invites</p>
+              {/* <h4 className={classes.cardTitle}></h4> */}
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                {/* <VisibilityIcon/> */}
+                &nbsp;
+              </div>
+            </CardFooter>
+          </Card>
+        </Link>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
               <CardIcon color="info">

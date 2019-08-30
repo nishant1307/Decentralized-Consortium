@@ -184,6 +184,7 @@ export const createNewProject = projectDetails => async (dispatch) => {
 };
 
 export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
+  console.log("Here");
   privateKey = await sessionStorage.getItem('privateKey');
   web3.eth.getBalance(address).then((balance) => {
     console.log(balance);
