@@ -33,7 +33,7 @@ const Products = (props) => {
   const [selected, setSelected] = useState(undefined);
   const [loader, setLoader] = useState(true);
   const [open, setOpen] = React.useState(false);
-
+  const [isValid, setIsValid] = React.useState(false);
 
 
   function handleClose() {
@@ -41,7 +41,7 @@ const Products = (props) => {
   }
 
   function handleUnlock(rowData) {
-    console.log(rowData);
+    console.log(rowData, "idhar");
     setSelected(rowData);
     setOpen(true);
   }
@@ -49,14 +49,8 @@ const Products = (props) => {
   async function unlockDoc() {
     let data = await decryptMessage(selected.encryptedData, password)
     console.log(data);
-    setData(data);
-    // return (<Redirect
-    //   to={{
-    //     pathname: "/dashboard/structured/" + data.type,
-    //     state: { referrer: data.hash }
-    //   }}
-    // />)
-
+    setData(JSON.parse(data));
+    setIsValid(true);
   }
 
   useEffect(() => {
@@ -93,85 +87,98 @@ const Products = (props) => {
 
   return (
     <div>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card plain>
-            <CardHeader plain color="primary">
-              <h4 className={classes.cardTitleWhite}>
-                My Document
-              </h4>
-              <AddBoxIcon onClick={props.openDocModal} />
-            </CardHeader>
-            {loader ?
-              <React.Fragment>
+      {
+        isValid ? (
+          <Redirect
+            to={{
+              pathname: "/dashboard/structured/" + data.type,
+              state: { hash: data.hash, password: selected.encryptedPassword, tokenId: selected.tokenId }
+            }}
+          />
+        ) : (
+            <div>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Card plain>
+                    <CardHeader plain color="primary">
+                      <h4 className={classes.cardTitleWhite}>
+                        My Document
+                </h4>
+                      <AddBoxIcon onClick={props.openDocModal} />
+                    </CardHeader>
+                    {loader ?
+                      <React.Fragment>
 
-                <Skeleton width="100%" />
-                <Skeleton width="60%" />
-                <Skeleton width="100%" />
-                <Skeleton width="60%" />
-                <Skeleton width="100%" />
-                <Skeleton width="60%" />
-                <Skeleton width="100%" />
-              </React.Fragment> :
-              productList.length !== 0 ?
-                <MaterialTable
-                  columns={[
-                    { title: "Document Id", field: "tokenId" },
-                  ]}
-                  data={productList}
-                  title=""
-                  options={{
-                    search: true,
-                    exportButton: false,
-                    grouping: false
-                  }}
-                  actions={[
-                    {
-                      icon: 'folder_open',
-                      tooltip: 'Open Document',
-                      onClick: (event, rowData) => handleUnlock(rowData)
+                        <Skeleton width="100%" />
+                        <Skeleton width="60%" />
+                        <Skeleton width="100%" />
+                        <Skeleton width="60%" />
+                        <Skeleton width="100%" />
+                        <Skeleton width="60%" />
+                        <Skeleton width="100%" />
+                      </React.Fragment> :
+                      productList.length !== 0 ?
+                        <MaterialTable
+                          columns={[
+                            { title: "Document Id", field: "tokenId" },
+                          ]}
+                          data={productList}
+                          title=""
+                          options={{
+                            search: true,
+                            exportButton: false,
+                            grouping: false
+                          }}
+                          actions={[
+                            {
+                              icon: 'folder_open',
+                              tooltip: 'Open Document',
+                              onClick: (event, rowData) => handleUnlock(rowData)
+                            }
+                          ]}
+                        /> :
+                        <h3>No Products Found!</h3>
                     }
-                  ]}
-                /> :
-                <h3>No Products Found!</h3>
-            }
-          </Card>
-        </GridItem>
-      </GridContainer>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Enter password to unlock"}</DialogTitle>
-        <DialogContent>
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-              <CustomInput
-                labelText="Password"
-                id="password"
-                type="password"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                onChangeValue={((e) => { setPassword(e.target.value) })}
-                value={password}
+                  </Card>
+                </GridItem>
+              </GridContainer>
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">{"Enter password to unlock"}</DialogTitle>
+                <DialogContent>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <CustomInput
+                        labelText="Password"
+                        id="password"
+                        type="password"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        onChangeValue={((e) => { setPassword(e.target.value) })}
+                        value={password}
 
-              />
-            </GridItem>
-          </GridContainer>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={unlockDoc} color="primary" autoFocus>
-            Submit
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <RegisterDocModal />
+                      />
+                    </GridItem>
+                  </GridContainer>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="primary">
+                    Cancel
+            </Button>
+                  <Button onClick={unlockDoc} color="primary" autoFocus>
+                    Submit
+            </Button>
+                </DialogActions>
+              </Dialog>
+              <RegisterDocModal />
+            </div>
+          )
+      }
     </div>
   );
 }

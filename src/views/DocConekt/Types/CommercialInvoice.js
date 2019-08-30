@@ -14,6 +14,11 @@ import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import DateFnsUtils from "@date-io/date-fns";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
@@ -24,8 +29,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
-import { country, currency , currencyCode } from 'assets/data/countryList'
+import { country, currency, currencyCode } from 'assets/data/countryList'
 import { seaPorts } from 'assets/data/seaPort'
+import { connect } from 'react-redux';
+import { encryptMessage, decryptMessage } from 'utils'
+import { addNewDoc, updateDoc } from 'actions/userActions';
+import ipfs from '../../../ipfs';
+const Ipfs = require('ipfs-http-client')
 const styles = theme => ({
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",
@@ -51,10 +61,13 @@ const styles = theme => ({
 
 const CommercialInvoice = props => {
     const { classes } = props;
-    const [selectedDate, handleDateChange] = useState(new Date());
+    // const [selectedDate, handleDateChange] = useState(new Date());
     const [struture, setStruture] = useState({});
-    const [mod, setMod] = React.useState("Air");
-    const [tos, setTos] = React.useState('LCL (CY)')
+    // const [mod, setMod] = React.useState("Air");
+    // const [tos, setTos] = React.useState('LCL (CY)')
+    const [password, setPassword] = useState("");
+    const [isNew, setIsNew] = useState(true);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [maintable, setMainTable] = React.useState({
         columns: [
             { title: 'Product Code', field: 'productCode' },
@@ -69,16 +82,92 @@ const CommercialInvoice = props => {
 
         ],
     });
-    const submitDoc = () => {
-        console.log("Updated", struture);
+    async function handleUpdate() {
+        setIsSubmitted(true)
+        let privateKey = await sessionStorage.getItem('privateKey');
+        let password = await decryptMessage(props.data.password, privateKey)
+        const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
+        const cid = await ipfs.add(content);
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Commercial Invoice"  }), password)
+        props.updateDoc(encryptData, props.data.tokenId, struture.remark);
+        setIsSubmitted(false)
+        // props.history.push("/dashboard/home")
     }
+
+    const [open, setOpen] = React.useState(false);
+
+    function handleClickOpen() {
+        setOpen(true);
+    }
+
+    function handleClose() {
+        setOpen(false);
+    }
+
+    const submitDocument = async () => {
+        setIsSubmitted(true)
+        let privateKey = await sessionStorage.getItem('privateKey');
+        const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
+        const cid = await ipfs.add(content);
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Commercial Invoice" }), password)
+        let encryptedPassword = await encryptMessage(password, privateKey)
+        // console.log(encryptData, encryptedPassword);
+        setIsSubmitted(false);
+        setOpen(false);
+        setStruture({});
+        setMainTable({
+            columns: [
+                { title: 'Product Code', field: 'productCode' },
+                { title: 'Description of Goods', field: 'descriptionOfGoods' },
+                { title: 'Unit Quantity', field: 'unitQuantity' },
+                { title: 'Unit Type', field: 'unitType' },
+                { title: 'Price', field: 'price' },
+                { title: 'Amount', field: 'amount' },
+            ],
+            data: [
+
+            ],
+        });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
+        props.history.push("/dashboard/home")
+
+    }
+
 
     const handleChangeValue = e => {
         const { id, value } = e.target;
-        console.log(id, value);
+        // console.log(id, value);
 
         setStruture({ ...struture, [id]: value })
     }
+
+
+
+    useEffect(() => {
+        if (props.data.hash !== undefined) {
+            setIsNew(false);
+            ipfs.get(props.data.hash, function (err, files) {
+                // console.log(JSON.parse(files[0].content.toString('utf8')));
+                let data = JSON.parse(files[0].content.toString('utf8'))
+                setMainTable({
+                    columns: [
+                        { title: 'Product Code', field: 'productCode' },
+                        { title: 'Description of Goods', field: 'descriptionOfGoods' },
+                        { title: 'Unit Quantity', field: 'unitQuantity' },
+                        { title: 'Unit Type', field: 'unitType' },
+                        { title: 'Price', field: 'price' },
+                        { title: 'Amount', field: 'amount' },
+                    ],
+                    data: data.tableData
+                })
+                setStruture(data.formData)
+                // files.forEach((file) => {
+                //     console.log(file.path)
+                //     console.log(file.content.toString('utf8'))
+                // })
+            })
+        }
+    }, [])
 
     return (
         <div>
@@ -602,16 +691,78 @@ const CommercialInvoice = props => {
                                     />
                                 </GridItem>
                             </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={8}>
+
+                                </GridItem>
+                                {!isNew && <GridItem xs={12} sm={12} md={4}>
+                                    <CustomInput
+                                        labelText="Remark"
+                                        id="remark"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.remark}
+
+                                    />
+                                </GridItem>}
+                            </GridContainer>
                         </CardBody>
                         <CardFooter>
-                            <Button color="primary" onClick={submitDoc}>Submit</Button>
+                            {isNew ? <Button color="primary" onClick={handleClickOpen}>Submit</Button>
+                                : isSubmitted ? <CircularProgress /> : <Button color="primary" onClick={handleUpdate}>Update</Button>}
+
                         </CardFooter>
                     </Card>
                 </GridItem>
             </GridContainer>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Enter password to secure your document"}</DialogTitle>
+                <DialogContent>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <CustomInput
+                                labelText="Password"
+                                id="password"
+                                type="password"
+                                formControlProps={{
+                                    fullWidth: true
+                                }}
+                                onChangeValue={((e) => { setPassword(e.target.value) })}
+                                value={password}
+
+                            />
+                        </GridItem>
+                    </GridContainer>
+                </DialogContent>
+                <DialogActions>
+                    {isSubmitted ?
+                        <CircularProgress /> :
+                        <div>
+                            <Button onClick={handleClose} color="primary">
+                                Cancel
+          </Button>
+                            <Button onClick={submitDocument} color="primary" autoFocus>
+                                Submit
+          </Button>
+                        </div>
+                    }
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };
 
 
-export default withStyles(styles, customInputStyle)(CommercialInvoice);
+const mapStateToProps = (state) => ({
+    user: state.user,
+    errors: state.errors
+});
+
+export default connect(mapStateToProps, { addNewDoc, updateDoc })(withStyles(styles, customInputStyle)(CommercialInvoice));

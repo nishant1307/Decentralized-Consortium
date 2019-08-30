@@ -16,7 +16,8 @@ import {
   FETCH_NOTIFICATION,
   EDIT_PROFILE,
   GET_SUBSCRIPTION,
-  NEW_DOCUMENT_CREATED
+  NEW_DOCUMENT_CREATED,
+  DOCUMENT_UPDATED
 } from '../actions/types';
 import isEmpty from '../is-empty';
 
@@ -112,6 +113,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         docCount: parseInt(state.docCount) + 1,
+        notificationList: [...state.notificationList, "New Document created"]
+      }
+      break;
+    case DOCUMENT_UPDATED:
+      return {
+        ...state,
+        notificationList: [...state.notificationList, "Document updated"]
       }
       break;
     case NEW_PROJECT_CREATED:

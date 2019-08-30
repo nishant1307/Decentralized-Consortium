@@ -1,17 +1,42 @@
 import web3 from './web3';
 
-export const docAddress = '0x83300f757e0531bff45bdcd23132ede7b700a3d2';
+export const docAddress = '0xb677f16efebaa452d5bae7921d784ef3d3113d65';
 export const abi = [
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
+			},
+			{
+				"internalType": "bool",
+				"name": "status",
+				"type": "bool"
 			}
 		],
-		"name": "getReviewStatusForIndividual",
+		"name": "addReview",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "address[]",
+				"name": "reviewer",
+				"type": "address[]"
+			}
+		],
+		"name": "addReviewers",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -20,32 +45,11 @@ export const abi = [
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "projectId",
-				"type": "bytes32"
-			}
-		],
-		"name": "_tokensOfProject",
-		"outputs": [
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -53,16 +57,46 @@ export const abi = [
 				"type": "string"
 			}
 		],
-		"name": "tokenURI",
-		"outputs": [
+		"name": "burn",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
 			{
 				"internalType": "string",
-				"name": "",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedData",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedPassword",
 				"type": "string"
 			}
 		],
+		"name": "MintWithDetails",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -100,58 +134,147 @@ export const abi = [
 				"type": "string"
 			},
 			{
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
+			}
+		],
+		"name": "setProjectId",
+		"outputs": [
+			{
 				"internalType": "bool",
-				"name": "status",
+				"name": "",
 				"type": "bool"
 			}
 		],
-		"name": "addReview",
-		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "balanceOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
 				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "remarks",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedData",
+				"type": "string"
 			}
 		],
-		"name": "ownerOf",
+		"name": "updateDetails",
 		"outputs": [
 			{
-				"internalType": "address",
+				"internalType": "bool",
 				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "storageAddress",
 				"type": "address"
 			}
 		],
 		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "metadata",
+				"type": "string"
+			}
+		],
+		"name": "MetadataChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "remarks",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "encryptedData",
+				"type": "string"
+			}
+		],
+		"name": "DocumentUpdated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address[]",
+				"name": "listOfAddress",
+				"type": "address[]"
+			}
+		],
+		"name": "ReviewersAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "reviewer",
+				"type": "address"
+			}
+		],
+		"name": "ReviewAdded",
+		"type": "event"
 	},
 	{
 		"constant": true,
@@ -175,46 +298,41 @@ export const abi = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			},
 			{
 				"internalType": "bytes32",
 				"name": "projectId",
 				"type": "bytes32"
 			}
 		],
-		"name": "setProjectId",
+		"name": "_tokensOfProject",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "string[]",
 				"name": "",
-				"type": "bool"
+				"type": "string[]"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
 			}
 		],
-		"name": "getReviewersList",
+		"name": "balanceOf",
 		"outputs": [
 			{
-				"internalType": "address[]",
-				"name": "reviewer",
-				"type": "address[]"
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -270,7 +388,7 @@ export const abi = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
@@ -278,46 +396,16 @@ export const abi = [
 				"type": "string"
 			}
 		],
-		"name": "burn",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "encryptedData",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "encryptedPassword",
-				"type": "string"
-			}
-		],
-		"name": "MintWithDetails",
+		"name": "getReviewersList",
 		"outputs": [
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"internalType": "address[]",
+				"name": "reviewer",
+				"type": "address[]"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -342,20 +430,15 @@ export const abi = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
-			},
-			{
-				"internalType": "address[]",
-				"name": "reviewer",
-				"type": "address[]"
 			}
 		],
-		"name": "addReviewers",
+		"name": "getReviewStatusForIndividual",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -364,77 +447,50 @@ export const abi = [
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
+		"constant": true,
 		"inputs": [
 			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
 				"internalType": "address",
-				"name": "storageAddress",
+				"name": "",
 				"type": "address"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
+		"stateMutability": "view",
+		"type": "function"
 	},
 	{
-		"anonymous": false,
+		"constant": true,
 		"inputs": [
 			{
-				"indexed": false,
 				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
-			},
+			}
+		],
+		"name": "tokenURI",
+		"outputs": [
 			{
-				"indexed": false,
 				"internalType": "string",
-				"name": "metadata",
+				"name": "",
 				"type": "string"
 			}
 		],
-		"name": "MetadataChanged",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "address[]",
-				"name": "listOfAddress",
-				"type": "address[]"
-			}
-		],
-		"name": "ReviewersAdded",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "reviewer",
-				"type": "address"
-			}
-		],
-		"name": "ReviewAdded",
-		"type": "event"
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
 	}
-]
+]	
 export const docContract = new web3.eth.Contract(abi, docAddress);;

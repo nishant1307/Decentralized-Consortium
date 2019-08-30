@@ -12,21 +12,21 @@ import DateFnsUtils from "@date-io/date-fns";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { connect } from 'react-redux';
-import { addNewDoc } from 'actions/userActions';
+import { addNewDoc, updateDoc } from 'actions/userActions';
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
-import { encryptMessage } from 'utils'
+import { encryptMessage, decryptMessage } from 'utils'
 import ipfs from '../../../ipfs';
 const Ipfs = require('ipfs-http-client')
 
@@ -54,9 +54,13 @@ const styles = theme => ({
 });
 
 const PurchaseOrder = props => {
+    // console.log(props);
+
     const { classes } = props;
     const [struture, setStruture] = useState({});
     const [password, setPassword] = useState("");
+    const [isNew, setIsNew] = useState(true);
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const [maintable, setMainTable] = React.useState({
         columns: [
             { title: 'Product Code', field: 'productCode' },
@@ -71,6 +75,44 @@ const PurchaseOrder = props => {
         ],
     });
 
+    useEffect(() => {
+        if (props.data !== undefined) {
+            setIsNew(false);
+            ipfs.get(props.data.hash, function (err, files) {
+                // console.log(JSON.parse(files[0].content.toString('utf8')));
+                let data = JSON.parse(files[0].content.toString('utf8'))
+                setMainTable({
+                    columns: [
+                        { title: 'Product Code', field: 'productCode' },
+                        { title: 'Description of Goods', field: 'descriptionOfGoods' },
+                        { title: 'Unit Quantity', field: 'unitQuantity' },
+                        { title: 'Unit Type', field: 'unitType' },
+                        { title: 'Price', field: 'price' },
+                        { title: 'Amount', field: 'amount' },
+                    ],
+                    data: data.tableData
+                })
+                setStruture(data.formData)
+                // files.forEach((file) => {
+                //     console.log(file.path)
+                //     console.log(file.content.toString('utf8'))
+                // })
+            })
+        }
+    }, [])
+
+    async function handleUpdate() {
+        setIsSubmitted(true)
+        let privateKey = await sessionStorage.getItem('privateKey');
+        let password = await decryptMessage(props.data.password, privateKey)
+        const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
+        const cid = await ipfs.add(content);
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Purchase Order" }), password)
+        props.updateDoc(encryptData, props.data.tokenId, struture.remark);
+        setIsSubmitted(false)
+        // props.history.push("/dashboard/home")
+    }
+
     const [open, setOpen] = React.useState(false);
 
     function handleClickOpen() {
@@ -82,14 +124,32 @@ const PurchaseOrder = props => {
     }
 
     const submitDocument = async () => {
+        setIsSubmitted(true)
         let privateKey = await sessionStorage.getItem('privateKey');
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
         let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Purchase Order" }), password)
         let encryptedPassword = await encryptMessage(password, privateKey)
-        console.log(encryptData, encryptedPassword);
+        // console.log(encryptData, encryptedPassword);
+        setIsSubmitted(false);
+        setOpen(false);
+        setStruture({});
+        setMainTable({
+            columns: [
+                { title: 'Product Code', field: 'productCode' },
+                { title: 'Description of Goods', field: 'descriptionOfGoods' },
+                { title: 'Unit Quantity', field: 'unitQuantity' },
+                { title: 'Unit Type', field: 'unitType' },
+                { title: 'Price', field: 'price' },
+                { title: 'Amount', field: 'amount' },
+            ],
+            data: [
 
+            ],
+        });
         props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
+        props.history.push("/dashboard/home")
+
     }
 
     const handleChangeValue = e => {
@@ -118,7 +178,7 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.name}
+                                        value={struture.buyer}
 
                                     />
                                 </GridItem>
@@ -159,6 +219,7 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.seller}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={6}>
@@ -169,6 +230,7 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.supplierReference}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -202,7 +264,7 @@ const PurchaseOrder = props => {
                                             <MenuItem value={"Break Bulk"}>Break Bulk</MenuItem>
                                             <MenuItem value={"LCL/FCL (CFS/CY) "}>LCL/FCL (CFS/CY) </MenuItem>
                                             <MenuItem value={"FCL/LCL (CY/CFS) "}>FCL/LCL (CY/CFS) </MenuItem>
-                                            <MenuItem value={"Reefer"}>Reefer</MenuItem>
+                                            <MenuItem value={"Reefer"}>Refer</MenuItem>
 
                                         </Select>
                                     </FormControl>
@@ -218,6 +280,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.portOfLoading}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -228,6 +292,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.portOfDischarge}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -238,6 +304,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.Mop}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -304,6 +372,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.additionalInformation}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -314,6 +384,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.additionalChargesDiscounts}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -324,6 +396,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.consignmentTotal}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -339,18 +413,25 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.placeOfIssue}
+
 
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Date of Issue"
-                                        id="dateOfIssue"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                    />
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            className={"CustomInput-formControl-197"}
+                                            autoOk
+                                            variant="inline"
+                                            inputVariant="outlined"
+                                            label="Date"
+                                            format="MM/dd/yyyy"
+                                            value={struture.dateOfIssue}
+                                            InputAdornmentProps={{ position: "start" }}
+                                            onChange={date => setStruture({ ...struture, ["dateOfIssue"]: date })}
+                                        />
+                                    </MuiPickersUtilsProvider>
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
@@ -365,6 +446,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.signatoryCompany}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -380,6 +463,8 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.nameOfAS}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -395,12 +480,33 @@ const PurchaseOrder = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.signature}
+
                                     />
                                 </GridItem>
                             </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={8}>
+
+                                </GridItem>
+                                {!isNew && <GridItem xs={12} sm={12} md={4}>
+                                    <CustomInput
+                                        labelText="Remark"
+                                        id="remark"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.remark}
+
+                                    />
+                                </GridItem>}
+                            </GridContainer>
                         </CardBody>
                         <CardFooter>
-                            <Button color="primary" onClick={handleClickOpen}>Submit</Button>
+                            {isNew ? <Button color="primary" onClick={handleClickOpen}>Submit</Button>
+                                : isSubmitted ? <CircularProgress /> : <Button color="primary" onClick={handleUpdate}>Update</Button>}
+
                         </CardFooter>
                     </Card>
                 </GridItem>
@@ -430,12 +536,17 @@ const PurchaseOrder = props => {
                     </GridContainer>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
+                    {isSubmitted ?
+                        <CircularProgress /> :
+                        <div>
+                            <Button onClick={handleClose} color="primary">
+                                Cancel
           </Button>
-                    <Button onClick={submitDocument} color="primary" autoFocus>
-                        Submit
+                            <Button onClick={submitDocument} color="primary" autoFocus>
+                                Submit
           </Button>
+                        </div>
+                    }
                 </DialogActions>
             </Dialog>
         </div>
@@ -447,5 +558,5 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { addNewDoc })(withStyles(styles, customInputStyle)(PurchaseOrder));
+export default connect(mapStateToProps, { addNewDoc, updateDoc })(withStyles(styles, customInputStyle)(PurchaseOrder));
 

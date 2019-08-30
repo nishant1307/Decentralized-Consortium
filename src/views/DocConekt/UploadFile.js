@@ -50,7 +50,7 @@ const shippingType = [
     // "Declaration of Origin",
     // "Packing list  Item",
     // "Shippers Letter of Instruction",
-    "Seaway / Airway Bill",
+    "Seaway Airway Bill",
     // "Bill of Lading",
     // "Forwarding Instruction",
     "Shipping Instruction"
