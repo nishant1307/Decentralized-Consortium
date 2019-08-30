@@ -14,6 +14,11 @@ import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import DateFnsUtils from "@date-io/date-fns";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
@@ -25,6 +30,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { country, currency, currencyCode } from '../../../assets/data/countryList'
+import { connect } from 'react-redux';
+import { encryptMessage, decryptMessage } from 'utils'
+import { addNewDoc, updateDoc } from 'actions/userActions';
+import ipfs from '../../../ipfs';
+const Ipfs = require('ipfs-http-client')
 
 const styles = theme => ({
     cardCategoryWhite: {
@@ -51,21 +61,74 @@ const styles = theme => ({
 
 const ShippingInstructions = props => {
     const { classes } = props;
-    const [selectedDate, handleDateChange] = useState(new Date());
     const [struture, setStruture] = useState({});
-    const [mod, setMod] = React.useState("Air");
-    const [tos, setTos] = React.useState('LCL (CY)')
-    const updateProfile = () => {
-        console.log("Updated", struture);
+    // const [mod, setMod] = React.useState("Air");
+    // const [tos, setTos] = React.useState('LCL (CY)')
+    const [password, setPassword] = useState("");
+    const [isNew, setIsNew] = useState(true);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    async function handleUpdate() {
+        setIsSubmitted(true)
+        let privateKey = await sessionStorage.getItem('privateKey');
+        let password = await decryptMessage(props.data.password, privateKey)
+        const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture }))
+        const cid = await ipfs.add(content);
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Shipping Instruction" }), password)
+        props.updateDoc(encryptData, props.data.tokenId, struture.remark);
+        setIsSubmitted(false)
+        // props.history.push("/dashboard/home")
     }
+
+    const [open, setOpen] = React.useState(false);
+
+    function handleClickOpen() {
+        setOpen(true);
+    }
+
+    function handleClose() {
+        setOpen(false);
+    }
+
+    const submitDocument = async () => {
+        setIsSubmitted(true)
+        let privateKey = await sessionStorage.getItem('privateKey');
+        const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture }))
+        const cid = await ipfs.add(content);
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Shipping Instruction" }), password)
+        let encryptedPassword = await encryptMessage(password, privateKey)
+        // console.log(encryptData, encryptedPassword);
+        setIsSubmitted(false);
+        setOpen(false);
+        setStruture({});
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
+        props.history.push("/dashboard/home")
+
+    }
+
 
     const handleChangeValue = e => {
         const { id, value } = e.target;
-        console.log(id, value);
+        // console.log(id, value);
 
         setStruture({ ...struture, [id]: value })
     }
 
+
+
+    useEffect(() => {
+        if (props.data.hash !== undefined) {
+            setIsNew(false);
+            ipfs.get(props.data.hash, function (err, files) {
+                // console.log(JSON.parse(files[0].content.toString('utf8')));
+                let data = JSON.parse(files[0].content.toString('utf8'))
+                setStruture(data.formData)
+                // files.forEach((file) => {
+                //     console.log(file.path)
+                //     console.log(file.content.toString('utf8'))
+                // })
+            })
+        }
+    }, [])
     return (
         <div>
             <GridContainer>
@@ -85,7 +148,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.name}
+                                        value={struture.shipper}
 
                                     />
                                 </GridItem>
@@ -97,7 +160,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.purchaseOrderNumber}
+                                        value={struture.buyerReference}
 
                                     />
                                 </GridItem>
@@ -109,7 +172,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.purchaseOrderNumber}
+                                        value={struture.reference}
 
                                     />
                                 </GridItem>
@@ -121,7 +184,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.purchaseOrderNumber}
+                                        value={struture.exportDeclarationNumber}
 
                                     />
                                 </GridItem>
@@ -135,6 +198,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.consignee}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
@@ -145,6 +209,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.carrier}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -157,6 +222,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.notfyParty}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -238,6 +304,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.vesselOrAircraft}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -248,6 +315,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.voyageNo}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -258,6 +327,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.placeOfReceipt}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -270,6 +340,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.portOfLoading}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -292,6 +364,8 @@ const ShippingInstructions = props => {
                                         formControlProps={{
                                             fullWidth: true
                                         }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.documentInstructions}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -302,6 +376,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.placeOfReceipt}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -314,6 +389,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.portOfDischarge}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={2}>
@@ -324,6 +401,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.finalDestination}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={2}>
@@ -383,6 +462,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.decalaredValue}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -395,6 +476,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.marksandNumbers}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
@@ -405,6 +488,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.kindOrNoOfPackages}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
@@ -415,6 +500,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.descriptionOfGoods}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={2}>
@@ -425,6 +512,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.grossWeight}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={2}>
@@ -435,6 +524,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.measurements}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -446,6 +537,9 @@ const ShippingInstructions = props => {
                                         formControlProps={{
                                             fullWidth: true
                                         }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.addLine}
+
 
                                     />
                                 </GridItem>
@@ -457,6 +551,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.consignmentTotal}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -513,6 +609,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.specialInstructions}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -528,6 +625,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.signatoryCompany}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -543,6 +641,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.placeOfIssue}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={2}>
@@ -553,6 +652,7 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.dateOfIssue}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -568,6 +668,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.signatoryCompany}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -583,6 +685,8 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.nameOfAS}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -598,19 +702,81 @@ const ShippingInstructions = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.signature}
                                     />
                                 </GridItem>
                             </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={12} md={8}>
+
+                                </GridItem>
+                                {!isNew && <GridItem xs={12} sm={12} md={4}>
+                                    <CustomInput
+                                        labelText="Remark"
+                                        id="remark"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.remark}
+
+                                    />
+                                </GridItem>}
+                            </GridContainer>
                         </CardBody>
                         <CardFooter>
-                            <Button color="primary" onClick={updateProfile}>Submit</Button>
+                            {isNew ? <Button color="primary" onClick={handleClickOpen}>Submit</Button>
+                                : isSubmitted ? <CircularProgress /> : <Button color="primary" onClick={handleUpdate}>Update</Button>}
+
                         </CardFooter>
                     </Card>
                 </GridItem>
             </GridContainer>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Enter password to secure your document"}</DialogTitle>
+                <DialogContent>
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={12}>
+                            <CustomInput
+                                labelText="Password"
+                                id="password"
+                                type="password"
+                                formControlProps={{
+                                    fullWidth: true
+                                }}
+                                onChangeValue={((e) => { setPassword(e.target.value) })}
+                                value={password}
+
+                            />
+                        </GridItem>
+                    </GridContainer>
+                </DialogContent>
+                <DialogActions>
+                    {isSubmitted ?
+                        <CircularProgress /> :
+                        <div>
+                            <Button onClick={handleClose} color="primary">
+                                Cancel
+          </Button>
+                            <Button onClick={submitDocument} color="primary" autoFocus>
+                                Submit
+          </Button>
+                        </div>
+                    }
+                </DialogActions>
+            </Dialog>
         </div>
     );
 };
 
+const mapStateToProps = (state) => ({
+    user: state.user,
+    errors: state.errors
+});
 
-export default withStyles(styles, customInputStyle)(ShippingInstructions);
+export default connect(mapStateToProps, { addNewDoc, updateDoc })(withStyles(styles, customInputStyle)(ShippingInstructions));

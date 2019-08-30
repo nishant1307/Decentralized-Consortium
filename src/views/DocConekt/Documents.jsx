@@ -21,6 +21,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import { decryptMessage } from 'utils'
+import moment from "moment";
 const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));
 
 
@@ -121,6 +122,7 @@ const Products = (props) => {
                         <MaterialTable
                           columns={[
                             { title: "Document Id", field: "tokenId" },
+                            { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp*1000).format("DD-MM-YYYY h:mm:ss")},
                           ]}
                           data={productList}
                           title=""
