@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
+import DialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
@@ -47,13 +47,6 @@ const DialogTitle = withStyles(styles)(props => {
   );
 });
 
-const DialogContent = withStyles(theme => ({
-  root: {
-    padding: theme.spacing(2),
-    width:theme.spacing(104)
-  },
-}))(MuiDialogContent);
-
 const DialogActions = withStyles(theme => ({
   root: {
     margin: 0,
@@ -73,9 +66,6 @@ const RegisterDocModal = (props) =>  {
         maxWidth = "xl"
         full
       >
-        <DialogTitle id="customized-dialog-title" onClose={props.closeDocModal}>
-          {/* DocConekt */} &nbsp;
-        </DialogTitle>
         <DialogContent dividers>
           <UploadFile projectList= {props.projectList} history={props}  />
         </DialogContent>

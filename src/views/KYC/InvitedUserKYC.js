@@ -17,7 +17,6 @@ import { registryContract, registryAddress } from '../../registryContract';
 import web3 from '../../web3';
 import uuidv1 from 'uuid/v1';
 import moment from "moment";
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 const useStyles = makeStyles(theme => ({
     listItem: {
         padding: theme.spacing(1, 0),
@@ -676,49 +675,7 @@ function PaymentForm(props) {
         <React.Fragment>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <TextField disabled required id="cardName" defaultValue="Company Document" fullWidth />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Dropzone
-                        onDrop={onDrop("companyDoc")}
-                        accept="image/*"
-                        minSize={0}
-                        maxSize={1048576}
-                        multiple
-                    >
-                        {({ getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles }) => {
-                            const isFileTooLarge = rejectedFiles.length > 0 && rejectedFiles[0].size > 1048576;
-                            return (
-                                <div {...getRootProps()}>
-                                    <input {...getInputProps()} />
-                                    {!isDragActive && 'Click here or drop upto 3 images'}
-                                    {isDragActive && !isDragReject && "Drop it here"}
-                                    {isDragReject && "File type not accepted, sorry!"}
-                                    {isFileTooLarge && (
-                                        <div className="text-danger mt-2">
-                                            File is too large.
-                              </div>
-                                    )}
-                                    <div style={{
-                                        position: 'relative',
-                                        width: '200px',
-                                        height: '200px',
-                                        borderWidth: '2px',
-                                        borderColor: 'rgb(102, 102, 102)',
-                                        borderStyle: 'dashed',
-                                        borderRadius: '5px',
-                                    }} />
-                                </div>
-                            )
-                        }}
-                    </Dropzone>
-                    {companyDoc.length > 0 ? <div>
-                        <h4>{companyDoc.length} images uploaded</h4>
-                        <div>{companyDoc.map((file) => <img src={file} key={Math.random()} height="50px" width="50px" />)}</div>
-                    </div> : null}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <TextField disabled required id="expDate" defaultValue="Owner Document" fullWidth />
+                    <TextField disabled required id="expDate" defaultValue="User Document" fullWidth />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Dropzone
@@ -776,7 +733,7 @@ function AddressForm(props) {
                         name="companyName"
                         label="Company Name"
                         fullWidth
-                        onChange={handleChange}
+                        disabled
                         autoComplete="companyName"
                         value={state.companyName}
                     />
@@ -799,101 +756,11 @@ function AddressForm(props) {
                         id="email"
                         name="email"
                         label="Email"
+                        disabled
                         fullWidth
                         onChange={handleChange}
                         autoComplete="lname"
                         value={state.email}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField
-                        required
-                        id="address1"
-                        name="address1"
-                        label="Address line 1"
-                        fullWidth
-                        onChange={handleChange}
-                        autoComplete="billing address-line1"
-                        value={state.address1}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <PlacesAutocomplete
-                        value={state.address}
-                        onChange={handleAddressChange}
-                        onSelect={handleSelect}
-                    >
-                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                            <div>
-                                <TextField
-                                    id="standard-search"
-                                    label="Address"
-                                    type="search"
-                                    fullWidth
-                                    margin="normal"
-                                    {...getInputProps()}
-                                />
-                                <div className="autocomplete-dropdown-container">
-                                    {loading && <div>Loading...</div>}
-                                    {suggestions.map(suggestion => {
-                                        const className = suggestion.active
-                                            ? 'suggestion-item--active'
-                                            : 'suggestion-item';
-                                        const style = suggestion.active
-                                            ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                            : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                        return (
-                                            <div
-                                                {...getSuggestionItemProps(suggestion, {
-                                                    className,
-                                                    style,
-                                                })}
-                                            >
-                                                <span>{suggestion.description}</span>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        )}
-                    </PlacesAutocomplete>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="city"
-                        name="city"
-                        label="City"
-                        fullWidth
-                        onChange={handleChange}
-                        autoComplete="billing address-level2"
-                        value={state.city}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="zip"
-                        name="zip"
-                        label="Zip / Postal code"
-                        fullWidth
-                        onChange={handleChange}
-                        autoComplete="billing postal-code"
-                        value={state.zipcode}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="country"
-                        name="country"
-                        label="Country"
-                        fullWidth
-                        autoComplete="billing country"
-                        value={state.country}
                     />
                 </Grid>
             </Grid>
@@ -916,12 +783,7 @@ function Checkout(props) {
     const [state, setState] = useState({
         companyName: '',
         fullName: '',
-        email: '',
-        address: '',
-        city: '',
-        state: '',
-        zipcode: '',
-        country: ''
+        email: ''
     })
     const handleNext = () => {
         setActiveStep(activeStep + 1);
@@ -934,18 +796,15 @@ function Checkout(props) {
     const submitForm = async () => {
         setActiveStep(activeStep + 1);
         const privateKey = await sessionStorage.getItem('privateKey')
-        const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ipfsCompanyHash,info:state}))
-        const orgHash = await ipfs.add(orgBuffer);
+        // const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ipfsCompanyHash,info:state}))
+        // const orgHash = await ipfs.add(orgBuffer);
         const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ipfsOwnerHash,info:state}))
         const userHash = await ipfs.add(userBuffer);
         var transaction = {
             "to": registryAddress,
-            "data": registryContract.methods.setOrganizationAdmin(
-              uuidv1(),
-            state.companyName,
-            orgHash[0].hash,
-            userHash[0].hash,
-            state.email
+            "data": registryContract.methods.registerInvitedUser(
+              state.email,
+              userHash[0].hash
             ).encodeABI()
           };
 
@@ -999,23 +858,6 @@ function Checkout(props) {
     function handleDoc(data) {
         let i;
         for (i = 0; i < data.acceptedFiles.length; i++) {
-            if (data.type === "companyDoc") {
-                setCompanyDoc([...companyDoc, URL.createObjectURL(data.acceptedFiles[i])])
-                data.acceptedFiles.forEach(element => {
-                    let file = element;
-                    let reader = new window.FileReader();
-                    reader.readAsArrayBuffer(file);
-                    reader.onloadend = (res) => {
-                        let content = Ipfs.Buffer.from(res.target.result);
-                        ipfs.add(content, (err, newHash) => {
-                            console.log(err, newHash);
-                            setIPFSCompanyHash([...ipfsCompanyHash, newHash[0].hash])
-                        })
-                    }
-                });
-
-            }
-            else {
                 setOwnerDoc([...ownerDoc, URL.createObjectURL(data.acceptedFiles[i])])
                 data.acceptedFiles.forEach(element => {
                     let file = element;
@@ -1029,7 +871,6 @@ function Checkout(props) {
                         })
                     }
                 });
-            }
         }
     }
 
@@ -1047,6 +888,15 @@ function Checkout(props) {
     }
 
     useEffect(() => {
+      registryContract.methods.getInvitedUserOrganizationDetails("nishant.mitra95@gmail.com").call({
+          from: address
+      }).then(res => {
+        setState(state => ({
+          ...state,
+          companyName: res.name,
+          email: "nishant.mitra95@gmail.com"
+        }))
+      });
         registryContract.methods.getUserKYCStatus().call({
             from: address
         }).then(res => {

@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import {registryContract} from 'registryContract';
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import Divider from '@material-ui/core/Divider';
 const Projects = (props) => {
 
   const [projectList, setProjectList] = useState([]);
@@ -68,7 +69,6 @@ const Projects = (props) => {
                   columns={[
                     { title: "", field: "projectID" , render: rowData => <Link to={{ pathname: projectURL(rowData.projectID), state: { projectDetails: rowData} }}><VisibilityIcon/></Link>},
                     { title: "Project Name", field: "name" },
-                    { title: "Project ID", field: "projectID" },
                     { title: "Industry", field: "industry"},
                     { title: "Project Admin", field: "projectAdmin"},
                   ]}
@@ -78,6 +78,27 @@ const Projects = (props) => {
                     search: true,
                     exportButton: true
                   }}
+                  detailPanel={rowData => {
+                    return (
+                      <GridContainer>
+                        <GridItem xs={12} sm={12} md={9}>
+                          <Card style={{height: "200px"}}>
+                            <CardHeader>
+                              <strong>Project Info</strong>
+                            </CardHeader>
+                            <Divider/>
+                            <CardBody>
+                                <b>Project Name:</b> {rowData.name}<br/>
+                                <b>Project ID: </b>{rowData.projectID}<br/>
+                                <b>Project Description:</b> {rowData.description}<br/>
+                                <b>Project Industry:</b> {rowData.industry}<br/>
+                            </CardBody>
+                          </Card>
+                        </GridItem>
+                      </GridContainer>
+                    )
+                  }}
+                  onRowClick={(event, rowData, togglePanel) => togglePanel()}
                 />
              :
             <h3>No Projects Found!</h3>

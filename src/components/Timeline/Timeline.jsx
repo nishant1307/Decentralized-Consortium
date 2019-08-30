@@ -30,11 +30,11 @@ const TimelineComponent = (props) => {
 
   const fetchPartnerRoleFromCode = (code) => {
     switch(code) {
-      case "0": return "buyer";
-      case "1": return "seller";
-      case "2": return "logistics";
-      case "3": return "agent";
-      case "4": return "bank";
+      case "1": return "buyer";
+      case "2": return "seller";
+      case "3": return "logistics";
+      case "4": return "agent";
+      case "5": return "bank";
     }
   }
 

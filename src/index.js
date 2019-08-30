@@ -7,6 +7,7 @@ const Admin = React.lazy(() => import('layouts/Admin.jsx'));
 const AdminPanel = React.lazy(() => import('layouts/AdminPanel.jsx'));
 import { PrivateRoute }  from './PrivateRoute'
 const Kyc = React.lazy(() => import('views/KYC/Kyc'));
+const InvitedUserKYC = React.lazy(() => import('views/KYC/InvitedUserKYC'));
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
@@ -42,6 +43,7 @@ ReactDOM.render(
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/register" component={Kyc} />
+            <Route exact path="/invitation/:invitationCode" component={InvitedUserKYC} />
             <Route path="/recover" component={RecoverAccount} />
             <Route component={Page404} />
           </Switch>

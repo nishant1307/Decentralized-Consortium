@@ -91,5 +91,5 @@ export const logoutUser = (history) => dispatch => {
         type: GET_ERRORS,
         payload: {}
     });
-    history.push('/login');
+    history.push('/');
 }

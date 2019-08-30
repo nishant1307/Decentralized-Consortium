@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Suspense} from "react";
 import PropTypes from "prop-types";
 import { Switch, Route } from "react-router-dom";
 // creates a beautiful scrollbar
@@ -22,7 +22,9 @@ import {logoutUser} from "actions/authentication";
 import image from "assets/images/secure-min.jpg";
 import logo from "assets/img/logo.png";
 import routes from "routes.js"
+import LinearProgress from '@material-ui/core/LinearProgress';
 
+const loading = <LinearProgress />;
 // let ps;
 
 const switchRoutes = (
@@ -135,6 +137,7 @@ class Dashboard extends React.Component {
             {...rest}
           />
           {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+          <Suspense fallback={loading}>
           {this.getRoute() ? (
             <div className={classes.content}>
               <div className={classes.container}>{switchRoutes}</div>
@@ -143,6 +146,7 @@ class Dashboard extends React.Component {
             <div className={classes.map}>{switchRoutes}</div>
           )}
           {this.getRoute() ? <Footer /> : null}
+          </Suspense>
         </div>
       </div>
     );

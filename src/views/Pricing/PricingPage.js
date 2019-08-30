@@ -14,21 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'. Built with '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI.
-      </Link>
-    </Typography>
-  );
-}
+
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
@@ -108,6 +94,9 @@ const tiers = [
 
 export default function PricingPage() {
   const classes = useStyles();
+  const [projects, setProjects] = React.useState(0);
+  const [partners, setPartners] = React.useState(0);
+  const [products, setProducts] = React.useState(0);
 
   return (
     <React.Fragment>
@@ -151,6 +140,63 @@ export default function PricingPage() {
             </Grid>
           ))}
         </Grid>
+      </Container>
+      <Container>
+      <div className="wrapper">
+          <div className="row">
+              <div className="columns-2 w-row">
+                  <div className="column-2 w-col w-col-7">
+                      <div className="margin-bottom">
+                          <h2 className="heading-2">Note</h2>
+                          <p>Note -
+Setup and customization charges could be applicable for certain customers.<br/>
+For larger customized plans contact us directly.<br/>
+Additional monthly credits packs can be purchased at $ 49 for 400 Credits.<br/>
+Validity of plan & credits is one month and it cannot be carried forward.<br/>
+Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
+                      </div>
+                  </div>
+                  <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: 50, paddingBottom: 50 }}>
+                      <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
+                          <table className="tg">
+                              <tr>
+                                  <th className="tg-rnhl" colspan="4">Credit Chart</th>
+                              </tr>
+                              <tr>
+                                  <td className="tg-rnhl">name</td>
+                                  <td className="tg-rnhl">Credits Used</td>
+                                  <td className="tg-rnhl" colspan="2">Credit Calculator</td>
+                              </tr>
+                              <tr>
+                                  <td className="tg-rnhl">Projects</td>
+                                  <td className="tg-rnhl">75</td>
+                                  <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></td>
+                                  <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={parseInt(projects) * 75} readOnly /></td>
+                              </tr>
+                              <tr>
+                                  <td className="tg-rnhl">Partners</td>
+                                  <td className="tg-rnhl">15</td>
+                                  <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
+                                  <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={parseInt(partners) * 15} readOnly /></td>
+                              </tr>
+                              <tr>
+                                  <td className="tg-rnhl">Products / Docs / Devices</td>
+                                  <td className="tg-g2pk">1</td>
+                                  <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></td>
+                                  <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={products} readOnly /></td>
+                              </tr>
+                              <tr>
+                                  <td className="tg-g2pk" colspan="1"></td>
+                                  <td className="tg-g2pk" colspan="2">Total</td>
+                                  <td className="tg-rnhl"><input type="number" style={{ width: 50 }} value={parseInt(projects * 75) + parseInt(partners * 15) + parseInt(products)} readOnly placeholder="Total" /></td>
+                              </tr>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {/* </div> */}
+      </div>
       </Container>
     </React.Fragment>
   );

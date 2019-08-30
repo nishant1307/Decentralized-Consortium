@@ -26,6 +26,22 @@ contract EternalStorage is StorageDefinition {
     // mapping between partnershipType and Organization
     mapping (string => Organization[]) internal partners;
 
+
+    // All Project related definStorageDefinition    // mapping between Project ID and project Details
+    mapping (bytes32 => Project) internal projectRegistry;
+
+    // mapping between ProjectId and Users
+    mapping (bytes32 => User[]) internal consortium;
+
+    // mapping between ProjectId and Consortium Requests
+    mapping (bytes32 => address[]) consortiumRequests;
+
+    // mapping between userPublicKey and Projects
+    mapping (address => Project[]) internal myProjects;
+
+    // mapping between projectID and user with their roles
+    mapping(bytes32 => mapping (address => partnerRoles)) internal projectRoles;
+
     Storage internal s;
 
     mapping(address => bool) internal registeredContracts;
@@ -274,7 +290,7 @@ contract EternalStorage is StorageDefinition {
         return (userDirectory[tx.origin]);
     }
 
-    function getUserDetailsFromPublicKey(address userAddress) external view onlyRegisteredContract returns (User memory) {
+    function getUserDetails(address userAddress) external view onlyRegisteredContract returns (User memory) {
         return (userDirectory[userAddress]);
     }
 
@@ -282,7 +298,11 @@ contract EternalStorage is StorageDefinition {
         return (organizationDirectory[userDirectory[tx.origin].organizationID]);
     }
 
-    function getOrganizationDetailsFromPublicKey(address userAddress) external view onlyRegisteredContract returns (Organization memory) {
+    function getOrganizationDetails(string calldata organizationID) external view onlyRegisteredContract returns (Organization memory) {
+        return (organizationDirectory[organizationID]);
+    }
+
+    function getOrganizationDetails(address userAddress) external view onlyRegisteredContract returns (Organization memory) {
         return (organizationDirectory[userDirectory[userAddress].organizationID]);
     }
 
@@ -359,6 +379,55 @@ contract EternalStorage is StorageDefinition {
 
     function confirmPartnershipStatus(string memory organizationID, string memory partnershipType) internal {
         partners[partnershipType].push(organizationDirectory[organizationID]);
+    }
+
+     function addNewProject(bytes32 projectID,  string calldata name, string calldata description, string calldata industry) external onlyRegisteredContract {
+        Project memory project;
+        project.projectID = projectID;
+        project.name = name;
+        project.description = description;
+        project.industry = industry;
+        project.projectAdmin = tx.origin;
+        projectRegistry[projectID] = project;
+    }
+
+    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) external onlyRegisteredContract {
+        consortium[projectID].push(this.getUserDetails(userAddress));
+        myProjects[userAddress].push(projectRegistry[projectID]);
+        projectRoles[projectID][userAddress] = partnerRole;
+    }
+
+    function requestProjectInvite(bytes32 projectID) external onlyRegisteredContract returns(bool){
+        consortiumRequests[projectID].push(tx.origin);
+        return true;
+    }
+
+    function fetchProjectInvites(bytes32 projectID) external view onlyRegisteredContract returns(address[] memory){
+        return consortiumRequests[projectID];
+    }
+
+    function getProjectDetails(bytes32 projectID) external view onlyRegisteredContract returns (Project memory) {
+        return (projectRegistry[projectID]);
+    }
+
+    function getMyProjects() external view onlyRegisteredContract returns (Project[] memory) {
+        return myProjects[tx.origin];
+    }
+
+    function getMyProjectsCount() external view onlyRegisteredContract returns (uint256) {
+        return myProjects[tx.origin].length;
+    }
+
+    function getConsortiumMembers(bytes32 projectID) external view onlyRegisteredContract returns (User[] memory) {
+        return (consortium[projectID]);
+    }
+
+    function getPartnerRole(bytes32 projectID, address publicKey) external view returns (partnerRoles) {
+        return projectRoles[projectID][publicKey];
+    }
+
+    function getMyRole(bytes32 projectID) external view onlyRegisteredContract returns (partnerRoles) {
+        return projectRoles[projectID][tx.origin];
     }
 
 }

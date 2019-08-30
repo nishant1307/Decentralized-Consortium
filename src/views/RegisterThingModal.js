@@ -10,7 +10,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Modal from "components/CustomModal/Modal";
 import "assets/css/ClaimPage.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import {renderFromArray} from 'utils';
+import {currencyCode} from "assets/data/countryList";
 import axios from "axios";
 
 const RegisterThingModal = (props) => {
@@ -23,7 +29,7 @@ const RegisterThingModal = (props) => {
       thingDescription: state.thingDescription,
       thingBrand: state.thingBrand,
       thingStory: state.thingStory,
-      thingValue: state.thingValue,
+      thingValue: state.thingCurrencyCode+" "+state.thingValue,
       quantity: state.quantity,
       claims: claims,
       certificateURLs: [],
@@ -51,6 +57,7 @@ const RegisterThingModal = (props) => {
     thingDescription: '',
     thingBrand: '',
     thingStory: '',
+    thingCurrencyCode: 'INR',
     thingValue: '',
     quantity: '1'
   };
@@ -267,6 +274,18 @@ const makeAddedList = () => {
                     </FormGroup>
                     <FormGroup row>
                     <Col xs="12" md="6">
+                      <FormControl variant="outlined">
+                        <InputLabel htmlFor="industryList">Currency Code</InputLabel>
+                        <Select
+                          name="thingCurrencyCode"
+                          value={state.thingCurrencyCode}
+                          required
+                          input={<OutlinedInput />}
+                          onChange={handleFormChange}
+                        >
+                          {renderFromArray(currencyCode)}
+                        </Select>
+                      </FormControl>
                       <TextField
                         variant="outlined"
                         label="Product Price"

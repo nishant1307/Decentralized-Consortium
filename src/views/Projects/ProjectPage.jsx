@@ -47,7 +47,7 @@ const ProjectPage = (props) => {
       props.history.push("/dashboard/home")
     else
       setProjectDetails(props.location.state.projectDetails);
-    registryContract.methods.getConsortiumMember(props.match.params.projectID).call({
+    registryContract.methods.getConsortiumMembers(props.match.params.projectID).call({
       from : props.auth.user.publicKey
     }).then(res => {
       setPartners(res);

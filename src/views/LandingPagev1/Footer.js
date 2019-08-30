@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import Typography from '@material-ui/core/Typography';
 const encode = (data) => {
     return Object.keys(data)
         .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -84,6 +85,17 @@ export default function Landing() {
                     </div>
                 </div>
             </div>
+            <Typography variant="body2" color="textSecondary" align="right">
+              {'Copyright © '}
+              <Link color="inherit" href="https://www.arthanium.com">
+                www.arthanium.com
+              </Link>{' '}
+              {new Date().getFullYear()}
+              {'. Powered by '}
+              <Link color="inherit" href="https://www.arthanium.org">
+              Arthanium
+              </Link>
+            </Typography>
         </div >
     );
 }

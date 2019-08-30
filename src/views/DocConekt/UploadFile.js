@@ -25,7 +25,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import {renderFromArray} from "utils";
 const uuidv1 = require('uuid/v1');
 
 const salesTypes = [
@@ -53,7 +53,7 @@ const shippingType = [
     "Seaway / Airway Bill",
     // "Bill of Lading",
     // "Forwarding Instruction",
-    "Shipping Instruction",
+    "Shipping Instruction"
     // "Importer Security Filing",
     // "Declaration",
     // "Foreign Exchange Control Form",
@@ -67,8 +67,8 @@ const bankType = [
 
 const mainDocType = [
     "Sales Documents",
-    "Shipping Doccuments",
-    "Banking Doccuments"
+    "Shipping Documents",
+    "Banking Documents"
 ]
 
 const useStyles = makeStyles(theme => ({
@@ -248,7 +248,7 @@ function Review(props) {
     );
 }
 
-function Checkout(props) {
+const Checkout = (props) => {
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [status, setStatus] = React.useState(false);
@@ -261,15 +261,8 @@ function Checkout(props) {
     const [progress, setProgress] = React.useState(0);
     const [value, setValue] = React.useState(0);
     const [DocType, setDocType] = React.useState(0);
-    const [subDocType, setSubDocType] = React.useState("Quotation");
-
-    const handleDocChange = name => event => {
-        if (name === "Main")
-            setDocType(Number(event.target.value))
-        else
-            setSubDocType(event.target.value)
-    };
-
+    const [subDocType, setSubDocType] = React.useState("");
+    const [subDocRender, setSubDocRender] = useState("");
     function handleChange(event, newValue) {
         setValue(newValue);
     }
@@ -285,6 +278,9 @@ function Checkout(props) {
             clearInterval(timer);
         };
     }, []);
+    useEffect(()=> {
+      setSubDocRender(getSubContent(DocType));
+    }, [DocType])
 
     const handleNext = () => {
         console.log("in nnext");
@@ -310,27 +306,15 @@ function Checkout(props) {
         setFileInfo(info);
         // forceUpdate();
     }
-
-    function getSubContent(count) {
+    const getSubContent = (count) => {
+      console.log("called");
         switch (count) {
             case 0:
-                return (salesTypes.map((data) => {
-                    return (
-                        <MenuItem key={Math.random()} value={data}>{data}</MenuItem>
-                    )
-                }));
+                return renderFromArray(salesTypes);
             case 1:
-                return (shippingType.map((data) => {
-                    return (
-                        <MenuItem key={Math.random()} value={data}>{data}</MenuItem>
-                    )
-                }));
+                return renderFromArray(shippingType);
             case 2:
-                return (bankType.map((data) => {
-                    return (
-                        <MenuItem key={Math.random()} value={data}>{data}</MenuItem>
-                    )
-                }))
+                return renderFromArray(bankType);
             default:
                 throw new Error('Unknown step');
         }
@@ -465,7 +449,7 @@ function Checkout(props) {
             <TabPanel value={value} index={1}>
                 {/* <Paper className={classes.paper}> */}
                 <Typography component="h1" variant="h4" align="center">
-                    Selet Document Type
+                    Select Document Type
           </Typography>
                 <br /><br /><br />
                 <form className={classes.container}>
@@ -475,7 +459,7 @@ function Checkout(props) {
                                 <InputLabel htmlFor="age-native-simple">Document Type</InputLabel>
                                 <Select
                                     value={DocType}
-                                    onChange={handleDocChange("Main")}
+                                    onChange={(e) => setDocType(e.target.value)}
                                     input={<Input id="mainType" />}
                                 >
                                     <MenuItem value={0}>{mainDocType[0]}</MenuItem>
@@ -489,10 +473,10 @@ function Checkout(props) {
                                 <InputLabel htmlFor="age-simple">Sub-Type</InputLabel>
                                 <Select
                                     value={subDocType}
-                                    onChange={handleDocChange("Sub")}
+                                    onChange={(e) => setSubDocType(e.target.value)}
                                     input={<Input id="sub-Type" />}
                                 >
-                                    {getSubContent(DocType)}
+                                    {subDocRender}
                                 </Select>
                             </FormControl>
                         </Grid>
