@@ -5,8 +5,10 @@ import PropTypes from "prop-types";
 // react plugin for creating charts
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
-import Icon from "@material-ui/core/Icon";
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import TimelineIcon from '@material-ui/icons/Timeline';
+import WorkIcon from '@material-ui/icons/Work';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -59,7 +61,7 @@ const ProjectPage = (props) => {
           <Link to={{ pathname: partnerPageURL, state: { partners: partners} }}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Icon>work</Icon>
+                <WorkIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Participants </p>
               <h4 className={classes.cardTitle}>{partners.length}</h4>
@@ -95,7 +97,7 @@ const ProjectPage = (props) => {
           <Card>
             <CardHeader onClick={()=>{props.history.push(getProductPageURL)} } color="info" stats icon>
               <CardIcon color="info">
-                <Icon>device_hub</Icon>
+                <DeviceHubIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>View Product List</p>
               {/* <h4 className={classes.cardTitle}></h4> */}
@@ -112,7 +114,7 @@ const ProjectPage = (props) => {
           <Card>
             <CardHeader onClick={()=>{props.history.push(getDevicePageURL)} } color="info" stats icon>
               <CardIcon color="info">
-                <Icon>device_hub</Icon>
+                <DeviceHubIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>View Device List</p>
               {/* <h4 className={classes.cardTitle}></h4> */}
@@ -129,7 +131,7 @@ const ProjectPage = (props) => {
           <Card>
             <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
               <CardIcon color="info">
-                <Icon>file_copy</Icon>
+                <FileCopyIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Docs</p>
               <h4 className={classes.cardTitle}>{props.user.docCount}</h4>
@@ -142,21 +144,25 @@ const ProjectPage = (props) => {
             </CardFooter>
           </Card>
         </GridItem>
-        {projectDetails && <GridItem xs={12} sm={12} md={9}>
-          <Card style={{height: "200px"}}>
-            <CardHeader>
-              <strong>Project Info</strong>
-            </CardHeader>
-            <Divider/>
-            <CardBody>
-                <b>Project Name:</b> {projectDetails.name}<br/>
-                <b>Project ID: </b>{projectDetails.projectID}<br/>
-                <b>Project Description:</b> {projectDetails.description}<br/>
-                <b>Project Industry:</b> {projectDetails.industry}<br/>
-            </CardBody>
-          </Card>
-        </GridItem>}
-      </GridContainer>
+        </GridContainer>
+        {projectDetails &&
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={9}>
+              <Card style={{height: "200px"}}>
+                <CardHeader>
+                  <strong>Project Info</strong>
+                </CardHeader>
+                <Divider/>
+                <CardBody>
+                    <b>Project Name:</b> {projectDetails.name}<br/>
+                    <b>Project ID: </b>{projectDetails.projectID}<br/>
+                    <b>Project Description:</b> {projectDetails.description}<br/>
+                    <b>Project Industry:</b> {projectDetails.industry}<br/>
+                </CardBody>
+              </Card>
+            </GridItem>
+          </GridContainer>
+        }
       <RegisterDeviceModal selectedProject= {props.match.params.projectID}/>
       <RegisterDocModal />
     </div>

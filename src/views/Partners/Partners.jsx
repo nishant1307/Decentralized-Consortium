@@ -21,7 +21,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
-import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {registryContract} from 'registryContract';
 import { connect } from 'react-redux';
@@ -34,7 +34,6 @@ const Partners = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const options = [
-  'All',
   'Financial Institution',
   'Certification Agency',
   'Government',
@@ -72,7 +71,7 @@ const Partners = (props) => {
 
   return (
     <div>
-      <Divider/>
+      <Paper>
       <List component="nav" aria-label="Device settings">
           <ListItem
             button
@@ -82,6 +81,7 @@ const Partners = (props) => {
             <ListItemText primary="Select Organization Type" secondary={options[selectedIndex]} />
           </ListItem>
       </List>
+      </Paper>
       <Menu
           id="partner-menu"
           anchorEl={anchorEl}
@@ -99,7 +99,6 @@ const Partners = (props) => {
             </MenuItem>
           ))}
       </Menu>
-      <Divider/>
       <GridContainer>
         {!loader?
           partners.length>0 ?

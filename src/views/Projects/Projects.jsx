@@ -16,6 +16,7 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
 const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
@@ -35,7 +36,7 @@ const Projects = (props) => {
       console.log(res);
       setLoader(false);
     });
-  }, []);
+  }, [props.user.projectCount]);
   const projectURL = (projectID) => {
     return "/dashboard/projects/"+ projectID;
   }
@@ -65,7 +66,7 @@ const Projects = (props) => {
           projectList.length !== 0  ?
               <MaterialTable
                   columns={[
-                    { title: "Project Name", field: "projectID" , render: rowData => <Link to={{ pathname: projectURL(rowData.projectID), state: { projectDetails: rowData} }}>Go to Project</Link>},
+                    { title: "", field: "projectID" , render: rowData => <Link to={{ pathname: projectURL(rowData.projectID), state: { projectDetails: rowData} }}><VisibilityIcon/></Link>},
                     { title: "Project Name", field: "name" },
                     { title: "Project ID", field: "projectID" },
                     { title: "Industry", field: "industry"},

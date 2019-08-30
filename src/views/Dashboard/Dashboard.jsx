@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 // react plugin for creating charts
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
-import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
 import Warning from "@material-ui/icons/Warning";
@@ -15,6 +14,9 @@ import Update from "@material-ui/icons/Update";
 import Accessibility from "@material-ui/icons/Accessibility";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DescriptionIcon from '@material-ui/icons/Description';
+import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+import PeopleIcon from '@material-ui/icons/People';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { connect } from 'react-redux';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -102,7 +104,7 @@ const Dashboard = (props) => {
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <Icon>device_hub</Icon>
+                <DeviceHubIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Devices</p>
               <h3 className={classes.cardTitle}>{props.user.deviceCount}</h3>
@@ -139,7 +141,7 @@ const Dashboard = (props) => {
           <Card>
             <CardHeader onClick={()=>{props.history.push('/dashboard/documents')} }  color="info" stats icon>
               <CardIcon color="info">
-                <Icon>file_copy</Icon>
+                <FileCopyIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Docs</p>
               <h3 className={classes.cardTitle}>{props.user.docCount}</h3>
@@ -156,7 +158,7 @@ const Dashboard = (props) => {
           <Link to={{ pathname: "/dashboard/people", state: { allPeople: allPeople} }}><Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
-                <Icon>people</Icon>
+                <PeopleIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>People</p>
               <h3 className={classes.cardTitle}>{allPeople.length}</h3>

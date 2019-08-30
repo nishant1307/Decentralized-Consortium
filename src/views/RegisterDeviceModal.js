@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Card, CardBody, CardHeader, Form, FormGroup, Label, Input, FormText, Col,  ModalBody, ModalFooter, ModalHeader, Row  } from 'reactstrap';
-import { Alert, CardFooter, Container, FormFeedback, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { Button, Form, FormGroup, Col  } from 'reactstrap';
+import { Alert} from 'reactstrap';
 import axios from "axios";
 import { createNewDevice, closeDeviceModal } from 'actions/userActions';
 import { connect } from 'react-redux';
@@ -10,11 +10,27 @@ import {renderFromArray} from 'utils';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Modal from "components/CustomModal/Modal";
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   progress: {
     margin: theme.spacing(2),
   },
+  formControl: {
+    margin: theme.spacing(1),
+    width: 500,
+  },
+  csvInput: {
+    padding: "10px",
+    display: "block",
+    margin: "15px auto",
+    border: "1px solid #ccc",
+    borderRadius: "5px"
+  }
 }));
 
 
@@ -65,7 +81,7 @@ const RegisterDeviceModal = (props) => {
     props.closeDeviceModal();
   }
 
-  const handleForce = data => {
+  const handleFileLoaded = data => {
     let deviceURNs = []
     data.map((deviceURN, i) => {
       if (deviceURN[0] !== 'DeviceURN' && deviceURN[0] !== '') { deviceURNs.push(deviceURN[0]) }
@@ -74,7 +90,7 @@ const RegisterDeviceModal = (props) => {
     setState({number:deviceURNs.length})
   }
 
-  const handleDarkSideForce = error => {
+  const handleError = error => {
     console.log(error)
   }
 
@@ -96,86 +112,82 @@ const RegisterDeviceModal = (props) => {
                         value={state.number}
                         onChange={handleChange}
                         label="Number of Devices"/>
-                      <FormText color="muted">How many devices do you wish to register?</FormText>
+                      <FormHelperText color="muted">How many devices do you wish to register?</FormHelperText>
                     </Col>
                   </FormGroup>
                   <FormGroup row>
                     <Col xs="12" md="6">
-                      <TextField type="text"
-                        name="deviceURN"
-                        fullWidth
-                        variant="outlined"
-                        value={deviceURN}
-                        onChange={(e) => {setDeviceURN(e.target.value)}}
-                        label="DeviceURN"  />
-                      <FormText color="muted">Enter Device URN</FormText>
-                    </Col>
-                    <Col xs="12" md="6">
+                    {state.number==1 ?
+                      <React.Fragment>
+                        <TextField type="text"
+                          name="deviceURN"
+                          fullWidth
+                          variant="outlined"
+                          value={deviceURN}
+                          onChange={(e) => {setDeviceURN(e.target.value)}}
+                          label="DeviceURN"  />
+                        <FormHelperText color="muted">Enter Device URN</FormHelperText>
+                        </React.Fragment>:
                       <CSVReader
-                        cssClass="csv-reader-input"
+                        cssClass={classes.csvInput}
                         label="Select CSV with deviceURN field "
-                        onFileLoaded={handleForce}
-                        onError={handleDarkSideForce}
+                        onFileLoaded={handleFileLoaded}
+                        onError={handleError}
                         inputId="ObiWan"
                         inputStyle={{ color: 'black' }}
                       />
+                    }
                     </Col>
                   </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="select">Select Device Type</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="select"
+                  <FormControl className={classes.formControl} variant="outlined">
+                    <InputLabel htmlFor="industryList">Select Device Type</InputLabel>
+                    <Select
                       name="deviceType"
                       value={state.deviceType}
+                      required
+                      input={<OutlinedInput />}
                       onChange={handleChange}
-                      id="select">
-                        {renderFromArray(deviceList)}
-                      </Input>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="text-input">Select Sensor</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      {/* <Input type="text" name="sensor" value={values.sensor} onChange={handleChange} id="text-input" placeholder="Text" /> */}
-                      <Input type="select"
-                        name="sensor"
-                        value={state.sensor}
-                        onChange={handleChange} >
-                        {renderFromArray(sensorList)}
-                        </Input>
-                      <FormText color="muted">Enter the sensor your device is using</FormText>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="select">Select Communication Protocol</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="select"
-                        name="communicationProtocol"
-                        value={state.communicationProtocol}
-                        onChange={handleChange}>
-                        {renderFromArray(protocolList)}
-                      </Input>
-                    </Col>
-                  </FormGroup>
-                  <FormGroup row>
-                    <Col md="3">
-                      <Label htmlFor="select">Select Data Protocol</Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Input type="select"
+                    >
+                      {renderFromArray(deviceList)}
+                    </Select>
+                  </FormControl><br/>
+                  <FormControl className={classes.formControl} variant="outlined">
+                    <InputLabel htmlFor="industryList">Select Sensor</InputLabel>
+                    <Select
+                    name="sensor"
+                    value={state.sensor}
+                      required
+                      input={<OutlinedInput />}
+                      onChange={handleChange}
+                    >
+                      {renderFromArray(sensorList)}
+                    </Select>
+                    <FormHelperText color="muted">Enter the sensor your device is using</FormHelperText>
+                  </FormControl><br/>
+                  <FormControl className={classes.formControl} variant="outlined">
+                    <InputLabel htmlFor="industryList">Select Communication Protocol</InputLabel>
+                    <Select
+                    name="communicationProtocol"
+                    value={state.communicationProtocol}
+                      required
+                      input={<OutlinedInput />}
+                      onChange={handleChange}
+                    >
+                      {renderFromArray(protocolList)}
+                    </Select>
+                  </FormControl><br/>
+                  <FormControl className={classes.formControl} variant="outlined">
+                    <InputLabel htmlFor="industryList">Select Data Protocol</InputLabel>
+                    <Select
                       name="dataProtocol"
                       value={state.dataProtocol}
-                      onChange={handleChange}>
-                        {renderFromArray(dataProtocolList)}
-                      </Input>
-                    </Col>
-                  </FormGroup>
+                      required
+                      input={<OutlinedInput />}
+                      onChange={handleChange}
+                    >
+                      {renderFromArray(dataProtocolList)}
+                    </Select>
+                  </FormControl>
               </Form>
             }
 
