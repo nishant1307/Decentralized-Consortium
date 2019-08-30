@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {Suspense, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -28,6 +28,11 @@ import Modal from "components/CustomModal/Modal";
 import Divider from '@material-ui/core/Divider';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TextField from '@material-ui/core/TextField';
+
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+const loading = <LinearProgress />;
+
 const Projects = (props) => {
 
   const [projectList, setProjectList] = useState([]);
@@ -151,7 +156,9 @@ const Projects = (props) => {
         </Card>
         </GridItem>
       </GridContainer>
-      <ProjectFormModal />
+      <Suspense fallback={loading}>
+        <ProjectFormModal />
+      </Suspense>
     </div>
   );
 }

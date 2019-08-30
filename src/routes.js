@@ -33,16 +33,19 @@ const StructuredDoc = React.lazy(() => import('views/DocConekt/StructuredDoc'))
 const dashboardRoutes = [
   {
     path: "/structured/:structuredDocId",
+    name: "DocConekt",
     component: StructuredDoc,
     layout: "/dashboard"
   },
   {
     path: "/docconekt/explore",
+    name: "DocConekt",
     component: Wallet,
     layout: "/dashboard"
   },
   {
     path: "/docconekt/upload",
+    name: "DocConekt",
     component: DocConekt,
     layout: "/dashboard"
   },

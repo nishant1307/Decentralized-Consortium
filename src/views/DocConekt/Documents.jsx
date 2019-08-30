@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -22,6 +22,9 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import { decryptMessage } from 'utils'
 import moment from "moment";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+const loading = <LinearProgress />;
 const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));
 
 
@@ -139,7 +142,7 @@ const Products = (props) => {
                             }
                           ]}
                         /> :
-                        <h3>No Products Found!</h3>
+                        <h3>No Documents Found!</h3>
                     }
                   </Card>
                 </GridItem>
@@ -177,7 +180,9 @@ const Products = (props) => {
             </Button>
                 </DialogActions>
               </Dialog>
-              <RegisterDocModal />
+              <Suspense fallback={loading}>
+                <RegisterDocModal />
+              </Suspense>
             </div>
           )
       }
