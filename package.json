@@ -71,7 +71,7 @@
   "scripts": {
     "dev": "webpack-dev-server --hot --inline --open 'google-chrome' --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js && echo '/*    /index.html   200' > dist/_redirects",
-    "test": "webpack --config webpack.test.js"
+    "test": "webpack --config webpack.test.js && echo '/*    /index.html   200' > dist/_redirects"
   },
   "repository": {
     "type": "git",

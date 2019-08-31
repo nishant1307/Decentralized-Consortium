@@ -502,4 +502,4 @@ const Checkout = (props) => {
     );
 }
 
-export default withRouter(Checkout);
+export default (Checkout);
