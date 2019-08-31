@@ -76,7 +76,9 @@ const PurchaseOrder = props => {
     });
 
     useEffect(() => {
-        if (props.data !== undefined) {
+      console.log(props);
+        if (props.data.hash !== undefined) {
+          console.log("Hey");
             setIsNew(false);
             ipfs.get(props.data.hash, function (err, files) {
                 // console.log(JSON.parse(files[0].content.toString('utf8')));
@@ -559,4 +561,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { addNewDoc, updateDoc })(withStyles(styles, customInputStyle)(PurchaseOrder));
-
