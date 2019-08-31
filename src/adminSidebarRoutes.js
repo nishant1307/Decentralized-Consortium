@@ -6,7 +6,7 @@ import Person from "@material-ui/icons/Person";
 const dashboardRoutes = [
   {
     path: "/orglist",
-    name: "Dashboard",
+    name: "Organization List",
     icon: Dashboard,
     layout: "/admin"
   },

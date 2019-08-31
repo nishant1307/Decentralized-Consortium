@@ -41,7 +41,7 @@ ReactDOM.render(
             <Route path="/dashboard" component={Admin} />
             <PrivateRoute path="/admin" component={AdminPanel} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/signup" component={Kyc} />
             <Route path="/register" component={Kyc} />
             <Route exact path="/invitation/:invitationCode" component={InvitedUserKYC} />
             <Route path="/recover" component={RecoverAccount} />

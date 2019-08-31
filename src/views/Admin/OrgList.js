@@ -8,6 +8,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 import MaterialTable, { MTableToolbar } from "material-table";
+import Divider from '@material-ui/core/Divider';
 import { registryContract, registryAddress } from '../../registryContract';
 import web3 from '../../web3';
 import axios from 'axios';
@@ -61,8 +62,11 @@ const OrgList = props => {
       let KYCStatus = await registryContract.methods.getUserKYCStatus().call({
         from: e.publicKey
       })
+      console.log(dataFromIPFS, "dataFromIPFS");
+
       let mainData = {}
       mainData.userAddress = e.publicKey
+      mainData.docs = dataFromIPFS.data.Docs
       mainData.organizationID = e.organizationID;
       mainData.companyName = dataFromIPFS.data.info.companyName
       mainData.role = e.role === "1" ? "Admin" : e.role === "2" ? "Regular" : "Registrant"
@@ -72,6 +76,7 @@ const OrgList = props => {
       mainData.address = dataFromIPFS.data.info.address1 + dataFromIPFS.data.info.address + dataFromIPFS.data.info.city + dataFromIPFS.data.info.state + dataFromIPFS.data.info.country + dataFromIPFS.data.info.zip
       await data.push(mainData)
       if (i === fetchedData.length - 1) {
+        console.log(data, "data");
         setMainData(data);
       }
     })
@@ -92,7 +97,7 @@ const OrgList = props => {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Device List</h4>
+              <h4 className={classes.cardTitleWhite}>Organization List</h4>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -184,6 +189,22 @@ const OrgList = props => {
                         </div>
                       ),
                     }}
+                    detailPanel={rowData => {
+                      return (
+                        <GridContainer>
+                          {rowData.docs.map((element) => {
+                            let url = "https://gateway.arthanium.org/ipfs/" + element
+                            return (
+                              <GridItem xs={12} sm={12} md={4}>
+                                <img src={url} alt="boohoo" width="200" height="200" onClick={()=>{  window.open(url, "_blank") }} className="img-responsive"/>
+                              </GridItem>
+                            )
+                          })}
+
+                        </GridContainer>
+                      )
+                    }}
+                    onRowClick={(event, rowData, togglePanel) => togglePanel()}
                   />
                 </GridItem>
               </GridContainer>

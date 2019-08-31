@@ -84,7 +84,7 @@ const OrgList = props => {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">
-              <h4 className={classes.cardTitleWhite}>Device List</h4>
+              <h4 className={classes.cardTitleWhite}>User List</h4>
             </CardHeader>
             <CardBody>
               <GridContainer>
@@ -143,6 +143,22 @@ const OrgList = props => {
                         }
                       },
                     ]}
+                    detailPanel={rowData => {
+                      return (
+                        <GridContainer>
+                          {rowData.docs.map((element) => {
+                            let url = "https://gateway.arthanium.org/ipfs/" + element
+                            return (
+                              <GridItem xs={12} sm={12} md={4}>
+                                <img src={url} alt="boohoo" width="200" height="200" onClick={()=>{  window.open(url, "_blank") }} className="img-responsive"/>
+                              </GridItem>
+                            )
+                          })}
+
+                        </GridContainer>
+                      )
+                    }}
+                    onRowClick={(event, rowData, togglePanel) => togglePanel()}
                     components={{
                       Action: props => (
                         <div>
