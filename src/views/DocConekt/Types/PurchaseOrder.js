@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -28,6 +27,7 @@ import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { encryptMessage, decryptMessage } from 'utils'
 import ipfs from '../../../ipfs';
+import { withStyles } from '@material-ui/core/styles';
 const Ipfs = require('ipfs-http-client')
 
 const styles = theme => ({

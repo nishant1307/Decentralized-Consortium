@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -24,6 +22,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MaterialTable, { MTableToolbar } from "material-table";
+import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",

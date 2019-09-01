@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
@@ -11,6 +10,7 @@ import MaterialTable, { MTableToolbar } from "material-table";
 import { registryContract , registryAddress } from '../../registryContract';
 import web3 from '../../web3';
 import axios from 'axios';
+import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",

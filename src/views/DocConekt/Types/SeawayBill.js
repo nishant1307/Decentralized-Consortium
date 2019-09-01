@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -33,6 +31,7 @@ import { encryptMessage, decryptMessage } from 'utils'
 import { addNewDoc, updateDoc } from 'actions/userActions';
 import { connect } from 'react-redux';
 import ipfs from '../../../ipfs';
+import { withStyles } from '@material-ui/core/styles';
 const Ipfs = require('ipfs-http-client')
 
 const styles = theme => ({
