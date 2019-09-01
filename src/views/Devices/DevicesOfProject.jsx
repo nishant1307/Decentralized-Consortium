@@ -26,8 +26,6 @@ import moment from "moment";
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 const Devices = (props) => {
-
-    const [tokenIDList, setTokenIDList] = useState([])
     const [deviceList, setDeviceList] = useState([])
     const [loader, setLoader] = useState(true);
 
@@ -35,15 +33,17 @@ const Devices = (props) => {
         deviceContract.methods._tokensOfProject(props.match.params.projectID).call({
             from: props.auth.user.publicKey
         }).then(res => {
-            setTokenIDList(res);
+          if(res.length==0)
+            setLoader(false);
             res.forEach(tokenId => {
                 deviceContract.methods.getDeviceDetails(tokenId).call({
                     from: props.auth.user.publicKey
                 }).then(deviceDetails => {
-                    deviceDetails[0].tokenId = tokenId
+                  console.log(deviceDetails);
+                    deviceDetails[0].deviceURN = tokenId;
                     setDeviceList(deviceList => [
                         ...deviceList,
-                        deviceDetails
+                        deviceDetails[0]
                     ])
                     setLoader(false);
                 });
@@ -51,9 +51,6 @@ const Devices = (props) => {
         });
     }, []);
 
-    useEffect(() => {
-        console.log(deviceList);
-    }, [deviceList]);
     const projectURL = (projectID) => {
         return "/dashboard/projects/" + projectID;
     }
@@ -84,7 +81,7 @@ const Devices = (props) => {
                             deviceList.length !== 0 ?
                                 <MaterialTable
                                     columns={[
-                                        { title: "Device URN", field: "tokenId" },
+                                        { title: "Device URN", field: "deviceURN" },
                                         { title: "Device Type", field: "deviceType" },
                                         { title: "Communication Protocol", field: "communicationProtocol" },
                                         { title: "Data Protocol", field: "dataProtocol" },

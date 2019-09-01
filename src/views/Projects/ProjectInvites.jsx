@@ -107,7 +107,7 @@ const Projects = (props) => {
                   }}
                 />
              :
-            <h3>No Projects Found!</h3>
+            <h3>No New Invites Found!</h3>
         }
         </Card>
         </GridItem>

@@ -12,7 +12,7 @@ import sidebarRoutes from "adminSidebarRoutes.js";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import { connect } from 'react-redux';
 import {logoutUser} from "actions/authentication";
-import image from "assets/img/sidebar-2.jpg";
+import image from "assets/images/secure-min.jpg";
 import logo from "assets/img/logo.png";
 import routes from "../views/Admin/Admin";
 

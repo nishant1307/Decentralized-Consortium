@@ -5,7 +5,7 @@ import axios from "axios";
 export const renderFromArray = array => {
   let render =[];
   array.forEach(element => {
-    render.push(<MenuItem key={element} key={Math.random()} name={element} value={element}>{element}</MenuItem>)
+    render.push(<MenuItem key={Math.random()} name={element} value={element}>{element}</MenuItem>)
   })
   return render;
 }

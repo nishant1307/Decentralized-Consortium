@@ -22,8 +22,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route {...rest} render={(props) => (
             true
                 ? <Component {...props} />
-                : <Redirect to='/admin' />
+                : <Redirect to='/admin/orgList' />
         )} />
     )
 }
-

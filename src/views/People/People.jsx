@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {Suspense, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -10,7 +10,7 @@ import Icon from "@material-ui/core/Icon";
 
 import LocalOffer from "@material-ui/icons/LocalOffer";
 import {Alert} from "reactstrap";
-import ColleagueForm from "views/ColleagueForm";
+const ColleagueForm = React.lazy(() => import('views/ColleagueForm'))
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -27,6 +27,9 @@ import {registryContract} from "registryContract";
 import { connect } from 'react-redux';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Modal from "components/CustomModal/Modal";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+const loading = <LinearProgress />;
 const People = (props) => {
 
   const [allPeople, setPeople]=useState([]);
@@ -34,12 +37,14 @@ const People = (props) => {
   const [alert, setAlert] = useState('');
 
   useEffect(() => {
-    if(!props.location.state)
-      props.history.push("/dashboard/home")
-    else
-      setPeople(props.location.state.allPeople);
-
-    console.log(allPeople);
+    // parseJSONFromIPFSHash(props.user.user[4]).then(userDetails => {
+    //   setUserName(userDetails.info.fullName);
+    // })
+    registryContract.methods.getOrganizationEmployees().call({
+      from : props.auth.user.publicKey
+    }).then(res => {
+      setPeople(res);
+    })
   }, []);
 
   const toggleColleagueForm = () => {
@@ -103,15 +108,17 @@ const People = (props) => {
         </Card>
       </GridItem>
     </GridContainer>
-    <Modal
-      open={colleagueForm}
-      onClose={toggleColleagueForm}
-      title={"New Colleague Form"}
-      content= {
-        <ColleagueForm onColleagueFormSubmit={handleColleagueFormSubmit} />
-      }
-    />
-    {alert}
+    <Suspense fallback={loading}>
+      <Modal
+        open={colleagueForm}
+        onClose={toggleColleagueForm}
+        title={"New Colleague Form"}
+        content= {
+          <ColleagueForm onColleagueFormSubmit={handleColleagueFormSubmit} />
+        }
+      />
+    </Suspense>
+      {alert}
     </div>
   );
 }

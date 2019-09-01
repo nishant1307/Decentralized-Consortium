@@ -4,7 +4,7 @@ import React from "react";
 const DocConekt = React.lazy(() => import('views/DocConekt/UploadFile'));
 // import Wallet from './views/DocConekt/Wallet';
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
-import AddDeviceToProject from "views/Devices/AddDeviceToProject";
+// import AddDeviceToProject from "views/Devices/AddDeviceToProject";
 import DevicesOfProject from "views/Devices/DevicesOfProject";
 import ProductsOfProject from "views/Products/ProductsOfProject";
 const Wallet = React.lazy(() => import('views/DocConekt/Wallet'));
@@ -17,12 +17,12 @@ const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
 const ProjectInvites = React.lazy(() => import('views/Projects/ProjectInvites.jsx'));
 const Products = React.lazy(() => import('views/Products/Products.jsx'));
 const Documents = React.lazy(() => import('views/DocConekt/Documents.jsx'));
-const AddProductToProject = React.lazy(() => import('views/Products/AddProductToProject.jsx'));
+// const AddProductToProject = React.lazy(() => import('views/Products/AddProductToProject.jsx'));
 const ProjectPage = React.lazy(() => import('views/Projects/ProjectPage.jsx'));
 const SupportPage = React.lazy(() => import('views/SupportPage'));
 const Partners = React.lazy(() => import('views/Partners/Partners.jsx'));
 const PricingPage = React.lazy(() => import('views/Pricing/PricingPage.js'));
-const Checkout = React.lazy(() => import('views/Pricing/Checkout.jsx'));
+// const Checkout = React.lazy(() => import('views/Pricing/Checkout.jsx'));
 const ProjectPartners = React.lazy(() => import('views/Partners/ProjectPartners.jsx'));
 const People = React.lazy(() => import('views/People/People.jsx'));
 const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
@@ -110,13 +110,7 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/projects/:projectID/adddevices",
-    name: "Device List",
-    component: AddDeviceToProject,
-    layout: "/dashboard"
-  },
-  {
-    path: "/projects/:projectID/alldevices",
+    path: "/projects/:projectID/devices",
     name: "Device List",
     component: DevicesOfProject,
     layout: "/dashboard"
@@ -140,13 +134,7 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/projects/:projectID/addproducts",
-    name: "Products",
-    component: AddProductToProject,
-    layout: "/dashboard"
-  },
-  {
-    path: "/projects/:projectID/allproducts",
+    path: "/projects/:projectID/products",
     name: "Products",
     component: ProductsOfProject,
     layout: "/dashboard"
@@ -162,13 +150,7 @@ const dashboardRoutes = [
     path: '/pricing',
     component: PricingPage,
     layout: "/dashboard"
-  },
-  {
-    name: 'Checkout',
-    path: '/checkout',
-    component: Checkout,
-    layout: "/dashboard"
-  },
+  }
 ];
 
 export default dashboardRoutes;

@@ -20,7 +20,7 @@ class Checkout extends Component {
     const { payment_amount } = this.state;
     const self = this;
     const options = {
-      key: process.env.RAZOR_PAY_TEST_KEY,
+      key: "rzp_test_ryXbtVQF3Mtz28",
       amount: payment_amount*100,
       name: 'Payments',
       description: 'Donate yourself some time',

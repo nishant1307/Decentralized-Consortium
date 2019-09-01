@@ -98,6 +98,48 @@ export default function PricingPage() {
   const [partners, setPartners] = React.useState(0);
   const [products, setProducts] = React.useState(0);
 
+  const paymentHandler = (title, price) => {
+
+    const paymentAmount = price*100;
+    const self = this;
+    const options = {
+      key: "rzp_test_ryXbtVQF3Mtz28",
+      amount: 100,
+      name: 'Arthanium Credits',
+      description: 'Checkout for '+ title+ ' Pack',
+
+      handler(response) {
+        const paymentId = response.razorpay_payment_id;
+        const url = process.env.URL+'/api/v1/rzp_capture/'+paymentId+'/'+100;
+        // Using my server endpoints to capture the payment
+        fetch(url, {
+          method: 'get',
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+          }
+        })
+        .then(resp =>  resp.json())
+        .then(function (data) {
+          console.log('Request succeeded with JSON response', data);
+        })
+        .catch(function (error) {
+          console.log('Request failed', error);
+        });
+      },
+
+      prefill: {
+        name: "Arthanium",
+        email: 'test@test.com',
+      },
+      notes: {
+        address: 'Mumbai,India',
+      }
+    };
+    const rzp1 = new window.Razorpay(options);
+
+    rzp1.open();
+  }
+
   return (
     <React.Fragment>
       <Container maxWidth="md" component="main">
@@ -132,7 +174,7 @@ export default function PricingPage() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary">
+                  <Button fullWidth variant={tier.buttonVariant} color="primary" onClick={(e) => paymentHandler(tier.title, tier.price)}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>

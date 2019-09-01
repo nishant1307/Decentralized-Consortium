@@ -439,7 +439,7 @@ const makeAddedList = () => {
               }
               action={
                 <div>
-                {!isLoading? <Button color="primary" type="button" onClick={onSubmit}>Create Product</Button> : <CircularProgress className={classes.progress} />}
+                {!isLoading? <Button color="primary" type="button" onClick={onSubmit}>Create Product</Button> : <CircularProgress />}
                 </div>
               }
               />

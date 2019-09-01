@@ -23,6 +23,7 @@ import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardS
 import { connect } from 'react-redux';
 import {productContract} from 'productContract';
 import moment from "moment";
+import LinkIcon from '@material-ui/icons/Link';
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 const Products = (props) => {
@@ -35,6 +36,8 @@ const Products = (props) => {
     productContract.methods._tokensOfProject(props.match.params.projectID).call({
       from: props.auth.user.publicKey
     }).then(res => {
+      if(res.length==0)
+        setLoader(false);
       setTokenIDList(res);
       res.forEach(tokenId => {
         productContract.methods.getProductDetails(tokenId).call({
@@ -59,15 +62,15 @@ const Products = (props) => {
   const {classes} = props;
 
   return (
-    <div>
+    <>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
             <CardHeader plain color="primary">
               <h4 className={classes.cardTitleWhite}>
-                My Products
+                Products belonging to this Project
               </h4>
-              <AddBoxIcon onClick={props.openThingModal}/>
+              {/**<LinkIcon style={{float: "right"}} />*/}
             </CardHeader>
         {loader ?
           <React.Fragment>
@@ -99,13 +102,13 @@ const Products = (props) => {
                     grouping: true
                   }}
                 />:
-                <h3>No Products Found!</h3>
+                <h3>No Products Assigned to this Project Yet!</h3>
         }
         </Card>
         </GridItem>
       </GridContainer>
       <RegisterThingModal />
-    </div>
+    </>
   );
 }
 

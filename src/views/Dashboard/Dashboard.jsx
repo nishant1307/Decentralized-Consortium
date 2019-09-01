@@ -46,7 +46,6 @@ const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);
   const [projects, setProjects] = useState([]);
-  const [allPeople, setPeople] = useState([]);
   const {classes} = props;
   const [userName, setUserName] = useState('');
 
@@ -55,17 +54,6 @@ const Dashboard = (props) => {
   function handleChange(event, newValue) {
     setValue(newValue);
   }
-
-  useEffect(() => {
-    // parseJSONFromIPFSHash(props.user.user[4]).then(userDetails => {
-    //   setUserName(userDetails.info.fullName);
-    // })
-    registryContract.methods.getOrganizationEmployees().call({
-      from : props.auth.user.publicKey
-    }).then(res => {
-      setPeople(res);
-    })
-  }, []);
 
   function a11yProps(index) {
     return {
@@ -78,7 +66,7 @@ const Dashboard = (props) => {
     <div>
     <h4>Welcome to Arthanium</h4>
       {props.user && <GridContainer>
-        <GridItem xs={12} sm={6} md={4}>
+        <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/projects">
           <Card>
             <CardHeader color="warning" stats icon>
@@ -99,7 +87,7 @@ const Dashboard = (props) => {
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
+        <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/devices">
           <Card>
             <CardHeader color="info" stats icon>
@@ -118,7 +106,7 @@ const Dashboard = (props) => {
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
+        <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/products">
           <Card>
             <CardHeader color="success" stats icon>
@@ -137,7 +125,7 @@ const Dashboard = (props) => {
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
+        <GridItem xs={12} sm={6} md={3}>
           <Card>
             <CardHeader onClick={()=>{props.history.push('/dashboard/documents')} }  color="info" stats icon>
               <CardIcon color="info">
@@ -153,23 +141,6 @@ const Dashboard = (props) => {
               </div>
             </CardFooter>
           </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
-          <Link to={{ pathname: "/dashboard/people", state: { allPeople: allPeople} }}><Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <PeopleIcon/>
-              </CardIcon>
-              <p className={classes.cardCategory}>People</p>
-              <h3 className={classes.cardTitle}>{allPeople.length}</h3>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-              <VisibilityIcon/>
-              View People
-              </div>
-            </CardFooter>
-          </Card></Link>
         </GridItem>
       </GridContainer>}
       <GridContainer>

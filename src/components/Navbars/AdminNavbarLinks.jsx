@@ -18,6 +18,10 @@ import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
+import SettingsIcon from '@material-ui/icons/Settings';
+import PeopleIcon from '@material-ui/icons/People';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 // core components
 import { connect } from 'react-redux';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -60,7 +64,7 @@ class AdminNavbarLinks extends React.Component {
           onClick={this.handleCloseNotification}
           className={classes.dropdownItem}
         >
-          {notification}
+          <ArrowRightIcon/>{ notification}
         </MenuItem>
       );
     })
@@ -170,14 +174,14 @@ class AdminNavbarLinks extends React.Component {
                     placement === "bottom" ? "center top" : "center bottom"
                 }}
               >
-                <Paper>
+                <Paper style={{width: "180px"}}>
                   <ClickAwayListener onClickAway={this.handleCloseProfile}>
                     <MenuList role="menu">
                       <Link to= "/dashboard/user"><MenuItem
                         onClick={this.handleCloseProfile}
                         className={classes.dropdownItem}
                       >
-                        Profile
+                        <Person/>Profile
                       </MenuItem>
                       </Link>
                       <Link to= "/dashboard/settings">
@@ -185,7 +189,17 @@ class AdminNavbarLinks extends React.Component {
                         onClick={this.handleCloseProfile}
                         className={classes.dropdownItem}
                       >
+                        <SettingsIcon/>
                         Settings
+                      </MenuItem>
+                      </Link>
+                      <Link to= "/dashboard/people">
+                      <MenuItem
+                        onClick={this.handleCloseProfile}
+                        className={classes.dropdownItem}
+                      >
+                      <PeopleIcon/>
+                        People
                       </MenuItem>
                       </Link>
                       <Divider light />
@@ -193,6 +207,7 @@ class AdminNavbarLinks extends React.Component {
                         onClick={this.props.onLogout}
                         className={classes.dropdownItem}
                       >
+                      <ExitToAppIcon/>
                         Logout
                       </MenuItem>
                     </MenuList>

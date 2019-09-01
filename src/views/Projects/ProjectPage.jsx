@@ -35,12 +35,12 @@ const ProjectPage = (props) => {
   const locationPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/location";
   const partnerPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/partners";
   const journeyPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/journey";
-  const addDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/adddevices";
-  const getDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/alldevices";
+  // const addDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/adddevices";
+  const getDevicePageURL = "/dashboard/projects/"+ props.match.params.projectID + "/devices";
   const [projectDetails, setProjectDetails] = useState('');
 
-  const addProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/addproducts";
-  const getProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/allproducts";
+  // const addProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/addproducts";
+  const getProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/products";
   const [partners, setPartners] = useState([]);
   useEffect(() => {
     if(!props.location.state)
@@ -57,8 +57,8 @@ const ProjectPage = (props) => {
     <div>
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
+        <Link to={{ pathname: partnerPageURL, state: { partners: partners} }}>
           <Card>
-          <Link to={{ pathname: partnerPageURL, state: { partners: partners} }}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <WorkIcon/>
@@ -66,17 +66,17 @@ const ProjectPage = (props) => {
               <p className={classes.cardCategory}>Participants </p>
               <h4 className={classes.cardTitle}>{partners.length}</h4>
             </CardHeader>
-          </Link>
             <CardFooter stats>
               <div className={classes.stats}>
                 <VisibilityIcon/>View
               </div>
             </CardFooter>
           </Card>
+          </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
+          <Link to={journeyPageURL}>
           <Card>
-            <Link to={journeyPageURL}>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <TimelineIcon />
@@ -84,7 +84,6 @@ const ProjectPage = (props) => {
               <p className={classes.cardCategory}>Journey </p>
               <h4 className={classes.cardTitle}>&nbsp;</h4>
             </CardHeader>
-            </Link>
             <CardFooter stats>
               <div className={classes.stats}>
                 <VisibilityIcon/>
@@ -92,40 +91,44 @@ const ProjectPage = (props) => {
               </div>
             </CardFooter>
           </Card>
+          </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader onClick={()=>{props.history.push(getProductPageURL)} } color="info" stats icon>
+          <Link to={getProductPageURL}><Card>
+            <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <DeviceHubIcon/>
               </CardIcon>
-              <p className={classes.cardCategory}>View Product List</p>
+              <p className={classes.cardCategory}>Products</p>
               {/* <h4 className={classes.cardTitle}></h4> */}
             </CardHeader>
-            <CardFooter onClick={()=>{props.history.push(addProductPageURL)} }  stats>
+            <CardFooter stats>
               <div className={classes.stats}>
-                {/* <VisibilityIcon/> */}
-               Add Product To Project
+                <VisibilityIcon/>
+               View
               </div>
             </CardFooter>
           </Card>
+          </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
+        <Link to={getDevicePageURL}>
           <Card>
-            <CardHeader onClick={()=>{props.history.push(getDevicePageURL)} } color="info" stats icon>
+            <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <DeviceHubIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>View Device List</p>
               {/* <h4 className={classes.cardTitle}></h4> */}
             </CardHeader>
-            <CardFooter onClick={()=>{props.history.push(addDevicePageURL)} }  stats>
+            <CardFooter stats>
               <div className={classes.stats}>
-                {/* <VisibilityIcon/> */}
-               Add Devices To Project
+                <VisibilityIcon/>
+               View
               </div>
             </CardFooter>
           </Card>
+          </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
           <Link to={"/dashboard/projects/"+ props.match.params.projectID + "/invites"}><Card>
@@ -133,13 +136,13 @@ const ProjectPage = (props) => {
               <CardIcon color="info">
                 <DeviceHubIcon/>
               </CardIcon>
-              <p className={classes.cardCategory}>View Project Invites</p>
+              <p className={classes.cardCategory}>Project Invites</p>
               {/* <h4 className={classes.cardTitle}></h4> */}
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
-                {/* <VisibilityIcon/> */}
-                &nbsp;
+              <VisibilityIcon/>
+             View 
               </div>
             </CardFooter>
           </Card>

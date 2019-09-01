@@ -26,7 +26,7 @@ import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Modal from "components/CustomModal/Modal";
 import Divider from '@material-ui/core/Divider';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import TextField from '@material-ui/core/TextField';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -75,7 +75,7 @@ const Projects = (props) => {
                 My Projects
               </h4>
               {props.user.user[5]!=0 && <AddBoxIcon style={{float: "right"}} onClick={props.openProjectModal}/>}
-              <ChevronRightIcon style={{float: "right"}} onClick={() => setJoinProjectModal(true)}/>
+              <ExitToAppIcon style={{float: "right"}} onClick={() => setJoinProjectModal(true)}/>
               <Modal
                 open={joinProjectModal}
                 title="Join Project"
