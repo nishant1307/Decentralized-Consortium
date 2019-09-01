@@ -3,7 +3,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { RemoveRedEye } from '@material-ui/icons';
-import { InputAdornment, withStyles } from '@material-ui/core';
+import { InputAdornment } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({

@@ -13,7 +13,6 @@ import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react'
 const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
 const Login = React.lazy(() => import('views/Login.jsx'));
-const Signup = React.lazy(() => import('views/Signup.jsx'));
 const RecoverAccount = React.lazy(() => import('views/RecoverAccount.jsx'));
 import "assets/css/material-dashboard-react.css?v=1.7.0";
 //v1
