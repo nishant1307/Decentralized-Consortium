@@ -1,6 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
@@ -23,6 +22,7 @@ import Button from "components/CustomButtons/Button.jsx";
 import { decryptMessage } from 'utils'
 import moment from "moment";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { withStyles } from '@material-ui/core/styles';
 
 const loading = <LinearProgress />;
 const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));

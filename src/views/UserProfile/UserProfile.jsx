@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import TextField from "@material-ui/core/TextField";
 import Button from "components/CustomButtons/Button.jsx";
-
 import Card from "components/Card/Card.jsx";
+
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
@@ -22,6 +20,7 @@ import avatar from "assets/img/faces/marc.jpg";
 import {registryContract} from "registryContract";
 import {parseJSONFromIPFSHash} from "utils";
 import axios from "axios";
+import { withStyles } from '@material-ui/core/styles';
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",

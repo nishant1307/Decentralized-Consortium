@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// react plugin for creating charts
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
 import Warning from "@material-ui/icons/Warning";
@@ -32,15 +29,16 @@ import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userA
 import productContract from "productContract";
 import {registryContract} from "registryContract";
 import {parseJSONFromIPFSHash} from "utils";
-
 // import List from '@material-ui/core/List';
 // import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
+
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Claims from "views/Claims&Certifications/Claims";
+import { withStyles } from '@material-ui/core/styles';
 // import ListItemText from '@material-ui/core/ListItemText';
 const Dashboard = (props) => {
 

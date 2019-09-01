@@ -2,9 +2,6 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// react plugin for creating charts
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -41,6 +38,7 @@ import web3 from "../../web3";
 // import CustomLoader from 'components/Loaders/CustomLoader';
 import {connect} from "react-redux";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import { withStyles } from '@material-ui/core/styles';
 const ProjectPartners = (props) => {
   const {classes} = props;
   const [partners, setPartners] = useState([]);

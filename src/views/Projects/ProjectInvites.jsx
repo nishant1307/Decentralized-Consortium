@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// react plugin for creating charts
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -27,6 +24,7 @@ import Modal from "components/CustomModal/Modal";
 import Divider from '@material-ui/core/Divider';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
 const Projects = (props) => {
 
   const [projectInviteList, setProjectInviteList] = useState([]);

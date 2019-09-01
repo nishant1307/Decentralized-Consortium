@@ -1,11 +1,6 @@
 import React, {Suspense} from "react";
 import PropTypes from "prop-types";
 import { Switch, Route } from "react-router-dom";
-// creates a beautiful scrollbar
-// import PerfectScrollbar from "perfect-scrollbar";
-// import "perfect-scrollbar/css/perfect-scrollbar.css";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 const Navbar = React.lazy(() => import('components/Navbars/Navbar.jsx'));
 const Footer = React.lazy(() => import('components/Footer/Footer.jsx'));
@@ -23,6 +18,8 @@ import image from "assets/images/secure-min.jpg";
 import logo from "assets/img/logo.png";
 import routes from "routes.js"
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+import { withStyles } from '@material-ui/core/styles';
 
 const loading = <LinearProgress />;
 // let ps;

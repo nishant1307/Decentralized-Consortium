@@ -2,9 +2,6 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// react plugin for creating charts
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -29,6 +26,7 @@ import MaterialTable from "material-table";
 import Button from '@material-ui/core/Button';
 import web3 from '../../web3';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import { withStyles } from '@material-ui/core/styles';
 const Products = (props) => {
 
   const [productList, setProductList] = useState([])

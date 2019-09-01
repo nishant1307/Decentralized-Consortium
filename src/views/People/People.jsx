@@ -2,9 +2,6 @@ import React, {Suspense, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// react plugin for creating charts
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 
@@ -28,6 +25,8 @@ import { connect } from 'react-redux';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Modal from "components/CustomModal/Modal";
 import LinearProgress from '@material-ui/core/LinearProgress';
+
+import { withStyles } from '@material-ui/core/styles';
 
 const loading = <LinearProgress />;
 const People = (props) => {

@@ -3,12 +3,11 @@ import React from "react";
 import classNames from "classnames";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 
 // core components
 import cardIconStyle from "assets/jss/material-dashboard-react/components/cardIconStyle.jsx";
+import { withStyles } from '@material-ui/core/styles';
 
 function CardIcon({ ...props }) {
   const { classes, className, children, color, ...rest } = props;

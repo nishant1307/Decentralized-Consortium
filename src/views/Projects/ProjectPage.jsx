@@ -2,9 +2,6 @@ import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-// react plugin for creating charts
-// @material-ui/core
-import withStyles from "@material-ui/core/styles/withStyles";
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import WorkIcon from '@material-ui/icons/Work';
@@ -21,14 +18,15 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Table from "components/Table/Table.jsx";
 import DocConekt from 'views/DocConekt/UploadFile';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-
 import { connect } from 'react-redux';
+
 import { openDeviceModal, openDocModal, closeDocModal } from 'actions/userActions';
 import RegisterDeviceModal from "views/RegisterDeviceModal";
 import RegisterDocModal from "views/RegisterDocModal";
 import {registryContract} from 'registryContract';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Divider from '@material-ui/core/Divider';
+import { withStyles } from '@material-ui/core/styles';
 const ProjectPage = (props) => {
   const {classes} = props;
 

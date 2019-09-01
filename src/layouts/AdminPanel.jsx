@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Switch, Route } from "react-router-dom";
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
 // core components
 const Navbar = React.lazy(() => import('components/Navbars/Navbar.jsx'));
 const Footer = React.lazy(() => import('components/Footer/Footer.jsx'));
@@ -15,6 +13,8 @@ import {logoutUser} from "actions/authentication";
 import image from "assets/images/secure-min.jpg";
 import logo from "assets/img/logo.png";
 import routes from "../views/Admin/Admin";
+
+import { withStyles } from '@material-ui/core/styles';
 
 let ps;
 

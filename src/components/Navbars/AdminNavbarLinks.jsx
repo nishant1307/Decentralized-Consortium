@@ -3,8 +3,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import {Link} from "react-router-dom"
-// @material-ui/core components
-import withStyles from "@material-ui/core/styles/withStyles";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import Grow from "@material-ui/core/Grow";
@@ -26,8 +24,9 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { connect } from 'react-redux';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
+
+import { withStyles } from '@material-ui/core/styles';
 
 class AdminNavbarLinks extends React.Component {
 
