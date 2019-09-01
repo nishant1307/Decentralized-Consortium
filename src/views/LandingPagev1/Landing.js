@@ -23,12 +23,12 @@ export default function Landing() {
                                     <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
                             </div>
-                            <div className="w-col w-col-7"><img src="/images/r2.png" width={1000} height={380} srcSet="/images/r2.png 500w, /images/r2.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
+                            <div className="w-col w-col-7"><img data-src="/images/r2.png" width={1000} height={380} srcSet="/images/r2.png 500w, /images/r2.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
                         </div>
                     </div>
                     <div className="wrapper">
                         <div className="columns column w-row">
-                            <div className="column herocontent w-col w-col-7"><img src="/images/two.png" width={1000} height={380} srcSet="/images/two.png 500w, /images/two.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
+                            <div className="column herocontent w-col w-col-7"><img data-src="/images/two.png" width={1000} height={380} srcSet="/images/two.png 500w, /images/two.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
                             <div className="w-col w-col-5">
                                 <h1 className="heading">Anti-Counterfeiting, Provenance and  <br /> Chain of Custody</h1>
                                 <p className="short-paragraph">Create digital identities for physical assets through unique identifiers like connected IoT Devices / Sensors and track them through their journey and make selective information available to all stakeholders..</p>
@@ -43,12 +43,12 @@ export default function Landing() {
             <div className="div-block-9">
                 <div className="section">
                     {/* <div className="wrapper-2 space-around">
-                        <div className="partner-logo-container"><img src="https://via.placeholder.com/250" width={109} alt="" className="partner-logo" /></div>
-                        <div className="partner-logo-container"><img src="https://via.placeholder.com/250" width={109} alt="" className="partner-logo" /></div>
-                        <div className="partner-logo-container"><img src="https://via.placeholder.com/250" width={87} alt="" className="partner-logo" /></div>
-                        <div className="partner-logo-container"><img src="https://via.placeholder.com/250" alt="" className="partner-logo" /></div>
-                        <div className="partner-logo-container"><img src="https://via.placeholder.com/250" alt="" className="partner-logo" /></div>
-                        <div className="partner-logo-container"><img src="https://via.placeholder.com/250" alt="" className="partner-logo" /></div>
+                        <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" width={109} alt="" className="partner-logo" /></div>
+                        <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" width={109} alt="" className="partner-logo" /></div>
+                        <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" width={87} alt="" className="partner-logo" /></div>
+                        <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" alt="" className="partner-logo" /></div>
+                        <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" alt="" className="partner-logo" /></div>
+                        <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" alt="" className="partner-logo" /></div>
                     </div> */}
                 </div>
                 <div id="product" className="section less-v-margin">
@@ -56,9 +56,9 @@ export default function Landing() {
                         <div className="row-2">
                             <div className="col lg-5">
                                 <AutoPlaySwipeableViews>
-                                    <img src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
+                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
+                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
+                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
                                 </AutoPlaySwipeableViews>
                             </div>
                             <div className="col lg-1" />
@@ -136,28 +136,28 @@ export default function Landing() {
                         {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
                         <div className="row-2">
                             <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, justifyContent: 'center' }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/commision.png" width={150} alt="" className="icon" />
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, justifyContent: 'center' }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/commision.png" width={150} alt="" className="icon" />
                                     <h4>Blockchain</h4>
                                     <p className="paragraph"><strong>Secure &nbsp;</strong>
                                         Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
                                 </div>
                             </div>
                             <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} alt="" className="icon" />
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1 }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/timeline.png" width={150} alt="" className="icon" />
                                     <h4>DApps</h4>
                                     <p className="paragraph">Automate
 Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
                                 </div>
                             </div>
                             <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/team.png" width={150} alt="" className="icon" />
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1 }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/team.png" width={150} alt="" className="icon" />
                                     <h4>Partners</h4>
                                     <p className="paragraph">Collaborate
 Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
                                 </div>
                             </div>
                             <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/report.png" width={150} alt="" className="icon" />
+                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1 }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/report.png" width={150} alt="" className="icon" />
                                     <h4>Industry 4.0</h4>
                                     <p className="paragraph">Innovate
 Unlock new opportunities Eliminate low value activities.</p>
@@ -177,10 +177,10 @@ Unlock new opportunities Eliminate low value activities.</p>
                                     <p className="ondark">The platform is accessible on both web and mobile.</p>
                                     <div className="row-2 align-centre">
                                         <div className="col lg-6">
-                                            <a href="#" className="link-block w-inline-block"><img src="images/nm11.png" width={1000} height={500} alt="" className="image-2" /></a>
+                                            <a href="#" className="link-block w-inline-block"><img data-src="images/nm11.png" width={1000} height={500} alt="" className="image-2" /></a>
                                         </div>
                                         <div className="col lg-6">
-                                            <a href="#" className="w-inline-block"><img src="images/b.png" width={500} width={500} alt="" className="image-3" /></a>
+                                            <a href="#" className="w-inline-block"><img data-src="images/b.png" width={500} width={500} alt="" className="image-3" /></a>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img src="/images/kp3.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img data-src="/images/kp3.png" alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">PRO</h4>
                                                     <p className="testimonial-text">400 Credits</p>
@@ -218,7 +218,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img src="/images/kp1.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img data-src="/images/kp1.png" alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">BUSINESS</h4>
                                                     <p className="testimonial-text">1200 Credits</p>
@@ -237,7 +237,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img src="/images/kp.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img data-src="/images/kp.png" alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">ENTERPRISE</h4>
                                                     <p className="testimonial-text">3600 Credits</p>
@@ -319,7 +319,7 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                             <div className="slide w-slide">
                                 <div className="container-div">
                                     <div className="testimonial-container">
-                                        <div className="testimonial-content"><img src="https://via.placeholder.com/350x300" alt="" className="image-5" />
+                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
                                             <div className="quote-circle">
                                                 <p className="big-quote">“</p>
                                             </div>
@@ -333,7 +333,7 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                             <div className="w-slide">
                                 <div className="container-div">
                                     <div className="testimonial-container">
-                                        <div className="testimonial-content"><img src="https://via.placeholder.com/350x300" alt="" className="image-5" />
+                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
                                             <div className="quote-circle">
                                                 <p className="big-quote">“</p>
                                             </div>
@@ -347,7 +347,7 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                             <div className="w-slide">
                                 <div className="container-div">
                                     <div className="testimonial-container">
-                                        <div className="testimonial-content"><img src="https://via.placeholder.com/350x300" alt="" className="image-5" />
+                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
                                             <div className="quote-circle">
                                                 <p className="big-quote">“</p>
                                             </div>
@@ -361,7 +361,7 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                             <div className="w-slide">
                                 <div className="container-div">
                                     <div className="testimonial-container">
-                                        <div className="testimonial-content"><img src="https://via.placeholder.com/350x300" alt="" className="image-5" />
+                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
                                             <div className="quote-circle">
                                                 <p className="big-quote">“</p>
                                             </div>

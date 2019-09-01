@@ -124,8 +124,9 @@ const Dashboard = (props) => {
           </Link>
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
+        <Link to="/dashboard/documents">
           <Card>
-            <CardHeader onClick={()=>{props.history.push('/dashboard/documents')} }  color="info" stats icon>
+            <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <FileCopyIcon/>
               </CardIcon>
@@ -135,10 +136,11 @@ const Dashboard = (props) => {
             <CardFooter onClick={props.openDocModal} stats>
               <div className={classes.stats}>
                 <VisibilityIcon/>
-                Upload Doc on DocConekt
+                  View your Documents
               </div>
             </CardFooter>
           </Card>
+          </Link>
         </GridItem>
       </GridContainer>}
       <GridContainer>

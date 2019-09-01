@@ -492,5 +492,5 @@ export const abi = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]	
-export const docContract = new web3.eth.Contract(abi, docAddress);;
+]
+export const docContract = new web3.eth.Contract(abi, docAddress);
