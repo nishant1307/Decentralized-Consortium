@@ -64,11 +64,11 @@ export default function Landing() {
                             </div>
                         </div>
                     </div>
-                </div><img data-src="/images/r5.png" width="500" data-w-id="47dfd708-6a6f-0d86-c48a-9297d9394903" style={{ WebkitTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', MozTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', msTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', transform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)' }} alt="" className="image-6" /></div>
+                </div><img src="/images/r5.png" width="500" data-w-id="47dfd708-6a6f-0d86-c48a-9297d9394903" style={{ WebkitTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', MozTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', msTransform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', transform: 'translate3d(0PX, 0, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)' }} alt="" className="image-6" /></div>
             <div className="section bggradient">
                 <div className="wrapper">
                     <div className="flex-horizontal-space-between footer">
-                        <a href="#" className="w-inline-block"><img data-src="/images/logo2.png" width={75} height={75} alt="" className="footer-logo" /></a>
+                        <a href="#" className="w-inline-block"><img src="/images/logo2.png" width={75} height={75} alt="" className="footer-logo" /></a>
                         <div className="horizontal-footer-links-container">
                             <Link to="/platform" className="footer-link-2 spacing">Platform</Link>
                             <Link to="/partners" className="footer-link-2 spacing">Partners</Link>
@@ -78,10 +78,10 @@ export default function Landing() {
                             <Link to="/login" className="footer-link-2 spacing">Get Started</Link>
                         </div>
                         <div className="footer-social-links-container">
-                            <a href="https://www.youtube.com/channel/UCFfwRoYGUfccrImWl4drlqA?view_as=subscriber" target="_blank" className="footer-link-2 no-padding w-inline-block"><img data-src="images/iconmonstr-youtube-6.png" width={30} alt="" className="social-media-icon" /></a>
-                            <a href="" className="footer-link-2 no-padding w-inline-block" target="_blank"><img data-src="images/iconmonstr-twitter-1.png" width={30} alt="" className="social-media-icon" /></a>
-                            <a href="https://www.instagram.com/arthanium/" className="footer-link-2 no-padding w-inline-block" target="_blank"><img data-src="images/iconmonstr-instagram-11.png" width={30} alt="" className="social-media-icon" /></a>
-                            <a href="https://www.facebook.com/Arthanium-101627941214756/" className="footer-link-2 no-padding w-inline-block" target="_blank"><img data-src="images/iconmonstr-facebook-1.png" width={24} alt="" className="social-media-icon" /></a></div>
+                            <a href="https://www.youtube.com/channel/UCFfwRoYGUfccrImWl4drlqA?view_as=subscriber" target="_blank" className="footer-link-2 no-padding w-inline-block"><img src="images/iconmonstr-youtube-6.png" width={30} alt="" className="social-media-icon" /></a>
+                            <a href="" className="footer-link-2 no-padding w-inline-block" target="_blank"><img src="images/iconmonstr-twitter-1.png" width={30} alt="" className="social-media-icon" /></a>
+                            <a href="https://www.instagram.com/arthanium/" className="footer-link-2 no-padding w-inline-block" target="_blank"><img src="images/iconmonstr-instagram-11.png" width={30} alt="" className="social-media-icon" /></a>
+                            <a href="https://www.facebook.com/Arthanium-101627941214756/" className="footer-link-2 no-padding w-inline-block" target="_blank"><img src="images/iconmonstr-facebook-1.png" width={24} alt="" className="social-media-icon" /></a></div>
                     </div>
                 </div>
             </div>

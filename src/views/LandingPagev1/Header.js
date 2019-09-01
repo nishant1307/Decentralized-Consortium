@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <div data-collapse="medium" data-animation="default" data-duration={400} className="nav-bar w-nav">
             <div className="wrapper navbar-2 w-container">
-                <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img data-src="images/logo3.png" width={75} height={75} alt="" /></Link></div>
+                <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={75} height={75} alt="" /></Link></div>
                 <nav role="navigation" className="nav-menu-2 w-nav-menu">
                     <Link to="/platform" className="nav-link-2 w-nav-link">Platform</Link>
                     <div className="dropdown">
