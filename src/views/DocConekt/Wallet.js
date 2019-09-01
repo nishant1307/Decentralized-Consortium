@@ -9,7 +9,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import storehash from "../../DocContract";
+import {docContract} from "../../DocContract";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -119,7 +119,7 @@ function Title(props) {
       </Typography>
     );
   }
-  
+
   Title.propTypes = {
     children: PropTypes.node,
   };
@@ -143,11 +143,11 @@ function Title(props) {
     async function fetch() {
         // let temp = await localStorage.getItem('rememberMe');
         // let data = JSON.parse(temp);
-        let toAccept = await storehash.methods.tokenToAccept(address).call();
+        let toAccept = await docContract.methods.tokenToAccept(address).call();
         setListOfTokensToAccept(toAccept);
         // listOfTokensToAccept = toAccept
         console.log(toAccept, "toAccept");
-        let toSend = await storehash.methods.tokenOfOwner(address).call();
+        let toSend = await docContract.methods.tokenOfOwner(address).call();
         setListOfTokensToSend(toSend);
         // listOfTokensToSend = toSend;
         console.log(toSend, "toSend");
@@ -190,7 +190,7 @@ function Title(props) {
     async function handleAcceptance() {
         console.log(tokenToAccept);
         if (!isReasonFetched) {
-            let fetchReason = await storehash.methods.getTransferReason(tokenToAccept).call();
+            let fetchReason = await docContract.methods.getTransferReason(tokenToAccept).call();
             console.log(fetchReason);
             setreasonToAccept(fetchReason[1]);
             setAddressFromAccept(fetchReason[0])
@@ -202,7 +202,7 @@ function Title(props) {
             let gasPrice = await web3.eth.getGasPrice();
             var transaction = {
                 "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
-                "data": storehash.methods.acceptToken(AddressFromAccept, tokenToAccept).encodeABI(),
+                "data": docContract.methods.acceptToken(AddressFromAccept, tokenToAccept).encodeABI(),
                 gasPrice: gasPrice
             };
             transaction["gasLimit"] = 8000000;
@@ -235,7 +235,7 @@ function Title(props) {
         let gasPrice = await web3.eth.getGasPrice();
         var transaction = {
             "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
-            "data": storehash.methods.transferFrom(address, addressTo, name, reason).encodeABI(),
+            "data": docContract.methods.transferFrom(address, addressTo, name, reason).encodeABI(),
             gasPrice: gasPrice
         };
         transaction["gasLimit"] = 8000000;
@@ -368,10 +368,10 @@ function Dashboard() {
     const [progress, setProgress] = React.useState(0);
     async function fetchData() {
         let tempData = []
-        let fetchedData = await storehash.methods.tokenOfOwner(address).call();
+        let fetchedData = await docContract.methods.tokenOfOwner(address).call();
         await fetchedData.forEach(async element => {
-            let reason = await storehash.methods.getTransferReason(element).call();
-            let temp = await storehash.methods.tokenURI(element).call();
+            let reason = await docContract.methods.getTransferReason(element).call();
+            let temp = await docContract.methods.tokenURI(element).call();
             let data1 = JSON.parse(temp[0]);
             // data1.timestamp = Date(data1.timestamp)
             data1.uri = temp[1]
@@ -456,7 +456,7 @@ export default function main() {
     return (
         <div>
             <PaymentForm />
-            
+
         </div>
     );
 }

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import web3 from '../../web3';
 import ipfs from "../../ipfs";
-import storehash from "../../DocContract";
+import {docContract} from "../../DocContract";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -347,7 +347,7 @@ const Checkout = (props) => {
             let gasPrice = await web3.eth.getGasPrice();
             var transaction = {
                 "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
-                "data": storehash.methods.mint(address, uuidv1(), ipfsHash[0].hash, JSON.stringify({ fileName: fileName, fileInfo: fileInfo, timestamp: Date.now() })).encodeABI(),
+                "data": docContract.methods.mint(address, uuidv1(), ipfsHash[0].hash, JSON.stringify({ fileName: fileName, fileInfo: fileInfo, timestamp: Date.now() })).encodeABI(),
                 gasPrice: gasPrice
             };
             // web3.eth.estimateGas(transaction).then(gasLimit => {
