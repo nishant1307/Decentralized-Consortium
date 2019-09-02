@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import web3 from '../../web3';
 import ipfs from "../../ipfs";
-import {docContract} from "../../DocContract";
-import {renderFromArray} from "utils";
+import { docContract } from "../../DocContract";
+import { renderFromArray } from "utils";
+import { addNewDoc, updateDoc } from 'actions/userActions';
+import { connect } from 'react-redux';
+
 
 import {
     Paper,
@@ -27,7 +30,7 @@ import {
     FormControl,
     Select,
 } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const uuidv1 = require('uuid/v1');
@@ -282,8 +285,8 @@ const Checkout = (props) => {
             clearInterval(timer);
         };
     }, []);
-    useEffect(()=> {
-      setSubDocRender(getSubContent(DocType));
+    useEffect(() => {
+        setSubDocRender(getSubContent(DocType));
     }, [DocType])
 
     const handleNext = () => {
@@ -311,7 +314,7 @@ const Checkout = (props) => {
         // forceUpdate();
     }
     const getSubContent = (count) => {
-      console.log("called");
+        console.log("called");
         switch (count) {
             case 0:
                 return renderFromArray(salesTypes);
@@ -346,47 +349,11 @@ const Checkout = (props) => {
 
     async function uploadFile() {
         handleNext();
-        const address = await localStorage.getItem("address");
-        const privateKey = await sessionStorage.getItem('privateKey');
-        await ipfs.add(bufferData, async (err, ipfsHash) => {
-            let gasPrice = await web3.eth.getGasPrice();
-            var transaction = {
-                "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
-                "data": docContract.methods.mint(address, uuidv1(), ipfsHash[0].hash, JSON.stringify({ fileName: fileName, fileInfo: fileInfo, timestamp: Date.now() })).encodeABI(),
-                gasPrice: gasPrice
-            };
-            // web3.eth.estimateGas(transaction).then(gasLimit => {
-            // console.log(gasLimit,"gasLimit");
-            transaction["gasLimit"] = 8000000;
-            web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
-                web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
-                    if (confirmationNumber == 1) {
-                        if (receipt.status == true) {
-                            setTxHash(receipt.transactionHash);
-                            setActiveStep(3);
-                            //   forceUpdate();
-                            // console.log(transactionHash, "hash");
-                        }
-                    }
-                })
-                    .on('error', async function (error) {
-                        console.log(error, "in error");
-                        setMessage("ERROR!");
-                        setVariant("error");
-                        setStatus(true);
-                        setActiveStep(0);
-                        // forceUpdate();
-                        setTimeout(
-                            function () {
-                                setStatus(false);
-                            }
-                                .bind(this),
-                            8000
-                        );
-                    })
-            });
-            // });
-        })
+        const cid = await ipfs.add(bufferData);
+        props.addNewDoc({ encryptData: cid[0].hash, encryptedPassword: " " });
+        console.log(cid,"cid");
+      props.history.push('/dashboard/documents')
+
     }
     return (
         <div className={classes.root}>
@@ -488,7 +455,7 @@ const Checkout = (props) => {
                 </form>
                 <React.Fragment>
                     <div className={classes.buttons}>
-                        <Link to={{ pathname:'/dashboard/structured/' + subDocType, state: { projectId: props.projectList } }}>
+                        <Link to={{ pathname: '/dashboard/structured/' + subDocType, state: { projectId: props.projectList } }}>
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -506,4 +473,10 @@ const Checkout = (props) => {
     );
 }
 
-export default (Checkout);
+
+const mapStateToProps = (state) => ({
+    user: state.user,
+    errors: state.errors
+});
+
+export default connect(mapStateToProps, { addNewDoc })(Checkout);

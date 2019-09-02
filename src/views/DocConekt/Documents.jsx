@@ -25,7 +25,7 @@ import {
   DialogTitle,
   LinearProgress,
 } from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 
 const loading = <LinearProgress />;
@@ -49,9 +49,15 @@ const Products = (props) => {
   }
 
   function handleUnlock(rowData) {
-    console.log(rowData, "idhar");
-    setSelected(rowData);
-    setOpen(true);
+    if (rowData.encryptedPassword === " ") {
+      let url = "https://gateway.arthanium.org/ipfs/" + rowData.encryptedData
+      window.open(url, "_blank")
+    } else {
+      console.log(rowData, "idhar");
+      setSelected(rowData);
+      setOpen(true);
+    }
+
   }
 
   async function unlockDoc() {
@@ -65,7 +71,7 @@ const Products = (props) => {
     docContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
     }).then(res => {
-      if(res.length==0)
+      if (res.length == 0)
         setLoader(false);
       setTokenIDList(res);
       res.forEach(tokenId => {
@@ -74,6 +80,8 @@ const Products = (props) => {
         docContract.methods.getDocumentDetails(tokenId).call({
           from: props.auth.user.publicKey
         }).then(productDetails => {
+          console.log(productDetails, "productDetails inside");
+
           productDetails[0].tokenId = tokenId
           setProductList(productList => [
             ...productList,
@@ -129,7 +137,7 @@ const Products = (props) => {
                         <MaterialTable
                           columns={[
                             { title: "Document Id", field: "tokenId" },
-                            { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp*1000).format("DD-MM-YYYY h:mm:ss")},
+                            { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp * 1000).format("DD-MM-YYYY h:mm:ss") },
                           ]}
                           data={productList}
                           title=""
