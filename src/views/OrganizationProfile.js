@@ -3,17 +3,9 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import axios from "axios";
 import ColleagueForm from './ColleagueForm';
 // const { CSSTransitionGroup } = ReactTransitionGroup;
-import { Alert, TabContent, TabPane, Nav, NavItem, NavLink, CardTitle, CardText } from 'reactstrap';
 import classnames from 'classnames';
-import 'assets/css/ClaimPage.css'
-import {
-  Col,
-  Row,
-  ListGroup,
-  ListGroupItem,
-  Button,
-  FormText,
-} from 'reactstrap';
+import GridContainer from "components/Grid/GridContainer";
+import GridItem from "components/Grid/GridItem";
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone'
 import {parseJSONFromIPFSHash} from "utils";
@@ -21,7 +13,8 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import Claims from "views/Claims&Certifications/Claims";
-import { TextField, Divider } from '@material-ui/core';
+import { TextField, Divider, List, ListItem, Button, Tabs, Tab, Typography, Box} from '@material-ui/core';
+import SnackbarContent from "components/Snackbar/SnackbarContent";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import DropzoneS3Uploader from 'react-dropzone-s3-uploader'
@@ -45,7 +38,8 @@ class OrganizationProfile extends Component {
       myItems: [],
       alertMessage: '',
       invitedProjects: [],
-      plan:{}
+      plan:{},
+      value: 0
     };
     this.helperspan = null;
     this.lastId = -1;
@@ -74,20 +68,12 @@ class OrganizationProfile extends Component {
     this.forceUpdate();
   };
 
-
-  componentDidMount() {
-    // axios.post("/api/dashboard/getOrganizationInfo", {}).then(res => {
-    //   this.setState({ organization: res.data.organization, admin: this.props.user.user.role === "0" ? true : false })
-    // });
-    // axios.post("/api/dashboard/getSubscriptionInfo", {}).then(res => {
-    //   const date1 = new Date(res.data.plan.startDate)
-    //   const date2 = new Date(res.data.plan.endDate)
-    //   this.setState({ plan:{"startDate":date1.toString() ,"endDate":date2.toString() ,"credits":res.data.plan.credits,"dataUsage":res.data.plan.dataUsage}})
-    // // });
-    // this.forceUpdate();
-    // this.fetchCertificateDetails()
-    // this.fetchinvitedConsortiumProjectInfo()
+  handleChange = (event, newValue) => {
+    this.setState({
+      value: newValue
+    });
   }
+
 
   fetchinvitedConsortiumProjectInfo = () => {
     axios.post("/api/dashboard/invitedConsortiumProjectInfo", {}).then(res => {
@@ -107,7 +93,10 @@ class OrganizationProfile extends Component {
       this.setState({ deletedUrls: [] });
       this.fetchCertificateDetails()
       this.setState({
-        alertMessage: <Alert>{res.data.message}</Alert>
+        alertMessage: <SnackbarContent
+          color="danger"
+          message={res.data.message}
+        />
       })
     })
   }
@@ -159,7 +148,10 @@ class OrganizationProfile extends Component {
       axios.post("/api/dashboard/addCertification", { urls: this.state.urls }).then(res => {
         this.fetchCertificateDetails()
         this.setState({
-          alertMessage: <Alert>{res.data.message}</Alert>
+          alertMessage: <SnackbarContent
+            color="danger"
+            message={res.data.message}
+          />
         })
       })
     });
@@ -206,6 +198,12 @@ class OrganizationProfile extends Component {
       invitedProjects,
       plan
     } = this.state;
+    const a11yProps = (index) => {
+      return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+      };
+    }
     const previewStyle = {
       position: 'relative',
       width: '200px',
@@ -217,8 +215,8 @@ class OrganizationProfile extends Component {
     };
     const maxSize = 1048576;
     return (<div>
-      <Row>
-        <Col sm="12" xl="6">
+      <GridContainer>
+        <GridItem sm="12" xl="6">
         <Card style={{height: "200px"}}>
           <CardHeader>
             <strong>Organization Info</strong>
@@ -235,13 +233,14 @@ class OrganizationProfile extends Component {
               <i className="fa fa-align-justify"></i>
               <strong>Organization Plan Info</strong>
             </CardHeader>
+            <Divider/>
             <CardBody>
-              <ListGroup>
-                <ListGroupItem>Plan Type: Trial</ListGroupItem>
-                <ListGroupItem>Start Date: {plan.startDate}</ListGroupItem>
-                <ListGroupItem>End Date: {plan.endDate}</ListGroupItem>
-                <ListGroupItem>Credits: {plan.credits}</ListGroupItem>
-              </ListGroup>
+              <List>
+                <ListItem>Plan Type: Trial</ListItem>
+                <ListItem>Start Date: {plan.startDate}</ListItem>
+                <ListItem>End Date: {plan.endDate}</ListItem>
+                <ListItem>Credits: {plan.credits}</ListItem>
+              </List>
             </CardBody>
           </Card>
           {this.props.user.user[5]==1 &&
@@ -250,18 +249,19 @@ class OrganizationProfile extends Component {
               <i className="fa fa-align-justify"></i>
               <strong>Organization Admin Info</strong>
             </CardHeader>
+            <Divider/>
             <CardBody>
-                <ListGroup>
-                  <ListGroupItem>First Name: {this.props.user.user.firstName}</ListGroupItem>
-                  <ListGroupItem>Last Name: {this.props.user.user.lastName}</ListGroupItem>
-                  <ListGroupItem>Email ID: {this.props.user.user.email}</ListGroupItem>
+                <List>
+                  <ListItem>First Name: {this.props.user.user.firstName}</ListItem>
+                  <ListItem>Last Name: {this.props.user.user.lastName}</ListItem>
+                  <ListItem>Email ID: {this.props.user.user.email}</ListItem>
 
-                </ListGroup>
+                </List>
               </CardBody>
           </Card>
         }
-        </Col>
-        {this.props.user.user[5]==1 && <Col sm="12" xl="6">
+        </GridItem>
+        {/**this.props.user.user[5]==1 && <GridItem sm="12" xl="6">
           <Card>
             <CardHeader>
               <i className="fa fa-align-justify"></i>
@@ -292,15 +292,15 @@ class OrganizationProfile extends Component {
                   <Claims/>
                 </TabPane>
                 <TabPane tabId="2">
-                  <ListGroup>
-                    <ListGroupItem>
+                  <List>
+                    <ListItem>
                       <TextField
                       variant="outlined"
                       type="text" placeholder="Enter Certificate File Name" name="certificateName" required="required" value={this.state.certificateName} onChange={this.handleNameChange} />
-                    </ListGroupItem>
-                    <ListGroupItem>
-                      <Row>
-                        <Col sm="12" xl="6">
+                    </ListItem>
+                    <ListItem>
+                      <GridContainer>
+                        <GridItem sm="12" xl="6">
                           <Dropzone onDrop={this.onDrop} accept="image/*" minSize={0} maxSize={maxSize} multiple={false}>
                             {
                               ({ getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles }) => {
@@ -320,8 +320,8 @@ class OrganizationProfile extends Component {
                             }
                           </Dropzone>
 
-                        </Col>
-                        <Col sm="12" xl="6">
+                        </GridItem>
+                        <GridItem sm="12" xl="6">
                           {
                             imageFilesWithurl.length > 0
                               ? <div>
@@ -331,49 +331,111 @@ class OrganizationProfile extends Component {
                               </div>
                               : null
                           }
-                        </Col>
-                      </Row>
+                        </GridItem>
+                      </GridContainer>
                       <br />
                       <Button color="primary" onClick={this.onCertificateUpload}>Upload certificates</Button>
-                      <FormText color="muted"></FormText>
-                    </ListGroupItem>
-                    <ListGroupItem>
+                    </ListItem>
+                    <ListItem>
                       <CardHeader>
                         <i className="fa fa-align-justify"></i>
                         <strong>Manage uploaded certificates</strong>
                       </CardHeader>
-                    </ListGroupItem>
-                    <ListGroupItem>
+                    </ListItem>
+                    <ListItem>
                       {
                         urls.length === 0 && <p>No data found!</p>
                       }
                       {
                         urls.length !== 0 && urls.map((url, i) => {
+                          // return (<ListItem><a href={url}>{url}</a></ListItem>)
+                          return (<ListItem>
+                            <input name={url.url} key={i} type="checkbox" onChange={this.handleCertificationChanges} />
+                            Certificate Name : {url.name}
+                            <img style={{
+                              padding: 10
+                            }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListItem>)
+                        })
+                      }
+                    </ListItem>
+                    {
+                      urls.length !== 0 &&  <ListItem>
+                      <Button color="primary" onClick={this.deleteCertificateFiles}>Delete certificates</Button>
+                    </ListItem> }
+                  </List>
+                </TabPane>
+              </TabContent>
+            </CardBody>
+          </Card>
+          {alertMessage}
+        </GridItem>*/}
+        {this.props.user.user[5]==1 && <GridItem xs={12} sm={6} md={6}>
+          <Card>
+            <CardHeader>
+              <strong>Claims & Certifications</strong>
+            </CardHeader>
+            <Divider/>
+            <CardBody style={{maxHeight: '150px', overflow: 'auto'}} >
+              <Tabs value={this.state.value}
+              onChange={this.handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              centered>
+                <Tab label="Claims" {...a11yProps(0)} />
+                <Tab label="Certifications" {...a11yProps(1)} />
+              </Tabs>
+              <TabPanel value={this.state.value} index={0}>
+                <Claims/>
+              </TabPanel>
+              <TabPanel value={this.state.value} index={1}>
+                Certifications Coming Soon
+              </TabPanel>
+              {/**<TabContent activeTab= {state.activeTab}>
+                <TabPane tabId="1">
+                  <ListGroup>
+                    <ListGroupItem>
+                      {makeAddedList()}
+                    </ListGroupItem>
+                  </ListGroup>
+                </TabPane>
+                <TabPane tabId="2">
+                      {
+                        state.urls.length !== 0 && state.urls.map((url, i) => {
                           // return (<ListGroupItem><a href={url}>{url}</a></ListGroupItem>)
                           return (<ListGroupItem>
-                            <input name={url.url} key={i} type="checkbox" onChange={this.handleCertificationChanges} />
                             Certificate Name : {url.name}
                             <img style={{
                               padding: 10
                             }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListGroupItem>)
                         })
                       }
-                    </ListGroupItem>
-                    {
-                      urls.length !== 0 &&  <ListGroupItem>
-                      <Button color="primary" onClick={this.deleteCertificateFiles}>Delete certificates</Button>
-                    </ListGroupItem> }
-                  </ListGroup>
                 </TabPane>
-              </TabContent>
+              </TabContent>*/}
             </CardBody>
           </Card>
-          {alertMessage}
-        </Col>}
-      </Row>
+        </GridItem>}
+      </GridContainer>
       {isOpen && (<Lightbox mainSrc={imageFiles[0]} onCloseRequest={() => this.setState({ isOpen: false })} />)}
     </div>)
   }
+}
+
+const TabPanel = (props) => {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  );
 }
 
 const mapStateToProps = (state) => ({ user: state.user, errors: state.errors })

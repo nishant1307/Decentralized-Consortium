@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Button,ListGroupItem,ListGroup, Form, FormGroup, Label, Input, FormText, Col, Row , Alert } from 'reactstrap';
 import ipfs from 'ipfs.js';
 const IPFS = require('ipfs-http-client')
 import { connect } from 'react-redux';
@@ -20,7 +19,10 @@ import {
   InputLabel,
   FormHelperText,
   FormControl,
+  FormGroup,
+  Button
 } from '@material-ui/core';
+import GridItem from "components/Grid/GridItem";
 
 const RegisterThingModal = (props) => {
 
@@ -219,16 +221,15 @@ const makeAddedList = () => {
     };
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col>
+          <GridItem>
             <Modal
               open={props.user.thingModalOpen}
               onClose={toggle}
               title="New Product Registration"
               content = {
-                <Form>
+                <>
                     <FormGroup row>
-                      <Col xs="12" md="6">
+                      <GridItem xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="thingName"
@@ -236,9 +237,9 @@ const makeAddedList = () => {
                           fullWidth
                           name="thingName"
                           onChange={handleFormChange} />
-                        <FormText color="muted">Enter Product Name</FormText>
-                      </Col>
-                      <Col xs="12" md="6">
+                        <FormHelperText color="muted">Enter Product Name</FormHelperText>
+                      </GridItem>
+                      <GridItem xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="thingBrand"
@@ -246,11 +247,11 @@ const makeAddedList = () => {
                           fullWidth
                           name="thingBrand"
                           onChange={handleFormChange} />
-                        <FormText color="muted">Enter Product Brand</FormText>
-                      </Col>
-                    </FormGroup>
+                        <FormHelperText color="muted">Enter Product Brand</FormHelperText>
+                      </GridItem>
+                    </FormGroup><br/>
                     <FormGroup row>
-                      <Col xs="12" md="6">
+                      <GridItem xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="thingDescription"
@@ -260,9 +261,9 @@ const makeAddedList = () => {
                           rows="4"
                           name="thingDescription"
                           onChange={handleFormChange} />
-                        <FormText color="muted">Enter Product Description</FormText>
-                      </Col>
-                      <Col xs="12" md="6">
+                        <FormHelperText color="muted">Enter Product Description</FormHelperText>
+                      </GridItem>
+                      <GridItem xs="12" md="6">
                         <TextField
                           variant="outlined"
                           type="text"
@@ -272,11 +273,11 @@ const makeAddedList = () => {
                           rows="4"
                           name="thingStory"
                           onChange={handleFormChange} />
-                        <FormText color="muted">Enter Product Description</FormText>
-                      </Col>
-                    </FormGroup>
+                        <FormHelperText color="muted">Enter Product Description</FormHelperText>
+                      </GridItem>
+                    </FormGroup><br/>
                     <FormGroup row>
-                    <Col xs="12" md="6">
+                    <GridItem xs="12" md="6">
                       <FormControl variant="outlined">
                         <InputLabel htmlFor="industryList">Currency Code</InputLabel>
                         <Select
@@ -296,8 +297,8 @@ const makeAddedList = () => {
                         placeholder="Price of the product (if applicable)?"
                         name="thingValue"
                         onChange={handleFormChange} />
-                    </Col>
-                    <Col xs="12" md="6">
+                    </GridItem>
+                    <GridItem xs="12" md="6">
                       <TextField
                         variant="outlined"
                         label="Product Quantity"
@@ -305,10 +306,10 @@ const makeAddedList = () => {
                         min={1} defaultValue={1}
                         name="quantity"
                         onChange={handleFormChange} />
-                    </Col>
+                    </GridItem>
                 </FormGroup>
                     <FormGroup row>
-                      <Col xs="12" md="12">
+                      <GridItem xs="12" md="12">
                         <Dropzone
                           onDrop={onDrop}
                           accept="image/*"
@@ -338,14 +339,15 @@ const makeAddedList = () => {
                           <h4>{imageFiles.length} images uploaded</h4>
                           <div>{imageFiles.map((file) => <img src={file} height="50px" width="50px" />)}</div>
                         </div> : null}
-                        <FormText color="muted"></FormText>
-                      </Col>
+                        <FormHelperText color="muted"></FormHelperText>
+                      </GridItem>
                     </FormGroup>
                   <FormGroup row>
-                    <Col xs="12" md="12">
-                    <Input
+                    <GridItem xs="12" md="12">
+                    <TextField
                       id="add"
                       type="text"
+                      variant="outlined"
                       name="claims"
                       autoComplete="off"
                       maxLength="1000"
@@ -355,36 +357,34 @@ const makeAddedList = () => {
                       onKeyPress={handleKeypress}
                       onBlur={handleBlur}
                     />
-                    <FormText color="muted">Hit "Enter" to confirm</FormText>
+                    <FormHelperText color="muted">Hit "Enter" to confirm</FormHelperText>
                     <span style={{ whiteSpace: "pre", visibility: "hidden", position: "absolute", pointerEvents: "none" }} ref={el => (helperspan = el)}>
                       {content_add}
                     </span>
-                      </Col>
+                      </GridItem>
                     </FormGroup>
                         <FormGroup row>
-                      <Col xs="12" md="12">
-                      <ListGroupItem>
+                      <GridItem xs="12" md="12">
                         {makeAddedList()}
-                      </ListGroupItem>
-                      <FormText color="muted">Click a pill to remove.</FormText>
-                        </Col>
+                      <FormHelperText color="muted">Click a pill to remove.</FormHelperText>
+                        </GridItem>
                         </FormGroup>
                         {/*    <FormGroup row>
-                        <Col md="3">
+                        <GridItem md="3">
                           <Label htmlFor="text-input">Certificate Name</Label>
-                        </Col>
-                      <Col xs="12" md="12">
+                        </GridItem>
+                      <GridItem xs="12" md="12">
                       <Input type="text" placeholder="Enter Certificate File Name" name="certificateName" value={certificateName} onChange={handleNameChange} />
-                      <FormText color="muted">Name of the certificate.</FormText>
-                        </Col>
+                      <FormHelperText color="muted">Name of the certificate.</FormHelperText>
+                        </GridItem>
                         </FormGroup>
                         <FormGroup row>
-                        <Col md="3">
+                        <GridItem md="3">
                           <Label htmlFor="text-input"> Certificate Image</Label>
-                        </Col>
-                      <Col xs="12" md="12">
+                        </GridItem>
+                      <GridItem xs="12" md="12">
                       <Row>
-                        <Col sm="12" xl="6">
+                        <GridItem sm="12" xl="6">
                       <Dropzone onDrop={onCertificateDrop} accept="image/*" minSize={0} maxSize={maxSize} multiple={false}>
                         {
                           ({ getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles }) => {
@@ -403,8 +403,8 @@ const makeAddedList = () => {
                           }
                         }
                       </Dropzone>
-                      </Col>
-                      <Col sm="12" xl="6">
+                      </GridItem>
+                      <GridItem sm="12" xl="6">
                         {
                           imageFilesWithurl.length > 0
                             ? <div>
@@ -414,17 +414,17 @@ const makeAddedList = () => {
                             </div>
                             : null
                         }
-                      </Col>
+                      </GridItem>
                     </Row>
                       <br/>
                         <Button color="primary" onClick={uploadImages}>Upload Certificates</Button>
-                        </Col>
+                        </GridItem>
                         </FormGroup>
                     <FormGroup row>
-                        <Col md="3">
+                        <GridItem md="3">
                           <Label htmlFor="text-input">Uploaded Certificates</Label>
-                        </Col>
-                      <Col xs="12" md="12">
+                        </GridItem>
+                      <GridItem xs="12" md="12">
                       {
                         urls.length !== 0 && urls.map((url, i) => {
                           // return (<ListGroupItem><a href={url}>{url}</a></ListGroupItem>)
@@ -435,20 +435,19 @@ const makeAddedList = () => {
                             }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListGroupItem>)
                         })
                       }
-                        </Col>
+                        </GridItem>
                         </FormGroup> */}
-                </Form>
+                </>
 
               }
               action={
-                <div>
+                <>
                 {!isLoading? <Button color="primary" type="button" onClick={onSubmit}>Create Product</Button> : <CircularProgress />}
-                </div>
+                </>
               }
               />
 
-          </Col>
-        </Row>
+          </GridItem>
       </div>
     );
 }

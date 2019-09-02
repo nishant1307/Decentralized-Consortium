@@ -1,21 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Promise} from "bluebird";
-import {
-  Alert,
-  Col,
-  Row,
-  Card,
-  CardBody,
-  CardHeader,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  ListGroup,
-  ListGroupItem,
-  Button
-} from 'reactstrap';
+import { TextField, Button, FormGroup, InputLabel} from '@material-ui/core';
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import GridContainer from "components/Grid/GridContainer";
+import GridItem from "components/Grid/GridItem";
 import Dropzone from 'react-dropzone';
 
 const SupportPage = () => {
@@ -113,38 +104,41 @@ const SupportPage = () => {
   const maxSize = 1048576;
 
   return (<div>
-    <Col sm="12" xl="12">
+    <GridItem sm="12" xl="12">
       <Card>
-        {alertMessage!='' && <Alert>{alertMessage}</Alert>}
+        {alertMessage!='' && <SnackbarContent
+          color="danger"
+          message={alertMessage}
+        />}
         <CardHeader>
           <i className="fa fa-align-justify"></i>
           <strong>Raise Ticket</strong>
         </CardHeader>
         <CardBody>
-          <Form className="form-horizontal">
+          <>
             <FormGroup row="row">
-              <Col md="3">
-                <Label htmlFor="text-input">Subject</Label>
-              </Col>
-              <Col xs="12" md="9">
-                <Input type="text" name="subject" value={subject} onChange={(e) => setSubject(e.target.value)} id="text-input" placeholder="Enter Subject Name"/>
-              </Col>
+              <GridItem md="3">
+                <InputLabel htmlFor="text-input">Subject</InputLabel>
+              </GridItem>
+              <GridItem xs="12" md="9">
+                <TextField variant="outlined" type="text" name="subject" value={subject} onChange={(e) => setSubject(e.target.value)} id="text-input" placeholder="Enter Subject Name"/>
+              </GridItem>
             </FormGroup>
             <FormGroup row="row">
-              <Col md="3">
-                <Label htmlFor="text-input">Message</Label>
-              </Col>
-              <Col xs="12" md="9">
-                <Input type="textarea" name="message" value={message} onChange={(e) => setMessage(e.target.value)} id="text-input" placeholder="Message"/>
-              </Col>
+              <GridItem md="3">
+                <InputLabel htmlFor="text-input">Message</InputLabel>
+              </GridItem>
+              <GridItem xs="12" md="9">
+                <TextField variant="outlined" type="textarea" name="message" value={message} onChange={(e) => setMessage(e.target.value)} id="text-input" placeholder="Message"/>
+              </GridItem>
             </FormGroup>
             <FormGroup row="row">
-              <Col md="3">
-                <Label htmlFor="text-input">Screen Shots</Label>
-              </Col>
-              <Col xs="9" md="9">
-                <Row>
-                  <Col md="6">
+              <GridItem md="3">
+                <InputLabel htmlFor="text-input">Screen Shots</InputLabel>
+              </GridItem>
+              <GridItem xs="9" md="9">
+                <GridContainer>
+                  <GridItem md="6">
                     <Dropzone onDrop={onDrop} accept="image/*"  minSize={0} maxSize={maxSize} multiple>
                       {
                         ({getRootProps, getInputProps, isDragActive, isDragReject, rejectedFiles}) => {
@@ -163,8 +157,8 @@ const SupportPage = () => {
                         }
                       }
                     </Dropzone>
-                  </Col>
-                  <Col md="6">
+                  </GridItem>
+                  <GridItem md="6">
                     {
                       imageFilesWithurl.length > 0
                         ? <div>
@@ -178,17 +172,17 @@ const SupportPage = () => {
                           </div>
                         : null
                     }
-                  </Col>
-                </Row>
-              </Col>
+                  </GridItem>
+                </GridContainer>
+              </GridItem>
             </FormGroup>
             <Button style={{
                 float: "right"
               }} color="primary" onClick={onSubmit}>Submit</Button>
-          </Form>
+          </>
         </CardBody>
       </Card>
-    </Col>
+    </GridItem>
   </div>);
 }
 
