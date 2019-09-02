@@ -17,12 +17,9 @@ import {
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import MaterialTable, { MTableToolbar } from "material-table";
-import { withStyles } from '@material-ui/core/styles';
+import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 const styles = theme => ({
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",

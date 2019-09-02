@@ -18,7 +18,6 @@ import { connect } from 'react-redux';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
@@ -29,16 +28,10 @@ import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userA
 import productContract from "productContract";
 import {registryContract} from "registryContract";
 import {parseJSONFromIPFSHash} from "utils";
-// import List from '@material-ui/core/List';
-// import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Claims from "views/Claims&Certifications/Claims";
-import { withStyles } from '@material-ui/core/styles';
+import { Divider, Tabs, Tab, Typography, Box } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+
 // import ListItemText from '@material-ui/core/ListItemText';
 const Dashboard = (props) => {
 

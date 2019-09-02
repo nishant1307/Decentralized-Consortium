@@ -12,27 +12,31 @@ import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import DateFnsUtils from "@date-io/date-fns";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { country, currency, currencyCode } from '../../../assets/data/countryList'
 import { encryptMessage, decryptMessage } from 'utils'
 import { addNewDoc, updateDoc } from 'actions/userActions';
 import { connect } from 'react-redux';
 import ipfs from '../../../ipfs';
-import { withStyles } from '@material-ui/core/styles';
+
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    CircularProgress,
+    InputLabel,
+    MenuItem,
+    FormControl,
+    Select,
+} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+
 const Ipfs = require('ipfs-http-client')
 
 const styles = theme => ({
@@ -233,7 +237,7 @@ const PackingList = props => {
                                         }}
                                         onChangeValue={handleChangeValue}
                                         value={struture.reference}
-                                        
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>

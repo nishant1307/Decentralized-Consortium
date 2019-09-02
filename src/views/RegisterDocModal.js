@@ -1,25 +1,29 @@
 import React, {Suspense, useState} from 'react';
 import {Link} from "react-router-dom";
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-import Slide from '@material-ui/core/Slide';
 import { connect } from 'react-redux';
 import { addNewDoc, closeDocModal } from '../actions/userActions';
+
+import {
+  Button,
+  Dialog,
+  DialogTitle as MuiDialogTitle,
+  DialogContent,
+  DialogActions as MuiDialogActions,
+  IconButton,
+  Typography,
+  TextField,
+  Slide,
+  LinearProgress,
+} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+
 const UploadFile = React.lazy(() => import('views/DocConekt/UploadFile'));
 // import UploadFile from "views/DocConekt/UploadFile";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" timeout={5000} ref={ref} {...props} />;
 });
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 const loading = <LinearProgress />;
 

@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 import PlacesAutocomplete from 'react-places-autocomplete';
+
+
+import { Grid, TextField } from '@material-ui/core';
 
 
 export default function companyInfo(props) {

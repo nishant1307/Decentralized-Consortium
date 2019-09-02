@@ -15,6 +15,7 @@ const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
 const Login = React.lazy(() => import('views/Login.jsx'));
 const RecoverAccount = React.lazy(() => import('views/RecoverAccount.jsx'));
 import "assets/css/material-dashboard-react.css?v=1.7.0";
+import { LinearProgress } from '@material-ui/core';
 //v1
 const Landing = React.lazy(() => import('views/LandingPagev1/Landing'));
 const Platform = React.lazy(() => import('views/LandingPagev1/Platform'))
@@ -22,7 +23,6 @@ const Solutions = React.lazy(() => import('views/LandingPagev1/Solutions'))
 const Partners = React.lazy(() => import('views/LandingPagev1/Partners'))
 const Industry = React.lazy(() => import("views/LandingPagev1/Industry"));
 const AboutUs = React.lazy(() => import("views/LandingPagev1/AboutUs"));
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 const loading = <LinearProgress />;
 ReactDOM.render(

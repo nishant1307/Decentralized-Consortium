@@ -3,14 +3,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import {Link} from "react-router-dom"
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
-import Poppers from "@material-ui/core/Popper";
-import Divider from "@material-ui/core/Divider";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
@@ -26,7 +18,17 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import headerLinksStyle from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
 
-import { withStyles } from '@material-ui/core/styles';
+import {
+  MenuItem,
+  MenuList,
+  Grow,
+  Paper,
+  ClickAwayListener,
+  Hidden,
+  Popper as Poppers,
+  Divider,
+} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 
 class AdminNavbarLinks extends React.Component {
 

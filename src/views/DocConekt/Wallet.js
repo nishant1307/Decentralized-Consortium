@@ -1,24 +1,29 @@
 import React , {useState} from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import {docContract} from "../../DocContract";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import web3 from '../../web3';
+
+import {
+    Container,
+    Grid,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    CircularProgress,
+    Typography,
+    TextField,
+    Button,
+    InputLabel,
+    MenuItem,
+    Select,
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+
+
 const address = localStorage.getItem("address");
 const privateKey = sessionStorage.getItem('privateKey')
 
@@ -120,243 +125,243 @@ function Title(props) {
     );
   }
 
-  Title.propTypes = {
-    children: PropTypes.node,
-  };
+Title.propTypes = {
+  children: PropTypes.node,
+};
 
-  function PaymentForm() {
-    const classes = useStyles();
-    const [name, setName] = useState("");
-    const [reason, setReason] = useState("");
-    const [addressTo, setAddress] = useState("");
-    const [loader, setLoader] = React.useState(true);
-    const [progress, setProgress] = React.useState(0);
-    const [tokenToAccept, settokenToAccept] = React.useState("");
-    const [reasonToAccept, setreasonToAccept] = React.useState("");
-    const [AddressFromAccept, setAddressFromAccept] = React.useState("");
-    const [isReasonFetched, setIsReasonFetched] = React.useState(false);
-    const [listOfTokensToAccept, setListOfTokensToAccept] = React.useState([]);
-    const [listOfTokensToSend, setListOfTokensToSend] = React.useState([]);
-    // let listOfTokensToAccept = [];
-    // let listOfTokensToSend = ["d755a340-a937-11e9-b1fa-a35d012c1b57", "7abdc2b0-a938-11e9-b05a-ff0fae9355c6", "9f1fb9b0-a938-11e9-8582-1536f9ecf997", "c2721570-a938-11e9-ba3c-8d807a0f5cd0"];
+function PaymentForm() {
+  const classes = useStyles();
+  const [name, setName] = useState("");
+  const [reason, setReason] = useState("");
+  const [addressTo, setAddress] = useState("");
+  const [loader, setLoader] = React.useState(true);
+  const [progress, setProgress] = React.useState(0);
+  const [tokenToAccept, settokenToAccept] = React.useState("");
+  const [reasonToAccept, setreasonToAccept] = React.useState("");
+  const [AddressFromAccept, setAddressFromAccept] = React.useState("");
+  const [isReasonFetched, setIsReasonFetched] = React.useState(false);
+  const [listOfTokensToAccept, setListOfTokensToAccept] = React.useState([]);
+  const [listOfTokensToSend, setListOfTokensToSend] = React.useState([]);
+  // let listOfTokensToAccept = [];
+  // let listOfTokensToSend = ["d755a340-a937-11e9-b1fa-a35d012c1b57", "7abdc2b0-a938-11e9-b05a-ff0fae9355c6", "9f1fb9b0-a938-11e9-8582-1536f9ecf997", "c2721570-a938-11e9-ba3c-8d807a0f5cd0"];
 
-    async function fetch() {
-        // let temp = await localStorage.getItem('rememberMe');
-        // let data = JSON.parse(temp);
-        let toAccept = await docContract.methods.tokenToAccept(address).call();
-        setListOfTokensToAccept(toAccept);
-        // listOfTokensToAccept = toAccept
-        console.log(toAccept, "toAccept");
-        let toSend = await docContract.methods.tokenOfOwner(address).call();
-        setListOfTokensToSend(toSend);
-        // listOfTokensToSend = toSend;
-        console.log(toSend, "toSend");
-        setLoader(false);
-    }
+  async function fetch() {
+      // let temp = await localStorage.getItem('rememberMe');
+      // let data = JSON.parse(temp);
+      let toAccept = await docContract.methods.tokenToAccept(address).call();
+      setListOfTokensToAccept(toAccept);
+      // listOfTokensToAccept = toAccept
+      console.log(toAccept, "toAccept");
+      let toSend = await docContract.methods.tokenOfOwner(address).call();
+      setListOfTokensToSend(toSend);
+      // listOfTokensToSend = toSend;
+      console.log(toSend, "toSend");
+      setLoader(false);
+  }
 
-    React.useEffect(() => {
-        fetch();
-        // const timer = setInterval(fetch, 10000);
-        // return () => {
-        //     clearInterval(timer);
-        // };
-    }, []);
-
-
-    React.useEffect(() => {
-        function tick() {
-            // reset when reaching 100%
-            setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1));
-        }
-
-        const timer = setInterval(tick, 20);
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
+  React.useEffect(() => {
+      fetch();
+      // const timer = setInterval(fetch, 10000);
+      // return () => {
+      //     clearInterval(timer);
+      // };
+  }, []);
 
 
-    React.useEffect(() => {
-        function tick() {
-            // reset when reaching 100%
-            setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1));
-        }
-        const timer = setInterval(tick, 20);
-        return () => {
-            clearInterval(timer);
-        };
-    }, []);
+  React.useEffect(() => {
+      function tick() {
+          // reset when reaching 100%
+          setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1));
+      }
 
-    async function handleAcceptance() {
-        console.log(tokenToAccept);
-        if (!isReasonFetched) {
-            let fetchReason = await docContract.methods.getTransferReason(tokenToAccept).call();
-            console.log(fetchReason);
-            setreasonToAccept(fetchReason[1]);
-            setAddressFromAccept(fetchReason[0])
-            setIsReasonFetched(true);
-        } else {
-            setLoader(true);
-            // let temp = await localStorage.getItem('rememberMe');
-            // let data = JSON.parse(temp);
-            let gasPrice = await web3.eth.getGasPrice();
-            var transaction = {
-                "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
-                "data": docContract.methods.acceptToken(AddressFromAccept, tokenToAccept).encodeABI(),
-                gasPrice: gasPrice
-            };
-            transaction["gasLimit"] = 8000000;
-            web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
-                web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
-                    if (confirmationNumber == 1) {
-                        if (receipt.status == true) {
-                            console.log(receipt, "hash");
-                            setLoader(false);
-                            setAddressFromAccept('');
-                            settokenToAccept('');
-                            setreasonToAccept('');
-                            setIsReasonFetched(false);
-                        }
-                    }
-                })
-                    .on('error', async function (error) {
-                        console.log(error);
-                        setLoader(false);
-                        setIsReasonFetched(false);
-                    })
-            });
-        }
-    }
-
-    async function handleTransfer() {
-        setLoader(true);
-        // let temp = await localStorage.getItem('rememberMe');
-        // let data = JSON.parse(temp);
-        let gasPrice = await web3.eth.getGasPrice();
-        var transaction = {
-            "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
-            "data": docContract.methods.transferFrom(address, addressTo, name, reason).encodeABI(),
-            gasPrice: gasPrice
-        };
-        transaction["gasLimit"] = 8000000;
-        web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
-            console.log(result.rawTransaction);
-            web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
-                if (confirmationNumber == 1) {
-                    if (receipt.status == true) {
-                        console.log(receipt, "hash");
-                        setAddress('');
-                        setName('');
-                        setReason('');
-                        setLoader(!loader);
-                    }
-                }
-            })
-                .on('error', async function (error) {
-                    console.log(error);
-                    setLoader(false);
-                })
-        });
-    }
-
-    return (
-
-        <main className={classes.content}>
-            {/* <div className={classes.appBarSpacer} /> */}
-            <Container maxWidth="lg" className={classes.container}>
-                {loader && <div className={classes.progress2}>
-                    <CircularProgress className={classes.progress} variant="determinate" value={progress} />
-                </div>}
-                {!loader &&
-                    <Grid container spacing={3}>
-                        {/* Recent Orders */}
-                        <Grid item xs={6}>
-                            <Paper className={classes.paper}>
-                                <React.Fragment>
-                                    <Title>Accept Document Transfer</Title>
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} md={12}>
-                                            <InputLabel htmlFor="age-simple">Token Id</InputLabel>
-                                            <Select
-                                                value={tokenToAccept}
-                                                onChange={e => settokenToAccept(e.target.value)}
-                                                inputProps={{
-                                                    name: 'token id',
-                                                }}
-                                                fullWidth
-                                            >
-                                                {listOfTokensToAccept.length === 0 && <MenuItem value=" " >No Data Found</MenuItem>}
-                                                {listOfTokensToAccept.length > 0 && listOfTokensToAccept.map((answer, i) => {
-                                                    return (<MenuItem key={i} value={answer}>{answer}</MenuItem>)
-                                                })}
+      const timer = setInterval(tick, 20);
+      return () => {
+          clearInterval(timer);
+      };
+  }, []);
 
 
-                                            </Select>
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                            <TextField value={AddressFromAccept} disabled label="Address" onChange={e => setAddressFromAccept(e.target.value)} fullWidth />
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                            <TextField value={reasonToAccept} label="Reason" disabled onChange={e => setreasonToAccept(e.target.value)} fullWidth />
-                                        </Grid>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleAcceptance}
-                                            className={classes.button}
-                                        >
-                                            {!isReasonFetched ? "Fetch Reason" : "Transfer"}
-                                        </Button>
-                                    </Grid>
-                                </React.Fragment>
-                            </Paper>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Paper className={classes.paper}>
-                                <React.Fragment>
-                                    <Title>Document Transfer</Title>
-                                    <Grid container spacing={3}>
-                                        <Grid item xs={12} md={12}>
-                                            <InputLabel htmlFor="age-simple">Token Id</InputLabel>
-                                            <Select
-                                                value={name}
-                                                onChange={e => setName(e.target.value)}
-                                                inputProps={{
-                                                    name: 'token id',
-                                                }}
-                                                fullWidth
-                                            >
-                                                {listOfTokensToSend.length === 0 && <MenuItem value=" " >No Data Found</MenuItem>}
-                                                {listOfTokensToSend.length > 0 && listOfTokensToSend.map((answer, i) => {
-                                                    return (<MenuItem key={i} value={answer}>{answer}</MenuItem>)
-                                                })}
+  React.useEffect(() => {
+      function tick() {
+          // reset when reaching 100%
+          setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1));
+      }
+      const timer = setInterval(tick, 20);
+      return () => {
+          clearInterval(timer);
+      };
+  }, []);
+
+  async function handleAcceptance() {
+      console.log(tokenToAccept);
+      if (!isReasonFetched) {
+          let fetchReason = await docContract.methods.getTransferReason(tokenToAccept).call();
+          console.log(fetchReason);
+          setreasonToAccept(fetchReason[1]);
+          setAddressFromAccept(fetchReason[0])
+          setIsReasonFetched(true);
+      } else {
+          setLoader(true);
+          // let temp = await localStorage.getItem('rememberMe');
+          // let data = JSON.parse(temp);
+          let gasPrice = await web3.eth.getGasPrice();
+          var transaction = {
+              "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
+              "data": docContract.methods.acceptToken(AddressFromAccept, tokenToAccept).encodeABI(),
+              gasPrice: gasPrice
+          };
+          transaction["gasLimit"] = 8000000;
+          web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
+              web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
+                  if (confirmationNumber == 1) {
+                      if (receipt.status == true) {
+                          console.log(receipt, "hash");
+                          setLoader(false);
+                          setAddressFromAccept('');
+                          settokenToAccept('');
+                          setreasonToAccept('');
+                          setIsReasonFetched(false);
+                      }
+                  }
+              })
+                  .on('error', async function (error) {
+                      console.log(error);
+                      setLoader(false);
+                      setIsReasonFetched(false);
+                  })
+          });
+      }
+  }
+
+  async function handleTransfer() {
+      setLoader(true);
+      // let temp = await localStorage.getItem('rememberMe');
+      // let data = JSON.parse(temp);
+      let gasPrice = await web3.eth.getGasPrice();
+      var transaction = {
+          "to": "0x5e76fad4e6d429ac60109d377555ded794aa2f12",
+          "data": docContract.methods.transferFrom(address, addressTo, name, reason).encodeABI(),
+          gasPrice: gasPrice
+      };
+      transaction["gasLimit"] = 8000000;
+      web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
+          console.log(result.rawTransaction);
+          web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
+              if (confirmationNumber == 1) {
+                  if (receipt.status == true) {
+                      console.log(receipt, "hash");
+                      setAddress('');
+                      setName('');
+                      setReason('');
+                      setLoader(!loader);
+                  }
+              }
+          })
+              .on('error', async function (error) {
+                  console.log(error);
+                  setLoader(false);
+              })
+      });
+  }
+
+  return (
+
+      <main className={classes.content}>
+          {/* <div className={classes.appBarSpacer} /> */}
+          <Container maxWidth="lg" className={classes.container}>
+              {loader && <div className={classes.progress2}>
+                  <CircularProgress className={classes.progress} variant="determinate" value={progress} />
+              </div>}
+              {!loader &&
+                  <Grid container spacing={3}>
+                      {/* Recent Orders */}
+                      <Grid item xs={6}>
+                          <Paper className={classes.paper}>
+                              <React.Fragment>
+                                  <Title>Accept Document Transfer</Title>
+                                  <Grid container spacing={3}>
+                                      <Grid item xs={12} md={12}>
+                                          <InputLabel htmlFor="age-simple">Token Id</InputLabel>
+                                          <Select
+                                              value={tokenToAccept}
+                                              onChange={e => settokenToAccept(e.target.value)}
+                                              inputProps={{
+                                                  name: 'token id',
+                                              }}
+                                              fullWidth
+                                          >
+                                              {listOfTokensToAccept.length === 0 && <MenuItem value=" " >No Data Found</MenuItem>}
+                                              {listOfTokensToAccept.length > 0 && listOfTokensToAccept.map((answer, i) => {
+                                                  return (<MenuItem key={i} value={answer}>{answer}</MenuItem>)
+                                              })}
 
 
-                                            </Select>
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                            <TextField required value={reason} required label="Reason for transfer" onChange={e => setReason(e.target.value)} fullWidth />
-                                        </Grid>
-                                        <Grid item xs={12} md={12}>
-                                            <TextField required value={addressTo} required label="Address" onChange={e => setAddress(e.target.value)} fullWidth />
-                                        </Grid>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={handleTransfer}
-                                            className={classes.button}
-                                        >
-                                            Transfer
-                                    </Button>
-                                    </Grid>
-                                </React.Fragment>
-                            </Paper>
-                        </Grid>
-                        <Dashboard />
-                    </Grid>}
-            </Container>
-        </main>
-    );
+                                          </Select>
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                          <TextField value={AddressFromAccept} disabled label="Address" onChange={e => setAddressFromAccept(e.target.value)} fullWidth />
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                          <TextField value={reasonToAccept} label="Reason" disabled onChange={e => setreasonToAccept(e.target.value)} fullWidth />
+                                      </Grid>
+                                      <Button
+                                          variant="contained"
+                                          color="primary"
+                                          onClick={handleAcceptance}
+                                          className={classes.button}
+                                      >
+                                          {!isReasonFetched ? "Fetch Reason" : "Transfer"}
+                                      </Button>
+                                  </Grid>
+                              </React.Fragment>
+                          </Paper>
+                      </Grid>
+                      <Grid item xs={6}>
+                          <Paper className={classes.paper}>
+                              <React.Fragment>
+                                  <Title>Document Transfer</Title>
+                                  <Grid container spacing={3}>
+                                      <Grid item xs={12} md={12}>
+                                          <InputLabel htmlFor="age-simple">Token Id</InputLabel>
+                                          <Select
+                                              value={name}
+                                              onChange={e => setName(e.target.value)}
+                                              inputProps={{
+                                                  name: 'token id',
+                                              }}
+                                              fullWidth
+                                          >
+                                              {listOfTokensToSend.length === 0 && <MenuItem value=" " >No Data Found</MenuItem>}
+                                              {listOfTokensToSend.length > 0 && listOfTokensToSend.map((answer, i) => {
+                                                  return (<MenuItem key={i} value={answer}>{answer}</MenuItem>)
+                                              })}
+
+
+                                          </Select>
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                          <TextField required value={reason} required label="Reason for transfer" onChange={e => setReason(e.target.value)} fullWidth />
+                                      </Grid>
+                                      <Grid item xs={12} md={12}>
+                                          <TextField required value={addressTo} required label="Address" onChange={e => setAddress(e.target.value)} fullWidth />
+                                      </Grid>
+                                      <Button
+                                          variant="contained"
+                                          color="primary"
+                                          onClick={handleTransfer}
+                                          className={classes.button}
+                                      >
+                                          Transfer
+                                  </Button>
+                                  </Grid>
+                              </React.Fragment>
+                          </Paper>
+                      </Grid>
+                      <Dashboard />
+                  </Grid>}
+          </Container>
+      </main>
+  );
 }
 
 function Dashboard() {

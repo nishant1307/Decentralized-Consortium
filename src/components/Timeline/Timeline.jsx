@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
-import Divider from '@material-ui/core/Divider';
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {registryContract} from "registryContract";
 import web3 from "../../web3";
+import { Divider } from '@material-ui/core';
 
 const TimelineComponent = (props) => {
 

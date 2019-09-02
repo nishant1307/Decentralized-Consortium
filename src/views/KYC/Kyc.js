@@ -1,22 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import ipfs from "ipfs";
 import { connect } from 'react-redux';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import web3 from '../../web3';
 const bip39 = require('bip39')
 const etherHDkey = require('ethereumjs-wallet/hdkey')
@@ -31,6 +15,25 @@ import DocUpload from './DocUpload'
 import Eula from './Eula'
 import KeyCreation from './KeyCreation'
 import ExistingAccount from './ExisitingAccount';
+import {makeStyles} from '@material-ui/core/styles';
+import {
+    Typography,
+    CssBaseline,
+    Paper,
+    Stepper,
+    Step,
+    StepLabel,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Slide,
+    Checkbox,
+    FormControlLabel,
+} from '@material-ui/core';
+
 const useStyles = makeStyles(theme => ({
     listItem: {
         padding: theme.spacing(1, 0),

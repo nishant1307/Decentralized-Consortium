@@ -35,6 +35,8 @@ module.exports = {
     })
   ],
   optimization: {
+    sideEffects: false,
+    usedExports: true,
     splitChunks: {
         cacheGroups: {
           commons: {
@@ -54,7 +56,22 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
-        use: ["babel-loader", "eslint-loader"]
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                  [
+                      "@babel/preset-env",
+                      {
+                          "modules": false,
+                          "loose": true
+                      }
+                  ]
+              ]
+            }
+          }
+        ]
       },
       {
         test: /\.(sa|sc|c)ss$/,

@@ -7,10 +7,10 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 import MaterialTable, { MTableToolbar } from "material-table";
-import Divider from '@material-ui/core/Divider';
 import { registryContract, registryAddress } from '../../registryContract';
 import web3 from '../../web3';
 import axios from 'axios';
+import { Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cardCategoryWhite: {

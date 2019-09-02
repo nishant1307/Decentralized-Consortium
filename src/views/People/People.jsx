@@ -2,7 +2,6 @@ import React, {Suspense, useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 
 import LocalOffer from "@material-ui/icons/LocalOffer";
@@ -11,7 +10,7 @@ const ColleagueForm = React.lazy(() => import('views/ColleagueForm'))
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
+
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
@@ -24,9 +23,8 @@ import {registryContract} from "registryContract";
 import { connect } from 'react-redux';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Modal from "components/CustomModal/Modal";
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-import { withStyles } from '@material-ui/core/styles';
+import { Icon, LinearProgress } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 
 const loading = <LinearProgress />;
 const People = (props) => {

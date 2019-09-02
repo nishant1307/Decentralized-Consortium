@@ -1,5 +1,5 @@
-import CircularProgress from '@material-ui/core/CircularProgress';
 import React from "react";
+import { CircularProgress } from '@material-ui/core';
 const CustomLoader = () => {
   return(
     <CircularProgress style={{

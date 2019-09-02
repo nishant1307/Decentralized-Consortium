@@ -9,13 +9,13 @@ import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
+
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Table from "components/Table/Table.jsx";
+
 import DocConekt from 'views/DocConekt/UploadFile';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
@@ -25,8 +25,8 @@ import RegisterDeviceModal from "views/RegisterDeviceModal";
 import RegisterDocModal from "views/RegisterDocModal";
 import {registryContract} from 'registryContract';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import Divider from '@material-ui/core/Divider';
-import { withStyles } from '@material-ui/core/styles';
+import { Divider } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 const ProjectPage = (props) => {
   const {classes} = props;
 
@@ -140,7 +140,7 @@ const ProjectPage = (props) => {
             <CardFooter stats>
               <div className={classes.stats}>
               <VisibilityIcon/>
-             View 
+             View
               </div>
             </CardFooter>
           </Card>

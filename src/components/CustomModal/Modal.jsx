@@ -1,16 +1,19 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-import Slide from '@material-ui/core/Slide';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+
+import {
+  Button,
+  Dialog,
+  DialogTitle as MuiDialogTitle,
+  DialogContent,
+  DialogActions as MuiDialogActions,
+  Typography,
+  Slide,
+  IconButton,
+  useMediaQuery
+} from '@material-ui/core';
+import {useTheme, withStyles} from '@material-ui/core/styles';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" timeout={5000} ref={ref} {...props} />;
 });

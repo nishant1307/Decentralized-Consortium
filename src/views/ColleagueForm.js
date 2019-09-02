@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import {registryContract, registryAddress} from "registryContract";
 import web3 from "../web3";
 import {encryptMessage} from "utils";
+
+import { TextField, Button } from '@material-ui/core';
 
 const ColleagueForm = (props) => {
   const [email, setEmail] = useState('');

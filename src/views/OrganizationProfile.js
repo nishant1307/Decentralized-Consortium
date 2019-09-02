@@ -14,15 +14,14 @@ import {
   Button,
   FormText,
 } from 'reactstrap';
-import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import Dropzone from 'react-dropzone'
 import {parseJSONFromIPFSHash} from "utils";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import Divider from '@material-ui/core/Divider';
 import Claims from "views/Claims&Certifications/Claims";
+import { TextField, Divider } from '@material-ui/core';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import DropzoneS3Uploader from 'react-dropzone-s3-uploader'

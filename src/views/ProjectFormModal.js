@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Form, FormGroup, Input, Col,  Row } from 'reactstrap';
-import Button from '@material-ui/core/Button';
 import axios from "axios";
-import CircularProgress from '@material-ui/core/CircularProgress';
-import TextField from '@material-ui/core/TextField';
 import { connect } from 'react-redux';
 import { createNewProject, closeProjectModal } from '../actions/userActions';
-import { makeStyles } from '@material-ui/core/styles';
 import Modal from "components/CustomModal/Modal";
 import { industryList } from '../dataset/industries';
 import { functionalRoles } from '../dataset/functionalRoles';
 import { renderFromArray } from '../utils';
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import {
+  Button,
+  CircularProgress,
+  TextField,
+  Select,
+  OutlinedInput,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+
 const bip39 = require('bip39')
 const useStyles = makeStyles(theme => ({
   progress: {

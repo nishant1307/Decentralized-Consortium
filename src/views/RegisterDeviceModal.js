@@ -7,15 +7,19 @@ import { connect } from 'react-redux';
 import CSVReader from 'react-csv-reader'
 import {deviceList, protocolList, sensorList, dataProtocolList} from 'dataset/devices';
 import {renderFromArray} from 'utils';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Modal from "components/CustomModal/Modal";
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import { makeStyles } from '@material-ui/core/styles';
+
+import {
+  TextField,
+  CircularProgress,
+  Select,
+  OutlinedInput,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+
 const useStyles = makeStyles(theme => ({
   progress: {
     margin: theme.spacing(2),

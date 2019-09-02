@@ -1,13 +1,17 @@
 import React, {useState} from "react";
-import Select from '@material-ui/core/Select';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
 
 import {registryContract} from "registryContract";
+
+import {
+  Select,
+  OutlinedInput,
+  InputLabel,
+  FormHelperText,
+  FormControl,
+  MenuItem,
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),

@@ -12,17 +12,21 @@ import { docContract, docAddress } from 'DocContract'
 import { Redirect } from "react-router-dom";
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import { decryptMessage } from 'utils'
 import moment from "moment";
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles } from '@material-ui/core/styles';
+
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  LinearProgress,
+} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+
 
 const loading = <LinearProgress />;
 const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));

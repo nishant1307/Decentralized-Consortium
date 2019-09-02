@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -12,7 +11,6 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
 const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
-import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { openProjectModal, inviteUserToConsortium } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
@@ -21,10 +19,9 @@ import {registryContract} from 'registryContract';
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Modal from "components/CustomModal/Modal";
-import Divider from '@material-ui/core/Divider';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
+import { Icon, Button, Divider, TextField } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 const Projects = (props) => {
 
   const [projectInviteList, setProjectInviteList] = useState([]);

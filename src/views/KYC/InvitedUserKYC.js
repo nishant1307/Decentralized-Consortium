@@ -1,14 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Dropzone from 'react-dropzone'
 import ipfs from "ipfs";
 import { connect } from 'react-redux';
@@ -17,6 +7,21 @@ import { registryContract, registryAddress } from '../../registryContract';
 import web3 from '../../web3';
 import uuidv1 from 'uuid/v1';
 import moment from "moment";
+
+import {
+    Typography,
+    Grid,
+    TextField,
+    CssBaseline,
+    Paper,
+    Stepper,
+    Step,
+    StepLabel,
+    Button,
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+
+
 const useStyles = makeStyles(theme => ({
     listItem: {
         padding: theme.spacing(1, 0),

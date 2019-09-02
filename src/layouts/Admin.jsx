@@ -17,8 +17,7 @@ import {logoutUser} from "actions/authentication";
 import image from "assets/images/secure-min.jpg";
 import logo from "assets/img/logo.png";
 import routes from "routes.js"
-import LinearProgress from '@material-ui/core/LinearProgress';
-
+import { LinearProgress } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 const loading = <LinearProgress />;

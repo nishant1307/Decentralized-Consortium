@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import web3 from '../../web3';
 import ipfs from "../../ipfs";
 import {docContract} from "../../DocContract";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import {renderFromArray} from "utils";
+
+import {
+    Paper,
+    Stepper,
+    Step,
+    StepLabel,
+    Button,
+    Typography,
+    CircularProgress,
+    List,
+    ListItem,
+    ListItemText,
+    Grid,
+    TextField,
+    Tabs,
+    Tab,
+    Box,
+    InputLabel,
+    Input,
+    MenuItem,
+    FormControl,
+    Select,
+} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core/styles';
+
+
 const uuidv1 = require('uuid/v1');
 
 const salesTypes = [

@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-import TextField from "@material-ui/core/TextField";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
@@ -15,7 +14,8 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import { connect } from 'react-redux';
 import avatar from "assets/img/faces/marc.jpg";
 import {registryContract} from "registryContract";
-import { withStyles } from '@material-ui/core/styles';
+import { TextField } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",

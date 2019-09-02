@@ -2,17 +2,15 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
-import Icon from "@material-ui/core/Icon";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Danger from "components/Typography/Danger.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Table from "components/Table/Table.jsx";
+
 import Skeleton from '@material-ui/lab/Skeleton';
 const RegisterThingModal = React.lazy(() => import('views/RegisterThingModal.js'));
 import {openThingModal } from 'actions/userActions';
@@ -23,7 +21,8 @@ import moment from "moment";
 import LinkIcon from '@material-ui/icons/Link';
 import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
-import { withStyles } from '@material-ui/core/styles';
+import { Icon } from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
 const Products = (props) => {
 
   const [tokenIDList, setTokenIDList] = useState([])

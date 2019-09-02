@@ -5,13 +5,7 @@ import PropTypes from "prop-types";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Icon from "@material-ui/core/Icon";
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuItem from '@material-ui/core/MenuItem';
 import MaterialTable from "material-table";
-import Menu from '@material-ui/core/Menu';
 import Card from "components/Card/Card.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
@@ -19,13 +13,23 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
-import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
-import Paper from '@material-ui/core/Paper';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {registryContract} from 'registryContract';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
+
+import {
+  Icon,
+  List,
+  ListItem,
+  ListItemText,
+  MenuItem,
+  Menu,
+  TextField,
+  Divider,
+  Paper,
+} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+
 const Partners = (props) => {
   const {classes} = props;
 

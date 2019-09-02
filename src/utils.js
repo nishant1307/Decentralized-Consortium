@@ -1,7 +1,7 @@
 import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
 // import ipfs from "./ipfs";
 import axios from "axios";
+import { MenuItem } from '@material-ui/core';
 export const renderFromArray = array => {
   let render =[];
   array.forEach(element => {
