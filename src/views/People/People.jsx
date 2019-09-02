@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 // @material-ui/icons
 
 import LocalOffer from "@material-ui/icons/LocalOffer";
-import {Alert} from "reactstrap";
 const ColleagueForm = React.lazy(() => import('views/ColleagueForm'))
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -49,7 +48,10 @@ const People = (props) => {
   }
 
   const handleColleagueFormSubmit = (message) => {
-    setAlert(<Alert>{message}</Alert>);
+    setAlert(<SnackbarContent
+      color="danger"
+      message={message}
+    />);
     setTimeout(
       function () {
         setAlert('');

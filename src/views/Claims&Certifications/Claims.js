@@ -3,6 +3,7 @@ import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import { TextField, Tooltip } from '@material-ui/core';
+import 'assets/css/ClaimPage.css'
 const Claims = () => {
   const [contentAdd, setContentAdd] = useState("Type in to enter claims")
   const [myItems, setMyItems] = useState([]);

@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, FormGroup, Col  } from 'reactstrap';
-import { Alert} from 'reactstrap';
 import axios from "axios";
 import { createNewDevice, closeDeviceModal } from 'actions/userActions';
 import { connect } from 'react-redux';
@@ -16,8 +14,12 @@ import {
   OutlinedInput,
   InputLabel,
   FormHelperText,
+  FormGroup,
   FormControl,
+  Button
 } from '@material-ui/core';
+import GridItem from "components/Grid/GridItem";
+import SnackbarContent from "components/Snackbar/SnackbarContent";
 import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -105,9 +107,9 @@ const RegisterDeviceModal = (props) => {
             onClose={toggle}
             title="New Device Registration "
             content={
-              <Form className="form-horizontal">
+              <>
                   <FormGroup row>
-                    <Col xs="12" md="9">
+                    <GridItem xs="12" md="9">
                       <TextField
                         type="number"
                         name="number"
@@ -117,10 +119,10 @@ const RegisterDeviceModal = (props) => {
                         onChange={handleChange}
                         label="Number of Devices"/>
                       <FormHelperText color="muted">How many devices do you wish to register?</FormHelperText>
-                    </Col>
+                    </GridItem>
                   </FormGroup>
                   <FormGroup row>
-                    <Col xs="12" md="6">
+                    <GridItem xs="12" md="6">
                     {state.number==1 ?
                       <React.Fragment>
                         <TextField type="text"
@@ -141,7 +143,7 @@ const RegisterDeviceModal = (props) => {
                         inputStyle={{ color: 'black' }}
                       />
                     }
-                    </Col>
+                    </GridItem>
                   </FormGroup>
                   <FormControl className={classes.formControl} variant="outlined">
                     <InputLabel htmlFor="industryList">Select Device Type</InputLabel>
@@ -192,7 +194,7 @@ const RegisterDeviceModal = (props) => {
                       {renderFromArray(dataProtocolList)}
                     </Select>
                   </FormControl>
-              </Form>
+              </>
             }
 
             action={
@@ -203,13 +205,14 @@ const RegisterDeviceModal = (props) => {
                 }
                 {props.errors.deviceError && (
                   <FormGroup>
-                      <Col md="12" className="center">
+                      <GridItem md="12" className="center">
 
-                        <Alert color="danger">
-                          {props.errors.deviceError.message}
-                        </Alert>
+                      <SnackbarContent
+                        color="danger"
+                        message={props.errors.deviceError.message}
+                      />
 
-                        </Col>
+                        </GridItem>
                 </FormGroup>  )
                 }
               </div>
