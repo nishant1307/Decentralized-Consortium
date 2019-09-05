@@ -207,13 +207,19 @@ a {
   justify-content: center;
 }
 
+.bg-wrap{
+  background-image: url('http://detheme.com/templates/kergan/images/bg-hero-kergan.jpg');
+  background-position: 0px 0px;
+  background-size: cover;
+}
+
 .wrapper.navbar-2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top:10px;
+  padding-bottom:10px;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
@@ -916,6 +922,13 @@ a {
   padding-bottom: 40px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(230.22471910112358, 88.12%, 60.39%, 1.00)), to(hsla(316.2962962962963, 35.06%, 54.71%, 1.00)));
   background-image: linear-gradient(180deg, hsla(230.22471910112358, 88.12%, 60.39%, 1.00), hsla(316.2962962962963, 35.06%, 54.71%, 1.00));
+}
+
+.div-block-new-1 {
+  padding-top: 0px;
+  padding-bottom: 40px;
+  /* background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(230.22471910112358, 88.12%, 60.39%, 1.00)), to(hsla(316.2962962962963, 35.06%, 54.71%, 1.00))); */
+  /* background-image: linear-gradient(180deg, hsla(230.22471910112358, 88.12%, 60.39%, 1.00), hsla(316.2962962962963, 35.06%, 54.71%, 1.00)); */
 }
 
 .div-block-10 {
@@ -3153,6 +3166,7 @@ a {
   }
   .wrapper-2.navbar-2 {
     opacity: 1;
+    
   }
   .wrapper-2.space-around {
     -webkit-flex-wrap: wrap;

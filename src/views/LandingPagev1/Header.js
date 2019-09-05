@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import '../../WA/css/normalize.css'
 import '../../WA/css/detheme.css'
 import '../../WA/css/kergan.detheme.css'
-export default function Header() {
+export default function Header(props) {
+    console.log(props);
+    
     return (
-        <div data-collapse="medium" data-animation="default" data-duration={400} className="nav-bar w-nav">
+        <div data-collapse="medium" data-animation="default" data-duration={400} className={`nav-bar w-nav ${props.headerStyle}`}>
             <div className="wrapper navbar-2 w-container">
-                <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={75} height={75} alt="" /></Link></div>
+                <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={50} height={50} alt="" /></Link></div>
                 <nav role="navigation" className="nav-menu-2 w-nav-menu">
                     <Link to="/platform" className="nav-link-2 w-nav-link">Platform</Link>
                     <div className="dropdown">
@@ -40,7 +42,7 @@ export default function Header() {
                         </button>
                         <div className="dropdown-content">
                             <Link to="/aboutus" className="nav-link-2 w-nav-link">Company</Link>
-                            <Link to="/aboutus#ourteam" className="nav-link-2 w-nav-link">Our Team</Link>
+                            <Link to="/ourteam" className="nav-link-2 w-nav-link">Our Team</Link>
                             <Link to="/aboutus#media" className="nav-link-2 w-nav-link">Media</Link>
                             <Link to="/aboutus#latest" className="nav-link-2 w-nav-link">News & Blogs</Link>
                         </div>

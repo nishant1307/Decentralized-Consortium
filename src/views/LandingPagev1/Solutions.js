@@ -90,10 +90,9 @@ Create digital identity and  provenance		</p>
                     </div>
                 </div>
             </div>
-            <div className="div-block-9">
-
+            <div className="div-block-new-1">
                 <div className="section">
-                    <h1 style={{ textAlign: 'center' }} className="heading-2 ondark">Solutions for Business</h1>
+                    <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Solutions for Business</h1>
                     {/* <div className="wrapper-2 space-around">
                         <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" width={109} alt="" className="partner-logo" /></div>
                         <div className="partner-logo-container"><img data-src="https://via.placeholder.com/250" width={109} alt="" className="partner-logo" /></div>
@@ -106,135 +105,120 @@ Create digital identity and  provenance		</p>
                 <div id="solutionsforBusiness" className="section less-v-margin">
                     <div className="wrapper">
                         <div className="row-2">
-                            <div className="col lg-5">
-                                <AutoPlaySwipeableViews>
-                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                </AutoPlaySwipeableViews>
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/18.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5">
+                            <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark">Supply Chain – Track & Trace</h2>
-                                    <p className="ondark">Provide proof of any supply chain event or data point to a customer, vendor, regulator, or end consumer.<br />
-                                        Key events in a supply chain are securely logged to a blockchain.<br />
-                                        Access granted to supply chain partners on selective basis to "view" data on blockchain.<br />
-                                        Industry – Luxury, Fashion consumer electronics, Art / collectibles, Pharmaceuticals, F&B, precious metals, Industrials.<br />						</p>
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Supply Chain – Track & Trace</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Provide proof of any supply chain event or data point to a customer, vendor, regulator, or end consumer.</li>
+                                        <li className="tab-class-inner">  Key events in a supply chain are securely logged to a blockchain.</li>
+                                        <li className="tab-class-inner"> Access granted to supply chain partners on selective basis to "view" data on blockchain.</li>
+                                        <li className="tab-class-inner"> Industry – Luxury, Fashion consumer electronics, Art / collectibles, Pharmaceuticals, F&B, precious metals, Industrials.</li>
+                                    </ul>
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-5">
+                            <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark">Automation</h2>
-                                    <p className="ondark">A ecosystem built around this can automate various cogs of global trade including trade finance,
-	digitized doccumentation, provenance & supply chain.<br /> Time consuming work flows can be
-	simplified using smart contracts.					</p>
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Automation</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">A ecosystem built around this can automate various cogs of global trade including trade finance, digitized doccumentation, provenance & supply chain.</li>
+                                        <li className="tab-class-inner"> Time consuming work flows can besimplified using smart contracts.</li>
+                                    </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5">
-                                <AutoPlaySwipeableViews>
-                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                </AutoPlaySwipeableViews>
-
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/23.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                             </div>
-                            <div className="col lg-5">
-                                <AutoPlaySwipeableViews>
-                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                </AutoPlaySwipeableViews>
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/19.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5">
+                            <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark">Track & Trace</h2>
-                                    <p className="ondark">Operations Visibility Track and Trace, Chain of Custody. Securely track journey of a product / asset from production to market place.	<br />
-                                        Various stakeholders can be connected through blockchain and access immutable information about products / assets throughout the journey.	<br />
-                                        Using sensors can enhance the level of information. eg. temperature controlled logistics. <br />							</p>
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Track & Trace</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Operations Visibility Track and Trace, Chain of Custody. Securely track journey of a product / asset from production to market place.</li>
+                                        <li className="tab-class-inner">  Various stakeholders can be connected through blockchain and access immutable information about products / assets throughout the journey.</li>
+                                        <li className="tab-class-inner"> Using sensors can enhance the level of information. eg. temperature controlled logistics. </li>
+                                    </ul>
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-5">
-                                <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark">Anti-Counterfeit</h2>
-                                    <p className="ondark">	Secure, unique & low cost asset identifiers with blockchain registrations.<br />
-                                        Keep a confidential & private record of chain of custody, validating that the chain has been maintained, without revealing proprietary data.<br />
-                                        Track & synchronize chain of custody of physical object & digital record with IoT or audit-driven attestations.<br />
-                                        Industry – Luxury, Fashion consumer electronics, Art / collectibles, Pharmaceuticals, F&B, precious metals.<br />							</p>
+                            <div className="col lg-5 extra-pad">
+                                <div className="margin-bottom" >
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Anti-Counterfeit</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Secure, unique & low cost asset identifiers with blockchain registrations.</li>
+                                        <li className="tab-class-inner"> Keep a confidential & private record of chain of custody, validating that the chain has been maintained, without revealing proprietary data.</li>
+                                        <li className="tab-class-inner">Track & synchronize chain of custody of physical object & digital record with IoT or audit-driven attestations.</li>
+                                        <li className="tab-class-inner">Industry – Luxury, Fashion consumer electronics, Art / collectibles, Pharmaceuticals, F&B, precious metals.</li>
+                                    </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5">
-                                <AutoPlaySwipeableViews>
-                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                </AutoPlaySwipeableViews>
-
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/11.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                             </div>
-                            <div className="col lg-5">
-                                <AutoPlaySwipeableViews>
-                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                </AutoPlaySwipeableViews>
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/9.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5">
+                            <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark">Anti-Diversion</h2>
-                                    <p className="ondark">Secure asset identities combined with blockchain registrations & chain-of-custody.	<br />
-                                        Track product movements & identify where diversion occurred in the chain & intervene appropriately.		<br />
-                                        Industries – Luxury, Pharmaceuticals, Consumer Electronics, Food & Beverages, Cosmetics.		</p>
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Anti-Diversion</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Secure asset identities combined with blockchain registrations & chain-of-custody.	</li>
+                                        <li className="tab-class-inner">Track product movements & identify where diversion occurred in the chain & intervene appropriately.		</li>
+                                        <li className="tab-class-inner">Industries – Luxury, Pharmaceuticals, Consumer Electronics, Food & Beverages, Cosmetics.	</li>
+                                    </ul>
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-5">
+                            <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark">Digital Identity & Provenance</h2>
-                                    <p className="ondark">Tell the story of your brand and it's journey from production to market place.<br />
-                                        Build trust and credibility with customers. Get a digital identity for physical products / assets on the.<br />
-                                        block chain using a combination of connected tags which can be scanned using our app to reveal information.</p>
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Digital Identity & Provenance</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Tell the story of your brand and it's journey from production to market place.</li>
+                                        <li className="tab-class-inner">Build trust and credibility with customers. Get a digital identity for physical products / assets on the.</li>
+                                        <li className="tab-class-inner">block chain using a combination of connected tags which can be scanned using our app to reveal information.</li>
+                                    </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5">
-                                <AutoPlaySwipeableViews>
-                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                </AutoPlaySwipeableViews>
-
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/21.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="features" className="section">
-                <div className="wrapper">
-                    <h1 data-w-id="7b5c466a-962a-8742-1d10-203f426a0c19" style={{ opacity: 1 }} className="section-header withdesc">Solutions for Consumers</h1>
-                    {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
+            <div className="div-block-new-1">
+                <div className="section">
+                    <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Solutions for Consumers</h1>
+                </div>
+                <div id="solutionsforBusiness" className="section less-v-margin">
                     <div className="wrapper">
                         <div className="row-2">
-                            <div className="col lg-5">
-                                <AutoPlaySwipeableViews>
-                                    <img data-src="/images/m1.png" width={625} srcSet="/images/m1.png 500w, /images/m1.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="/images/2p.png" width={625} srcSet="/images/2p.png 500w, /images/2p.png 1000w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                    <img data-src="http://detheme.com/templates/kergan/images/object-1.png" width={625} srcSet="http://detheme.com/templates/kergan/images/object-1.png, http://detheme.com/templates/kergan/images/object-1.png" sizes="(max-width: 479px) 100vw, (max-width: 767px) 89vw, (max-width: 991px) 45vw, 37vw" alt="" className="anim-b" />
-                                </AutoPlaySwipeableViews>
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/5.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5">
+                            <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 style={{ color: "#333", marginTop: 50 }}>For Consumer</h2>
                                     <h4>Look out for Arthanium compliant, products, assets & application</h4>
-                                    <p style={{ color: "#333" }}>Use our consumer mobile app to scan custom NFC tags & know the journey and story behind the things you buy to make more confident
-& informed choices.<br /> At Arthanium, we’re bringing provenance to the supply chain & empowering shopper’s with accurate information and powering the transparency movement through technology. 	<br />
-                                        We work with reliable businesses and products to open verified information about their producers, origins and ingredients – creating transparency and accountability so you can trust what you buy.												</p>
+
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Use our consumer mobile app to scan custom NFC tags & know the journey and story behind the things you buy to make more confident
+& informed choices.</li>
+                                        <li className="tab-class-inner">At Arthanium, we’re bringing provenance to the supply chain & empowering shopper’s with accurate information and powering the transparency movement through technology. 	</li>
+                                        <li className="tab-class-inner"> We work with reliable businesses and products to open verified information about their producers, origins and ingredients – creating transparency and accountability so you can trust what you buy.	</li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

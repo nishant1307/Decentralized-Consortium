@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 // core components
 const Admin = React.lazy(() => import('layouts/Admin.jsx'));
 const AdminPanel = React.lazy(() => import('layouts/AdminPanel.jsx'));
-import { PrivateRoute }  from './PrivateRoute'
+import { PrivateRoute } from './PrivateRoute'
 const Kyc = React.lazy(() => import('views/KYC/Kyc'));
 const InvitedUserKYC = React.lazy(() => import('views/KYC/InvitedUserKYC'));
 import { Provider } from 'react-redux';
@@ -23,6 +23,7 @@ const Solutions = React.lazy(() => import('views/LandingPagev1/Solutions'))
 const Partners = React.lazy(() => import('views/LandingPagev1/Partners'))
 const Industry = React.lazy(() => import("views/LandingPagev1/Industry"));
 const AboutUs = React.lazy(() => import("views/LandingPagev1/AboutUs"));
+const OurTeam = React.lazy(() => import("views/LandingPagev1/OurTeam"));
 
 const loading = <LinearProgress />;
 ReactDOM.render(
@@ -36,7 +37,8 @@ ReactDOM.render(
             <Route exact path="/solutions" component={Solutions} />
             <Route exact path="/partners" component={Partners} />
             <Route exact path="/industry" component={Industry} />
-            <Route exact path="/aboutus" component={AboutUs} />
+            <Route exact path="/aboutus" component={OurTeam} />
+            <Route exact path="/ourTeam" component={OurTeam} />
             <Route path="/dashboard" component={Admin} />
             <PrivateRoute path="/admin" component={AdminPanel} />
             <Route path="/login" component={Login} />
