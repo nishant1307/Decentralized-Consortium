@@ -6,6 +6,9 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import WorkIcon from '@material-ui/icons/Work';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+import EmailIcon from '@material-ui/icons/Email';
+import InfoIcon from '@material-ui/icons/Info';
+import ShoppingCart from "@material-ui/icons/ShoppingCart"
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -15,18 +18,20 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
+import CustomTabs from "components/CustomTabs/CustomTabs";
+import Badge from '@material-ui/core/Badge';
 import DocConekt from 'views/DocConekt/UploadFile';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
-
-import { openDeviceModal, openDocModal, closeDocModal } from 'actions/userActions';
-import RegisterDeviceModal from "views/RegisterDeviceModal";
+import { openDocModal, closeDocModal } from 'actions/userActions';
+import ProjectInvites from "views/Projects/ProjectInvites";
 import RegisterDocModal from "views/RegisterDocModal";
+import ProjectPartners from "views/Partners/ProjectPartners";
+const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
 import {registryContract} from 'registryContract';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { Divider } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
+
 const ProjectPage = (props) => {
   const {classes} = props;
 
@@ -45,57 +50,35 @@ const ProjectPage = (props) => {
       props.history.push("/dashboard/home")
     else
       setProjectDetails(props.location.state.projectDetails);
-    registryContract.methods.getConsortiumMembers(props.match.params.projectID).call({
-      from : props.auth.user.publicKey
-    }).then(res => {
-      setPartners(res);
-    })
+
   }, []);
   return (
     <div>
       <GridContainer>
-        <GridItem xs={12} sm={6} md={3}>
-        <Link to={{ pathname: partnerPageURL, state: { partners: partners} }}>
+        <GridItem xs={12} sm={6} md={4}>
+        <Link to={getDevicePageURL}>
           <Card>
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
-                <WorkIcon/>
+                <DeviceHubIcon/>
               </CardIcon>
-              <p className={classes.cardCategory}>Participants </p>
-              <h4 className={classes.cardTitle}>{partners.length}</h4>
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <VisibilityIcon/>View
-              </div>
-            </CardFooter>
-          </Card>
-          </Link>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Link to={journeyPageURL}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <TimelineIcon />
-              </CardIcon>
-              <p className={classes.cardCategory}>Journey </p>
-              <h4 className={classes.cardTitle}>&nbsp;</h4>
+              <p className={classes.cardCategory}>Devices </p>
+              {/* <h4 className={classes.cardTitle}></h4> */}
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <VisibilityIcon/>
-                View
+               View
               </div>
             </CardFooter>
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
+        <GridItem xs={12} sm={6} md={4}>
           <Link to={getProductPageURL}><Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <DeviceHubIcon/>
+            <CardHeader color="success" stats icon>
+              <CardIcon color="success">
+                <ShoppingCart/>
               </CardIcon>
               <p className={classes.cardCategory}>Products</p>
               {/* <h4 className={classes.cardTitle}></h4> */}
@@ -109,47 +92,10 @@ const ProjectPage = (props) => {
           </Card>
           </Link>
         </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-        <Link to={getDevicePageURL}>
+        <GridItem xs={12} sm={6} md={4}>
           <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <DeviceHubIcon/>
-              </CardIcon>
-              <p className={classes.cardCategory}>View Device List</p>
-              {/* <h4 className={classes.cardTitle}></h4> */}
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-                <VisibilityIcon/>
-               View
-              </div>
-            </CardFooter>
-          </Card>
-          </Link>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Link to={"/dashboard/projects/"+ props.match.params.projectID + "/invites"}><Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <DeviceHubIcon/>
-              </CardIcon>
-              <p className={classes.cardCategory}>Project Invites</p>
-              {/* <h4 className={classes.cardTitle}></h4> */}
-            </CardHeader>
-            <CardFooter stats>
-              <div className={classes.stats}>
-              <VisibilityIcon/>
-             View
-              </div>
-            </CardFooter>
-          </Card>
-        </Link>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="info" stats icon>
-              <CardIcon color="info">
+            <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="danger" stats icon>
+              <CardIcon color="danger">
                 <FileCopyIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Docs</p>
@@ -163,26 +109,52 @@ const ProjectPage = (props) => {
             </CardFooter>
           </Card>
         </GridItem>
+        <GridItem xs={12} sm={12} md={12}>
+        <CustomTabs
+          title="Project:"
+          headerColor="primary"
+          tabs={[
+            {
+              tabName: "Project Details",
+              tabIcon: InfoIcon,
+              tabContent: (
+                <>
+                {projectDetails &&
+                        <>
+                            <b>Project Name:</b> {projectDetails.name}<br/>
+                            <b>Project ID: </b>{projectDetails.projectID}<br/>
+                            <b>Project Description:</b> {projectDetails.description}<br/>
+                            <b>Project Industry:</b> {projectDetails.industry}<br/>
+                        </>
+                }
+                </>
+              )
+            },
+            {
+              tabName: "Participants",
+              tabIcon: WorkIcon,
+              tabContent: (
+                <ProjectPartners projectID={props.match.params.projectID}/>
+              )
+            },
+            {
+              tabName: "Invitations",
+              tabIcon: EmailIcon,
+              tabContent: (
+                <ProjectInvites projectID={props.match.params.projectID}/>
+              )
+            },
+            {
+              tabName: "Journey",
+              tabIcon: TimelineIcon,
+              tabContent: (
+                <TimelineComponent {...props}/>
+              )
+            }
+          ]}
+        />
+        </GridItem>
         </GridContainer>
-        {projectDetails &&
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={9}>
-              <Card style={{height: "200px"}}>
-                <CardHeader>
-                  <strong>Project Info</strong>
-                </CardHeader>
-                <Divider/>
-                <CardBody>
-                    <b>Project Name:</b> {projectDetails.name}<br/>
-                    <b>Project ID: </b>{projectDetails.projectID}<br/>
-                    <b>Project Description:</b> {projectDetails.description}<br/>
-                    <b>Project Industry:</b> {projectDetails.industry}<br/>
-                </CardBody>
-              </Card>
-            </GridItem>
-          </GridContainer>
-        }
-      <RegisterDeviceModal selectedProject= {props.match.params.projectID}/>
       <RegisterDocModal />
     </div>
   );
@@ -199,4 +171,4 @@ const mapStateToProps = (state) => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, { openDeviceModal, closeDocModal, openDocModal })(withStyles(dashboardStyle)(ProjectPage));
+export default connect(mapStateToProps, { closeDocModal, openDocModal })(withStyles(dashboardStyle)(ProjectPage));

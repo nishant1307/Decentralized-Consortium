@@ -13,8 +13,11 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import Claims from "views/Claims&Certifications/Claims";
-import { TextField, Divider, List, ListItem, Button, Tabs, Tab, Typography, Box} from '@material-ui/core';
+import { TextField, List, ListItem, Button, Tabs, Tab, Typography, Box} from '@material-ui/core';
 import SnackbarContent from "components/Snackbar/SnackbarContent";
+import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
+import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import CustomTabs from "components/CustomTabs/CustomTabs";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import DropzoneS3Uploader from 'react-dropzone-s3-uploader'
@@ -39,7 +42,6 @@ class OrganizationProfile extends Component {
       alertMessage: '',
       invitedProjects: [],
       plan:{},
-      value: 0
     };
     this.helperspan = null;
     this.lastId = -1;
@@ -68,11 +70,6 @@ class OrganizationProfile extends Component {
     this.forceUpdate();
   };
 
-  handleChange = (event, newValue) => {
-    this.setState({
-      value: newValue
-    });
-  }
 
 
   fetchinvitedConsortiumProjectInfo = () => {
@@ -198,12 +195,7 @@ class OrganizationProfile extends Component {
       invitedProjects,
       plan
     } = this.state;
-    const a11yProps = (index) => {
-      return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-      };
-    }
+
     const previewStyle = {
       position: 'relative',
       width: '200px',
@@ -218,10 +210,9 @@ class OrganizationProfile extends Component {
       <GridContainer>
         <GridItem sm="12" xl="6">
         <Card style={{height: "200px"}}>
-          <CardHeader>
+          <CardHeader  color="primary">
             <strong>Organization Info</strong>
           </CardHeader>
-          <Divider/>
           <CardBody>
               <b>Organization Name:</b> {this.props.user.organization[1]}<br/>
               <b>Organization ID: </b>{this.props.user.organization[0]}<br/>
@@ -229,11 +220,10 @@ class OrganizationProfile extends Component {
           </CardBody>
         </Card>
               <Card>
-            <CardHeader>
+            <CardHeader  color="primary">
               <i className="fa fa-align-justify"></i>
               <strong>Organization Plan Info</strong>
             </CardHeader>
-            <Divider/>
             <CardBody>
               <List>
                 <ListItem>Plan Type: Trial</ListItem>
@@ -243,23 +233,6 @@ class OrganizationProfile extends Component {
               </List>
             </CardBody>
           </Card>
-          {this.props.user.user[5]==1 &&
-            <Card>
-            <CardHeader>
-              <i className="fa fa-align-justify"></i>
-              <strong>Organization Admin Info</strong>
-            </CardHeader>
-            <Divider/>
-            <CardBody>
-                <List>
-                  <ListItem>First Name: {this.props.user.user.firstName}</ListItem>
-                  <ListItem>Last Name: {this.props.user.user.lastName}</ListItem>
-                  <ListItem>Email ID: {this.props.user.user.email}</ListItem>
-
-                </List>
-              </CardBody>
-          </Card>
-        }
         </GridItem>
         {/**this.props.user.user[5]==1 && <GridItem sm="12" xl="6">
           <Card>
@@ -370,72 +343,31 @@ class OrganizationProfile extends Component {
           {alertMessage}
         </GridItem>*/}
         {this.props.user.user[5]==1 && <GridItem xs={12} sm={6} md={6}>
-          <Card>
-            <CardHeader>
-              <strong>Claims & Certifications</strong>
-            </CardHeader>
-            <Divider/>
-            <CardBody style={{maxHeight: '150px', overflow: 'auto'}} >
-              <Tabs value={this.state.value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="fullWidth"
-              centered>
-                <Tab label="Claims" {...a11yProps(0)} />
-                <Tab label="Certifications" {...a11yProps(1)} />
-              </Tabs>
-              <TabPanel value={this.state.value} index={0}>
-                <Claims/>
-              </TabPanel>
-              <TabPanel value={this.state.value} index={1}>
-                Certifications Coming Soon
-              </TabPanel>
-              {/**<TabContent activeTab= {state.activeTab}>
-                <TabPane tabId="1">
-                  <ListGroup>
-                    <ListGroupItem>
-                      {makeAddedList()}
-                    </ListGroupItem>
-                  </ListGroup>
-                </TabPane>
-                <TabPane tabId="2">
-                      {
-                        state.urls.length !== 0 && state.urls.map((url, i) => {
-                          // return (<ListGroupItem><a href={url}>{url}</a></ListGroupItem>)
-                          return (<ListGroupItem>
-                            Certificate Name : {url.name}
-                            <img style={{
-                              padding: 10
-                            }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListGroupItem>)
-                        })
-                      }
-                </TabPane>
-              </TabContent>*/}
-            </CardBody>
-          </Card>
+        <CustomTabs
+        title="Claims & Certifications"
+        headerColor="primary"
+        tabs={[
+          {
+            tabName: "Claims",
+            tabIcon: FeaturedPlayListIcon,
+            tabContent: (
+              <Claims/>
+            )
+          },
+          {
+            tabName: "Certifications",
+            tabIcon: ChromeReaderModeIcon,
+            tabContent: (
+              "Certifications Coming Soon"
+            )
+          },
+        ]}
+      />
         </GridItem>}
       </GridContainer>
       {isOpen && (<Lightbox mainSrc={imageFiles[0]} onCloseRequest={() => this.setState({ isOpen: false })} />)}
     </div>)
   }
-}
-
-const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
 }
 
 const mapStateToProps = (state) => ({ user: state.user, errors: state.errors })

@@ -16,7 +16,7 @@ import {
     Typography,
 } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-
+import signupImage from "assets/images/signup.png";
 const bip39 = require('bip39')
 const etherHDkey = require('ethereumjs-wallet/hdkey')
 const jsPDF = require('jspdf');
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundImage: 'url('+signupImage+')',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -109,7 +109,7 @@ export default function RecoverAccount(props) {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign Up
+                        Recover
           </Typography>
                     <form className={classes.form} noValidate>
                         <TextField

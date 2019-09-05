@@ -44,24 +44,18 @@ const Sidebar = ({ ...props }) => {
             <ListItem button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
-                  })}
+                  className={classNames(classes.itemIcon, whiteFontClasses)}
                 >
                   {prop.icon}
                 </Icon>
               ) : (
                 <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
-                  })}
+                  className={classNames(classes.itemIcon, whiteFontClasses)}
                 />
               )}
               <ListItemText
                 primary={prop.name}
-                className={classNames(classes.itemText, whiteFontClasses, {
-                  [classes.itemTextRTL]: props.rtlActive
-                })}
+                className={classNames(classes.itemText, whiteFontClasses)}
                 disableTypography={true}
               />
             </ListItem>
@@ -91,9 +85,7 @@ const Sidebar = ({ ...props }) => {
           anchor={"right"}
           open={props.open}
           classes={{
-            paper: classNames(classes.drawerPaper, {
-              [classes.drawerPaperRTL]: props.rtlActive
-            })
+            paper: classNames(classes.drawerPaper)
           }}
           onClose={props.handleDrawerToggle}
           ModalProps={{
@@ -119,9 +111,7 @@ const Sidebar = ({ ...props }) => {
           variant="permanent"
           open
           classes={{
-            paper: classNames(classes.drawerPaper, {
-              [classes.drawerPaperRTL]: props.rtlActive
-            })
+            paper: classNames(classes.drawerPaper)
           }}
         >
           {brand}
@@ -140,7 +130,6 @@ const Sidebar = ({ ...props }) => {
 
 Sidebar.propTypes = {
   classes: PropTypes.object.isRequired,
-  rtlActive: PropTypes.bool,
   handleDrawerToggle: PropTypes.func,
   bgColor: PropTypes.oneOf(["purple", "blue", "green", "orange", "red"]),
   logo: PropTypes.string,

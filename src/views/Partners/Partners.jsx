@@ -13,6 +13,8 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
+import CustomTabs from "components/CustomTabs/CustomTabs";
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import {registryContract} from 'registryContract';
 import { connect } from 'react-redux';
@@ -76,83 +78,100 @@ const Partners = (props) => {
 
   return (
     <>
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={6}>
-        <Paper>
-        <List component="nav" aria-label="Device settings">
-            <ListItem
-              button
-              aria-haspopup="true"
-              onClick={handleClickListItem}
-            >
-              <ListItemText primary="Select Organization Type" secondary={options[selectedIndex]} />
-            </ListItem>
-        </List>
-        </Paper>
-        <Menu
-            id="partner-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            {options.map((option, index) => (
-              <MenuItem
-                key={option}
-                selected={index === selectedIndex}
-                onClick={event => handleMenuItemClick(event, index)}
+    <CustomTabs
+      title="Partnerships:"
+      headerColor="primary"
+      tabs={[
+        {
+          tabName: "Partner List",
+          tabIcon: SupervisedUserCircleIcon,
+          tabContent: (
+            <>
+            <Paper>
+            <List component="nav" aria-label="Device settings">
+                <ListItem
+                  button
+                  aria-haspopup="true"
+                  onClick={handleClickListItem}
+                >
+                  <ListItemText primary="Select Organization Type" secondary={options[selectedIndex]} />
+                </ListItem>
+            </List>
+            </Paper>
+            <Menu
+                id="partner-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
               >
-                {option}
-              </MenuItem>
-            ))}
-        </Menu>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={6}>
-          <Button color="primary">Enlist your organization as Partner</Button>
-          <TextField/>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={12}>
-          {!loader?
-            partners.length>0 ?
-            <Card plain>
-              <CardHeader plain color="primary">
-              <h4 className={classes.cardTitleWhite}>
-                Partners in the selected category
-              </h4>
-              </CardHeader>
-                <MaterialTable
-                    columns={[
-                      { title: "OrganizationID", field: "organizationID"},
-                      { title: "Organization Name", field: "name"}
-
-                    ]}
-                    data={partners}
-                    title=""
-                    options={{
-                      search: true,
-                      exportButton: true
-                    }}
-                  />
-            </Card>:
-              "No organizations in the selected Category":
-              <React.Fragment>
+                {options.map((option, index) => (
+                  <MenuItem
+                    key={option}
+                    selected={index === selectedIndex}
+                    onClick={event => handleMenuItemClick(event, index)}
+                  >
+                    {option}
+                  </MenuItem>
+                ))}
+            </Menu>
+            <GridItem xs={12} sm={12} md={12}>
+              {!loader?
+                partners.length>0 ?
                 <Card plain>
                   <CardHeader plain color="primary">
                   <h4 className={classes.cardTitleWhite}>
                     Partners in the selected category
                   </h4>
                   </CardHeader>
-                    <Skeleton width="100%"/>
-                    <Skeleton width="60%" />
-                    <Skeleton width="100%" />
-                    <Skeleton width="60%" />
-                    <Skeleton width="100%" />
-                    <Skeleton width="60%" />
-                    <Skeleton width="100%" />
-                </Card>
-              </React.Fragment>}
-              </GridItem>
-      </GridContainer>
+                    <MaterialTable
+                        columns={[
+                          { title: "OrganizationID", field: "organizationID"},
+                          { title: "Organization Name", field: "name"}
+
+                        ]}
+                        data={partners}
+                        title=""
+                        options={{
+                          search: true,
+                          exportButton: true
+                        }}
+                      />
+                </Card>:
+                <Card plain>
+                  No organizations in the selected Category
+                  </Card>:
+                  <React.Fragment>
+                    <Card plain>
+                      <CardHeader plain color="primary">
+                      <h4 className={classes.cardTitleWhite}>
+                        Partners in the selected category
+                      </h4>
+                      </CardHeader>
+                        <Skeleton width="100%"/>
+                        <Skeleton width="60%" />
+                        <Skeleton width="100%" />
+                        <Skeleton width="60%" />
+                        <Skeleton width="100%" />
+                        <Skeleton width="60%" />
+                        <Skeleton width="100%" />
+                    </Card>
+                  </React.Fragment>}
+                  </GridItem>
+            </>
+          )
+        },
+        {
+          tabName: "Enlist your organization as Partner",
+          tabIcon: SupervisedUserCircleIcon,
+          tabContent: (
+            <>
+
+            </>
+          )
+        }
+      ]}
+    />
     </>
   );
 }

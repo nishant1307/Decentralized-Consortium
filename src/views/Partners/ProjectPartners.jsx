@@ -66,13 +66,11 @@ const ProjectPartners = (props) => {
   }
 
   useEffect(() => {
-    if(!props.location.state){
-      props.history.push("/dashboard/home")
-    }
-    else{
-      setPartners(props.location.state.partners);
-      props.location.state.partners.forEach(partner => {
-        registryContract.methods.getPartnerRole(props.match.params.projectID, partner.publicKey).call({
+    registryContract.methods.getConsortiumMembers(props.projectID).call({
+      from : props.auth.user.publicKey
+    }).then(res => {
+      res.forEach(partner => {
+        registryContract.methods.getPartnerRole(props.projectID, partner.publicKey).call({
           from: props.auth.user.publicKey
         }).then(role=> {
           let decodedRole;
@@ -90,25 +88,27 @@ const ProjectPartners = (props) => {
             case 5: decodedRole = "Bank";
                     break;
           }
-          setPartnerRoles(partnerRoles => [
-            ...partnerRoles,
-            decodedRole
+          partner.role = decodedRole
+          setPartners(partners => [
+            ...partners,
+            partner
           ])
         })
       })
-    }
+    })
+
   }, []);
 
   const inviteUser = () => {
     props.inviteUserToConsortium({
-      projectID: props.match.params.projectID,
+      projectID: props.projectID,
       inviteAddress: invitePublicKey,
       partnerRole: 5
     })
   }
 
   const fetchPasscode = () => {
-    registryContract.methods.fetchProjectPasscode(props.match.params.projectID).call({
+    registryContract.methods.fetchProjectPasscode(props.projectID).call({
       from: props.auth.user.publicKey
     })
     .then(passcode => {
@@ -121,28 +121,28 @@ const ProjectPartners = (props) => {
     <div>
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
-          <Card plain>
-            <CardHeader plain color="primary">
-              <h4 className={classes.cardTitleWhite}>
-                List of all current participants
-              </h4>
-              <AddBoxIcon onClick={() => setModal(true)} />
-            </CardHeader>
               <MaterialTable
                   columns={[
                     { title: "Email", field: "email" },
                     { title: "PublicKey", field: "publicKey" },
                     { title: "OrganizationID", field: "organizationID"},
-                    { title: "Role in Consortium", field: "publicKey" , render: rowData => partnerRoles[rowData.tableData.id]},
+                    { title: "Role in Consortium", field: "role"},
                   ]}
                   data={partners}
-                  title=""
+                  title="List of all current participants"
                   options={{
                     search: true,
                     exportButton: true
                   }}
+                  actions={[
+                    {
+                      icon: 'add_box',
+                      tooltip: 'Invite Users to Consortium',
+                      isFreeAction: true,
+                      onClick: (event) => setModal(true)
+                    }
+                  ]}
                 />
-          </Card>
         </GridItem>
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
@@ -160,7 +160,7 @@ const ProjectPartners = (props) => {
               }
               action={
                 <div>
-                <Button color="primary" onClick={checkForUser}>Check for user </Button>
+                <Button color="grayColor" onClick={checkForUser}>Check for user </Button>
                   {inviteOrg && <p>Invite {inviteOrg} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
                 {revealedPasscode? revealedPasscode: <Button color="primary" onClick={fetchPasscode}>Reveal Passcode</Button>}
                 </div>

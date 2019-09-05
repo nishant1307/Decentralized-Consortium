@@ -21,7 +21,7 @@ import MaterialTable from "material-table";
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Modal from "components/CustomModal/Modal";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Icon, Button, Divider, TextField, LinearProgress } from '@material-ui/core';
+import { Icon, Button, Divider, TextField, LinearProgress, Tooltip } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
 const loading = <LinearProgress />;
@@ -67,8 +67,13 @@ const Projects = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 My Projects
               </h4>
-              {props.user.user[5]!=0 && <AddBoxIcon style={{float: "right"}} onClick={props.openProjectModal}/>}
-              <ExitToAppIcon style={{float: "right"}} onClick={() => setJoinProjectModal(true)}/>
+              {props.user.user[5]!=0 &&
+                <Tooltip title={"Create new project"}>
+                  <AddBoxIcon style={{float: "right"}} onClick={props.openProjectModal}/>
+                </Tooltip>}
+              <Tooltip title={"Request to join a project"}>
+                <ExitToAppIcon style={{float: "right"}} onClick={() => setJoinProjectModal(true)}/>
+              </Tooltip>
               <Modal
                 open={joinProjectModal}
                 title="Join Project"
@@ -123,10 +128,9 @@ const Projects = (props) => {
                   }}
                   detailPanel={rowData => {
                     return (
-                      <GridContainer>
-                        <GridItem xs={12} sm={12} md={9}>
-                          <Card style={{height: "200px"}}>
-                            <CardHeader>
+                      <GridItem xs={12} sm={12} md={12} style={{justifyContent: "center"}}>
+                          <Card>
+                            <CardHeader color="primary">
                               <strong>Project Info</strong>
                             </CardHeader>
                             <Divider/>
@@ -137,8 +141,7 @@ const Projects = (props) => {
                                 <b>Project Industry:</b> {rowData.industry}<br/>
                             </CardBody>
                           </Card>
-                        </GridItem>
-                      </GridContainer>
+                      </GridItem>
                     )
                   }}
                   onRowClick={(event, rowData, togglePanel) => togglePanel()}

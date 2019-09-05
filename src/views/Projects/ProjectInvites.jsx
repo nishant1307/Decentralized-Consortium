@@ -33,9 +33,11 @@ const Projects = (props) => {
   const [inviteSent, setInviteSent] = useState(false);
 
   useEffect(()=> {
-    registryContract.methods.fetchProjectInvites(props.match.params.projectID).call({
+    console.log("Hel");
+    registryContract.methods.fetchProjectInvites(props.projectID).call({
       from: props.auth.user.publicKey
     }).then(res => {
+      console.log("Hello ",res);
       if(res.length==0)
         setLoader(false);
       setProjectInviteList(res);
@@ -72,11 +74,6 @@ const Projects = (props) => {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
-            <CardHeader plain color="primary">
-              <h4 className={classes.cardTitleWhite}>
-                Projects Invites
-              </h4>
-            </CardHeader>
         {loader ?
           <React.Fragment>
                 <Skeleton width="100%"/>

@@ -14,6 +14,9 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import PeopleIcon from '@material-ui/icons/People';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
+import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { connect } from 'react-redux';
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
@@ -29,29 +32,16 @@ import productContract from "productContract";
 import {registryContract} from "registryContract";
 import {parseJSONFromIPFSHash} from "utils";
 import Claims from "views/Claims&Certifications/Claims";
-import { Divider, Tabs, Tab, Typography, Box } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
+import CustomTabs from "components/CustomTabs/CustomTabs";
 
-// import ListItemText from '@material-ui/core/ListItemText';
 const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);
   const [projects, setProjects] = useState([]);
   const {classes} = props;
   const [userName, setUserName] = useState('');
-
-  const [value, setValue] = React.useState(0);
-
-  function handleChange(event, newValue) {
-    setValue(newValue);
-  }
-
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
 
   return (
     <div>
@@ -119,8 +109,8 @@ const Dashboard = (props) => {
         <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/documents">
           <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
+            <CardHeader color="danger" stats icon>
+              <CardIcon color="danger">
                 <FileCopyIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Docs</p>
@@ -137,63 +127,43 @@ const Dashboard = (props) => {
         </GridItem>
       </GridContainer>}
       <GridContainer>
-        {props.user.organization && <GridItem xs={12} sm={6} md={6}>
+        <GridItem xs={12} sm={6} md={6}>
           <Card style={{height: "200px"}}>
-            <CardHeader>
-              <strong>Organization Info</strong>
+            <CardHeader color="primary" >
+              <Typography>Organization Info</Typography>
             </CardHeader>
-            <Divider/>
-            <CardBody>
+            {props.user.organization ? <CardBody>
                 <b>Organization Name:</b> {props.user.organization[1]}<br/>
                 <b>Organization ID: </b>{props.user.organization[0]}
             </CardBody>
+          :
+          <>
+            <Skeleton width="100%"/>
+            <Skeleton width="60%" />
+          </>}
           </Card>
-        </GridItem>}
+        </GridItem>
         <GridItem xs={12} sm={6} md={6}>
-          <Card>
-            <CardHeader>
-              <strong>Claims & Certifications</strong>
-            </CardHeader>
-            <Divider/>
-            <CardBody style={{maxHeight: '150px', overflow: 'auto'}} >
-              <Tabs value={value}
-              onChange={handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              variant="fullWidth"
-              centered>
-                <Tab label="Claims" {...a11yProps(0)} />
-                <Tab label="Certifications" {...a11yProps(1)} />
-              </Tabs>
-              <TabPanel value={value} index={0}>
-                <Claims/>
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                Certifications Coming Soon
-              </TabPanel>
-              {/**<TabContent activeTab= {state.activeTab}>
-                <TabPane tabId="1">
-                  <ListGroup>
-                    <ListGroupItem>
-                      {makeAddedList()}
-                    </ListGroupItem>
-                  </ListGroup>
-                </TabPane>
-                <TabPane tabId="2">
-                      {
-                        state.urls.length !== 0 && state.urls.map((url, i) => {
-                          // return (<ListGroupItem><a href={url}>{url}</a></ListGroupItem>)
-                          return (<ListGroupItem>
-                            Certificate Name : {url.name}
-                            <img style={{
-                              padding: 10
-                            }} src={url.url} key={i + 1} alt="Smiley face" height="100" width="100" /></ListGroupItem>)
-                        })
-                      }
-                </TabPane>
-              </TabContent>*/}
-            </CardBody>
-          </Card>
+            <CustomTabs
+            title="Claims & Certifications"
+            headerColor="primary"
+            tabs={[
+              {
+                tabName: "Claims",
+                tabIcon: FeaturedPlayListIcon,
+                tabContent: (
+                  <Claims/>
+                )
+              },
+              {
+                tabName: "Certifications",
+                tabIcon: ChromeReaderModeIcon,
+                tabContent: (
+                  "Certifications Coming Soon"
+                )
+              },
+            ]}
+          />
         </GridItem>
         </GridContainer>
     </div>
@@ -203,23 +173,6 @@ const Dashboard = (props) => {
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
-
-const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
-}
 
 
 const mapStateToProps = (state) => ({
