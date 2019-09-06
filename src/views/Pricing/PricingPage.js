@@ -107,13 +107,15 @@ export default function PricingPage() {
     const self = this;
     const options = {
       key: "rzp_test_ryXbtVQF3Mtz28",
-      amount: 100,
+      amount: paymentAmount,
       name: 'Arthanium Credits',
+      currency: "USD",
       description: 'Checkout for '+ title+ ' Pack',
 
       handler(response) {
         const paymentId = response.razorpay_payment_id;
-        const url = process.env.URL+'/api/v1/rzp_capture/'+paymentId+'/'+100;
+        console.log(paymentId);
+        const url = process.env.URL+'/api/v1/rzp_capture/'+paymentId+'/'+paymentAmount;
         // Using my server endpoints to capture the payment
         fetch(url, {
           method: 'get',

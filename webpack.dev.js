@@ -19,7 +19,7 @@ module.exports = merge(common, {
     inline: true,
     hot: true,
     proxy: {
-      '/api/*': 'http://localhost:8080',
+      '/api/*': 'http://localhost:3000',
       '/s3/*': 'http://localhost:8080'
     },
     overlay: {
