@@ -40,28 +40,31 @@ export default function Partners(props) {
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-2">
-                                <div style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
+                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
                                     <img src={require('../../WA/images/new/s1.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                                 </div>
+                                <h3>Sandesh Hegde </h3>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-2">
-                                <div style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
+                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
                                     <img src={require('../../WA/images/new/nishant.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                                 </div>
+                                <h3>Kumar Nishant </h3>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-2">
-                                <div style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/s1.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
+                                    <img src={require('../../WA/images/new/akshay.jpeg')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                                 </div>
+                                <h3>Akshay Pilankar </h3>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-2">
-                                <div style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
+                            {/**<div className="col lg-2">
+                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
                                     <img src={require('../../WA/images/new/s1.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
                                 </div>
-                            </div>
+                            </div>*/}
                             <div className="col lg-1" />
                         </div>
                     </div>

@@ -117,13 +117,7 @@ const Partners = (props) => {
             </Menu>
             <GridItem xs={12} sm={12} md={12}>
               {!loader?
-                partners.length>0 ?
                 <Card plain>
-                  <CardHeader plain color="primary">
-                  <h4 className={classes.cardTitleWhite}>
-                    Partners in the selected category
-                  </h4>
-                  </CardHeader>
                     <MaterialTable
                         columns={[
                           { title: "OrganizationID", field: "organizationID"},
@@ -131,23 +125,20 @@ const Partners = (props) => {
 
                         ]}
                         data={partners}
-                        title=""
+                        title="Partners in the selected category"
                         options={{
                           search: true,
                           exportButton: true
                         }}
+                        localization={{
+                          body: {
+                            emptyDataSourceMessage: "No organizations in the selected Category"
+                          }
+                        }}
                       />
                 </Card>:
-                <Card plain>
-                  No organizations in the selected Category
-                  </Card>:
                   <React.Fragment>
                     <Card plain>
-                      <CardHeader plain color="primary">
-                      <h4 className={classes.cardTitleWhite}>
-                        Partners in the selected category
-                      </h4>
-                      </CardHeader>
                         <Skeleton width="100%"/>
                         <Skeleton width="60%" />
                         <Skeleton width="100%" />

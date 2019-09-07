@@ -73,11 +73,7 @@ const OrgList = props => {
   useEffect(() => {
     fetchData();
   }, [])
-
-  useEffect(() => {
-    console.log("lets see");
-  }, [mainData])
-
+  
   return (
     <div>
       <GridContainer>
@@ -106,7 +102,7 @@ const OrgList = props => {
                         showColumnsTitle: "Total"
                       },
                       body: {
-                        emptyDataSourceMessage: "No Device Found"
+                        emptyDataSourceMessage: "No Users Found"
                       }
                     }}
                     actions={[

@@ -8,6 +8,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Store from "@material-ui/icons/Store";
 const dashboardRoutes = [
   {
@@ -38,6 +39,12 @@ const dashboardRoutes = [
     path: "/products",
     name: "Products",
     icon: Store,
+    layout: "/dashboard"
+  },
+  {
+    path: "/documents",
+    name: "Documents",
+    icon: FileCopyIcon,
     layout: "/dashboard"
   },
   {

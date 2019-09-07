@@ -124,7 +124,6 @@ const Products = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
           </React.Fragment> :
-            productList.length != 0  ?
               <MaterialTable
                   columns={[
                     { title: "Product ID", field: "tokenId" },
@@ -145,6 +144,11 @@ const Products = (props) => {
                     grouping: true,
                     selection: true
                   }}
+                  localization={{
+                    body: {
+                      emptyDataSourceMessage: "No Products Found"
+                    }
+                  }}
                   actions={[
                     {
                       tooltip: 'Add Selected Devices To Project',
@@ -152,8 +156,7 @@ const Products = (props) => {
                       onClick: (evt, data) => { addProductsToProject(data) }
                     }
                   ]}
-                />:
-                <h3>No Products Found!</h3>
+                />
         }
         </Card>
         </GridItem>
