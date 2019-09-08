@@ -64,7 +64,7 @@ const Modal = ((props) => {
         maxWidth = "xl"
         TransitionComponent={Transition}
         aria-labelledby="responsive-dialog-title"
-      >
+        >
         <DialogTitle id="responsive-dialog-title" onClose={props.onClose}>{props.title}</DialogTitle>
         <DialogContent style={{padding: "20px"}}>
             {props.content}

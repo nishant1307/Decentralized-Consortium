@@ -56,7 +56,7 @@ const Products = (props) => {
         });
       });
     });
-  }, []);
+  }, [props.user.thingCount]);
 
   async function assignProductsToProject() {
     let address = localStorage.getItem("address");
