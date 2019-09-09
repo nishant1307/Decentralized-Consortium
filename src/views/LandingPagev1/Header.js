@@ -32,7 +32,7 @@ export default function Header(props) {
                         <div className="dropdown-content">
                             <Link to="/solutions#DApps" className="nav-link-2 w-nav-link">DApps</Link>
                             <Link to="/solutions#solutionsforBusiness" className="nav-link-2 w-nav-link">For Business</Link>
-                            <Link to="/solutions#solutionsforConsumers" className="nav-link-2 w-nav-link">For Business</Link>
+                            <Link to="/solutions#solutionsforConsumers" className="nav-link-2 w-nav-link">For Consumers</Link>
                         </div>
                     </div>
                     <Link to="/industry" className="nav-link-2 w-nav-link">Industry</Link>

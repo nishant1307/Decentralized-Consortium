@@ -27,7 +27,7 @@ export default function Solutions(props) {
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="solution-slider-container">
-                                            <div className="payment-testimonial-content"><img data-src="/images/kp3.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp3.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">DocConekt</h4>
                                                     <p className="testimonial-text">Share Trade Doccuments securely with privacy
@@ -49,7 +49,7 @@ Share Documents with Partners for viewing or Action		</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="solution-slider-container">
-                                            <div className="payment-testimonial-content"><img data-src="/images/kp1.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp1.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">IoTConekt</h4>
                                                     <p className="testimonial-text">Securely links IoT identities to physical assets
@@ -69,7 +69,7 @@ Create digital identity and  provenance		</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="solution-slider-container">
-                                            <div className="payment-testimonial-content"><img data-src="/images/kp.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">Trade Finance</h4>
                                                     <p className="testimonial-text">Coming Soon</p>

@@ -54,7 +54,7 @@ const OrgList = props => {
     let temp = await sessionStorage.getItem("privateKey")
     setPrivateKey(temp);
     fetchedData.map(async (e, i) => {
-      let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + "QmS6rPCZ97ETAdjEYi6ji7pECau2BA5Y5EmVrBC3jDjtbR")
+      let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + e.kycHash)
       let KYCStatus = await registryContract.methods.getOrganizationKYCStatus(e.organizationID).call();
       let mainData = {}
       mainData.docs = dataFromIPFS.data.Docs

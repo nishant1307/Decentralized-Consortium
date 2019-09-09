@@ -199,7 +199,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img data-src="/images/kp3.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp3.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">PRO</h4>
                                                     <p className="testimonial-text">400 Credits</p>
@@ -218,7 +218,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img data-src="/images/kp1.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp1.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">BUSINESS</h4>
                                                     <p className="testimonial-text">1200 Credits</p>
@@ -237,7 +237,7 @@ Unlock new opportunities Eliminate low value activities.</p>
                                 <div className="slide w-slide">
                                     <div className="container-div">
                                         <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img data-src="/images/kp.png" alt="" className="image-5" />
+                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">ENTERPRISE</h4>
                                                     <p className="testimonial-text">3600 Credits</p>
