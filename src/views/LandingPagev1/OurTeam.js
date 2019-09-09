@@ -26,7 +26,7 @@ export default function Partners(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/22.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/22.png')} className="cover-images" />
                             </div>
                         </div>
                     </div>
@@ -36,36 +36,99 @@ export default function Partners(props) {
                 <div className="section">
                     <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Our Team</h1>
                 </div>
-                <div id="solutionsforBusiness" className="section less-v-margin">
-                    <div className="wrapper">
-                        <div className="row-2">
-                            <div className="col lg-2">
-                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/s1.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                <div className="container">
+                    <div className="row-2">
+                        {/* <div className="heading-title text-center">
+                            <h3 className="text-uppercase">Our professionals </h3>
+                            <p className="p-top-30 half-txt">Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend. </p>
+                        </div> */}
+                        <div className="col-md-3 col-sm-3">
+                            <div className="team-member">
+                                <div className="team-img">
+                                    <img src={require('../../WA/images/new/s1.png')} width="250" height="250" alt="team member" className="img-responsive" />
                                 </div>
-                                <h3>Sandesh Hegde </h3>
+                                <div className="team-hover">
+                                    <div className="desk">
+                                        <h4>Hi There !</h4>
+                                        {/* <p>I love to introduce myself as a hardcore Web Designer.</p> */}
+                                    </div>
+                                    <div className="s-link">
+                                        <a href="#"><i className="fa fa-facebook" /></a>
+                                        <a href="#"><i className="fa fa-twitter" /></a>
+                                        <a href="#"><i className="fa fa-google-plus" /></a>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-2">
-                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/nishant.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
-                                </div>
-                                <h3>Kumar Nishant </h3>
+                            <div className="team-title">
+                                <h5>Sandesh Hegde</h5>
+                                <span>Founder &amp; CEO</span>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-2">
-                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/akshay.jpeg')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                        </div>
+                        <div className="col-md-3 col-sm-3">
+                            <div className="team-member">
+                                <div className="team-img">
+                                    <img src={require('../../WA/images/new/nishant.png')} width="250" height="250" alt="team member" className="img-responsive" />
                                 </div>
-                                <h3>Akshay Pilankar </h3>
+                                <div className="team-hover">
+                                    <div className="desk">
+                                        <h4>Hi There</h4>
+                                        {/* <p>I love to introduce myself as a hardcore Web Designer.</p> */}
+                                    </div>
+                                    <div className="s-link">
+                                        <a href="#"><i className="fa fa-facebook" /></a>
+                                        <a href="#"><i className="fa fa-twitter" /></a>
+                                        <a href="#"><i className="fa fa-google-plus" /></a>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="col lg-1" />
-                            {/**<div className="col lg-2">
-                                <div style={{ width: 200, height: 200, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/s1.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                            <div className="team-title">
+                                <h5>Kumar Nishant </h5>
+                                <span>CTO</span>
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-sm-3">
+                            <div className="team-member">
+                                <div className="team-img">
+                                    <img src={require('../../WA/images/new/akshay.jpeg')} width="250" height="250" alt="team member" className="img-responsive" />
                                 </div>
-                            </div>*/}
-                            <div className="col lg-1" />
+                                <div className="team-hover">
+                                    <div className="desk">
+                                        <h4>Hi There</h4>
+                                        {/* <p>I love to introduce myself as a hardcore Web Designer.</p> */}
+                                    </div>
+                                    <div className="s-link">
+                                        <a href="#"><i className="fa fa-facebook" /></a>
+                                        <a href="#"><i className="fa fa-twitter" /></a>
+                                        <a href="#"><i className="fa fa-google-plus" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="team-title">
+                                <h5>Akshay Pilankar</h5>
+                                <span>Developer</span>
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-sm-3">
+                            {/* <div className="team-member">
+                                <div className="team-img">
+                                    <img src={require('../../WA/images/new/akshay.jpeg')} width="250" height="250" alt="team member" className="img-responsive" />
+                                </div>
+                                <div className="team-hover">
+                                    <div className="desk">
+                                        <h4>I love to design</h4>
+                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                    </div>
+                                    <div className="s-link">
+                                        <a href="#"><i className="fa fa-facebook" /></a>
+                                        <a href="#"><i className="fa fa-twitter" /></a>
+                                        <a href="#"><i className="fa fa-google-plus" /></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="team-title">
+                                <h5>Akshay Pilankar</h5>
+                                <span>Developer</span>
+                            </div> */}
                         </div>
                     </div>
                 </div>

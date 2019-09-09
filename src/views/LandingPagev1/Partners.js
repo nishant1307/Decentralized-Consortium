@@ -30,16 +30,16 @@ export default function Partners(props) {
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/6-1.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/6-1.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Financial Services - Banks and Insurance</h2>
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Financial service providers, can observe automated trade flows on the platform after they are added to a project.</li>
+                                        <li className="tab-class-inner">  Financial service providers, can observe automated trade flows on the platform after they are added to a project.</li>
                                         <li className="tab-class-inner">  Our digitized documentation application allows automation of doccumentation process & connected devices / sensors allow to track / trace product through its journey.</li>
-                                        <li className="tab-class-inner">Automation reduces the transaction time substantially and blockchain provides higher security and transparency.</li>
+                                        <li className="tab-class-inner">  Automation reduces the transaction time substantially and blockchain provides higher security and transparency.</li>
                                         <li className="tab-class-inner">  Proposed solutions for trade finance, import / export credit, guarantees, invoice factoring	.</li>
                                     </ul>
                                 </div>
@@ -49,16 +49,16 @@ export default function Partners(props) {
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Logistics</h2>
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Globally Shippers want to be more efficient and improve asset utilization to offer the most competitive prices.</li>
+                                        <li className="tab-class-inner">  Globally Shippers want to be more efficient and improve asset utilization to offer the most competitive prices.</li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/31.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/31.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/16.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/16.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5">
@@ -66,9 +66,9 @@ export default function Partners(props) {
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Government / Government Authorities</h2>
 
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Financial service providers, can observe automated trade flows on the platform after they are added to a project.</li>
+                                        <li className="tab-class-inner">  Financial service providers, can observe automated trade flows on the platform after they are added to a project.</li>
                                         <li className="tab-class-inner">  Our digitized documentation application allows automation of doccumentation process & connected devices / sensors allow to track / trace product through its journey.</li>
-                                        <li className="tab-class-inner">Automation reduces the transaction time substantially and blockchain provides higher security and transparency.</li>
+                                        <li className="tab-class-inner">  Automation reduces the transaction time substantially and blockchain provides higher security and transparency.</li>
                                         <li className="tab-class-inner">  Proposed solutions for trade finance, import / export credit, guarantees, invoice factoring	.</li>
                                     </ul>
                                 </div>
@@ -78,24 +78,24 @@ export default function Partners(props) {
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Certification Agencies</h2>
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Certfication agencies will be able to digitally certify organizations seeking certification on the platform.</li>
+                                        <li className="tab-class-inner">  Certfication agencies will be able to digitally certify organizations seeking certification on the platform.</li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/28.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/28.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/10.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/10.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Hardware / Software Integrators </h2>
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Hardware / Software developers for supply chain are welcome to build their applications around our ecosystem.</li>
-                                        <li className="tab-class-inner"> Existing systems can be made blockchain compatible through open API's.</li>
+                                        <li className="tab-class-inner">  Hardware / Software developers for supply chain are welcome to build their applications around our ecosystem.</li>
+                                        <li className="tab-class-inner">  Existing systems can be made blockchain compatible through open API's.</li>
                                     </ul>
                                 </div>
                             </div>
@@ -103,29 +103,29 @@ export default function Partners(props) {
                             <div className="col lg-5">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Ports & Terminals</h2>
-                                    <p className="ondark">
-                                        .					</p>
+                                    {/* <p className="ondark">
+                                        .					</p> */}
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Port communities and terminal operators are seeking ways to reduce the cost of connecting partners in the supply chain.</li>
-                                        <li className="tab-class-inner">increase stack placement efficiency and optimize truck and vessel service times.</li>
+                                        <li className="tab-class-inner">  Port communities and terminal operators are seeking ways to reduce the cost of connecting partners in the supply chain.</li>
+                                        <li className="tab-class-inner">  Increase stack placement efficiency and optimize truck and vessel service times.</li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/2.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/2.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/29.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/29.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Recyclers</h2>
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Circular economy - Turn waste to value, looped supply chains, reverse logistics.</li>
-                                        <li className="tab-class-inner"> Extend working lifecycle of products and components by repairing, upgrading and reselling.</li>
-                                        <li className="tab-class-inner">Reuse or refurbish materials - Recover useful resources / energy out of disposed products.</li>
+                                        <li className="tab-class-inner">  Circular economy - Turn waste to value, looped supply chains, reverse logistics.</li>
+                                        <li className="tab-class-inner">  Extend working lifecycle of products and components by repairing, upgrading and reselling.</li>
+                                        <li className="tab-class-inner">  Reuse or refurbish materials - Recover useful resources / energy out of disposed products.</li>
                                     </ul>
                                 </div>
                             </div>

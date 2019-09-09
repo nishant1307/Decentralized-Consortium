@@ -8,6 +8,16 @@ export default function Landing() {
     const [projects, setProjects] = React.useState(0);
     const [partners, setPartners] = React.useState(0);
     const [products, setProducts] = React.useState(0);
+    const [mediumData, setMediumData] = React.useState([]);
+
+    React.useEffect(() => {
+        fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/arthanium")
+            .then(res => res.json())
+            .then(result => {
+                console.log(result)
+                setMediumData(result.items)
+            })
+    }, [])
     return (
         <div className="body">
             <Header />
@@ -16,7 +26,7 @@ export default function Landing() {
                     <div className="wrapper">
                         <div className="columns column w-row">
                             <div className="column herocontent w-col w-col-5">
-                                <h1 className="heading">Decentralized Trade and Supply Chain<br /> on Blockchain</h1>
+                                <h1 className="heading" >Decentralized Trade and Supply Chain on Blockchain</h1>
                                 <p className="short-paragraph">Building solutions for transparency, automating processes, trade finance and protecting your brand from counterfeiting.</p>
                                 <p className="short-paragraph">Leverage the power of digitized doccumentation, connected IoT devices, & smart contracts with our Dapps.</p>
                                 <div className="value-proposition-container">
@@ -28,10 +38,10 @@ export default function Landing() {
                     </div>
                     <div className="wrapper">
                         <div className="columns column w-row">
-                            <div className="column herocontent w-col w-col-7"><img data-src="/images/two.png" width={1000} height={380} srcSet="/images/two.png 500w, /images/two.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
-                            <div className="w-col w-col-5">
+                            <div className="w-col w-col-7"><img data-src="/images/two.png" width={1000} height={380} srcSet="/images/two.png 500w, /images/two.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
+                            <div className="column herocontent w-col w-col-5">
                                 <h1 className="heading">Anti-Counterfeiting, Provenance and  <br /> Chain of Custody</h1>
-                                <p className="short-paragraph">Create digital identities for physical assets through unique identifiers like connected IoT Devices / Sensors and track them through their journey and make selective information available to all stakeholders..</p>
+                                <p className="short-paragraph">Create digital identities for physical assets through unique identifiers like connected IoT Devices / Sensors and track them through their journey and make selective information available to all stakeholders.</p>
                                 <div className="value-proposition-container">
                                     <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
@@ -130,37 +140,41 @@ export default function Landing() {
 
 
             <div id="features" className="section">
-                <div className="wrapper">
+                <div className="wrapper" style={{ paddingLeft: 0 }}>
+
                     <h2 data-w-id="7b5c466a-962a-8742-1d10-203f426a0c19" style={{ opacity: 1 }} className="section-header withdesc">Why Arthanium?</h2>
-                    <div style={{ marginLeft:70, marginTop:50 }}>
-                        {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
-                        <div className="row-2">
-                            <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, justifyContent: 'center' }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/commision.png" width={150} alt="" className="icon" />
-                                    <h4>Blockchain</h4>
-                                    <p className="paragraph"><strong>Secure &nbsp;</strong>
-                                        Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
+                    <div style={{ marginLeft: 70, marginTop: 50 }}>
+                        <div className="feature-container">
+
+                            {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
+                            <div className="row-2">
+                                <div className="col lg-3">
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, textAlign: '-webkit-center' }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/commision.png" width={150} alt="" className="icon" />
+                                        <h4>Blockchain</h4>
+                                        <p className="paragraph"><strong>Secure</strong><br />
+                                            Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1 }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/timeline.png" width={150} alt="" className="icon" />
-                                    <h4>DApps</h4>
-                                    <p className="paragraph">Automate
-Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
+                                <div className="col lg-3">
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1, textAlign: '-webkit-center' }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/timeline.png" width={150} alt="" className="icon" />
+                                        <h4>DApps</h4>
+                                        <p className="paragraph"><strong>Automate </strong><br />
+                                            Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1 }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/team.png" width={150} alt="" className="icon" />
-                                    <h4>Partners</h4>
-                                    <p className="paragraph">Collaborate
-Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
+                                <div className="col lg-3">
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1, textAlign: '-webkit-center' }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/team.png" width={150} alt="" className="icon" />
+                                        <h4>Partners</h4>
+                                        <p className="paragraph"><strong>Collaborate</strong><br />
+                                            Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col lg-3">
-                                <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1 }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/report.png" width={150} alt="" className="icon" />
-                                    <h4>Industry 4.0</h4>
-                                    <p className="paragraph">Innovate
-Unlock new opportunities Eliminate low value activities.</p>
+                                <div className="col lg-3">
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1, textAlign: '-webkit-center' }} className="margin-bottom"><img data-src="http://detheme.com/templates/kergan/images/report.png" width={150} alt="" className="icon" />
+                                        <h4>Industry 4.0</h4>
+                                        <p className="paragraph"><strong>Innovate</strong><br />
+                                            Unlock new opportunities Eliminate low value activities.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -264,11 +278,11 @@ Unlock new opportunities Eliminate low value activities.</p>
                             <div className="margin-bottom">
                                 <h2 className="heading-2">Note</h2>
                                 <p>Note -
-Setup and customization charges could be applicable for certain customers.<br/>
-For larger customized plans contact us directly.<br/>
-Additional monthly credits packs can be purchased at $ 49 for 400 Credits.<br/>
-Validity of plan & credits is one month and it cannot be carried forward.<br/>
-Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
+Setup and customization charges could be applicable for certain customers.<br />
+                                    For larger customized plans contact us directly.<br />
+                                    Additional monthly credits packs can be purchased at $ 49 for 400 Credits.<br />
+                                    Validity of plan & credits is one month and it cannot be carried forward.<br />
+                                    Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
                             </div>
                         </div>
                         <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: 50, paddingBottom: 50 }}>
@@ -316,62 +330,32 @@ Currently we don’t charge any transaction based fee, but in future we might mo
                 <div>
                     <div data-delay={4000} data-animation="slide" className="slider-3 w-slider" data-autoplay={1} data-easing="ease-in-out-expo" data-hide-arrows={1} data-nav-spacing={10} data-duration={1200} data-infinite={1}>
                         <div className="mask w-slider-mask">
-                            <div className="slide w-slide">
-                                <div className="container-div">
-                                    <div className="testimonial-container">
-                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
-                                            <div className="quote-circle">
-                                                <p className="big-quote">“</p>
+                            <AutoPlaySwipeableViews>
+                                {
+                                    mediumData.map(element => {
+                                        var myString = element.categories.join(', ');
+
+                                        return (
+                                            <div className="slide w-slide">
+                                                <div className="container-div">
+                                                    <div className="testimonial-container">
+                                                        <div className="testimonial-content" onClick={() => window.open(element.link, "_blank")}>
+                                                            {/* <img src={element.thumbnail} width="350" height="300" alt="" className="image-5" /> */}
+                                                            {/* <div className="quote-circle"> */}
+                                                            {/* <p className="big-quote">{element.title}</p> */}
+                                                            {/* </div> */}
+                                                            <h4 className="testimonial-title" dangerouslySetInnerHTML={{ __html: element.title }} />
+                                                            <p className="testimonial-text" dangerouslySetInnerHTML={{ __html: element.description }} />
+                                                            <h5 className="heading-3">{element.author}</h5>
+                                                            {/* <h7 className="heading-3">Tags - {myString.toString()}</h7> */}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <h4 className="testimonial-title">Detheme has done great job so far</h4>
-                                            <p className="testimonial-text">We were very impressed with the quality and speed at which tasks were accomplished. Extremely appreciative of the senior leadsership and the effectivness it has on the day to day operations of the company. <br /></p>
-                                            <h5 className="heading-3">Tom Shah</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-slide">
-                                <div className="container-div">
-                                    <div className="testimonial-container">
-                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
-                                            <div className="quote-circle">
-                                                <p className="big-quote">“</p>
-                                            </div>
-                                            <h4 className="testimonial-title">Detheme has done great job so far</h4>
-                                            <p className="testimonial-text">We were very impressed with the quality and speed at which tasks were accomplished. Extremely appreciative of the senior leadsership and the effectivness it has on the day to day operations of the company. <br /></p>
-                                            <h5 className="heading-3">Tom Shah</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-slide">
-                                <div className="container-div">
-                                    <div className="testimonial-container">
-                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
-                                            <div className="quote-circle">
-                                                <p className="big-quote">“</p>
-                                            </div>
-                                            <h4 className="testimonial-title">Detheme has done great job so far</h4>
-                                            <p className="testimonial-text">We were very impressed with the quality and speed at which tasks were accomplished. Extremely appreciative of the senior leadsership and the effectivness it has on the day to day operations of the company. <br /></p>
-                                            <h5 className="heading-3">Tom Shah</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="w-slide">
-                                <div className="container-div">
-                                    <div className="testimonial-container">
-                                        <div className="testimonial-content"><img data-src="https://via.placeholder.com/350x300" alt="" className="image-5" />
-                                            <div className="quote-circle">
-                                                <p className="big-quote">“</p>
-                                            </div>
-                                            <h4 className="testimonial-title">Detheme has done great job so far</h4>
-                                            <p className="testimonial-text">We were very impressed with the quality and speed at which tasks were accomplished. Extremely appreciative of the senior leadsership and the effectivness it has on the day to day operations of the company. <br /></p>
-                                            <h5 className="heading-3">Tom Shah</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        )
+                                    })
+                                }
+                            </AutoPlaySwipeableViews>
                         </div>
                         <div className="hide w-slider-arrow-left">
                             <div className="w-icon-slider-left" />
