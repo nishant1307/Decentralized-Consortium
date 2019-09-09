@@ -5,7 +5,14 @@ import '../../WA/css/detheme.css'
 import '../../WA/css/kergan.detheme.css'
 export default function Header(props) {
     console.log(props);
-    
+    const [isOn, setIsOn] = React.useState(false);
+
+    function toggleMenu() {
+        console.log("inside");
+        setIsOn(!isOn)
+
+    }
+
     return (
         <div data-collapse="medium" data-animation="default" data-duration={400} className={`nav-bar w-nav ${props.headerStyle}`}>
             <div className="wrapper navbar-2 w-container">
@@ -51,9 +58,20 @@ export default function Header(props) {
                         <a href="/login" className="nav-link-2 border w-nav-link">Get Started</a>
                     </div>
                 </nav>
-                <div className="menu-button-2 w-nav-button">
+                <div className="menu-button-2 w-nav-button w--open" onClick={toggleMenu}>
                     <div className="burger-icon w-icon-nav-menu" />
                 </div>
+                {isOn && <div className="w-nav-overlay" data-wf-ignore style={{ height: '9580.6px', display: 'block' }}>
+                    <nav role="navigation" className="nav-menu-2 w-nav-menu w--nav-menu-open" style={{ transform: 'translateY(0px) translateX(0px)', transition: 'transform 400ms ease 0s' }}>
+                        <Link to="/platform" className="nav-link-2 w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Platform</Link>
+                        <Link to="/partners" className="nav-link-2 w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Partners</Link>
+                        <Link to="/solutions" className="nav-link-2 w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Solutions</Link>
+                        <Link to="/industry" className="nav-link-2 w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Industry</Link>
+                        <Link to="/aboutus" className="nav-link-2 w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>About Us</Link>
+                        <div className="nav-cta-button-container">
+                            <a  href="/login" className="nav-link-2 border w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Get Started</a></div>
+                    </nav></div>}
+
             </div>
         </div>
     );
