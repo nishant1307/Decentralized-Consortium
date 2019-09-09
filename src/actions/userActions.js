@@ -28,6 +28,7 @@ import { productAddress, productContract } from '../productContract.js'
 import { deviceContract, deviceAddress } from '../deviceContract.js'
 import { docContract, docAddress } from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
+import {certificationABI, certificationAddress, certificationContract} from "certificationContract";
 let address = localStorage.getItem("address");
 let privateKey = '';
 export const currentUserInfo = clientToken => dispatch => {
@@ -527,6 +528,38 @@ export const createNewNotification = notificationDetails => dispatch => {
         payload: err
       });
     });
+};
+
+export const submitNewClaim = claimDetails => async (dispatch) => {
+  console.log(claimDetails.length);
+  privateKey = await sessionStorage.getItem('privateKey');
+  var batch = new web3.BatchRequest();
+  web3.eth.getTransactionCount(address).then((nonce) => {
+    for (var i = 0; i < claimDetails.length; i++ , nonce++) {
+      console.log(claimDetails[i]);
+      var transaction = {
+        "nonce": nonce,
+        "to": certificationAddress,
+        "data": certificationContract.methods.addClaim(
+          claimDetails[i].name,
+          uuidv1()
+        ).encodeABI()
+      };
+      transaction["gasLimit"] = 4700000;
+      web3.eth.accounts.signTransaction(transaction, privateKey)
+        .then((result) => {
+          batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
+            .once('receipt', (receipt) => {
+              console.log(receipt);
+              // dispatch({
+              //   type: NEW_DEVICE_CREATED,
+              //   payload: 1
+              // });
+            }));
+        })
+    }
+    batch.execute();
+  })
 };
 
 export const readNotification = notificationDetails => dispatch => {

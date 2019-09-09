@@ -25,6 +25,7 @@ class CustomTabs extends React.Component {
       headerColor,
       plainTabs,
       tabs,
+      variant,
       title,
       rtlActive
     } = this.props;
@@ -46,7 +47,7 @@ class CustomTabs extends React.Component {
               indicator: classes.displayNone,
               scrollButtons: classes.displayNone
             }}
-            variant="scrollable"
+            variant={variant? variant: "scrollable"}
             scrollButtons="auto"
           >
             {tabs.map((prop, key) => {
