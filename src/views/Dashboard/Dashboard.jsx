@@ -35,7 +35,7 @@ import ClaimViews from "views/Claims&Certifications/ClaimViews";
 import { Typography, Box } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import CustomTabs from "components/CustomTabs/CustomTabs";
-
+import moment from "moment";
 const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);
@@ -134,7 +134,10 @@ const Dashboard = (props) => {
             </CardHeader>
             {props.user.organization ? <CardBody>
                 <b>Organization Name:</b> {props.user.organization[1]}<br/>
-                <b>Organization ID: </b>{props.user.organization[0]}
+                <b>Organization ID: </b>{props.user.organization[0]}<br/>
+                <b>Credits:</b> {props.user.credits}<br/>
+                <b>Start Date:</b> {moment(props.user.startDate*1000).format("Do MMMM, YYYY hh:mm:ss a")}<br/>
+                <b>End Date:</b> {moment(props.user.endDate*1000).format("Do MMMM, YYYY hh:mm:ss a")}<br/>
             </CardBody>
           :
           <>

@@ -42,7 +42,7 @@ const Partners = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [dropzone, setDropzone] = useState(false);
-
+  const [, forceUpdate] = useState();
   const [selectedCategoryIndices, setSelectedCategoryIndices] = useState([]);
 
   const options = [
@@ -55,12 +55,19 @@ const Partners = (props) => {
   'Retailer',
   'Recycler'
 ];
-function handleDelete() {
-    alert('You clicked the delete icon.');
+function handleDelete(category) {
+    console.log(selectedCategoryIndices);
+    console.log(category, "to be removed");
+    let selectedArray = selectedCategoryIndices;
+    if(selectedCategoryIndices.indexOf(category)!=-1){
+      selectedArray.splice(selectedCategoryIndices.indexOf(category), 1);
+    }
+    setSelectedCategoryIndices(selectedArray);
+    forceUpdate(n => !n)
   }
 
   function handleClick() {
-    alert('You clicked the Chip.');
+    // alert('You clicked the Chip.');
   }
 
 
@@ -77,7 +84,7 @@ function handleDelete() {
   function handleMultiMenuItemClick(event, index) {
     setSelectedCategoryIndices(selectedCategoryIndices => [
       ...selectedCategoryIndices,
-      index
+      options[index]
     ]);
     setAnchorEl(null);
   }
@@ -190,9 +197,9 @@ function handleDelete() {
                 <ListItem>
                   {selectedCategoryIndices.map((category, index) => (
                       <Chip
-                        label= {options[category]}
+                        label= {category}
                         onClick={handleClick}
-                        onDelete={handleDelete}
+                        onDelete={() => handleDelete(category)}
                         className={classes.chip}
                         variant="outlined"
                       />
@@ -212,12 +219,14 @@ function handleDelete() {
                 {options.map((option, index) => (
                   <MenuItem
                     key={option}
+                    disabled={selectedCategoryIndices.indexOf(option)!=-1}
                     onClick={event => handleMultiMenuItemClick(event, index)}
                   >
                     {option}
                   </MenuItem>
                 ))}
             </Menu>
+            <br/>
               <GridContainer>
               {selectedCategoryIndices.map((category, index) => (
                 <GridItem xs={12} sm={12} md={4}>
