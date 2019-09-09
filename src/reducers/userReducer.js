@@ -39,7 +39,9 @@ const initialState = {
   notificationList: [],
   projectList: [],
   productList: [],
-  subscription: ''
+  credits: 0,
+  startDate: 0,
+  endDate: 0
 }
 
 export default function (state = initialState, action) {
@@ -56,7 +58,17 @@ export default function (state = initialState, action) {
         productList: action.payload.productList,
         docCount: action.payload.docCount,
         user: action.payload.userInfo,
-        organization: action.payload.organizationInfo
+        organization: action.payload.organizationInfo,
+        // etherAddress:action.payload.etherAddress,
+        // userInfoLoader: false
+      }
+      break;
+    case "USER_SUBSCRIPTION_INFO":
+      return {
+        ...state,
+        credits: action.payload.credits,
+        startDate: action.payload.startDate,
+        endDate: action.payload.endDate
         // etherAddress:action.payload.etherAddress,
         // userInfoLoader: false
       }

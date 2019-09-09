@@ -20,7 +20,7 @@ import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
 import CustomTabs from "components/CustomTabs/CustomTabs";
 import {submitNewClaim} from "actions/userActions";
 // import 'bootstrap/dist/css/bootstrap.min.css';
-
+import moment from "moment";
 // import DropzoneS3Uploader from 'react-dropzone-s3-uploader'
 
 class OrganizationProfile extends Component {
@@ -227,10 +227,9 @@ class OrganizationProfile extends Component {
             </CardHeader>
             <CardBody>
               <List>
-                <ListItem>Plan Type: Trial</ListItem>
-                <ListItem>Start Date: {plan.startDate}</ListItem>
-                <ListItem>End Date: {plan.endDate}</ListItem>
-                <ListItem>Credits: {plan.credits}</ListItem>
+                <b>Credits:</b> {this.props.user.credits}<br/>
+                <b>Start Date:</b> {moment(this.props.user.startDate*1000).format("Do MMMM, YYYY hh:mm:ss a")}<br/>
+                <b>End Date:</b> {moment(this.props.user.endDate*1000).format("Do MMMM, YYYY hh:mm:ss a")}<br/>
               </List>
             </CardBody>
           </Card>

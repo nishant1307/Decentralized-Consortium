@@ -28,6 +28,7 @@ import { productAddress, productContract } from '../productContract.js'
 import { deviceContract, deviceAddress } from '../deviceContract.js'
 import { docContract, docAddress } from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
+import { creditABI, creditAddress, creditContract } from 'creditContract';
 import {certificationABI, certificationAddress, certificationContract} from "certificationContract";
 let address = localStorage.getItem("address");
 let privateKey = '';
@@ -62,6 +63,26 @@ export const currentUserInfo = clientToken => dispatch => {
     })
   })
 };
+
+export const fetchUserSubscriptionInfo = () => dispatch => {
+  creditContract.methods.getMyCredits().call({
+    from: localStorage.getItem("address")
+  }).then(res => {
+    dispatch({
+      type: "USER_SUBSCRIPTION_INFO",
+      payload: {
+        credits: res.credits,
+        startDate: res.startDate,
+        endDate: res.endDate
+      }
+    });
+  }).catch(error => {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error
+    });
+  })
+}
 export const openProjectModal = () => dispatch => {
   dispatch({
     type: OPEN_PROJECT_MODAL,

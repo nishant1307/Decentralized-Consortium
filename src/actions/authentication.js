@@ -4,7 +4,7 @@
 import { GET_ERRORS, SET_CURRENT_USER, CURRENT_USER_INFO, GET_SUBSCRIPTION, FETCH_NOTIFICATION } from './types';
 import { setAuthToken } from '../axiosConfig';
 // import jwt_decode from 'jwt-decode';
-import { currentUserInfo} from './userActions';
+import { currentUserInfo, fetchUserSubscriptionInfo} from './userActions';
 // import web3 from '../web3';
 import { registryContract } from "registryContract";
 // export const registerUser = (user, history) => dispatch => {
@@ -35,6 +35,7 @@ export const loginUser = (user, history) => dispatch => {
       if(res[0]&& res[1]){
         if (res[0].status === '1' && res[1].status === '1') {
             dispatch(setCurrentUser({ publicKey: user.address }));
+            dispatch(fetchUserSubscriptionInfo());
             history.push('/dashboard/home');
         }
         else if (res[1].status !== '1') {
@@ -59,7 +60,7 @@ export const loginUser = (user, history) => dispatch => {
       }
     })
         .catch((err) => {
-            history.push('/register');
+            console.log(err);
         })
     //             dispatch(fetchSubscription());
 }
