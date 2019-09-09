@@ -3,8 +3,8 @@ import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import { TextField, Tooltip } from '@material-ui/core';
-import 'assets/css/ClaimPage.css'
-const Claims = () => {
+import 'assets/css/ClaimPage.css';
+const Claims = (props) => {
   const [contentAdd, setContentAdd] = useState("Type in to enter claims")
   const [myItems, setMyItems] = useState([]);
 
@@ -31,7 +31,7 @@ const Claims = () => {
 
       var currentWidth = helperspan.offsetWidth;
       newArray.push({
-        content: currentcontent,
+        name: currentcontent,
         id: myItems.length+1,
         itemWidth: currentWidth + 2,
         verified: false
@@ -54,11 +54,12 @@ const Claims = () => {
   }
 
   const addClaims = () => {
-    axios.post("/api/dashboard/addClaim", { claims: this.state.myItems }).then(res => {
-      this.setState({
-        alertMessage: <Alert>{res.data.message}</Alert>
-      })
-    });
+    // axios.post("/api/dashboard/addClaim", { claims: this.state.myItems }).then(res => {
+    //   this.setState({
+    //     alertMessage: <Alert>{res.data.message}</Alert>
+    //   })
+    // });
+    props.submitNewClaim(myItems);
   }
   return (
     <GridContainer>
@@ -90,7 +91,7 @@ const Claims = () => {
               onClick={(e) => handleCancelClick(listitem.id)}
               style={{ color: "black", borderColor: listitem.verified ? 'green' : 'red' }}
             >
-              {listitem.content}
+              {listitem.name}
             </li>
           )
         })}

@@ -28,7 +28,7 @@ const ColleagueForm = (props) => {
           .on('confirmation', async function (confirmationNumber, receipt) {
             if (confirmationNumber == 1) {
               if (receipt.status == true) {
-                axios.post("https://www.iotconekt.com/api/dashboard/inviteColleague", { inviteEmail: email, inviteLink: encryptMessage(email, invitePasscode)})
+                axios.post("https://www.iotconekt.com/api/dashboard/inviteColleague", { inviteEmail: email, inviteLink: encryptMessage(email, invitePasscode), passcode: passcode})
                 .then(res=> {
                   if(res.data.status=="Invitation sent successsfully"){
                     setEmail('');

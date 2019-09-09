@@ -16,6 +16,7 @@ import Eula from './Eula'
 import KeyCreation from './KeyCreation'
 import ExistingAccount from './ExisitingAccount';
 import {makeStyles} from '@material-ui/core/styles';
+import loginImage from "assets/images/login.png";
 import {
     Typography,
     CssBaseline,
@@ -56,6 +57,12 @@ const useStyles = makeStyles(theme => ({
             marginLeft: 'auto',
             marginRight: 'auto',
         },
+    },
+    image: {
+      backgroundImage: 'url('+ loginImage +')',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
     },
     paper: {
         marginTop: theme.spacing(3),

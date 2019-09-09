@@ -79,7 +79,11 @@ export default function Landing() {
                         </div>
                         <div className="footer-social-links-container">
                             <a href="https://www.youtube.com/channel/UCFfwRoYGUfccrImWl4drlqA?view_as=subscriber" target="_blank" className="footer-link-2 no-padding w-inline-block"><img src="images/iconmonstr-youtube-6.png" width={30} alt="" className="social-media-icon" /></a>
+<<<<<<< HEAD
                             <a href="https://twitter.com/arthanium" className="footer-link-2 no-padding w-inline-block" target="_blank"><img src="images/iconmonstr-twitter-1.png" width={30} alt="" className="social-media-icon" /></a>
+=======
+                            <a href="https://twitter.com/Arthanium" className="footer-link-2 no-padding w-inline-block" target="_blank"><img src="images/iconmonstr-twitter-1.png" width={30} alt="" className="social-media-icon" /></a>
+>>>>>>> ec138e684cd81728ddbe9bf7c4f03e2480358975
                             <a href="https://www.instagram.com/arthanium/" className="footer-link-2 no-padding w-inline-block" target="_blank"><img src="images/iconmonstr-instagram-11.png" width={30} alt="" className="social-media-icon" /></a>
                             <a href="https://www.facebook.com/Arthanium-101627941214756/" className="footer-link-2 no-padding w-inline-block" target="_blank"><img src="images/iconmonstr-facebook-1.png" width={24} alt="" className="social-media-icon" /></a></div>
                     </div>

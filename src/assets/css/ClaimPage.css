@@ -39,7 +39,6 @@
 
 .claimList:hover {
     transform: scale(1.05);
-    border: 1px solid red !important;
 }
 
 .claimList:after {

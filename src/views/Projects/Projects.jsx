@@ -112,7 +112,6 @@ const Projects = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
           </React.Fragment> :
-          projectList.length !== 0  ?
               <MaterialTable
                   columns={[
                     { title: "", field: "projectID" , render: rowData => <Link to={{ pathname: projectURL(rowData.projectID), state: { projectDetails: rowData} }}><VisibilityIcon/></Link>},
@@ -125,6 +124,11 @@ const Projects = (props) => {
                   options={{
                     search: true,
                     exportButton: true
+                  }}
+                  localization={{
+                    body: {
+                      emptyDataSourceMessage: "No Projects Found!"
+                    }
                   }}
                   detailPanel={rowData => {
                     return (
@@ -146,8 +150,6 @@ const Projects = (props) => {
                   }}
                   onRowClick={(event, rowData, togglePanel) => togglePanel()}
                 />
-             :
-            <h3>No Projects Found!</h3>
         }
         </Card>
         </GridItem>

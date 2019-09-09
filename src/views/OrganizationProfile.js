@@ -18,6 +18,7 @@ import SnackbarContent from "components/Snackbar/SnackbarContent";
 import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
 import CustomTabs from "components/CustomTabs/CustomTabs";
+import {submitNewClaim} from "actions/userActions";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 // import DropzoneS3Uploader from 'react-dropzone-s3-uploader'
@@ -351,7 +352,7 @@ class OrganizationProfile extends Component {
             tabName: "Claims",
             tabIcon: FeaturedPlayListIcon,
             tabContent: (
-              <Claims/>
+              <Claims {...this.props}/>
             )
           },
           {
@@ -372,4 +373,4 @@ class OrganizationProfile extends Component {
 
 const mapStateToProps = (state) => ({ user: state.user, errors: state.errors })
 
-export default connect(mapStateToProps)(OrganizationProfile);
+export default connect(mapStateToProps, {submitNewClaim})(OrganizationProfile);

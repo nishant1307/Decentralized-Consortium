@@ -65,7 +65,7 @@ const TimelineComponent = (props) => {
         key={Math.random()}
         dateText={time}
         style={{ color: '#e86971' }}
-        dateInnerStyle={{ background: '#61b8ff', color: '#000' }}
+        dateInnerStyle={{ background: '#61b8ff', color: '#fff' }}
         bodyContainerStyle={timelineRender.length%2==0 ? {
           background: '#ddd',
           padding: '20px',

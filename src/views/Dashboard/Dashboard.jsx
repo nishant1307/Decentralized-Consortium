@@ -31,7 +31,7 @@ import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userA
 import productContract from "productContract";
 import {registryContract} from "registryContract";
 import {parseJSONFromIPFSHash} from "utils";
-import Claims from "views/Claims&Certifications/Claims";
+import ClaimViews from "views/Claims&Certifications/ClaimViews";
 import { Typography, Box } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import CustomTabs from "components/CustomTabs/CustomTabs";
@@ -152,7 +152,7 @@ const Dashboard = (props) => {
                 tabName: "Claims",
                 tabIcon: FeaturedPlayListIcon,
                 tabContent: (
-                  <Claims/>
+                  <ClaimViews {...props}/>
                 )
               },
               {

@@ -29,7 +29,9 @@ import {
   TextField,
   Divider,
   Paper,
+  Chip
 } from '@material-ui/core';
+import {DropzoneDialog, DropzoneArea} from 'material-ui-dropzone'
 import {withStyles} from '@material-ui/core/styles';
 
 const Partners = (props) => {
@@ -39,6 +41,9 @@ const Partners = (props) => {
   const [loader, setLoader] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [dropzone, setDropzone] = useState(false);
+
+  const [selectedCategoryIndices, setSelectedCategoryIndices] = useState([]);
 
   const options = [
   'Financial Institution',
@@ -50,6 +55,13 @@ const Partners = (props) => {
   'Retailer',
   'Recycler'
 ];
+function handleDelete() {
+    alert('You clicked the delete icon.');
+  }
+
+  function handleClick() {
+    alert('You clicked the Chip.');
+  }
 
 
   function handleClickListItem(event) {
@@ -59,6 +71,14 @@ const Partners = (props) => {
   function handleMenuItemClick(event, index) {
     setPartners([]);
     setSelectedIndex(index);
+    setAnchorEl(null);
+  }
+
+  function handleMultiMenuItemClick(event, index) {
+    setSelectedCategoryIndices(selectedCategoryIndices => [
+      ...selectedCategoryIndices,
+      index
+    ]);
     setAnchorEl(null);
   }
 
@@ -79,6 +99,7 @@ const Partners = (props) => {
   return (
     <>
     <CustomTabs
+      variant="fullWidth"
       title="Partnerships:"
       headerColor="primary"
       tabs={[
@@ -117,13 +138,7 @@ const Partners = (props) => {
             </Menu>
             <GridItem xs={12} sm={12} md={12}>
               {!loader?
-                partners.length>0 ?
                 <Card plain>
-                  <CardHeader plain color="primary">
-                  <h4 className={classes.cardTitleWhite}>
-                    Partners in the selected category
-                  </h4>
-                  </CardHeader>
                     <MaterialTable
                         columns={[
                           { title: "OrganizationID", field: "organizationID"},
@@ -131,23 +146,20 @@ const Partners = (props) => {
 
                         ]}
                         data={partners}
-                        title=""
+                        title="Partners in the selected category"
                         options={{
                           search: true,
                           exportButton: true
                         }}
+                        localization={{
+                          body: {
+                            emptyDataSourceMessage: "No organizations in the selected Category"
+                          }
+                        }}
                       />
                 </Card>:
-                <Card plain>
-                  No organizations in the selected Category
-                  </Card>:
                   <React.Fragment>
                     <Card plain>
-                      <CardHeader plain color="primary">
-                      <h4 className={classes.cardTitleWhite}>
-                        Partners in the selected category
-                      </h4>
-                      </CardHeader>
                         <Skeleton width="100%"/>
                         <Skeleton width="60%" />
                         <Skeleton width="100%" />
@@ -166,7 +178,59 @@ const Partners = (props) => {
           tabIcon: SupervisedUserCircleIcon,
           tabContent: (
             <>
+            <Paper>
+            <List component="nav">
+                <ListItem
+                  button
+                  aria-haspopup="true"
+                  onClick={handleClickListItem}
+                >
+                <ListItemText primary="Select Category/Categories to Enlist Your Organization in" />
+                </ListItem>
+                <ListItem>
+                  {selectedCategoryIndices.map((category, index) => (
+                      <Chip
+                        label= {options[category]}
+                        onClick={handleClick}
+                        onDelete={handleDelete}
+                        className={classes.chip}
+                        variant="outlined"
+                      />
+                  ))}
 
+                </ListItem>
+            </List>
+
+            </Paper>
+            <Menu
+                id="partner-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {options.map((option, index) => (
+                  <MenuItem
+                    key={option}
+                    onClick={event => handleMultiMenuItemClick(event, index)}
+                  >
+                    {option}
+                  </MenuItem>
+                ))}
+            </Menu>
+              <GridContainer>
+              {selectedCategoryIndices.map((category, index) => (
+                <GridItem xs={12} sm={12} md={4}>
+                  <DropzoneArea
+                    dropzoneText={"Upload supporting documents for "+options[category]}
+                    onSave={() => {}}
+                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+                    showPreviews={true}
+                    maxFileSize={5000000}
+                    />
+                </GridItem>
+              ))}
+              </GridContainer>
             </>
           )
         }

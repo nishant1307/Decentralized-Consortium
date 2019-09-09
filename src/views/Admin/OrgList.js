@@ -37,15 +37,6 @@ const styles = theme => ({
 
 const OrgList = props => {
   const { classes } = props;
-  const [mainColumns, setMainColumns] = React.useState([
-    { title: "Organization ID", field: "organizationID" },
-    { title: "Organization Name", field: "companyName" },
-    { title: "Role", field: "role" },
-    { title: "KYC Status", field: "status" },
-    { title: "Email", field: "email" },
-    { title: "Full Name", field: "fullName" },
-    { title: "Address", field: "address" },
-  ]);
   const [privateKey, setPrivateKey] = React.useState("");
   const [mainData, setMainData] = React.useState([])
 
@@ -54,16 +45,14 @@ const OrgList = props => {
     // setPrivateKey(temp);
     let data = []
     let fetchedData = await registryContract.methods.getAllUsers().call();
-    console.log(fetchedData);
     let temp = await sessionStorage.getItem("privateKey")
     setPrivateKey(temp);
     fetchedData.map(async (e, i) => {
+      console.log("Here");
       let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + e.kycHash)
       let KYCStatus = await registryContract.methods.getUserKYCStatus().call({
         from: e.publicKey
       })
-      console.log(dataFromIPFS, "dataFromIPFS");
-
       let mainData = {}
       mainData.userAddress = e.publicKey
       mainData.docs = dataFromIPFS.data.Docs
@@ -75,7 +64,7 @@ const OrgList = props => {
       mainData.fullName = dataFromIPFS.data.info.fullName
       mainData.address = dataFromIPFS.data.info.address1 + dataFromIPFS.data.info.address + dataFromIPFS.data.info.city + dataFromIPFS.data.info.state + dataFromIPFS.data.info.country + dataFromIPFS.data.info.zip
       await data.push(mainData)
-      if (i === fetchedData.length - 1) {
+      if (i == fetchedData.length - 1) {
         console.log(data, "data");
         setMainData(data);
       }
@@ -85,11 +74,6 @@ const OrgList = props => {
   useEffect(() => {
     fetchData();
   }, [])
-
-  useEffect(() => {
-    console.log("lets see");
-
-  }, [mainData])
 
   return (
     <div>
@@ -105,7 +89,15 @@ const OrgList = props => {
                   <MaterialTable
                     style={{ margin: "30px 0 0 0" }}
                     title=""
-                    columns={mainColumns}
+                    columns={[
+                      { title: "Organization ID", field: "organizationID" },
+                      { title: "Organization Name", field: "companyName" },
+                      { title: "Role", field: "role" },
+                      { title: "KYC Status", field: "status" },
+                      { title: "Email", field: "email" },
+                      { title: "Full Name", field: "fullName" },
+                      { title: "Address", field: "address" },
+                    ]}
                     data={mainData}
                     components={{
                       Toolbar: props => (
@@ -119,7 +111,7 @@ const OrgList = props => {
                         showColumnsTitle: "Total"
                       },
                       body: {
-                        emptyDataSourceMessage: "No Device Found"
+                        emptyDataSourceMessage: "No Organizations Found"
                       }
                     }}
                     actions={[
