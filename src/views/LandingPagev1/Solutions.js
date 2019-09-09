@@ -53,7 +53,7 @@ Share Documents with Partners for viewing or Action		</p>
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">IoTConekt</h4>
                                                     <p className="testimonial-text">Securely links IoT identities to physical assets
-Create digital identity and  provenance		</p>
+Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		</p>
                                                     {/* <h5 className="heading-3">$149/Month</h5> */}
                                                 </div>
                                                 {/* <div className="value-proposition-container">
@@ -72,7 +72,7 @@ Create digital identity and  provenance		</p>
                                             <div className="payment-testimonial-content"><img src={require('../../WA/images/kp.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">Trade Finance</h4>
-                                                    <p className="testimonial-text">Coming Soon</p>
+                                                    <p className="testimonial-text"><br />Coming Soon<br /><br /><br /><br /><br /></p>
                                                     {/* <h5 className="heading-3">$449/Month</h5> */}
                                                 </div>
                                                 {/* <div className="value-proposition-container">
@@ -106,7 +106,7 @@ Create digital identity and  provenance		</p>
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/18.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/18.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -132,10 +132,10 @@ Create digital identity and  provenance		</p>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/23.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/23.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/19.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/19.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -162,10 +162,10 @@ Create digital identity and  provenance		</p>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/11.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/11.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/9.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/9.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -191,7 +191,7 @@ Create digital identity and  provenance		</p>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/21.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/21.png')}  className="cover-images"  />
                             </div>
                         </div>
                     </div>
@@ -205,7 +205,7 @@ Create digital identity and  provenance		</p>
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/5.png')} style={{ WebkitBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", MozBoxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)", boxShadow: "8px 15px 22px -4px rgba(0,0,0,0.22)" }} />
+                                <img src={require('../../WA/images/new/5.png')}  className="cover-images"  />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
