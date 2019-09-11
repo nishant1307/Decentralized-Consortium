@@ -74,6 +74,7 @@ function Admin({ ...props }) {
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
+        onLogout={signOut}
         color={"blue"}
         {...props}
       />
