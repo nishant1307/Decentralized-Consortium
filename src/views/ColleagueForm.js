@@ -25,10 +25,10 @@ const ColleagueForm = (props) => {
     web3.eth.accounts.signTransaction(transaction, privateKey)
       .then(res => {
         web3.eth.sendSignedTransaction(res.rawTransaction)
-          .on('confirmation', async function (confirmationNumber, receipt) {
+          .once('confirmation', async function (confirmationNumber, receipt) {
             if (confirmationNumber == 1) {
               if (receipt.status == true) {
-                axios.post("https://www.iotconekt.com/api/dashboard/inviteColleague", { inviteEmail: email, inviteLink: encryptMessage(email, invitePasscode), passcode: passcode})
+                axios.post("http://localhost:8080/api/v1/inviteColleague", { email: email, link: encryptMessage(email, invitePasscode), passcode: invitePasscode})
                 .then(res=> {
                   if(res.data.status=="Invitation sent successsfully"){
                     setEmail('');

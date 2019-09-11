@@ -35,14 +35,12 @@ import ClaimViews from "views/Claims&Certifications/ClaimViews";
 import { Typography, Box } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import CustomTabs from "components/CustomTabs/CustomTabs";
-import moment from "moment";
 const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);
   const [projects, setProjects] = useState([]);
   const {classes} = props;
   const [userName, setUserName] = useState('');
-
   return (
     <div>
     <h4>Welcome to Arthanium</h4>
@@ -128,16 +126,13 @@ const Dashboard = (props) => {
       </GridContainer>}
       <GridContainer>
         <GridItem xs={12} sm={6} md={6}>
-          <Card style={{height: "200px"}}>
+          <Card>
             <CardHeader color="primary" >
               <Typography>Organization Info</Typography>
             </CardHeader>
             {props.user.organization ? <CardBody>
                 <b>Organization Name:</b> {props.user.organization[1]}<br/>
                 <b>Organization ID: </b>{props.user.organization[0]}<br/>
-                <b>Credits:</b> {props.user.credits}<br/>
-                <b>Start Date:</b> {moment(props.user.startDate*1000).format("Do MMMM, YYYY hh:mm:ss a")}<br/>
-                <b>End Date:</b> {moment(props.user.endDate*1000).format("Do MMMM, YYYY hh:mm:ss a")}<br/>
             </CardBody>
           :
           <>
