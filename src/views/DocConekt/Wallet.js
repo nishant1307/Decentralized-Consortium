@@ -151,11 +151,11 @@ function PaymentForm() {
       let toAccept = await docContract.methods.tokenToAccept(address).call();
       setListOfTokensToAccept(toAccept);
       // listOfTokensToAccept = toAccept
-      console.log(toAccept, "toAccept");
+    //   console.log(toAccept, "toAccept");
       let toSend = await docContract.methods.tokenOfOwner(address).call();
       setListOfTokensToSend(toSend);
       // listOfTokensToSend = toSend;
-      console.log(toSend, "toSend");
+    //   console.log(toSend, "toSend");
       setLoader(false);
   }
 
@@ -193,10 +193,10 @@ function PaymentForm() {
   }, []);
 
   async function handleAcceptance() {
-      console.log(tokenToAccept);
+    //   console.log(tokenToAccept);
       if (!isReasonFetched) {
           let fetchReason = await docContract.methods.getTransferReason(tokenToAccept).call();
-          console.log(fetchReason);
+        //   console.log(fetchReason);
           setreasonToAccept(fetchReason[1]);
           setAddressFromAccept(fetchReason[0])
           setIsReasonFetched(true);
@@ -215,7 +215,7 @@ function PaymentForm() {
               web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
                   if (confirmationNumber == 1) {
                       if (receipt.status == true) {
-                          console.log(receipt, "hash");
+                        //   console.log(receipt, "hash");
                           setLoader(false);
                           setAddressFromAccept('');
                           settokenToAccept('');
@@ -225,7 +225,7 @@ function PaymentForm() {
                   }
               })
                   .on('error', async function (error) {
-                      console.log(error);
+                    //   console.log(error);
                       setLoader(false);
                       setIsReasonFetched(false);
                   })
@@ -245,11 +245,11 @@ function PaymentForm() {
       };
       transaction["gasLimit"] = 8000000;
       web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
-          console.log(result.rawTransaction);
+        //   console.log(result.rawTransaction);
           web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
               if (confirmationNumber == 1) {
                   if (receipt.status == true) {
-                      console.log(receipt, "hash");
+                    //   console.log(receipt, "hash");
                       setAddress('');
                       setName('');
                       setReason('');
@@ -258,7 +258,7 @@ function PaymentForm() {
               }
           })
               .on('error', async function (error) {
-                  console.log(error);
+                //   console.log(error);
                   setLoader(false);
               })
       });
@@ -395,7 +395,7 @@ function Dashboard() {
     });
 
     React.useEffect(() => {
-        console.log("in")
+        // console.log("in")
         fetchData();
     }, [])
 

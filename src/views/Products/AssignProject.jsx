@@ -27,7 +27,7 @@ const AssignProject = (props) => {
     registryContract.methods.getMyProjects().call({
       from: props.userPublicKey
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       res.forEach(project => {
         setProjectListRender(projectListRender => [
           ...projectListRender,

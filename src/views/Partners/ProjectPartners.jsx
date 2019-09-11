@@ -69,7 +69,7 @@ const ProjectPartners = (props) => {
       }
     })
     .catch(err => {
-      console.log(err);
+      // console.log(err);
     })
   }
 
@@ -131,7 +131,7 @@ const ProjectPartners = (props) => {
     })
     .then(passcode => {
       setRevealedPasscode(web3.utils.hexToUtf8(passcode));
-      console.log("Role", passcode);
+      // console.log("Role", passcode);
     });
   }
 

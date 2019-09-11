@@ -5,7 +5,7 @@ const PackingList = React.lazy(() => import('./Types/PackingList'));
 const SeawayBill = React.lazy(() => import('./Types/SeawayBill'));
 const ShippingInstructions = React.lazy(() => import('./Types/ShippingInstructions'));
 const UserProfile = props => {
-    console.log(props, "pros");
+    // console.log(props.location.state.projectID, "pros");
 
     function getPage() {
         switch (props.match.params.structuredDocId) {

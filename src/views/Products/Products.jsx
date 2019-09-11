@@ -10,7 +10,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-
+import { CircularProgress } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 const RegisterThingModal = React.lazy(() => import('views/RegisterThingModal.js'));
 import {openThingModal } from 'actions/userActions';
@@ -31,7 +31,7 @@ const Products = (props) => {
   const [loader, setLoader] = useState(true);
   const [assignProductModal, setAssignProductModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState('');
-
+  const [isLoading, setLoading] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(()=> {
@@ -59,11 +59,12 @@ const Products = (props) => {
   }, [props.user.thingCount]);
 
   async function assignProductsToProject() {
+    setLoading(true);
     let address = localStorage.getItem("address");
     let privateKey = await sessionStorage.getItem('privateKey');
     let nonce = await web3.eth.getTransactionCount(address);
     var batch = new web3.BatchRequest();
-    console.log(nonce);
+    // console.log(nonce);
     selectedItems.forEach(element => {
       var transaction = {
         "nonce": nonce,
@@ -80,7 +81,10 @@ const Products = (props) => {
         .then((result) => {
           batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
             .once('receipt', (receipt) => {
-              console.log(receipt);
+              // console.log(receipt);
+              setLoading(false);
+              setAssignProductModal(false);
+              window.location.reload();
             }));
         })
       nonce++
@@ -89,7 +93,7 @@ const Products = (props) => {
   }
 
   const addProductsToProject = (data1) =>  {
-    console.log(data1);
+    // console.log(data1);
     setAssignProductModal(true);
     setSelectedItems(data1);
   }
@@ -169,14 +173,14 @@ const Products = (props) => {
         content={
           <AssignProject userPublicKey = {props.auth.user.publicKey} onSelectProject = {(e) =>
             {
-              console.log("Selected", e.target.value);
+              // console.log("Selected", e.target.value);
               setSelectedProject(e.target.value);
             }}
           selectedProject = {selectedProject}
           />
         }
         action={
-          <Button onClick={assignProductsToProject}>Assign {selectedItems.length} products to Project</Button>
+          !isLoading ?  <Button onClick={assignProductsToProject}>Assign {selectedItems.length} products to Project</Button> : <CircularProgress />
         }
 
         />

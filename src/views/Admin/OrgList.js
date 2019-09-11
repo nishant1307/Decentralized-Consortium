@@ -48,7 +48,7 @@ const OrgList = props => {
     let temp = await sessionStorage.getItem("privateKey")
     setPrivateKey(temp);
     fetchedData.map(async (e, i) => {
-      console.log("Here");
+      // console.log("Here");
       let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + e.kycHash)
       let KYCStatus = await registryContract.methods.getUserKYCStatus().call({
         from: e.publicKey
@@ -65,7 +65,7 @@ const OrgList = props => {
       mainData.address = dataFromIPFS.data.info.address1 + dataFromIPFS.data.info.address + dataFromIPFS.data.info.city + dataFromIPFS.data.info.state + dataFromIPFS.data.info.country + dataFromIPFS.data.info.zip
       await data.push(mainData)
       if (i == fetchedData.length - 1) {
-        console.log(data, "data");
+        // console.log(data, "data");
         setMainData(data);
       }
     })
@@ -119,7 +119,7 @@ const OrgList = props => {
                         icon: "save",
                         tooltip: "Save User",
                         onClick: async (event, rowData, status) => {
-                          console.log(rowData);
+                          // console.log(rowData);
                           let gasPrice = await web3.eth.getGasPrice();
                           var transaction = {
                             "to": registryAddress,
@@ -135,14 +135,14 @@ const OrgList = props => {
                               if (confirmationNumber == 1) {
                                 if (receipt.status == true) {
                                   const data = mainData;
-                                  console.log(data[rowData.tableData.id]);
+                                  // console.log(data[rowData.tableData.id]);
                                   data[rowData.tableData.id].status = "KYC Complete";
                                   setMainData(data);
                                 }
                               }
                             })
                               .on('error', async function (error) {
-                                console.log(error);
+                                // console.log(error);
                               })
                           })
                         }

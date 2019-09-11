@@ -68,6 +68,7 @@ const Products = (props) => {
                 Products belonging to this Project
               </h4>
               {/**<LinkIcon style={{float: "right"}} />*/}
+              {props.user.user[5]!=0 && <AddBoxIcon onClick={props.openThingModal} style={{float: "right"}}/>}
             </CardHeader>
         {loader ?
           <React.Fragment>
@@ -104,7 +105,7 @@ const Products = (props) => {
         </Card>
         </GridItem>
       </GridContainer>
-      <RegisterThingModal />
+      <RegisterThingModal projectId={props.match.params.projectID} />
     </>
   );
 }

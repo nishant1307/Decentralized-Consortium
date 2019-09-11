@@ -3,6 +3,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import Header from './Header';
 import Footer from './Footer';
+
 export default function Partners(props) {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -44,7 +45,7 @@ export default function Partners(props) {
                         </div> */}
                         <div className="col-md-3 col-sm-3">
                             <div className="team-member">
-                                <div className="team-img">
+                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
                                     <img src={require('../../WA/images/new/s1.png')} width="250" height="250" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
@@ -66,7 +67,7 @@ export default function Partners(props) {
                         </div>
                         <div className="col-md-3 col-sm-3">
                             <div className="team-member">
-                                <div className="team-img">
+                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
                                     <img src={require('../../WA/images/new/nishant.png')} width="250" height="250" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
@@ -88,8 +89,8 @@ export default function Partners(props) {
                         </div>
                         <div className="col-md-3 col-sm-3">
                             <div className="team-member">
-                                <div className="team-img">
-                                    <img src={require('../../WA/images/new/akshay.jpeg')} width="250" height="250" alt="team member" className="img-responsive" />
+                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
+                                    <img src={require('../../WA/images/new/akshay.jpeg')} width="200" height="250" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">
@@ -109,9 +110,9 @@ export default function Partners(props) {
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-3">
-                            {/* <div className="team-member">
-                                <div className="team-img">
-                                    <img src={require('../../WA/images/new/akshay.jpeg')} width="250" height="250" alt="team member" className="img-responsive" />
+                            <div className="team-member">
+                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
+                                    <img src={require('../../WA/images/new/lk.png')} width="250" height="260" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">
@@ -126,9 +127,9 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             <div className="team-title">
-                                <h5>Akshay Pilankar</h5>
-                                <span>Developer</span>
-                            </div> */}
+                                <h5>Ragini Samal</h5>
+                                <span>UX Designer</span>
+                            </div>
                         </div>
                     </div>
                 </div>

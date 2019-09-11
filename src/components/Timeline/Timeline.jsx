@@ -16,7 +16,7 @@ const TimelineComponent = (props) => {
       topics: [null, props.match.params.projectID]
     })
     .then(events => {
-      console.log(events);
+      // console.log(events);
       setJourney(events);
     })
   }, []);

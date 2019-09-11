@@ -45,7 +45,7 @@ const UserProfile = props => {
     registryContract.methods.getUserOrganizationDetails().call({
       from : localStorage.getItem("address")
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       setUserDetails(res[0]);
       setOrganizationDetails(res[1]);
     })
@@ -54,7 +54,7 @@ const UserProfile = props => {
   const { classes } = props;
 
   const updateProfile = () => {
-    console.log("Updated");
+    // console.log("Updated");
   }
   return (
     <div>

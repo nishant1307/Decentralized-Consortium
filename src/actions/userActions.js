@@ -29,18 +29,18 @@ import { deviceContract, deviceAddress } from '../deviceContract.js'
 import { docContract, docAddress } from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
 import { creditABI, creditAddress, creditContract } from 'creditContract';
-import {certificationABI, certificationAddress, certificationContract} from "certificationContract";
+import { certificationABI, certificationAddress, certificationContract } from "certificationContract";
 let address = localStorage.getItem("address");
 let privateKey = '';
 export const currentUserInfo = clientToken => dispatch => {
-  console.log(clientToken);
+  // console.log(clientToken);
 
   docContract.methods.balanceOf(clientToken).call().then(docCount => {
     registryContract.methods.getUserOrganizationDetails().call({
       from: localStorage.getItem("address")
     }).then(userOrgDetails => {
       productContract.methods._tokensOfOwner(clientToken).call().then(productArray => {
-        console.log(clientToken);
+        // console.log(clientToken);
         deviceContract.methods.balanceOf(clientToken).call().then(deviceCount => {
           registryContract.methods.getMyProjectsCount().call({
             from: clientToken
@@ -149,7 +149,7 @@ export const closeDocModal = () => dispatch => {
 export const createNewProject = projectDetails => async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');
   web3.eth.getBalance(address).then((balance) => {
-    console.log(balance);
+    // console.log(balance);
     if (balance > 1000000000000000000) {
       var transaction = {
         "to": registryAddress,
@@ -167,10 +167,10 @@ export const createNewProject = projectDetails => async (dispatch) => {
       transaction["gasLimit"] = 4700000;
       web3.eth.accounts.signTransaction(transaction, privateKey)
         .then(res => {
-          console.log(res);
+          // console.log(res);
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
-              console.log(receipt);
+              // console.log(receipt);
               if (receipt.status == true) {
                 dispatch({
                   type: NEW_PROJECT_CREATED,
@@ -179,7 +179,7 @@ export const createNewProject = projectDetails => async (dispatch) => {
               }
             })
             .on('error', async function (error) {
-              console.log(error);
+              // console.log(error);
               dispatch({
                 type: GET_ERRORS,
                 payload: error
@@ -187,7 +187,7 @@ export const createNewProject = projectDetails => async (dispatch) => {
             })
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           dispatch({
             type: GET_ERRORS,
             payload: "Error Occured While Creating New Project."
@@ -206,10 +206,10 @@ export const createNewProject = projectDetails => async (dispatch) => {
 };
 
 export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
-  console.log("Here");
+  // console.log("Here");
   privateKey = await sessionStorage.getItem('privateKey');
   web3.eth.getBalance(address).then((balance) => {
-    console.log(balance);
+    // console.log(balance);
     if (balance > 1000000000000000000) {
       var transaction = {
         "to": registryAddress,
@@ -226,7 +226,7 @@ export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
         .then(res => {
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
-              console.log(receipt);
+              // console.log(receipt);
               if (receipt.status == true) {
                 // dispatch({
                 //   type: NEW_PROJECT_CREATED,
@@ -235,7 +235,7 @@ export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
               }
             })
             .on('error', async function (error) {
-              console.log(error);
+              // console.log(error);
               dispatch({
                 type: GET_ERRORS,
                 payload: error
@@ -243,7 +243,7 @@ export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
             })
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           dispatch({
             type: GET_ERRORS,
             payload: "Error Occured While Creating New Project."
@@ -262,10 +262,10 @@ export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
 };
 
 export const joinProjectRequest = invitationDetails => async (dispatch) => {
-  console.log("Here");
+  // console.log("Here");
   privateKey = await sessionStorage.getItem('privateKey');
   web3.eth.getBalance(address).then((balance) => {
-    console.log(balance);
+    // console.log(balance);
     if (balance > 1000000000000000000) {
       var transaction = {
         "to": registryAddress,
@@ -281,7 +281,7 @@ export const joinProjectRequest = invitationDetails => async (dispatch) => {
         .then(res => {
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
-              console.log(receipt);
+              // console.log(receipt);
               if (receipt.status == true) {
                 // dispatch({
                 //   type: NEW_PROJECT_CREATED,
@@ -290,7 +290,7 @@ export const joinProjectRequest = invitationDetails => async (dispatch) => {
               }
             })
             .on('error', async function (error) {
-              console.log(error);
+              // console.log(error);
               dispatch({
                 type: GET_ERRORS,
                 payload: error
@@ -298,7 +298,7 @@ export const joinProjectRequest = invitationDetails => async (dispatch) => {
             })
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           dispatch({
             type: GET_ERRORS,
             payload: "Error Occured While Creating New Project."
@@ -317,10 +317,10 @@ export const joinProjectRequest = invitationDetails => async (dispatch) => {
 };
 
 export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
-  console.log("inside", docDetails, tokenId);
+  // console.log("inside", docDetails, tokenId);
   privateKey = await sessionStorage.getItem('privateKey');
   web3.eth.getBalance(address).then((balance) => {
-    console.log(balance);
+    // console.log(balance);
     if (balance > 1000000000000000000) {
       var transaction = {
         "to": docAddress,
@@ -336,7 +336,7 @@ export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
         .then(res => {
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
-              console.log(receipt);
+              // console.log(receipt);
               if (receipt.status == true) {
                 dispatch({
                   type: DOCUMENT_UPDATED,
@@ -345,7 +345,7 @@ export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
               }
             })
             .on('error', async function (error) {
-              console.log(error);
+              // console.log(error);
               dispatch({
                 type: GET_ERRORS,
                 payload: error
@@ -353,7 +353,7 @@ export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
             })
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           dispatch({
             type: GET_ERRORS,
             payload: "Error Occured While Creating New Document."
@@ -372,16 +372,17 @@ export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
 };
 
 export const addNewDoc = docDetails => async dispatch => {
-  // console.log(docDetails);
+  // console.log(docDetails,"docDetails");
   privateKey = await sessionStorage.getItem('privateKey');
+  let uuid = uuidv1();
   web3.eth.getBalance(address).then((balance) => {
-    console.log(balance);
+    // console.log(balance);
     if (balance > 1000000000000000000) {
       var transaction = {
         "to": docAddress,
         "data": docContract.methods.MintWithDetails(
           address,
-          uuidv1(),
+          uuid,
           docDetails.encryptData,
           docDetails.encryptedPassword
         ).encodeABI()
@@ -392,16 +393,50 @@ export const addNewDoc = docDetails => async dispatch => {
         .then(res => {
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
-              console.log(receipt);
+              // console.log(receipt);
               if (receipt.status == true) {
-                dispatch({
-                  type: NEW_DOCUMENT_CREATED,
-                  payload: ""
-                });
+                if (docDetails.projectID !== undefined) {
+                  var transaction = {
+                    "to": docAddress,
+                    "data": docContract.methods.setProjectId(
+                      uuid,
+                      docDetails.projectID
+                    ).encodeABI()
+                  };
+                  // web3.eth.estimateGas(transaction).then(gasLimit => {
+                  transaction["gasLimit"] = 4700000;
+                  web3.eth.accounts.signTransaction(transaction, privateKey)
+                    .then(res => {
+                      web3.eth.sendSignedTransaction(res.rawTransaction)
+                        .on('receipt', async function (receipt1) {
+                          // console.log(receipt1);
+                          if (receipt.status == true) {
+                            // console.log(receipt1,"receipt1");
+
+                            // dispatch({
+                            //   type: NEW_DOCUMENT_CREATED,
+                            //   payload: ""
+                            // });
+                          }
+                        })
+                        .on('error', async function (error) {
+                          // console.log(error);
+                          dispatch({
+                            type: GET_ERRORS,
+                            payload: error
+                          });
+                        })
+                    })
+                } else {
+                  dispatch({
+                    type: NEW_DOCUMENT_CREATED,
+                    payload: ""
+                  });
+                }
               }
             })
             .on('error', async function (error) {
-              console.log(error);
+              // console.log(error);
               dispatch({
                 type: GET_ERRORS,
                 payload: error
@@ -409,7 +444,7 @@ export const addNewDoc = docDetails => async dispatch => {
             })
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           dispatch({
             type: GET_ERRORS,
             payload: "Error Occured While Creating New Document."
@@ -429,24 +464,39 @@ export const addNewDoc = docDetails => async dispatch => {
 
 export const createNewDevice = deviceDetails => async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');
-  console.log(deviceDetails);
+  // console.log(deviceDetails.projectId);
   var batch = new web3.BatchRequest();
   deviceContract.methods.totalSupply().call().then((totalSupply) => {
-    console.log("Current", totalSupply);
+    // console.log("Current", totalSupply);
     let from = parseInt(totalSupply) + 1;
     let to = from + parseInt(deviceDetails.number) - 1;
     // console.log("From is", from);
     // console.log("To is", to);
     web3.eth.getTransactionCount(address).then((nonce) => {
-      console.log("nonce", nonce, deviceDetails.deviceURN);
+      // console.log("nonce", nonce, deviceDetails.deviceURN);
       var count = 0
       for (var i = from; i <= to; i++ , nonce++) {
-        console.log(deviceDetails.deviceURN[count]);
+        // console.log(deviceDetails.deviceURN[count]);
 
         var transaction = {
           "nonce": nonce,
           "to": deviceAddress,
-          "data": deviceContract.methods.MintWithDetails(
+
+        };
+
+        if (deviceDetails.projectId !== undefined) {
+          transaction["data"] = deviceContract.methods.MintWithDetailsAndProjectId(
+            address,
+            deviceDetails.deviceURN[count],
+            // deviceDetails.selectedProject,
+            deviceDetails.communicationProtocol,
+            deviceDetails.dataProtocol,
+            deviceDetails.deviceType,
+            deviceDetails.sensor,
+            deviceDetails.projectId
+          ).encodeABI()
+        } else {
+          transaction["data"] = deviceContract.methods.MintWithDetails(
             address,
             deviceDetails.deviceURN[count],
             // deviceDetails.selectedProject,
@@ -455,7 +505,7 @@ export const createNewDevice = deviceDetails => async (dispatch) => {
             deviceDetails.deviceType,
             deviceDetails.sensor
           ).encodeABI()
-        };
+        }
         // let gasLimit = await web3.eth.estimateGas(transaction);
         transaction["gasLimit"] = 4700000;
         web3.eth.accounts.signTransaction(transaction, privateKey)
@@ -479,29 +529,46 @@ export const createNewDevice = deviceDetails => async (dispatch) => {
 
 export const createNewThing = thingDetails => async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');
-  // console.log(thingDetails);
+  // console.log(thingDetails.projectId);
   var batch = new web3.BatchRequest();
   productContract.methods.totalSupply().call().then((totalSupply) => {
     let from = parseInt(totalSupply) + 1;
     let to = from + parseInt(thingDetails.quantity) - 1;
-    console.log("From is", from);
-    console.log("To is", to);
+    // console.log("From is", from);
+    // console.log("To is", to);
     web3.eth.getTransactionCount(address).then((nonce) => {
-      console.log("nonce", nonce, uuidv1(),
-        thingDetails.certificateURLs,
-        thingDetails.ipfsHash,
-        // parseInt(thingDetails.quantity),
-        thingDetails.thingBrand,
-        thingDetails.thingDescription,
-        thingDetails.thingName,
-        thingDetails.thingStory,
-        thingDetails.thingValue);
+      // console.log("nonce", nonce, uuidv1(),
+      //   thingDetails.certificateURLs,
+      //   thingDetails.ipfsHash,
+      //   // parseInt(thingDetails.quantity),
+      //   thingDetails.thingBrand,
+      //   thingDetails.thingDescription,
+      //   thingDetails.thingName,
+      //   thingDetails.thingStory,
+      //   thingDetails.thingValue);
       var count = 0
       for (var i = from; i <= to; i++ , nonce++) {
         var transaction = {
           "nonce": nonce,
           "to": productAddress,
-          "data": productContract.methods.MintWithDetails(
+        };
+
+        if (thingDetails.projectId !== undefined) {
+          transaction["data"] = productContract.methods.MintWithDetails(
+            address,
+            uuidv1(),
+            thingDetails.certificateURLs,
+            thingDetails.ipfsHash,
+            // parseInt(thingDetails.quantity),
+            thingDetails.thingBrand,
+            thingDetails.thingDescription,
+            thingDetails.thingName,
+            thingDetails.thingStory,
+            thingDetails.thingValue,
+            thingDetails.projectId
+          ).encodeABI()
+        } else {
+          transaction["data"] = productContract.methods.MintWithDetails(
             address,
             uuidv1(),
             thingDetails.certificateURLs,
@@ -513,13 +580,13 @@ export const createNewThing = thingDetails => async (dispatch) => {
             thingDetails.thingStory,
             thingDetails.thingValue
           ).encodeABI()
-        };
+        }
         // let gasLimit = await web3.eth.estimateGas(transaction);
         transaction["gasLimit"] = 4700000;
         web3.eth.accounts.signTransaction(transaction, privateKey).then((result) => {
           // console.log("Adding", i, count);
           batch.add(web3.eth.sendSignedTransaction(result.rawTransaction).on('receipt', (receipt) => {
-            console.log(receipt);
+            // console.log(receipt);
             dispatch({
               type: NEW_THING_CREATED,
               payload: 1
@@ -528,7 +595,7 @@ export const createNewThing = thingDetails => async (dispatch) => {
         })
         count++;
       }
-      console.log(batch);
+      // console.log(batch);
       batch.execute();
     })
   })
@@ -552,12 +619,12 @@ export const createNewNotification = notificationDetails => dispatch => {
 };
 
 export const submitNewClaim = claimDetails => async (dispatch) => {
-  console.log(claimDetails.length);
+  // console.log(claimDetails.length);
   privateKey = await sessionStorage.getItem('privateKey');
   var batch = new web3.BatchRequest();
   web3.eth.getTransactionCount(address).then((nonce) => {
     for (var i = 0; i < claimDetails.length; i++ , nonce++) {
-      console.log(claimDetails[i]);
+      // console.log(claimDetails[i]);
       var transaction = {
         "nonce": nonce,
         "to": certificationAddress,
@@ -571,7 +638,7 @@ export const submitNewClaim = claimDetails => async (dispatch) => {
         .then((result) => {
           batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
             .once('receipt', (receipt) => {
-              console.log(receipt);
+              // console.log(receipt);
               // dispatch({
               //   type: NEW_DEVICE_CREATED,
               //   payload: 1
@@ -646,7 +713,7 @@ const checkTotalTokenSupply = (tokenAddress) => {
     productContract.methods.totalSupply().call((error, totalSupply) => {
       if (error)
         reject(error);
-      console.log(totalSupply);
+      // console.log(totalSupply);
       resolve(totalSupply)
     });
   });

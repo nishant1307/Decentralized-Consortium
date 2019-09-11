@@ -33,6 +33,7 @@ const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));
 
 
 const Products = (props) => {
+  // console.log(props.match.params.projectID === undefined);
 
   const [tokenIDList, setTokenIDList] = useState([])
   const [productList, setProductList] = useState([])
@@ -53,7 +54,7 @@ const Products = (props) => {
       let url = "https://gateway.arthanium.org/ipfs/" + rowData.encryptedData
       window.open(url, "_blank")
     } else {
-      console.log(rowData, "idhar");
+      // console.log(rowData, "idhar");
       setSelected(rowData);
       setOpen(true);
     }
@@ -62,39 +63,69 @@ const Products = (props) => {
 
   async function unlockDoc() {
     let data = await decryptMessage(selected.encryptedData, password)
-    console.log(data);
+    // console.log(data);
     setData(JSON.parse(data));
     setIsValid(true);
   }
 
-  useEffect(() => {
-    docContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
-      from: props.auth.user.publicKey
-    }).then(res => {
-      if (res.length == 0)
-        setLoader(false);
-      setTokenIDList(res);
-      res.forEach(tokenId => {
-        // console.log(tokenId);
-
-        docContract.methods.getDocumentDetails(tokenId).call({
-          from: props.auth.user.publicKey
-        }).then(productDetails => {
-          console.log(productDetails, "productDetails inside");
-
-          productDetails[0].tokenId = tokenId
-          setProductList(productList => [
-            ...productList,
-            productDetails[0]
-          ])
+  useEffect(() => {    
+    if (props.match.params.projectID === undefined) {
+      docContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
+        from: props.auth.user.publicKey
+      }).then(res => {
+        if (res.length == 0)
           setLoader(false);
+        setTokenIDList(res);
+        res.forEach(tokenId => {
+          // console.log(tokenId);
+
+          docContract.methods.getDocumentDetails(tokenId).call({
+            from: props.auth.user.publicKey
+          }).then(productDetails => {
+            // console.log(productDetails, "productDetails inside");
+
+            productDetails[0].tokenId = tokenId
+            setProductList(productList => [
+              ...productList,
+              productDetails[0]
+            ])
+            setLoader(false);
+          });
         });
       });
-    });
+    } else {     
+      // console.log("inside");
+       
+      docContract.methods._tokensOfProject(props.match.params.projectID).call({
+        from: props.auth.user.publicKey
+      }).then(res => {
+        // console.log(res,"res");
+        
+        if (res.length == 0)
+          setLoader(false);
+        setTokenIDList(res);
+        res.forEach(tokenId => {
+          // console.log(tokenId,"projectID");
+
+          docContract.methods.getDocumentDetails(tokenId).call({
+            from: props.auth.user.publicKey
+          }).then(productDetails => {
+            // console.log(productDetails, "productDetails inside");
+
+            productDetails[0].tokenId = tokenId
+            setProductList(productList => [
+              ...productList,
+              productDetails[0]
+            ])
+            setLoader(false);
+          });
+        });
+      });
+    }
   }, []);
 
   useEffect(() => {
-    console.log("productList");
+    // console.log("productList");
   }, [productList])
   const projectURL = (projectID) => {
     return "/dashboard/projects/" + projectID;
@@ -193,7 +224,7 @@ const Products = (props) => {
                 </DialogActions>
               </Dialog>
               <Suspense fallback={loading}>
-                <RegisterDocModal />
+                <RegisterDocModal projectID={props.match.params.projectID === undefined ? undefined : props.match.params.projectID} />
               </Suspense>
             </div>
           )

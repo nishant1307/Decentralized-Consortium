@@ -14,7 +14,7 @@ export default function Landing() {
         fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/arthanium")
             .then(res => res.json())
             .then(result => {
-                console.log(result)
+                // console.log(result)
                 setMediumData(result.items)
             })
     }, [])
@@ -277,12 +277,13 @@ export default function Landing() {
                         <div className="column-2 w-col w-col-7">
                             <div className="margin-bottom">
                                 <h2 className="heading-2">Note</h2>
-                                <p>Note -
-Setup and customization charges could be applicable for certain customers.<br />
-                                    For larger customized plans contact us directly.<br />
-                                    Additional monthly credits packs can be purchased at $ 49 for 400 Credits.<br />
-                                    Validity of plan & credits is one month and it cannot be carried forward.<br />
-                                    Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
+                                <ul className="landing-bullet">
+                                    <li className="tab-class-inner">Setup and customization charges could be applicable for certain customers.</li>
+                                    <li className="tab-class-inner"> For larger customized plans contact us directly.</li>
+                                    <li className="tab-class-inner"> Additional monthly credits packs can be purchased at $ 49 for 400 Credits.</li>
+                                    <li className="tab-class-inner"> Validity of plan & credits is one month and it cannot be carried forward.</li>
+                                    <li className="tab-class-inner"> Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</li>
+                                </ul>
                             </div>
                         </div>
                         <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: 50, paddingBottom: 50 }}>

@@ -81,6 +81,12 @@ a {
   background-size: cover;
 }
 
+.background-image-side{
+  background-image: url('http://detheme.com/templates/kergan/images/bg-hero-kergan.jpg');
+  background-position: 0px 0px;
+  background-size: cover;
+}
+
 .section.blue {
   border-bottom: 1px solid hsla(0, 0%, 100%, .1);
   border-radius: 1px;
@@ -1608,6 +1614,11 @@ a {
 ul {
   margin-left: -1em;
   list-style-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='-1 -1 2 2'><circle r='1' /></svg>");
+}
+
+.landing-bullet {
+  margin-left: -1em;
+  list-style-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='7' height='7' viewBox='-1 -1 2 2'><circle r='1' /></svg>");
 }
 
 
@@ -4109,7 +4120,17 @@ ul {
   position: relative;
 }
 
+.img-responsive{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+}
+
 .team-hover {
+  border-radius: 50%;
   position: absolute;
   top: 0;
   left: 0;

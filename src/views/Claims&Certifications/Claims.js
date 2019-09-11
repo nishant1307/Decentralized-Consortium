@@ -46,9 +46,9 @@ const Claims = (props) => {
   }
 
   const handleCancelClick = (idToRemove) => {
-    console.log(idToRemove);
+    // console.log(idToRemove);
     // const idToRemove = Number(event.target.dataset["item"]);
-    console.log(myItems);
+    // console.log(myItems);
     const newArray = myItems.filter((listitem) => { return listitem.id !== idToRemove });
     setMyItems(newArray);
   }

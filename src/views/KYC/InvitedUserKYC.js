@@ -845,7 +845,7 @@ function Checkout(props) {
             ...state,
             address: address
         }));
-        console.log(address);
+        // console.log(address);
         geocodeByAddress(address)
             .then(results => {
                 let raw = results[0].address_components;
@@ -871,7 +871,7 @@ function Checkout(props) {
                     reader.onloadend = (res) => {
                         let content = Ipfs.Buffer.from(res.target.result);
                         ipfs.add(content, (err, newHash) => {
-                            console.log(err, newHash);
+                            // console.log(err, newHash);
                             setIPFSOwnerHash([...ipfsOwnerHash, newHash[0].hash])
                         })
                     }

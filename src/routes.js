@@ -36,9 +36,9 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/docconekt/explore",
+    path: "/projects/:projectID/documents",
     name: "DocConekt",
-    component: Wallet,
+    component: Documents,
     layout: "/dashboard"
   },
   {

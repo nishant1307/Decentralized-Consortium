@@ -37,7 +37,7 @@ const Devices = (props) => {
                 deviceContract.methods.getDeviceDetails(tokenId).call({
                     from: props.auth.user.publicKey
                 }).then(deviceDetails => {
-                  console.log(deviceDetails);
+                //   console.log(deviceDetails);
                     deviceDetails[0].deviceURN = tokenId;
                     setDeviceList(deviceList => [
                         ...deviceList,
@@ -100,7 +100,7 @@ const Devices = (props) => {
                     </Card>
                 </GridItem>
             </GridContainer>
-            <RegisterDeviceModal />
+            <RegisterDeviceModal projectId={props.match.params.projectID} />
         </div>
     );
 }

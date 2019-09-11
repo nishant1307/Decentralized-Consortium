@@ -30,8 +30,8 @@ const SupportPage = () => {
     return new Promise(function(resolve, reject) {
       let data = []
       imageFiles.map((item, i) => {
-        console.log(imageFiles.length, i);
-        console.log(Math.random());
+        // console.log(imageFiles.length, i);
+        // console.log(Math.random());
         axios.get("/s3/sign?objectName=" + item.name + "&contentType=" + item.type+"&objectKey=support").then(res => {
           const xhr = new XMLHttpRequest()
           xhr.onreadystatechange = function() {
@@ -65,7 +65,7 @@ const SupportPage = () => {
           .then(res => {
             setSent(sent+1);
             setAlertMessage(res.data.message);
-            console.log(res.data);
+            // console.log(res.data);
           })
       })
     }

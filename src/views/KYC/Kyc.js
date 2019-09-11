@@ -206,10 +206,10 @@ function Checkout(props) {
         const orgHash = await ipfs.add(orgBuffer);
         const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsOwnerHash, info: state }))
         const userHash = await ipfs.add(userBuffer);
-        console.log(state.companyName,
-            orgHash[0].hash,
-            userHash[0].hash,
-            state.email, "j");
+        // console.log(state.companyName,
+        //     orgHash[0].hash,
+        //     userHash[0].hash,
+        //     state.email, "j");
         var transaction = {
             "to": registryAddress,
             "data": registryContract.methods.setOrganizationAdmin(
@@ -253,7 +253,7 @@ function Checkout(props) {
             ...state,
             address: address
         }));
-        console.log(address);
+        // console.log(address);
         geocodeByAddress(address)
             .then(results => {
                 let raw = results[0].address_components;
@@ -280,7 +280,7 @@ function Checkout(props) {
                     reader.onloadend = (res) => {
                         let content = Ipfs.Buffer.from(res.target.result);
                         ipfs.add(content, (err, newHash) => {
-                            console.log(err, newHash);
+                            // console.log(err, newHash);
                             setIPFSCompanyHash([...ipfsCompanyHash, newHash[0].hash])
                         })
                     }
@@ -296,7 +296,7 @@ function Checkout(props) {
                     reader.onloadend = (res) => {
                         let content = Ipfs.Buffer.from(res.target.result);
                         ipfs.add(content, (err, newHash) => {
-                            console.log(err, newHash);
+                            // console.log(err, newHash);
                             setIPFSOwnerHash([...ipfsOwnerHash, newHash[0].hash])
                         })
                     }

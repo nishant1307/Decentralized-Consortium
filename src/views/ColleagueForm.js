@@ -44,11 +44,11 @@ const ColleagueForm = (props) => {
             }
           })
           .on('error', async function (error) {
-            console.log(error);
+            // console.log(error);
           })
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
       });
   }
 

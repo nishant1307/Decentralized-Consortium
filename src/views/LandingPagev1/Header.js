@@ -4,11 +4,11 @@ import '../../WA/css/normalize.css'
 import '../../WA/css/detheme.css'
 import '../../WA/css/kergan.detheme.css'
 export default function Header(props) {
-    console.log(props);
+    // console.log(props);
     const [isOn, setIsOn] = React.useState(false);
 
     function toggleMenu() {
-        console.log("inside");
+        // console.log("inside");
         setIsOn(!isOn)
 
     }

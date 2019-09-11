@@ -33,11 +33,11 @@ const Projects = (props) => {
   const [inviteSent, setInviteSent] = useState(false);
 
   useEffect(()=> {
-    console.log("Hel");
+    // console.log("Hel");
     registryContract.methods.fetchProjectInvites(props.projectID).call({
       from: props.auth.user.publicKey
     }).then(res => {
-      console.log("Hello ",res);
+      // console.log("Hello ",res);
       if(res.length==0)
         setLoader(false);
       setProjectInviteList(res);

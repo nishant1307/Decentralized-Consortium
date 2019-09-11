@@ -35,7 +35,7 @@ import {
     FormControl,
     Select,
 } from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const Ipfs = require('ipfs-http-client')
 
@@ -63,6 +63,8 @@ const styles = theme => ({
 });
 
 const PackingList = props => {
+    // console.log(props.data.projectID, "in jere");
+
     const { classes } = props;
     const [struture, setStruture] = useState({});
     // const [mod, setMod] = React.useState("Air");
@@ -88,7 +90,7 @@ const PackingList = props => {
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash,  "type": "Packing List" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Packing List" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         // props.history.push("/dashboard/home")
@@ -128,7 +130,7 @@ const PackingList = props => {
 
             ],
         });
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: props.data.projectID });
         props.history.push("/dashboard/home")
 
     }

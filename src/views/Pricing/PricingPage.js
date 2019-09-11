@@ -114,7 +114,7 @@ export default function PricingPage() {
 
       handler(response) {
         const paymentId = response.razorpay_payment_id;
-        console.log(paymentId);
+        // console.log(paymentId);
         const url = process.env.URL+'/api/v1/rzp_capture/'+paymentId+'/'+paymentAmount;
         // Using my server endpoints to capture the payment
         fetch(url, {
@@ -125,10 +125,10 @@ export default function PricingPage() {
         })
         .then(resp =>  resp.json())
         .then(function (data) {
-          console.log('Request succeeded with JSON response', data);
+          // console.log('Request succeeded with JSON response', data);
         })
         .catch(function (error) {
-          console.log('Request failed', error);
+          // console.log('Request failed', error);
         });
       },
 

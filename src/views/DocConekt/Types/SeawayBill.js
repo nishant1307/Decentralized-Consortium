@@ -129,7 +129,7 @@ const SeawayBill = props => {
 
             ],
         });
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: props.data.projectID });
         props.history.push("/dashboard/home")
 
     }

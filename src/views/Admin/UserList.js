@@ -50,7 +50,7 @@ const OrgList = props => {
     // setPrivateKey(temp);
     let data = []
     let fetchedData = await registryContract.methods.getAllOrganizations().call();
-    console.log(fetchedData);
+    // console.log(fetchedData);
     let temp = await sessionStorage.getItem("privateKey")
     setPrivateKey(temp);
     fetchedData.map(async (e, i) => {
@@ -110,7 +110,7 @@ const OrgList = props => {
                         icon: "save",
                         tooltip: "Save User",
                         onClick: async (event, rowData, status) => {
-                          console.log(rowData);
+                          // console.log(rowData);
                           let gasPrice = await web3.eth.getGasPrice();
                           var transaction = {
                             "to": registryAddress,
@@ -126,14 +126,14 @@ const OrgList = props => {
                               if (confirmationNumber == 1) {
                                 if (receipt.status == true) {
                                   const data = mainData;
-                                  console.log(data[rowData.tableData.id]);
+                                  // console.log(data[rowData.tableData.id]);
                                   data[rowData.tableData.id].status = "KYC Complete";
                                   setMainData(data);
                                 }
                               }
                             })
                               .on('error', async function (error) {
-                                console.log(error);
+                                // console.log(error);
                               })
                           })
                         }

@@ -104,7 +104,7 @@ const ShippingInstructions = props => {
         setIsSubmitted(false);
         setOpen(false);
         setStruture({});
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: props.data.projectID });
         props.history.push("/dashboard/home")
 
     }

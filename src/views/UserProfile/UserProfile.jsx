@@ -59,7 +59,7 @@ const UserProfile = props => {
     //
     // })
     parseJSONFromIPFSHash(props.user.user[4]).then(data => {
-      console.log(data);
+      // console.log(data);
       setUserDetails(data.info);
     });
   }, []);
@@ -67,7 +67,7 @@ const UserProfile = props => {
   const { classes } = props;
 
   const updateProfile = () => {
-    console.log("Updated");
+    // console.log("Updated");
   }
   return (
     <div>

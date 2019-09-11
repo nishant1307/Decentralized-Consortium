@@ -44,6 +44,7 @@ const ProjectPage = (props) => {
 
   // const addProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/addproducts";
   const getProductPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/products";
+  const getDocumentsPageURL = "/dashboard/projects/"+ props.match.params.projectID + "/documents";
   const [partners, setPartners] = useState([]);
   useEffect(() => {
     if(!props.location.state)
@@ -94,12 +95,12 @@ const ProjectPage = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
           <Card>
-            <CardHeader onClick={()=>{props.history.push('/dashboard/docconekt/explore')} }  color="danger" stats icon>
+            <CardHeader onClick={()=>{props.history.push(getDocumentsPageURL)} }  color="danger" stats icon>
               <CardIcon color="danger">
                 <FileCopyIcon/>
               </CardIcon>
               <p className={classes.cardCategory}>Docs</p>
-              <h4 className={classes.cardTitle}>{props.user.docCount}</h4>
+              {/* <h4 className={classes.cardTitle}>{props.user.docCount}</h4> */}
             </CardHeader>
             <CardFooter onClick={props.openDocModal} stats>
               <div className={classes.stats}>

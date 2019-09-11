@@ -40,7 +40,7 @@ const Projects = (props) => {
       from: props.auth.user.publicKey
     }).then(res => {
       setProjectList(res);
-      console.log(res);
+      // console.log(res);
       setLoader(false);
     });
   }, [props.user.projectCount]);

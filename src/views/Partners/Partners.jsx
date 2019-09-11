@@ -56,8 +56,8 @@ const Partners = (props) => {
   'Recycler'
 ];
 function handleDelete(category) {
-    console.log(selectedCategoryIndices);
-    console.log(category, "to be removed");
+    // console.log(selectedCategoryIndices);
+    // console.log(category, "to be removed");
     let selectedArray = selectedCategoryIndices;
     if(selectedCategoryIndices.indexOf(category)!=-1){
       selectedArray.splice(selectedCategoryIndices.indexOf(category), 1);

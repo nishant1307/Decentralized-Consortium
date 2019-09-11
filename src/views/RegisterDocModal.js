@@ -62,6 +62,8 @@ const DialogActions = withStyles(theme => ({
 }))(MuiDialogActions);
 
 const RegisterDocModal = (props) =>  {
+  // console.log(props);
+  
 
   return (
     <div>
@@ -75,7 +77,7 @@ const RegisterDocModal = (props) =>  {
       >
       <Suspense fallback={loading}>
         <DialogContent dividers>
-          <UploadFile projectList= {props.projectList} history={props}  />
+          <UploadFile projectID={props.projectID === undefined ? undefined : props.projectID}  projectList= {props.projectList} history={props}  />
         </DialogContent>
       </Suspense>
         {/**<DialogActions>

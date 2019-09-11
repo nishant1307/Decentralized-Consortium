@@ -182,7 +182,7 @@ function AddressForm({ parentCallback }) {
         reader.onloadend = () => convertToBuffer(reader, name)
     };
     const convertToBuffer = async (reader, name) => {
-        console.log(reader, name);
+        // console.log(reader, name);
 
         //file is converted to a buffer for upload to IPFS
         const buffer = await Buffer.from(reader.result);
@@ -256,6 +256,8 @@ function Review(props) {
 }
 
 const Checkout = (props) => {
+    // console.log(props);
+    
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [status, setStatus] = React.useState(false);
@@ -290,7 +292,7 @@ const Checkout = (props) => {
     }, [DocType])
 
     const handleNext = () => {
-        console.log("in nnext");
+        // console.log("in nnext");
         setActiveStep(activeStep + 1);
         // forceUpdate();
     };
@@ -314,7 +316,7 @@ const Checkout = (props) => {
         // forceUpdate();
     }
     const getSubContent = (count) => {
-        console.log("called");
+        // console.log("called");
         switch (count) {
             case 0:
                 return renderFromArray(salesTypes);
@@ -351,8 +353,8 @@ const Checkout = (props) => {
         handleNext();
         const cid = await ipfs.add(bufferData);
         props.addNewDoc({ encryptData: cid[0].hash, encryptedPassword: " " });
-        console.log(cid,"cid");
-      props.history.push('/dashboard/documents')
+        // console.log(cid, "cid");
+        props.history.push('/dashboard/documents')
 
     }
     return (
@@ -455,7 +457,7 @@ const Checkout = (props) => {
                 </form>
                 <React.Fragment>
                     <div className={classes.buttons}>
-                        <Link to={{ pathname: '/dashboard/structured/' + subDocType, state: { projectId: props.projectList } }}>
+                        <Link to={{ pathname: '/dashboard/structured/' + subDocType, state: { projectList: props.projectList, projectID: props.history.projectID === undefined ? undefined : props.history.projectID } }}>
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -469,7 +471,7 @@ const Checkout = (props) => {
                 </React.Fragment>
                 {/* </Paper> */}
             </TabPanel>
-        </div>
+        </div >
     );
 }
 

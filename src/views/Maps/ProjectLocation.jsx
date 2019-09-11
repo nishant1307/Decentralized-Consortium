@@ -18,7 +18,7 @@ const ProjectLocation = props => {
     }).then(res => {
       let locations = [];
       let latitudeSum =0, longitudeSum = 0;
-      console.log(res);
+      // console.log(res);
       res.forEach(location => {
         locations.push(
           {
@@ -34,7 +34,7 @@ const ProjectLocation = props => {
         lng: longitudeSum/res.length
       };
       setCenter(center)
-      console.log("latitudeSum", latitudeSum, center);
+      // console.log("latitudeSum", latitudeSum, center);
       setProjectLocation(locations);
     })
   }, []);
