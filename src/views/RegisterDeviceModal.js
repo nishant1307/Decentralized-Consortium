@@ -152,6 +152,7 @@ const RegisterDeviceModal = (props) => {
                 name="deviceType"
                 value={state.deviceType}
                 required
+                labelWidth={150}
                 input={<OutlinedInput />}
                 onChange={handleChange}
               >
@@ -164,6 +165,7 @@ const RegisterDeviceModal = (props) => {
                 name="sensor"
                 value={state.sensor}
                 required
+                labelWidth={100}
                 input={<OutlinedInput />}
                 onChange={handleChange}
               >
@@ -177,6 +179,7 @@ const RegisterDeviceModal = (props) => {
                 name="communicationProtocol"
                 value={state.communicationProtocol}
                 required
+                labelWidth={230}
                 input={<OutlinedInput />}
                 onChange={handleChange}
               >
@@ -189,6 +192,7 @@ const RegisterDeviceModal = (props) => {
                 name="dataProtocol"
                 value={state.dataProtocol}
                 required
+                labelWidth={150}
                 input={<OutlinedInput />}
                 onChange={handleChange}
               >
