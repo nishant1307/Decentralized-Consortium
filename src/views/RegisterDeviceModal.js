@@ -151,6 +151,7 @@ const RegisterDeviceModal = (props) => {
                       name="deviceType"
                       value={state.deviceType}
                       required
+                      labelWidth={150}
                       input={<OutlinedInput />}
                       onChange={handleChange}
                     >
@@ -160,6 +161,7 @@ const RegisterDeviceModal = (props) => {
                   <FormControl className={classes.formControl} variant="outlined">
                     <InputLabel htmlFor="industryList">Select Sensor</InputLabel>
                     <Select
+                    labelWidth={100}
                     name="sensor"
                     value={state.sensor}
                       required
@@ -173,6 +175,7 @@ const RegisterDeviceModal = (props) => {
                   <FormControl className={classes.formControl} variant="outlined">
                     <InputLabel htmlFor="industryList">Select Communication Protocol</InputLabel>
                     <Select
+                    labelWidth={230}
                     name="communicationProtocol"
                     value={state.communicationProtocol}
                       required
@@ -185,6 +188,7 @@ const RegisterDeviceModal = (props) => {
                   <FormControl className={classes.formControl} variant="outlined">
                     <InputLabel htmlFor="industryList">Select Data Protocol</InputLabel>
                     <Select
+                    labelWidth={150}
                       name="dataProtocol"
                       value={state.dataProtocol}
                       required

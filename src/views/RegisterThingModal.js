@@ -284,6 +284,7 @@ const makeAddedList = () => {
                           name="thingCurrencyCode"
                           value={state.thingCurrencyCode}
                           required
+                          labelWidth={50}
                           input={<OutlinedInput />}
                           onChange={handleFormChange}
                         >
