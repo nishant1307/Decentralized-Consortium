@@ -15,7 +15,7 @@ import DocUpload from './DocUpload'
 import Eula from './Eula'
 import KeyCreation from './KeyCreation'
 import ExistingAccount from './ExisitingAccount';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import loginImage from "assets/images/login.png";
 import {
     Typography,
@@ -33,8 +33,8 @@ import {
     Slide,
     Checkbox,
     FormControlLabel,
+    CircularProgress
 } from '@material-ui/core';
-
 const useStyles = makeStyles(theme => ({
     listItem: {
         padding: theme.spacing(1, 0),
@@ -59,10 +59,10 @@ const useStyles = makeStyles(theme => ({
         },
     },
     image: {
-      backgroundImage: 'url('+ loginImage +')',
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
+        backgroundImage: 'url(' + loginImage + ')',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
     },
     paper: {
         marginTop: theme.spacing(3),
@@ -107,6 +107,8 @@ function Checkout(props) {
     const [modal1, setModal1] = useState(false)
     const [isExist, setIsExist] = useState(false)
     const [keystore, setKeystore] = useState('');
+    const [loader, setLoader] = useState(true);
+
     // const [address, setAddress] = useState('');
     const [toggleState, setToggleState] = React.useState({
         checkedA: false,
@@ -333,14 +335,20 @@ function Checkout(props) {
         registryContract.methods.getUserKYCStatus().call({
             from: address
         }).then(res => {
+
             if (res === "0") {
                 setActiveStep(5);
+                setLoader(false);
+            } else if (res === "1") {
+                window.alert("account already exists!")
+                props.history.push('/login');
             }
         }).catch((e) => {
 
             if (localStorage.getItem("address") !== null) {
                 fetchKey();
                 setIsExist(true);
+                setLoader(false);
             }
             else if (props.auth.isAuthenticated) {
                 props.history.push('/dashboard');
@@ -353,64 +361,65 @@ function Checkout(props) {
             <CssBaseline />
 
             <main className={classes.layout}>
-                <Paper className={classes.paper}>
-                    <Typography component="h1" variant="h4" align="center">
-                        KYC
+                {loader ? <CircularProgress style={{position:'absolute',top:"50%",left:"50%"}} /> :
+                    <Paper className={classes.paper}>
+                        <Typography component="h1" variant="h4" align="center">
+                            KYC
           </Typography>
-                    <Stepper activeStep={activeStep} className={classes.stepper}>
-                        {steps.map(label => (
-                            <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-                    <React.Fragment>
-                        {activeStep === steps.length + 1 ? (
-                            <React.Fragment>
-                                <Typography variant="h5" gutterBottom>
-                                    Thank you.
-                </Typography>
-                                <Typography variant="subtitle1">
-                                    It will take approximately 24 hours to verify your KYC.
-                </Typography>
-                                <div className={classes.buttons}>
-                                    <Button onClick={() => { props.history.push('/') }} className={classes.button}>
-                                        Back To Home
-                    </Button>
-                                </div>
-                            </React.Fragment>
-
-                        ) : (activeStep === steps.length ? (
-                            <React.Fragment>
-                                <div className={classes.buttons}>
-                                    <Typography variant="subtitle1">
-                                        Transaction is in progress! Please Wait...
-                                </Typography>
-                                </div>
-                            </React.Fragment>
-
-                        ) : (
+                        <Stepper activeStep={activeStep} className={classes.stepper}>
+                            {steps.map(label => (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        <React.Fragment>
+                            {activeStep === steps.length + 1 ? (
                                 <React.Fragment>
-                                    {getStepContent(activeStep)}
+                                    <Typography variant="h5" gutterBottom>
+                                        Thank you.
+                </Typography>
+                                    <Typography variant="subtitle1">
+                                        It will take approximately 24 hours to verify your KYC.
+                </Typography>
                                     <div className={classes.buttons}>
-                                        {activeStep !== 0 && activeStep !== 1 && (
-                                            <Button onClick={handleBack} className={classes.button}>
-                                                Back
+                                        <Button onClick={() => { props.history.push('/') }} className={classes.button}>
+                                            Back To Home
                     </Button>
-                                        )}
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={activeStep === steps.length - 1 ? submitForm : handleNext}
-                                            className={classes.button}
-                                        >
-                                            {activeStep === steps.length - 1 ? 'Accept' : 'Next'}
-                                        </Button>
                                     </div>
                                 </React.Fragment>
-                            ))}
-                    </React.Fragment>
-                </Paper>
+
+                            ) : (activeStep === steps.length ? (
+                                <React.Fragment>
+                                    <div className={classes.buttons}>
+                                        <Typography variant="subtitle1">
+                                            Transaction is in progress! Please Wait...
+                                </Typography>
+                                    </div>
+                                </React.Fragment>
+
+                            ) : (
+                                    <React.Fragment>
+                                        {getStepContent(activeStep)}
+                                        <div className={classes.buttons}>
+                                            {activeStep !== 0 && activeStep !== 1 && (
+                                                <Button onClick={handleBack} className={classes.button}>
+                                                    Back
+                    </Button>
+                                            )}
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={activeStep === steps.length - 1 ? submitForm : handleNext}
+                                                className={classes.button}
+                                            >
+                                                {activeStep === steps.length - 1 ? 'Accept' : 'Next'}
+                                            </Button>
+                                        </div>
+                                    </React.Fragment>
+                                ))}
+                        </React.Fragment>
+                    </Paper>}
             </main>
             <Dialog
                 open={modal1}
