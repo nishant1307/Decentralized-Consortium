@@ -32,6 +32,8 @@ export const loginUser = (user, history) => dispatch => {
     registryContract.methods.getUserOrganizationDetails().call({
         from: user.address
     }).then(res => {
+        console.log(res,"res");
+        
       if(res[0]&& res[1]){
         if (res[0].status === '1' && res[1].status === '1') {
             dispatch(setCurrentUser({ publicKey: user.address }));
@@ -61,6 +63,7 @@ export const loginUser = (user, history) => dispatch => {
     })
         .catch((err) => {
             console.log(err);
+            history.push('/signup');
         })
     //             dispatch(fetchSubscription());
 }
