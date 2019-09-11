@@ -157,6 +157,7 @@ function ProjectFormModal(props) {
                           name="industry"
                           required
                           fullWidth
+                          labelWidth={110}
                           input={<OutlinedInput name="industry" id="indList" />}
                           value={industry}
                           onChange={(e)=> setIndustry(e.target.value)}

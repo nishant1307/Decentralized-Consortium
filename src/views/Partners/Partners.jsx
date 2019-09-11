@@ -231,7 +231,7 @@ function handleDelete(category) {
               {selectedCategoryIndices.map((category, index) => (
                 <GridItem xs={12} sm={12} md={4}>
                   <DropzoneArea
-                    dropzoneText={"Upload supporting documents for "+options[category]}
+                    dropzoneText={"Upload supporting documents for "+category}
                     onSave={() => {}}
                     acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
                     showPreviews={true}

@@ -1,27 +1,29 @@
-/*eslint-disable*/
 import React from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-// core components
-import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.jsx";
-import sidebarStyle from "assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
-
+// @material-ui/core components
+import { makeStyles } from "@material-ui/core/styles";
 import { Drawer, Hidden, List, ListItem, ListItemText, Icon } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+// core components
+const AdminNavbarLinks = React.lazy(() => import("components/Navbars/AdminNavbarLinks.jsx"));
+import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
 
-const Sidebar = ({ ...props }) => {
+const useStyles = makeStyles(styles);
+
+export default function Sidebar(props) {
+  const classes = useStyles();
   // verifies if routeName is the one active (in browser input)
   function activeRoute(routeName) {
     return window.location.href.indexOf(routeName) > -1 ? true : false;
   }
-  const { classes, color, logo, image, logoText, routes } = props;
+  const { color, logo, image, logoText, routes } = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
         var activePro = " ";
         var listItemClasses;
-        if (prop.path === "/upgrade-to-pro") {
+        if (prop.path === "/support") {
           activePro = classes.activePro + " ";
           listItemClasses = classNames({
             [" " + classes[color]]: true
@@ -44,18 +46,24 @@ const Sidebar = ({ ...props }) => {
             <ListItem button className={classes.itemLink + listItemClasses}>
               {typeof prop.icon === "string" ? (
                 <Icon
-                  className={classNames(classes.itemIcon, whiteFontClasses)}
+                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                    [classes.itemIconRTL]: props.rtlActive
+                  })}
                 >
                   {prop.icon}
                 </Icon>
               ) : (
                 <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses)}
+                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                    [classes.itemIconRTL]: props.rtlActive
+                  })}
                 />
               )}
               <ListItemText
-                primary={prop.name}
-                className={classNames(classes.itemText, whiteFontClasses)}
+                primary={props.rtlActive ? prop.rtlName : prop.name}
+                className={classNames(classes.itemText, whiteFontClasses, {
+                  [classes.itemTextRTL]: props.rtlActive
+                })}
                 disableTypography={true}
               />
             </ListItem>
@@ -126,10 +134,10 @@ const Sidebar = ({ ...props }) => {
       </Hidden>
     </div>
   );
-};
+}
 
 Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  rtlActive: PropTypes.bool,
   handleDrawerToggle: PropTypes.func,
   bgColor: PropTypes.oneOf(["purple", "blue", "green", "orange", "red"]),
   logo: PropTypes.string,
@@ -138,5 +146,3 @@ Sidebar.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object),
   open: PropTypes.bool
 };
-
-export default withStyles(sidebarStyle)(Sidebar);

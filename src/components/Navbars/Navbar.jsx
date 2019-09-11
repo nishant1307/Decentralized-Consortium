@@ -12,7 +12,7 @@ import headerStyle from "assets/jss/material-dashboard-react/components/headerSt
 import { AppBar, Toolbar, IconButton, Hidden } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 
-function Header({ ...props }) {
+function Navbar({ ...props }) {
   function makeBrand() {
     var name;
     props.routes.map(prop => {
@@ -37,7 +37,7 @@ function Header({ ...props }) {
           </Button>
         </div>
         <Hidden smDown implementation="css">
-          {<AdminNavbarLinks onLogout={props.onLogout}/>}
+          {<AdminNavbarLinks onLogout={props.onLogout} {...props}/>}
         </Hidden>
         <Hidden mdUp implementation="css">
           <IconButton
@@ -53,7 +53,7 @@ function Header({ ...props }) {
   );
 }
 
-Header.propTypes = {
+Navbar.propTypes = {
   classes: PropTypes.object.isRequired,
   color: PropTypes.oneOf(["primary", "info", "success", "warning", "danger"]),
   rtlActive: PropTypes.bool,
@@ -61,4 +61,4 @@ Header.propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default withStyles(headerStyle)(Header);
+export default withStyles(headerStyle)(Navbar);

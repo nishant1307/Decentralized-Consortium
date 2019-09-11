@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 // core components
-const Admin = React.lazy(() => import('layouts/Admin.jsx'));
+const Admin = React.lazy(() => import('layouts/Admin2.jsx'));
 const AdminPanel = React.lazy(() => import('layouts/AdminPanel.jsx'));
 import { PrivateRoute } from './PrivateRoute'
 const Kyc = React.lazy(() => import('views/KYC/Kyc'));
@@ -44,7 +44,7 @@ ReactDOM.render(
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Kyc} />
             <Route path="/register" component={Kyc} />
-            <Route exact path="/invitation/:invitationCode" component={InvitedUserKYC} />
+            <Route exact path="/invitation" component={InvitedUserKYC} />
             <Route path="/recover" component={RecoverAccount} />
             <Route component={Page404} />
           </Switch>
