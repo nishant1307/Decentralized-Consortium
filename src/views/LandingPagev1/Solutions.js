@@ -10,7 +10,7 @@ export default function Solutions(props) {
     return (
         <div className="body">
             <Header />
-            <div className="section full-screen background-image-side">
+            <div className="section full-screen background-image-side" id="DApps">
                 <div className="wrapper">
                     <div className="columns column w-row">
                         <div className="column herocontent w-col w-col-6">
@@ -90,7 +90,7 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                     </div>
                 </div>
             </div>
-            <div className="div-block-new-1">
+            <div className="div-block-new-1" id="solutionsforBusiness">
                 <div className="section">
                     <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Solutions for Business</h1>
                     {/* <div className="wrapper-2 space-around">
@@ -197,7 +197,7 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                     </div>
                 </div>
             </div>
-            <div className="div-block-new-1">
+            <div className="div-block-new-1" id="solutionsforConsumers">
                 <div className="section">
                     <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Solutions for Consumers</h1>
                 </div>

@@ -293,7 +293,7 @@ export default function Landing() {
                                 </ul>
                             </div>
                         </div>
-                        <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50"}}>
+                        <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
                             <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
                                 <Table className="tg">
                                     <TableRow>
@@ -309,13 +309,13 @@ export default function Landing() {
                                         <TableCell className="tg-rnhl">Projects</TableCell>
                                         <TableCell className="tg-rnhl">75</TableCell>
                                         <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(projects) * 75} readOnly /></TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className="tg-rnhl">Partners</TableCell>
                                         <TableCell className="tg-rnhl">15</TableCell>
                                         <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(partners) * 15} readOnly /></TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell className="tg-rnhl">Products / Docs / Devices</TableCell>
@@ -326,7 +326,7 @@ export default function Landing() {
                                     <TableRow>
                                         <TableCell className="tg-g2pk" colspan="1"></TableCell>
                                         <TableCell className="tg-g2pk" colspan="2">Total</TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(projects * 75) + parseInt(partners * 15) + parseInt(products)} readOnly placeholder="Total" /></TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
                                     </TableRow>
                                 </Table>
                             </div>

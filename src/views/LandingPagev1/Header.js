@@ -25,10 +25,12 @@ export default function Header(props) {
                         </button>
                         <div className="dropdown-content">
                             <Link to="/partners#banks" className="nav-link-2 w-nav-link">Banks</Link>
-                            <Link to="/partners#insurance" className="nav-link-2 w-nav-link">Insurance</Link>
-                            <Link to="/partners#logistivs" className="nav-link-2 w-nav-link">Logistics</Link>
-                            <Link to="/partners#certificationagencies" className="nav-link-2 w-nav-link">Certification Agencies</Link>
+                            {/* <Link to="/partners#insurance" className="nav-link-2 w-nav-link">Insurance</Link> */}
+                            <Link to="/partners#logistics" className="nav-link-2 w-nav-link">Logistics</Link>
                             <Link to="/partners#government" className="nav-link-2 w-nav-link">Government</Link>
+                            <Link to="/partners#certificationagencies" className="nav-link-2 w-nav-link">Certification Agencies</Link>
+                            <Link to="/partners#hardwaresoftwareintegrators" className="nav-link-2 w-nav-link">Hardware / Software Integrators</Link>
+                            <Link to="/partners#portsandterminals" className="nav-link-2 w-nav-link">Ports & Terminals</Link>
                             <Link to="/partners#recyclers" className="nav-link-2 w-nav-link">Recyclers</Link>
                         </div>
                     </div>
@@ -69,7 +71,7 @@ export default function Header(props) {
                         <Link to="/industry" className="nav-link-2 w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Industry</Link>
                         <Link to="/aboutus" className="nav-link-2 w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>About Us</Link>
                         <div className="nav-cta-button-container">
-                            <a  href="/login" className="nav-link-2 border w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Get Started</a></div>
+                            <a href="/login" className="nav-link-2 border w-nav-link w--nav-link-open" style={{ maxWidth: '1230px' }}>Get Started</a></div>
                     </nav></div>}
 
             </div>

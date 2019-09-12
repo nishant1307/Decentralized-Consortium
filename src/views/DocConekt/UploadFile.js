@@ -6,7 +6,7 @@ import { docContract } from "../../DocContract";
 import { renderFromArray } from "utils";
 import { addNewDoc, updateDoc } from 'actions/userActions';
 import { connect } from 'react-redux';
-
+import { encryptMessage, decryptMessage } from 'utils'
 
 import {
     Paper,
@@ -215,9 +215,10 @@ function AddressForm({ parentCallback }) {
 function PaymentForm(params) {
     const [name, setName] = useState(params.name);
     const [info, setInfo] = useState("");
+    const [password, setPassword] = useState("");
 
     useEffect(() => {
-        params.infoCallback(name, info)
+        params.infoCallback(name, info, password)
     }, [info])
 
     return (
@@ -231,6 +232,9 @@ function PaymentForm(params) {
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <TextField required value={info} label="Brief information about Document" onChange={e => setInfo(e.target.value)} fullWidth />
+                </Grid>
+                <Grid item xs={12} md={12}>
+                    <TextField required type="password" value={password} label="Enter a password to encrypt document" onChange={e => setPassword(e.target.value)} fullWidth />
                 </Grid>
             </Grid>
         </React.Fragment>
@@ -257,13 +261,14 @@ function Review(props) {
 
 const Checkout = (props) => {
     // console.log(props);
-    
+
     const classes = useStyles();
     const [activeStep, setActiveStep] = React.useState(0);
     const [status, setStatus] = React.useState(false);
     const [message, setMessage] = React.useState("");
     const [bufferData, setBufferData] = React.useState("");
     const [fileName, setFileName] = React.useState("");
+    const [filePassword, setFilePassword] = React.useState("");
     const [fileInfo, setFileInfo] = React.useState("");
     const [variant, setVariant] = React.useState("");
     const [txHash, setTxHash] = React.useState("");
@@ -310,9 +315,10 @@ const Checkout = (props) => {
         // forceUpdate();
     }
 
-    function handleInfo(name, info) {
+    function handleInfo(name, info, password) {
         setFileName(name);
         setFileInfo(info);
+        setFilePassword(password);
         // forceUpdate();
     }
     const getSubContent = (count) => {
@@ -351,11 +357,13 @@ const Checkout = (props) => {
 
     async function uploadFile() {
         handleNext();
+        let privateKey = await sessionStorage.getItem('privateKey');
         const cid = await ipfs.add(bufferData);
-        props.addNewDoc({ encryptData: cid[0].hash, encryptedPassword: " " });
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash }), filePassword)
+        let encryptedPassword = await encryptMessage(filePassword, privateKey)
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
         // console.log(cid, "cid");
         props.history.push('/dashboard/documents')
-
     }
     return (
         <div className={classes.root}>
