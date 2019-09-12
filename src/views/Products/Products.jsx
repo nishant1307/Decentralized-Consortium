@@ -33,8 +33,16 @@ const Products = (props) => {
   const [selectedProject, setSelectedProject] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(()=> {
+    try{
+      if(props.user.user[5]!=0){
+        setIsAdmin(true);
+      }
+    }catch(err){
+      console.log(err);
+    }
     productContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
     }).then(res => {
@@ -116,7 +124,7 @@ const Products = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 My Products
               </h4>
-              {props.user.user[5]!=0 && <AddBoxIcon onClick={props.openThingModal} style={{float: "right"}}/>}
+              {isAdmin && <AddBoxIcon onClick={props.openThingModal} style={{float: "right"}}/>}
             </CardHeader>
         {loader ?
           <React.Fragment>

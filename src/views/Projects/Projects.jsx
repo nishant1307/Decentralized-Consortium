@@ -34,8 +34,17 @@ const Projects = (props) => {
   const [inviteProjectID, setInviteProjectID] = useState('');
   const [inviteProjectPasscode, setInviteProjectPasscode] = useState('');
   const [inviteSent, setInviteSent] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(()=> {
+    try{
+      if(props.user.user[5]!=0){
+        setIsAdmin(true);
+      }
+    }catch(err){
+      console.log(err);
+    }
+
     registryContract.methods.getMyProjects().call({
       from: props.auth.user.publicKey
     }).then(res => {
@@ -67,7 +76,7 @@ const Projects = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 My Projects
               </h4>
-              {props.user.user[5]!=0 &&
+              {isAdmin &&
                 <Tooltip title={"Create new project"}>
                   <AddBoxIcon style={{float: "right"}} onClick={props.openProjectModal}/>
                 </Tooltip>}

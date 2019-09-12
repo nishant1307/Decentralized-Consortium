@@ -33,10 +33,17 @@ const Devices = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [assignDeviceModal, setAssignDeviceModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState('');
-
+  const [isAdmin, setIsAdmin] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
+    try{
+      if(props.user.user[5]!=0){
+        setIsAdmin(true);
+      }
+    }catch(err){
+      console.log(err);
+    }
     deviceContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
       from: props.auth.user.publicKey
     }).then(res => {
@@ -58,7 +65,7 @@ const Devices = (props) => {
         });
       });
     });
-  }, []);
+  }, [props.user]);
   async function assignDevicesToProject() {
     setLoading(true);
     let address = localStorage.getItem("address");
@@ -113,7 +120,7 @@ const Devices = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 My Devices
               </h4>
-              {props.user.user[5] != 0 && <AddBoxIcon onClick={props.openDeviceModal} />}
+              {isAdmin && <AddBoxIcon onClick={props.openDeviceModal} style={{float: "right"}} />}
             </CardHeader>
             {loader ?
               <React.Fragment>
@@ -126,7 +133,6 @@ const Devices = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
               </React.Fragment> :
-              deviceList.length !== 0 ?
                 <MaterialTable
                   columns={[
                     { title: "Device URN", field: "deviceURN" },
@@ -146,6 +152,11 @@ const Devices = (props) => {
                     paginationType: "stepped",
                     selection: true
                   }}
+                  localization={{
+                    body: {
+                      emptyDataSourceMessage: "No Devices Found!"
+                    }
+                  }}
                   actions={[
                     {
                       tooltip: 'Add Selected Devices To Project',
@@ -153,8 +164,7 @@ const Devices = (props) => {
                       onClick: (evt, data) => { addDevicesToProject(data) }
                     }
                   ]}
-                /> :
-                <h3>No Devices Found!</h3>
+                />
             }
           </Card>
         </GridItem>

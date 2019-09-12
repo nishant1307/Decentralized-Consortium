@@ -2,11 +2,8 @@ import React from 'react';
 import StarIcon from '@material-ui/icons/StarBorder';
 
 import {
-  Button,
-  Card,
   CardActions,
   CardContent,
-  CardHeader,
   CssBaseline,
   Grid,
   Toolbar,
@@ -21,7 +18,14 @@ import {
   TableCell,
   TableRow
 } from '@material-ui/core';
-
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import CardIcon from "components/Card/CardIcon.jsx";
+import CardFooter from "components/Card/CardFooter.jsx";
+import Button from "components/CustomButtons/Button"
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -60,17 +64,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'baseline',
     marginBottom: theme.spacing(2),
-  },
-  footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
-    marginTop: theme.spacing(8),
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(3),
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing(6),
-      paddingBottom: theme.spacing(6),
-    },
-  },
+  }
 }));
 
 const tiers = [
@@ -79,7 +73,7 @@ const tiers = [
     price: '49',
     description: ['400 Credits'],
     buttonText: 'GET STARTED',
-    buttonVariant: 'outlined',
+    buttonVariant: 'contained',
   },
   {
     title: 'BUSINESS',
@@ -88,7 +82,7 @@ const tiers = [
       '1200 Credits'
     ],
     buttonText: 'GET STARTED',
-    buttonVariant: 'outlined',
+    buttonVariant: 'contained',
   },
   {
     title: 'ENTERPRISE',
@@ -97,7 +91,7 @@ const tiers = [
       '3600 Credits'
     ],
     buttonText: 'GET STARTED',
-    buttonVariant: 'outlined',
+    buttonVariant: 'contained',
   },
 ];
 
@@ -157,17 +151,13 @@ export default function PricingPage() {
         <Grid container spacing={5} alignItems="flex-end">
           {tiers.map(tier => (
             // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} sm={6} md={4}>
-              <Card>
-                <CardHeader
-                  title={tier.title}
-                  subheader={tier.subheader}
-                  titleTypographyProps={{ align: 'center' }}
-                  subheaderTypographyProps={{ align: 'center' }}
-                  className={classes.cardHeader}
-                />
+            <Grid item key={tier.title} xs={12} sm={12} md={4}>
+              <Card style={{"backgroundImage":"radial-gradient(#fcf588 5%, transparent 20%),\n      radial-gradient(#fafafa 20%, transparent 20%)","backgroundColor":"#cee9ea","backgroundPosition":"0 0, 50px 50px","backgroundSize":"100px 100px"}}>
+                <CardHeader>
+                  <h3 className={classes.cardTitle}>{tier.title}</h3>
+                </CardHeader>
                 <Divider />
-                <CardContent>
+                <CardBody style={{height: "200px"}}>
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
                       ${tier.price}
@@ -183,9 +173,9 @@ export default function PricingPage() {
                       </Typography>
                     ))}
                   </ul>
-                </CardContent>
+                </CardBody>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} color="primary" onClick={(e) => paymentHandler(tier.title, tier.price)}>
+                  <Button fullWidth variant={tier.buttonVariant} style={{borderRadius: "50px"}} color="info" onClick={(e) => paymentHandler(tier.title, tier.price)}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>

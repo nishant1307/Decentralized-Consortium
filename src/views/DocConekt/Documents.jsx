@@ -43,7 +43,7 @@ const Products = (props) => {
   const [loader, setLoader] = useState(true);
   const [open, setOpen] = React.useState(false);
   const [isValid, setIsValid] = React.useState(false);
-
+  const [isAdmin, setIsAdmin] = useState(false);
 
   function handleClose() {
     setOpen(false);
@@ -68,7 +68,14 @@ const Products = (props) => {
     setIsValid(true);
   }
 
-  useEffect(() => {    
+  useEffect(() => {
+    try{
+      if(props.user.user[5]!=0){
+        setIsAdmin(true);
+      }
+    }catch(err){
+      console.log(err);
+    }
     if (props.match.params.projectID === undefined) {
       docContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
         from: props.auth.user.publicKey
@@ -93,14 +100,14 @@ const Products = (props) => {
           });
         });
       });
-    } else {     
+    } else {
       // console.log("inside");
-       
+
       docContract.methods._tokensOfProject(props.match.params.projectID).call({
         from: props.auth.user.publicKey
       }).then(res => {
         // console.log(res,"res");
-        
+
         if (res.length == 0)
           setLoader(false);
         setTokenIDList(res);
@@ -151,7 +158,7 @@ const Products = (props) => {
                       <h4 className={classes.cardTitleWhite}>
                         My Document
                 </h4>
-                      <AddBoxIcon onClick={props.openDocModal} />
+                      {isAdmin && <AddBoxIcon onClick={props.openDocModal} style={{float: "right"}}/>}
                     </CardHeader>
                     {loader ?
                       <React.Fragment>
@@ -164,7 +171,6 @@ const Products = (props) => {
                         <Skeleton width="60%" />
                         <Skeleton width="100%" />
                       </React.Fragment> :
-                      productList.length !== 0 ?
                         <MaterialTable
                           columns={[
                             { title: "Document Id", field: "tokenId" },
@@ -177,6 +183,11 @@ const Products = (props) => {
                             exportButton: false,
                             grouping: false
                           }}
+                          localization={{
+                            body: {
+                              emptyDataSourceMessage: "No Documents Found!"
+                            }
+                          }}
                           actions={[
                             {
                               icon: 'folder_open',
@@ -184,8 +195,7 @@ const Products = (props) => {
                               onClick: (event, rowData) => handleUnlock(rowData)
                             }
                           ]}
-                        /> :
-                        <h3>No Documents Found!</h3>
+                        />
                     }
                   </Card>
                 </GridItem>
