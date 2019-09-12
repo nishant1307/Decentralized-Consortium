@@ -4,7 +4,7 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import Header from './Header';
 import Footer from './Footer';
 import {
-  OutlinedInput
+    OutlinedInput
 } from '@material-ui/core';
 export default function Landing() {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -289,7 +289,7 @@ export default function Landing() {
                                 </ul>
                             </div>
                         </div>
-                        <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50"}}>
+                        <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
                             <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
                                 <table className="tg">
                                     <tr>
@@ -304,14 +304,16 @@ export default function Landing() {
                                     <tr>
                                         <td className="tg-rnhl">Projects</td>
                                         <td className="tg-rnhl">75</td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(projects) * 75} readOnly /></td>
+                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => {
+                                            setProjects(e.target.value)
+                                        }} placeholder="Enter no. of project" /></td>
+                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></td>
                                     </tr>
                                     <tr>
                                         <td className="tg-rnhl">Partners</td>
                                         <td className="tg-rnhl">15</td>
                                         <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(partners) * 15} readOnly /></td>
+                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></td>
                                     </tr>
                                     <tr>
                                         <td className="tg-rnhl">Products / Docs / Devices</td>
@@ -322,7 +324,7 @@ export default function Landing() {
                                     <tr>
                                         <td className="tg-g2pk" colspan="1"></td>
                                         <td className="tg-g2pk" colspan="2">Total</td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(projects * 75) + parseInt(partners * 15) + parseInt(products)} readOnly placeholder="Total" /></td>
+                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></td>
                                     </tr>
                                 </table>
                             </div>

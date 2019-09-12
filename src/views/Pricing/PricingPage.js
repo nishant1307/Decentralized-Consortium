@@ -18,7 +18,7 @@ import {
   OutlinedInput
 } from '@material-ui/core';
 
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -105,19 +105,19 @@ export default function PricingPage() {
 
   const paymentHandler = (title, price) => {
 
-    const paymentAmount = price*100;
+    const paymentAmount = price * 100;
     const self = this;
     const options = {
       key: "rzp_test_ryXbtVQF3Mtz28",
       amount: paymentAmount,
       name: 'Arthanium Credits',
       currency: "USD",
-      description: 'Checkout for '+ title+ ' Pack',
+      description: 'Checkout for ' + title + ' Pack',
 
       handler(response) {
         const paymentId = response.razorpay_payment_id;
         // console.log(paymentId);
-        const url = process.env.URL+'/api/v1/rzp_capture/'+paymentId+'/'+paymentAmount;
+        const url = process.env.URL + '/api/v1/rzp_capture/' + paymentId + '/' + paymentAmount;
         // Using my server endpoints to capture the payment
         fetch(url, {
           method: 'get',
@@ -125,13 +125,13 @@ export default function PricingPage() {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
           }
         })
-        .then(resp =>  resp.json())
-        .then(function (data) {
-          // console.log('Request succeeded with JSON response', data);
-        })
-        .catch(function (error) {
-          // console.log('Request failed', error);
-        });
+          .then(resp => resp.json())
+          .then(function (data) {
+            // console.log('Request succeeded with JSON response', data);
+          })
+          .catch(function (error) {
+            // console.log('Request failed', error);
+          });
       },
 
       prefill: {
@@ -162,7 +162,7 @@ export default function PricingPage() {
                   subheaderTypographyProps={{ align: 'center' }}
                   className={classes.cardHeader}
                 />
-                <Divider/>
+                <Divider />
                 <CardContent>
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
@@ -191,62 +191,64 @@ export default function PricingPage() {
         </Grid>
       </Container>
       <Container>
-      <div className="wrapper">
+        <div className="wrapper">
           <div className="row">
-              <div className="columns-2 w-row">
-                  <div className="column-2 w-col w-col-7">
-                      <div className="margin-bottom">
-                          <h2 className="heading-2">Note</h2>
-                          <p>Note -
-Setup and customization charges could be applicable for certain customers.<br/>
-For larger customized plans contact us directly.<br/>
-Additional monthly credits packs can be purchased at $ 49 for 400 Credits.<br/>
-Validity of plan & credits is one month and it cannot be carried forward.<br/>
-Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
-                      </div>
-                  </div>
-                  <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50"}}>
-                      <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
-                          <table className="tg">
-                              <tr>
-                                  <th className="tg-rnhl" colspan="4">Credit Chart</th>
-                              </tr>
-                              <tr>
-                                  <td className="tg-rnhl">Action</td>
-                                  <td className="tg-rnhl">Cost per action</td>
-                                  <td className="tg-rnhl">Quantity</td>
-                                  <td className="tg-rnhl" colspan="2">Credit Calculator</td>
-                              </tr>
-                              <tr>
-                                  <td className="tg-rnhl">Projects</td>
-                                  <td className="tg-rnhl">75</td>
-                                  <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></td>
-                                  <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(projects) * 75} readOnly /></td>
-                              </tr>
-                              <tr>
-                                  <td className="tg-rnhl">Partners</td>
-                                  <td className="tg-rnhl">15</td>
-                                  <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
-                                  <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(partners) * 15} readOnly /></td>
-                              </tr>
-                              <tr>
-                                  <td className="tg-rnhl">Products / Docs / Devices</td>
-                                  <td className="tg-g2pk">1</td>
-                                  <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></td>
-                                  <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></td>
-                              </tr>
-                              <tr>
-                                  <td className="tg-g2pk" colspan="1"></td>
-                                  <td className="tg-g2pk" colspan="2">Total</td>
-                                  <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={parseInt(projects * 75) + parseInt(partners * 15) + parseInt(products)} readOnly placeholder="Total" /></td>
-                              </tr>
-                          </table>
-                      </div>
-                  </div>
+            <div className="columns-2 w-row">
+              <div className="column-2 w-col w-col-7">
+                <div className="margin-bottom">
+                  <h2 className="heading-2">Note</h2>
+                  <p>Note -
+Setup and customization charges could be applicable for certain customers.<br />
+                    For larger customized plans contact us directly.<br />
+                    Additional monthly credits packs can be purchased at $ 49 for 400 Credits.<br />
+                    Validity of plan & credits is one month and it cannot be carried forward.<br />
+                    Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</p>
+                </div>
               </div>
+              <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
+                <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
+                  <table className="tg">
+                    <tr>
+                      <th className="tg-rnhl" colspan="4">Credit Chart</th>
+                    </tr>
+                    <tr>
+                      <td className="tg-rnhl">Action</td>
+                      <td className="tg-rnhl">Cost per action</td>
+                      <td className="tg-rnhl">Quantity</td>
+                      <td className="tg-rnhl" colspan="2">Credit Calculator</td>
+                    </tr>
+                    <tr>
+                      <td className="tg-rnhl">Projects</td>
+                      <td className="tg-rnhl">75</td>
+                      <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => {
+                        setProjects(e.target.value)
+                      }} placeholder="Enter no. of project" /></td>
+                      <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></td>
+                    </tr>
+                    <tr>
+                      <td className="tg-rnhl">Partners</td>
+                      <td className="tg-rnhl">15</td>
+                      <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
+                      <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></td>
+                    </tr>
+                    <tr>
+                      <td className="tg-rnhl">Products / Docs / Devices</td>
+                      <td className="tg-g2pk">1</td>
+                      <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></td>
+                      <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></td>
+                    </tr>
+                    <tr>
+                      <td className="tg-g2pk" colspan="1"></td>
+                      <td className="tg-g2pk" colspan="2">Total</td>
+                      <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
           {/* </div> */}
-      </div>
+        </div>
       </Container>
     </React.Fragment>
   );
