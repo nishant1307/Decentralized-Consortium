@@ -12,7 +12,7 @@ import sidebarRoutes from "sidebarRoutes.js";
 import styles from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import { connect } from 'react-redux';
 import {logoutUser} from "actions/authentication";
-import image from "assets/images/secure-min.jpg";
+import image from "assets/images/sidebar.jpg";
 import logo from "assets/img/logo.png";
 import routes from "routes.js"
 import { LinearProgress } from '@material-ui/core';
@@ -74,6 +74,7 @@ function Admin({ ...props }) {
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
+        onLogout={signOut}
         color={"blue"}
         {...props}
       />

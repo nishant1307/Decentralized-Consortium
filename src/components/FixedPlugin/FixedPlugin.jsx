@@ -10,6 +10,7 @@ import imagine2 from "assets/img/sidebar-2.jpg";
 import imagine3 from "assets/img/sidebar-3.jpg";
 import imagine4 from "assets/img/sidebar-4.jpg";
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import {Paper} from '@material-ui/core';
 import Button from "components/CustomButtons/Button.jsx";
 import moment from "moment";
 export default function FixedPlugin(props) {

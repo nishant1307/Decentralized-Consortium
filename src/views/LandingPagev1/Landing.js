@@ -4,7 +4,11 @@ import { autoPlay } from 'react-swipeable-views-utils';
 import Header from './Header';
 import Footer from './Footer';
 import {
-    OutlinedInput
+  OutlinedInput,
+  Table,
+  TableHead,
+  TableCell,
+  TableRow
 } from '@material-ui/core';
 export default function Landing() {
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -291,42 +295,40 @@ export default function Landing() {
                         </div>
                         <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
                             <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
-                                <table className="tg">
-                                    <tr>
-                                        <th className="tg-rnhl" colspan="4">Credit Chart</th>
-                                    </tr>
-                                    <tr>
-                                        <td className="tg-rnhl">Action</td>
-                                        <td className="tg-rnhl">Cost per action</td>
-                                        <td className="tg-rnhl">Quantity</td>
-                                        <td className="tg-rnhl" colspan="2">Credit Calculator</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="tg-rnhl">Projects</td>
-                                        <td className="tg-rnhl">75</td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => {
-                                            setProjects(e.target.value)
-                                        }} placeholder="Enter no. of project" /></td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="tg-rnhl">Partners</td>
-                                        <td className="tg-rnhl">15</td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="tg-rnhl">Products / Docs / Devices</td>
-                                        <td className="tg-g2pk">1</td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="tg-g2pk" colspan="1"></td>
-                                        <td className="tg-g2pk" colspan="2">Total</td>
-                                        <td className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></td>
-                                    </tr>
-                                </table>
+                                <Table className="tg">
+                                    <TableRow>
+                                        <TableHead className="tg-rnhl" colspan="4">Credit Chart</TableHead>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className="tg-rnhl">Action</TableCell>
+                                        <TableCell className="tg-rnhl">Cost per action</TableCell>
+                                        <TableCell className="tg-rnhl">Quantity</TableCell>
+                                        <TableCell className="tg-rnhl" colspan="2">Credit Calculator</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className="tg-rnhl">Projects</TableCell>
+                                        <TableCell className="tg-rnhl">75</TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className="tg-rnhl">Partners</TableCell>
+                                        <TableCell className="tg-rnhl">15</TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className="tg-rnhl">Products / Docs / Devices</TableCell>
+                                        <TableCell className="tg-g2pk">1</TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell className="tg-g2pk" colspan="1"></TableCell>
+                                        <TableCell className="tg-g2pk" colspan="2">Total</TableCell>
+                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
+                                    </TableRow>
+                                </Table>
                             </div>
                         </div>
                     </div>
