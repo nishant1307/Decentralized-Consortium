@@ -1,4 +1,4 @@
-import React, {Suspense} from "react";
+import React, {Suspense, useEffect} from "react";
 import { Switch, Route } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -65,6 +65,36 @@ function Admin({ ...props }) {
       setMobileOpen(false);
     }
   };
+
+  useEffect(()=> {
+    if (!props.auth.isAuthenticated) {
+      props.history.push('/login');
+    }
+    checkSessionStatus();
+  }, [props])
+
+  const checkSessionStatus= () => {
+    if(sessionStorage.timestamp) {
+      const currentTime = Date.now();
+      let expiration = new Date(parseInt(sessionStorage.timestamp));
+      expiration.setMinutes(expiration.getMinutes()+30);
+      if(expiration < currentTime) {
+        sessionStorage.removeItem('privateKey');
+        props.logoutUser(props.history);
+        setTimeout(function() {
+              alert('Your session has expired. Please login again');
+        }, 500);
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", resizeFunction);
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      window.removeEventListener("resize", resizeFunction);
+    };
+  }, [mainPanel]);
   return (
     <div className={classes.wrapper}>
       <Sidebar
