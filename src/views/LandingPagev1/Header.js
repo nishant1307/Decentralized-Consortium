@@ -18,6 +18,7 @@ export default function Header(props) {
             <div className="wrapper navbar-2 w-container">
                 <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={50} height={50} alt="" /></Link></div>
                 <nav role="navigation" className="nav-menu-2 w-nav-menu">
+                    <Link to="/" className="nav-link-2 border w-nav-link">Home</Link>
                     <Link to="/platform" className="nav-link-2 border w-nav-link">Platform</Link>
                     <div className="dropdown">
                         <button className="nav-link-2 border w-nav-link">Partners

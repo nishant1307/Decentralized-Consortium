@@ -67,12 +67,12 @@ export default function Partners(props) {
                         </div>
                         <div className="col-md-3 col-sm-3">
                             <div className="team-member">
-                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/nishant.png')} width="250" height="250" alt="team member" className="img-responsive" />
+                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", marginLeft: "20px", overflow: 'hidden' }}>
+                                    <img src={require('../../WA/images/new/nishant.png')} width="auto" height="250" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">
-                                        <h4>Hi There</h4>
+                                        <h4>I eat Blockchain for breakfast!</h4>
                                         {/* <p>I love to introduce myself as a hardcore Web Designer.</p> */}
                                     </div>
                                     <div className="s-link">
