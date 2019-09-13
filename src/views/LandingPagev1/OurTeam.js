@@ -33,7 +33,7 @@ export default function Partners(props) {
                     </div>
                 </div>
             </div>
-            <div className="div-block-new-1" style={{ padding: 50, }}>
+            <div className="div-block-new-1" style={{ padding: 50, }} id="ourteam">
                 <div className="section">
                     <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Our Team</h1>
                 </div>

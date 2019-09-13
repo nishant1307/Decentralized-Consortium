@@ -19,6 +19,7 @@ export default function Industry(props) {
             <div className="div-block-new-1">
 
                 <div id="solutionsforBusiness" className="section less-v-margin">
+                    <p style={{padding:5,fontWeight:300}}>Note - The platform & solutions are sector agnostic but certain industries can be greatly benefited from the use cases.</p>
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">

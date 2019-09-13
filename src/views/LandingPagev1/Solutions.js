@@ -30,10 +30,11 @@ export default function Solutions(props) {
                                             <div className="payment-testimonial-content"><img src={require('../../WA/images/kp3.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">DocConekt</h4>
-                                                    <p className="testimonial-text">Share Trade Doccuments securely with privacy
-Access based on combination of role & permission
-Permissioned Upload, download, Edit and Viewing
-Share Documents with Partners for viewing or Action		</p>
+                                                    <p className="testimonial-text"><strong>Paperless Trade & Certification</strong><br />
+                                                        Share Trade Doccuments securely with privacy
+    Access based on combination of role & permission
+    Permissioned Upload, download, Edit and Viewing
+Share Documents with Partners for viewing or action		</p>
 
                                                 </div>
                                                 {/* <div className="value-proposition-container">
@@ -52,8 +53,9 @@ Share Documents with Partners for viewing or Action		</p>
                                             <div className="payment-testimonial-content"><img src={require('../../WA/images/kp1.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">IoTConekt</h4>
-                                                    <p className="testimonial-text">Securely links IoT identities to physical assets
-Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		</p>
+                                                    <p className="testimonial-text"><strong>Secure IoT devices</strong>
+                                                        <br />Securely links IoT identities to physical assets.
+Create digital identity and  provenance.<br />Solutions for tracking, certification, provenance & anti counterfeiting<br /><br />		</p>
                                                     {/* <h5 className="heading-3">$149/Month</h5> */}
                                                 </div>
                                                 {/* <div className="value-proposition-container">
@@ -72,7 +74,7 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                                             <div className="payment-testimonial-content"><img src={require('../../WA/images/kp.png')} alt="" className="image-5" />
                                                 <div style={{ paddingTop: 20 }}>
                                                     <h4 className="testimonial-title">Trade Finance</h4>
-                                                    <p className="testimonial-text"><br />Coming Soon<br /><br /><br /><br /><br /></p>
+                                                    <p className="testimonial-text"><strong>Automate Payments & Financin</strong><br />Products and processes to automate payments<br />Secure transactions & sharing of information<br />proposed applications - Letter of Credits, Invoice Factoring <br /></p>
                                                     {/* <h5 className="heading-3">$449/Month</h5> */}
                                                 </div>
                                                 {/* <div className="value-proposition-container">
@@ -106,7 +108,7 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/18.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/18.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -132,10 +134,10 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/23.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/23.png')} className="cover-images" />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/19.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/19.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -162,10 +164,10 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/11.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/11.png')} className="cover-images" />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/9.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/9.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -191,7 +193,37 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/21.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/21.png')} className="cover-images" />
+                            </div>
+                            {/* new */}
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/9.png')} className="cover-images" />
+                            </div>
+                            <div className="col lg-1" />
+                            <div className="col lg-5 extra-pad">
+                                <div className="margin-bottom">
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Trade Finance</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Products and processes to automate payments in supply chain.	</li>
+                                        <li className="tab-class-inner">Secure transactions & sharing of information.		</li>
+                                        <li className="tab-class-inner">Proposed applications - Letter of Credits, Bank Guarantees, Invoice Factoring .	</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {/* 2 */}
+                            <div className="col lg-5 extra-pad">
+                                <div className="margin-bottom">
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Anti-Diversion</h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">Secure asset identities combined with blockchain registrations & chain-of-custody.</li>
+                                        <li className="tab-class-inner">Track product movements & identify where diversion occurred in the chain & intervene appropriately.</li>
+                                        <li className="tab-class-inner">Industries – Luxury, Pharmaceuticals, Consumer Electronics, Food & Beverages, Cosmetics.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="col lg-1" />
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/new/21.png')} className="cover-images" />
                             </div>
                         </div>
                     </div>
@@ -205,7 +237,7 @@ Create digital identity and  provenance	<br /><br />	<br />	<br /><br /><br />		
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/5.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/5.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">

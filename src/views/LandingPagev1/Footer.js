@@ -33,7 +33,7 @@ export default function Landing() {
 
     return (
         <div>
-            <div id="contact" className="section bgform">
+            <div id="contact" className="section bgform" id="contact">
                 <div className="wrapper">
                     <div className="row-2">
                         <div className="col lg-6" />

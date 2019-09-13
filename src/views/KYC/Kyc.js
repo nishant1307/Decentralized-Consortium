@@ -129,6 +129,32 @@ function Checkout(props) {
         date: new Date().getDate()
     })
 
+    useEffect(() => {
+        registryContract.methods.getUserKYCStatus().call({
+            from: address
+        }).then(res => {
+            if (res === "0") {
+                setActiveStep(5);
+                setLoader(false);
+            } else if (res === "1") {
+                window.alert("account already exists!")
+                props.history.push('/login');
+            }
+        }).catch((e) => {
+            if (localStorage.getItem("address") === null) {
+                fetchKey();
+                setIsExist(false);
+                setLoader(false);
+            }
+            else if (props.auth.isAuthenticated) {
+                props.history.push('/dashboard');
+            } else if (localStorage.getItem("address") !== null) {
+                setActiveStep(5);
+                setLoader(false);
+            }
+        })
+    }, []);
+
 
     const handleToggleChange = name => event => {
         setToggleState({ ...toggleState, [name]: event.target.checked });
@@ -331,37 +357,12 @@ function Checkout(props) {
         // setAddress(address);
     }
 
-    useEffect(() => {
-        registryContract.methods.getUserKYCStatus().call({
-            from: address
-        }).then(res => {
-
-            if (res === "0") {
-                setActiveStep(5);
-                setLoader(false);
-            } else if (res === "1") {
-                window.alert("account already exists!")
-                props.history.push('/login');
-            }
-        }).catch((e) => {
-
-            if (localStorage.getItem("address") !== null) {
-                fetchKey();
-                setIsExist(true);
-                setLoader(false);
-            }
-            else if (props.auth.isAuthenticated) {
-                props.history.push('/dashboard');
-            }
-        })
-    }, []);
-
     return (
         <React.Fragment>
             <CssBaseline />
 
             <main className={classes.layout}>
-                {loader ? <CircularProgress style={{position:'absolute',top:"50%",left:"50%"}} /> :
+                {loader ? <CircularProgress style={{ position: 'absolute', top: "50%", left: "50%" }} /> :
                     <Paper className={classes.paper}>
                         <Typography component="h1" variant="h4" align="center">
                             KYC
