@@ -50,8 +50,8 @@ export default function Partners(props) {
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">
-                                        <h4>Hi There !</h4>
-                                        {/* <p>I love to introduce myself as a hardcore Web Designer.</p> */}
+                                        <h4>Hi There </h4>
+                                        <p>I steer the ship.</p>
                                     </div>
                                     <div className="s-link">
                                         <a href="#"><i className="fa fa-facebook" /></a>
@@ -90,12 +90,12 @@ export default function Partners(props) {
                         <div className="col-md-3 col-sm-3">
                             <div className="team-member">
                                 <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/akshay.png')} style={{paddingLeft:20}} width="230" height="250" alt="team member" className="img-responsive" />
+                                    <img src={require('../../WA/images/new/akshay.png')} style={{ paddingLeft: 20 }} width="230" height="250" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">
                                         <h4>Hi There</h4>
-                                        {/* <p>I love to introduce myself as a hardcore Web Designer.</p> */}
+                                        <p>I code the blocks.</p>
                                     </div>
                                     <div className="s-link">
                                         <a href="#"><i className="fa fa-facebook" /></a>
@@ -116,8 +116,8 @@ export default function Partners(props) {
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">
-                                        <h4>I love to design</h4>
-                                        <p>I love to introduce myself as a hardcore Web Designer.</p>
+                                        <h4>Hi There</h4>
+                                        <p>I turn dreams into designs.</p>
                                     </div>
                                     <div className="s-link">
                                         <a href="#"><i className="fa fa-facebook" /></a>
