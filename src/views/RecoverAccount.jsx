@@ -4,7 +4,6 @@ import web3 from '../web3';
 
 import {
     Avatar,
-    Button,
     CssBaseline,
     TextField,
     FormControlLabel,
@@ -15,6 +14,7 @@ import {
     Grid,
     Typography,
 } from '@material-ui/core';
+import Button from "components/CustomButtons/Button"
 import {makeStyles} from '@material-ui/core/styles';
 import signupImage from "assets/images/signup.png";
 const bip39 = require('bip39')
@@ -132,8 +132,8 @@ export default function RecoverAccount(props) {
                             onClick={checkKey}
                             type="submit"
                             fullWidth
-                            variant="contained"
-                            color="primary"
+                            round
+                            color="info"
                             className={classes.submit}
                             disabled={keyError}
                         >
@@ -192,8 +192,9 @@ export default function RecoverAccount(props) {
                                 onClick={handleRecover}
                                 type="submit"
                                 fullWidth
-                                variant="contained"
-                                color="primary"
+                                round
+                                variant="rounded"
+                                color="info"
                                 className={classes.submit}
                                 disabled={(error !== error2)}
                             >

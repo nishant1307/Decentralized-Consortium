@@ -81,7 +81,6 @@ const Products = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
           </React.Fragment> :
-            productList.length !== 0  ?
               <MaterialTable
                   columns={[
                     { title: "Product Name", field: "thingName" },
@@ -99,8 +98,12 @@ const Products = (props) => {
                     exportButton: true,
                     grouping: true
                   }}
-                />:
-                <h3>No Products Assigned to this Project Yet!</h3>
+                  localization={{
+                    body: {
+                      emptyDataSourceMessage: "No Products Assigned to this Project Yet!"
+                    }
+                  }}
+                />
         }
         </Card>
         </GridItem>

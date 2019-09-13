@@ -3,7 +3,7 @@ import StarIcon from '@material-ui/icons/StarBorder';
 
 import {
   CardActions,
-  CardContent,
+  Card,
   CssBaseline,
   Grid,
   Toolbar,
@@ -18,9 +18,11 @@ import {
   TableCell,
   TableRow
 } from '@material-ui/core';
+import pro from "assets/images/pro.png";
+import enterprise from "assets/images/enterprise.png";
+import business from "assets/images/business.png";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
@@ -74,6 +76,7 @@ const tiers = [
     description: ['400 Credits'],
     buttonText: 'GET STARTED',
     buttonVariant: 'contained',
+    cardImage: pro
   },
   {
     title: 'BUSINESS',
@@ -83,6 +86,7 @@ const tiers = [
     ],
     buttonText: 'GET STARTED',
     buttonVariant: 'contained',
+    cardImage: business
   },
   {
     title: 'ENTERPRISE',
@@ -92,6 +96,7 @@ const tiers = [
     ],
     buttonText: 'GET STARTED',
     buttonVariant: 'contained',
+    cardImage: enterprise
   },
 ];
 
@@ -152,12 +157,12 @@ export default function PricingPage() {
           {tiers.map(tier => (
             // Enterprise card is full width at sm breakpoint
             <Grid item key={tier.title} xs={12} sm={12} md={4}>
-              <Card style={{"backgroundImage":"radial-gradient(#fcf588 5%, transparent 20%),\n      radial-gradient(#fafafa 20%, transparent 20%)","backgroundColor":"#cee9ea","backgroundPosition":"0 0, 50px 50px","backgroundSize":"100px 100px"}}>
-                <CardHeader>
-                  <h3 className={classes.cardTitle}>{tier.title}</h3>
+              <Card>
+                <CardHeader plain style={{margin: 0}}>
+                  <img src={tier.cardImage} height="100%" width="100%"/>
                 </CardHeader>
                 <Divider />
-                <CardBody style={{height: "200px"}}>
+                <CardBody >
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
                       ${tier.price}
@@ -174,8 +179,8 @@ export default function PricingPage() {
                     ))}
                   </ul>
                 </CardBody>
-                <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant} style={{borderRadius: "50px"}} color="info" onClick={(e) => paymentHandler(tier.title, tier.price)}>
+                <CardActions style={{justifyContent: "center"}}>
+                  <Button variant={tier.buttonVariant} style={{marginBottom: "50px"}} round color="warning" onClick={(e) => paymentHandler(tier.title, tier.price)}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>

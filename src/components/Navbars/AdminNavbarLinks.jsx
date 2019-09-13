@@ -143,7 +143,7 @@ const  AdminNavbarLinks = (props) => {
         >
           <Person className={classes.icons} />
           <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Profile</p>
+            <p className={classes.linkText}>Account Settings</p>
           </Hidden>
         </Button>
         <Poppers

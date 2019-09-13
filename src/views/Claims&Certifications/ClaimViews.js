@@ -2,10 +2,10 @@ import React, {useState, useEffect} from "react";
 import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import { TextField, Tooltip } from '@material-ui/core';
+import { TextField, Tooltip, Chip } from '@material-ui/core';
 import {certificationContract} from "certificationContract";
 import Skeleton from '@material-ui/lab/Skeleton';
-import 'assets/css/ClaimPage.css';
+import DoneIcon from '@material-ui/icons/Done';
 const Claims = (props) => {
   const [myClaims, setMyClaims] = useState([]);
   const [loader, setLoader] = useState(true);
@@ -28,13 +28,7 @@ const Claims = (props) => {
         {!loader ?
             myClaims.map((claim, index) => {
               return(
-                <li
-                  key={claim.claimID}
-                  className="claimList"
-                  style={{ color: "black", borderColor: claim.verificationStatus? 'green' : 'red' }}
-                >
-                  {claim.name}
-                </li>
+                <Chip label={claim.name} variant="outlined" icon={claim.verificationStatus ? <DoneIcon style={{color: "green"}}/> : null} style={{ color: claim.verificationStatus ? 'green' : 'black', margin: "5px" , borderColor: claim.verificationStatus ? 'green' : 'gray' }} clickable />
               )
             }):
           <>

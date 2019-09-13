@@ -10,7 +10,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
   Button,
-  CircularProgress,
   TextField,
   Select,
   OutlinedInput,
@@ -24,6 +23,7 @@ import {
   FormControlLabel
 } from '@material-ui/core';
 import GridItem from "components/Grid/GridItem";
+import CustomLoader from "components/Loaders/CustomLoader";
 import {makeStyles} from '@material-ui/core/styles';
 
 const bip39 = require('bip39')
@@ -81,12 +81,6 @@ function ProjectFormModal(props) {
   }, [props.user.projectModalOpen])
 
   const { isReadyForProject } = state;
-  let button;
-  if (isLoading) {
-    button = <CircularProgress className={classes.progress} />;
-    ;
-  }
-
   const submitProject = () => {
     // console.log({ name: projectName, description: projectDescription, industry: industry, partnerRole: role });
     props.createNewProject({ name: projectName, description: projectDescription, industry: industry, partnerRole: role, passcode: projectPasscode });
@@ -95,14 +89,6 @@ function ProjectFormModal(props) {
 
   return (
     <div className="animated fadeIn">
-      {!isReadyForProject &&
-        <Modal
-          open={props.user.projectModalOpen}
-          onClose={toggle} className={props.className}
-          title={"Please wait till your account gets registered on the Open Registry"}
-          action={isLoading && <CircularProgress className={classes.progress} />}
-          />
-      }
       {isReadyForProject &&
           <GridItem>
             <Modal
@@ -188,10 +174,12 @@ function ProjectFormModal(props) {
             }
             action={
               <>
-                {!isLoading? <Button color="primary" type="button" onClick={submitProject}>Create Project</Button> : <CircularProgress className={classes.progress} />}
+                {!isLoading? <Button color="primary" type="button" onClick={submitProject}>Create Project</Button> : <CustomLoader />}
               </>
             }
+            {...props}
             />
+
           </GridItem>}
     </div>
   );

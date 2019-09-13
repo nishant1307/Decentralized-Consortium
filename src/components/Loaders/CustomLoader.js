@@ -1,7 +1,10 @@
 import React from "react";
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Modal } from '@material-ui/core';
 const CustomLoader = () => {
   return(
+    <Modal
+      open="true"
+      >
     <CircularProgress style={{
       position: "fixed",
       left: "50%",
@@ -10,6 +13,7 @@ const CustomLoader = () => {
       height: "50px",
       zIndex: "9999",
     }}/>
+    </Modal>
   )
 }
 

@@ -21,11 +21,11 @@ export default function FixedPlugin(props) {
   return (
     <div
       className={classnames("fixed-plugin")}
-      style={{top: "100px"}}
+      style={{top: "60px"}}
     >
       <div id="fixedPluginClasses" className={props.fixedClasses} >
         <div onClick={handleClick}>
-            <AccountBalanceWalletIcon color="primary" fontSize="large"/>
+            <AccountBalanceWalletIcon color="gray" fontSize="large"/>
           </div>
         <ul className="dropdown-menu" >
           <li className="header-title">PACKAGE DETAILS</li>

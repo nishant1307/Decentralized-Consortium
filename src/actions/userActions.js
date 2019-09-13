@@ -148,61 +148,62 @@ export const closeDocModal = () => dispatch => {
 
 export const createNewProject = projectDetails => async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');
-  web3.eth.getBalance(address).then((balance) => {
+  web3.eth.getBalance(address).then(async (balance) => {
     // console.log(balance);
     if (balance > 1000000000000000000) {
-      var transaction = {
-        "to": registryAddress,
-        "data": registryContract.methods.addNewProject(
-          web3.utils.randomHex(32),
-          projectDetails.name,
-          projectDetails.description,
-          projectDetails.industry,
-          projectDetails.partnerRole,
-          web3.utils.utf8ToHex(projectDetails.passcode)
-        ).encodeABI()
-      };
+        var transaction = {
+          "to": registryAddress,
+          "data": registryContract.methods.addNewProject(
+            web3.utils.randomHex(32),
+            projectDetails.name,
+            projectDetails.description,
+            projectDetails.industry,
+            projectDetails.partnerRole,
+            web3.utils.utf8ToHex(projectDetails.passcode)
+          ).encodeABI()
+        };
 
-      // web3.eth.estimateGas(transaction).then(gasLimit => {
-      transaction["gasLimit"] = 4700000;
-      web3.eth.accounts.signTransaction(transaction, privateKey)
-        .then(res => {
-          // console.log(res);
-          web3.eth.sendSignedTransaction(res.rawTransaction)
-            .on('receipt', async function (receipt) {
-              // console.log(receipt);
-              if (receipt.status == true) {
+        // web3.eth.estimateGas(transaction).then(gasLimit => {
+        transaction["gasLimit"] = 4700000;
+        web3.eth.accounts.signTransaction(transaction, privateKey)
+          .then(res => {
+            console.log(res);
+            web3.eth.sendSignedTransaction(res.rawTransaction)
+              .on('receipt', async function (receipt) {
+                // console.log(receipt);
+                if (receipt.status == true) {
+                  dispatch({
+                    type: NEW_PROJECT_CREATED,
+                    payload: projectDetails.name
+                  });
+                }
+              })
+              .on('error', async function (error) {
+                // console.log(error);
                 dispatch({
-                  type: NEW_PROJECT_CREATED,
-                  payload: projectDetails.name
+                  type: GET_ERRORS,
+                  payload: error
                 });
-              }
-            })
-            .on('error', async function (error) {
-              // console.log(error);
-              dispatch({
-                type: GET_ERRORS,
-                payload: error
-              });
-            })
-        })
-        .catch(err => {
-          // console.log(err);
-          dispatch({
-            type: GET_ERRORS,
-            payload: "Error Occured While Creating New Project."
+              })
+          })
+          .catch(err => {
+            // console.log(err);
+            dispatch({
+              type: GET_ERRORS,
+              payload: "Error Occured While Creating New Project."
+            });
           });
-        });
-    } else {
-      axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address": address, "amount": 30000000000000000000 })
-        .then(res => {
-          dispatch({
-            type: GET_ERRORS,
-            payload: "Network Error."
-          });
-        })
     }
-  })
+      else {
+        axios.post('https://www.iotconekt.com/api/dashboard/getEther', { "address": address, "amount": 30000000000000000000 })
+          .then(res => {
+            dispatch({
+              type: GET_ERRORS,
+              payload: "Network Error."
+            });
+          })
+      }
+    })
 };
 
 export const inviteUserToConsortium = invitationDetails => async (dispatch) => {

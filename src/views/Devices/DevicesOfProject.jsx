@@ -76,7 +76,6 @@ const Devices = (props) => {
                                 <Skeleton width="60%" />
                                 <Skeleton width="100%" />
                             </React.Fragment> :
-                            deviceList.length !== 0 ?
                                 <MaterialTable
                                     columns={[
                                         { title: "Device URN", field: "deviceURN" },
@@ -94,8 +93,12 @@ const Devices = (props) => {
                                         grouping: true,
                                         paginationType: "stepped"
                                     }}
-                                /> :
-                                <h3>No Devices Found!</h3>
+                                    localization={{
+                                      body: {
+                                        emptyDataSourceMessage: "No Devices Found!"
+                                      }
+                                    }}
+                                />
                         }
                     </Card>
                 </GridItem>

@@ -8,7 +8,6 @@ import { loginUser } from '../actions/authentication';
 
 import {
   Avatar,
-  Button,
   CssBaseline,
   TextField,
   FormControlLabel,
@@ -24,7 +23,8 @@ import {
 import {makeStyles} from '@material-ui/core/styles';
 import loginImage from "assets/images/login.png";
 var passworder = require('browser-passworder')
-
+import Button from "components/CustomButtons/Button"
+import CustomLoader from "components/Loaders/CustomLoader";
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
@@ -60,6 +60,7 @@ function Login(props) {
   const [keystore, setKeystore] = useState('');
   const [address, setAddress] = useState('');
   const [open, setOpen] = useState(false);
+  const [loader, setLoader] = useState(false);
 
 
   function handleClose(event, reason) {
@@ -87,6 +88,7 @@ function Login(props) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoader(true);
     passworder.decrypt(password, keystore)
       .then(function (result) {
         sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
@@ -176,8 +178,9 @@ function Login(props) {
             <Button
               type="submit"
               fullWidth
+              round
+               color="info"
               variant="contained"
-              color="primary"
               onClick={handleSignup}
             >
               Login
@@ -197,6 +200,7 @@ function Login(props) {
           </form>
         </div>
       </Grid>
+      {loader && <CustomLoader/>}
     </Grid>
   );
 }
