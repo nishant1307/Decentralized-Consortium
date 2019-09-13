@@ -9,17 +9,24 @@ export default function Partners(props) {
     return (
         <div className="body">
             <Header />
-            <div className="section full-screen background-image-side">
-                <div className="wrapper">
-                    <div className="columns column w-row">
-                        <div className="w-col-1" />
-                        <div className="column herocontent w-col w-col-10">
-                            <h2 className="heading">	Platform brings together various stakeholders of trade & supply chain on one network
-	including banks, insurance logistics, government, certification agencies & others 								</h2>
-                            <h4 className="short-paragraph">Problems -	Delays due to Paperwork, Manual Approvals, Forged Doccuments, Payment Disputes,
-	Partial / Empty Shipments,Transparency & Traceability of Transaction							</h4>
-                            <div className="value-proposition-container">
-                                <div className="value-proposition-buttons"><a href="/partners#solutionsforBusiness" className="button2 margin-left w-button">Scroll down to know more</a></div>
+            <div className="section full-screen background-image-side" style={{ padding: 0 }}>
+                <div style={{ textAlign: 'center' }}>
+                    <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                        <br />
+                        <br />
+                        <h1>PARTNERS</h1>
+                        <br />
+                        <img src={require('../../WA/images/newimgs/13.png')} height={400} />
+                        <div className="columns column w-row">
+                            <div className="w-col-1" />
+                            <div className="column herocontent w-col w-col-10">
+                                <h4 className="v1-paragraph">	Platform brings together various stakeholders of trade & supply chain on one network
+	including banks, insurance logistics, government, certification agencies & others.								</h4>
+                                <h4 className="v1-paragraph" >Problems -	Delays due to Paperwork, Manual Approvals, Forged Doccuments, Payment Disputes,
+	Partial / Empty Shipments,Transparency & Traceability of Transaction.							</h4>
+                                {/* <div className="value-proposition-container">
+                                    <div className="value-proposition-buttons"><a href="/partners#solutionsforBusiness" className="button2 margin-left w-button">Scroll down to know more</a></div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
