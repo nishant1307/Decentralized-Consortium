@@ -62,7 +62,7 @@ export default function Partners(props) {
                             </div>
                             <div className="team-title">
                                 <h5>Sandesh Hegde</h5>
-                                <span>Founder &amp; CEO</span>
+                                <span>Co Founder & CEO</span>
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-3">
@@ -84,7 +84,7 @@ export default function Partners(props) {
                             </div>
                             <div className="team-title">
                                 <h5>Kumar Nishant </h5>
-                                <span>CTO</span>
+                                <span>Co Founder & CTO</span>
                             </div>
                         </div>
                         <div className="col-md-3 col-sm-3">
