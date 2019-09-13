@@ -90,7 +90,7 @@ export default function Partners(props) {
                         <div className="col-md-3 col-sm-3">
                             <div className="team-member">
                                 <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/akshay.jpeg')} width="200" height="250" alt="team member" className="img-responsive" />
+                                    <img src={require('../../WA/images/new/akshay.png')} style={{paddingLeft:20}} width="230" height="250" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">

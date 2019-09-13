@@ -8,18 +8,20 @@ export default function Industry(props) {
 
     return (
         <div className="body">
-            <Header />
-            <div className="section full-screen background-image-side">
-                <div className="wrapper" style={{ textAlign: 'center' }}>
+            <Header {...props} />
+            <div className="section full-screen background-image-side" style={{ padding: 0 }}>
+                <div style={{ textAlign: 'center' }}>
                     <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
                         <h1>INDUSTRY</h1>
+                        <br /><br />
+                        <img src={require('../../WA/images/newimgs/Artboard 1.png')} height={400} />
                     </div>
                 </div>
             </div>
             <div className="div-block-new-1">
 
                 <div id="solutionsforBusiness" className="section less-v-margin">
-                    <p style={{padding:5,fontWeight:300}}>Note - The platform & solutions are sector agnostic but certain industries can be greatly benefited from the use cases.</p>
+                    <p style={{ padding: 5, fontWeight: 300 }}>Note - The platform & solutions are sector agnostic but certain industries can be greatly benefited from the use cases.</p>
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
@@ -50,10 +52,10 @@ export default function Industry(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/26.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/26.png')} className="cover-images" />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/20.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/20.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -79,10 +81,10 @@ export default function Industry(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/30.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/30.png')} className="cover-images" />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/24.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/24.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -108,10 +110,10 @@ export default function Industry(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/12.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/12.png')} className="cover-images" />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/13.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/13.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -134,7 +136,7 @@ export default function Industry(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/15.png')}  className="cover-images"  />
+                                <img src={require('../../WA/images/new/15.png')} className="cover-images" />
                             </div>
                         </div>
                     </div>

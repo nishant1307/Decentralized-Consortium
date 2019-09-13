@@ -4,7 +4,7 @@ import '../../WA/css/normalize.css'
 import '../../WA/css/detheme.css'
 import '../../WA/css/kergan.detheme.css'
 export default function Header(props) {
-    // console.log(props);
+    console.log(props);
     const [isOn, setIsOn] = React.useState(false);
 
     function toggleMenu() {
@@ -18,9 +18,9 @@ export default function Header(props) {
             <div className="wrapper navbar-2 w-container">
                 <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={50} height={50} alt="" /></Link></div>
                 <nav role="navigation" className="nav-menu-2 w-nav-menu">
-                    <Link to="/platform" className="nav-link-2 w-nav-link">Platform</Link>
+                    <Link to="/platform" className="nav-link-2 border w-nav-link">Platform</Link>
                     <div className="dropdown">
-                        <button className="dropbtn">Partners
+                        <button className="nav-link-2 border w-nav-link">Partners
                             <i className="fa fa-caret-down" />
                         </button>
                         <div className="dropdown-content">
@@ -35,7 +35,7 @@ export default function Header(props) {
                         </div>
                     </div>
                     <div className="dropdown">
-                        <button className="dropbtn">Solutions
+                        <button className="nav-link-2 border w-nav-link ">Solutions
                             <i className="fa fa-caret-down" />
                         </button>
                         <div className="dropdown-content">
@@ -44,9 +44,9 @@ export default function Header(props) {
                             <Link to="/solutions#solutionsforConsumers" className="nav-link-2 w-nav-link">For Consumers</Link>
                         </div>
                     </div>
-                    <Link to="/industry" className="nav-link-2 w-nav-link">Industry</Link>
+                    <Link to="/industry" className="nav-link-2 border w-nav-link">Industry</Link>
                     <div className="dropdown">
-                        <button className="dropbtn">About Us
+                        <button className="nav-link-2 border w-nav-link">About Us
                             <i className="fa fa-caret-down" />
                         </button>
                         <div className="dropdown-content">
