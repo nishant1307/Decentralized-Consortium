@@ -1,0 +1,32 @@
+
+
+ geth --datadir node1/ --syncmode 'full'  --shh  --port 30311 --rpc --rpcaddr '0.0.0.0' --rpcport 8501 --rpcapi 'admin,debug,personal,db,eth,net,web3,shh,txpool,miner'  --ws    --wsaddr '0.0.0.0' --wsport '8601' --wsapi 'admin,debug,personal,db,eth,net,web3,shh,txpool,miner'   --rpccorsdomain "*" --rpcvhosts "*" --wsorigins "*" --bootnodes 'enode://b424c7827ade30300dfa2a54bd84b474a593674201b91b67cb36617cccc9e7f9071eed46dd90f2b30aabecddfa59bab969fe64272c845b5ac71f78a12e0c1e1c@127.0.0.1:30310' --networkid 1515 --gasprice '1' -unlock 'D5fF749560c217211e327E701EAAa66e0C0EFcEf' --password node1/password.txt --mine --allow-insecure-unlock 
+
+ geth --datadir node2/ --syncmode 'full' --shh  --port 30312 --rpc --rpcaddr '0.0.0.0' --rpcport 8502 --rpcapi 'admin,debug,personal,db,eth,net,web3,shh,txpool,miner'  --ws    --wsaddr '0.0.0.0' --wsport '8602' --wsapi 'admin,debug,personal,db,eth,net,web3,shh,txpool,miner'   --rpccorsdomain "*" --rpcvhosts "*" --wsorigins "*" --bootnodes 'enode://b424c7827ade30300dfa2a54bd84b474a593674201b91b67cb36617cccc9e7f9071eed46dd90f2b30aabecddfa59bab969fe64272c845b5ac71f78a12e0c1e1c@127.0.0.1:30310' --networkid 1515 --gasprice '1' --unlock '804d5E29216409FAD40CA500AD20f64BAFbF3aF4' --password node2/password.txt --mine --allow-insecure-unlock 
+
+
+  geth --datadir node3/ --syncmode 'full' --shh  --port 30313 --rpc --rpcaddr '0.0.0.0' --rpcport 8503 --rpcapi 'db,eth,net,web3,shh'  --ws    --wsaddr '0.0.0.0' --wsport '8603' --wsapi 'db,eth,net,web3,shh'   --rpccorsdomain "*" --rpcvhosts "*" --wsorigins "*" --bootnodes 'enode://b424c7827ade30300dfa2a54bd84b474a593674201b91b67cb36617cccc9e7f9071eed46dd90f2b30aabecddfa59bab969fe64272c845b5ac71f78a12e0c1e1c@127.0.0.1:30310' --networkid 1515 --gasprice '1'
+
+
+
+geth attach ipc:node1/geth.ipc
+
+
+
+echo 'lotus@TOP123' > node1/password.txt
+echo 'lotus@TOP123' > node2/password.txt
+
+funded accounts 
+D5fF749560c217211e327E701EAAa66e0C0EFcEf -- miner
+804d5E29216409FAD40CA500AD20f64BAFbF3aF4 -- miner
+66911a74374dF86b19317f9C7F515FC18C5347C2
+296ec49691c526Fe8F8935B8db749F75ae1c98F3
+26773f53D2883555E9671C19fe88ecd8e7E21367
+7C69Bbf2f1E295C437d767eb2aaf6D6A56859347
+Ff93Cb626AEDC74Ce8c18d1C455E81Ff605b5Fee
+51014c4c41aB0e5Ac44066eAD30DAD3C9D77753a
+EF8F6744A87ecB0e51F2502288EFBBC213B159a1
+5b61A78F428DC70aBB35B9f0Bf71ce7be17d9ae5
+045f6B945c2759465fDCBC389b60C0234bAAD87D
+c261034F6fFBDa1e05f992ad3baf072A24614AD6
+e04423e7eB4112376b312Fb830D02ab54e88319C
