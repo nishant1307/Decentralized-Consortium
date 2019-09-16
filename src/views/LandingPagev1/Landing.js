@@ -8,9 +8,92 @@ import {
     Table,
     TableHead,
     TableCell,
-    TableRow
+    TableRow,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Hidden
 } from '@material-ui/core';
-export default function Landing() {
+import {
+  CardActions,
+  Typography,
+  Container
+} from '@material-ui/core';
+import pro from "assets/images/pro.png";
+import enterprise from "assets/images/enterprise.png";
+import business from "assets/images/business.png";
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import Card from "components/Card/Card.jsx";
+import CardHeader from "components/Card/CardHeader.jsx";
+import CardBody from "components/Card/CardBody.jsx";
+import CardIcon from "components/Card/CardIcon.jsx";
+import CardFooter from "components/Card/CardFooter.jsx";
+import Button from "components/CustomButtons/Button";
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.gray,
+    },
+    ul: {
+      margin: 0,
+      padding: 0,
+    },
+    li: {
+      listStyle: 'none',
+    },
+  },
+  heroContent: {
+    padding: theme.spacing(8, 0, 6),
+  },
+  cardHeader: {
+    backgroundColor: theme.palette.white,
+  },
+  cardPricing: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: theme.spacing(2),
+  }
+}));
+
+const tiers = [
+  {
+    title: 'PRO',
+    price: '49',
+    description: ['400 Credits'],
+    buttonText: 'GET STARTED',
+    buttonVariant: 'contained',
+    cardImage: pro
+  },
+  {
+    title: 'BUSINESS',
+    price: '149',
+    description: [
+      '1200 Credits'
+    ],
+    buttonText: 'GET STARTED',
+    buttonVariant: 'contained',
+    cardImage: business
+  },
+  {
+    title: 'ENTERPRISE',
+    price: '449',
+    description: [
+      '3600 Credits'
+    ],
+    buttonText: 'GET STARTED',
+    buttonVariant: 'contained',
+    cardImage: enterprise
+  },
+];
+export default function Landing(props) {
+  const classes = useStyles();
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     const [projects, setProjects] = React.useState(0);
     const [partners, setPartners] = React.useState(0);
@@ -213,128 +296,135 @@ export default function Landing() {
             </div> */}
             <div id="testimonials" className="section bgtestimonial1">
                 <div className="mask w-slider-mask">
-                    <div className="wrapper">
-                        <h2 style={{ paddingBottom: 30 }} className="section-header withdesc">Pricing Plan</h2>
-                        <div className="row-2">
-                            <div className="col lg-4" style={{ paddingBottom: 10 }}>
-                                <div className="slide w-slide">
-                                    <div className="container-div">
-                                        <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp3.png')} alt="" className="image-5" />
-                                                <div style={{ paddingTop: 20 }}>
-                                                    <h4 className="testimonial-title">PRO</h4>
-                                                    <p className="testimonial-text">400 Credits</p>
-                                                    <h5 className="heading-3">$49/Month</h5>
-                                                </div>
-                                                <div className="value-proposition-container">
-                                                    <div className="value-proposition-buttons"><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                <Container maxWidth="md" component="main">
+                  <GridContainer alignItems="flex-end">
+                    {tiers.map(tier => (
+                      // Enterprise card is full width at sm breakpoint
+                      <GridItem key={tier.title} xs={12} sm={12} md={4}>
+                        <Card>
+                          <CardHeader plain style={{margin: 0}}>
+                            <img src={tier.cardImage} height="100%" width="100%"/>
+                          </CardHeader>
+                          <CardBody >
+                            <div className={classes.cardPricing}>
+                              <Typography component="h2" variant="h3" color="textPrimary">
+                                ${tier.price}
+                              </Typography>
+                              <Typography variant="h6" color="textSecondary">
+                                /month
+                              </Typography>
                             </div>
-                            <div className="col lg-4" style={{ paddingBottom: 10 }}>
-                                <div className="slide w-slide">
-                                    <div className="container-div">
-                                        <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp1.png')} alt="" className="image-5" />
-                                                <div style={{ paddingTop: 20 }}>
-                                                    <h4 className="testimonial-title">BUSINESS</h4>
-                                                    <p className="testimonial-text">1200 Credits</p>
-                                                    <h5 className="heading-3">$149/Month</h5>
-                                                </div>
-                                                <div className="value-proposition-container">
-                                                    <div className="value-proposition-buttons"><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col lg-4" style={{ paddingBottom: 10 }}>
-                                <div className="slide w-slide">
-                                    <div className="container-div">
-                                        <div className="payment-plan-container">
-                                            <div className="payment-testimonial-content"><img src={require('../../WA/images/kp.png')} alt="" className="image-5" />
-                                                <div style={{ paddingTop: 20 }}>
-                                                    <h4 className="testimonial-title">ENTERPRISE</h4>
-                                                    <p className="testimonial-text">3600 Credits</p>
-                                                    <h5 className="heading-3">$449/Month</h5>
-                                                </div>
-                                                <div className="value-proposition-container">
-                                                    <div className="value-proposition-buttons"><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
-                                                    <br />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            <ul>
+                              {tier.description.map(line => (
+                                <Typography component="li" variant="subtitle1" align="center" key={line}>
+                                  {line}
+                                </Typography>
+                              ))}
+                            </ul>
+                          </CardBody>
+                          <CardActions style={{justifyContent: "center"}}>
+                            <Button variant={tier.buttonVariant} style={{marginBottom: "50px"}} round color="warning" onClick={() => props.history.push("/login")}>
+                              {tier.buttonText}
+                            </Button>
+                          </CardActions>
+                        </Card>
+                      </GridItem>
+                    ))}
+                  </GridContainer>
+                </Container>
                 </div>
             </div>
             {/* <div className="section"> */}
+            <Hidden smDown>
             <div className="wrapper">
                 <div className="row">
                     <div className="columns-2 w-row">
-                        <div className="column-2 w-col w-col-7">
-                            <div className="margin-bottom">
-                                <h2 className="heading-2">Note</h2>
-                                <ul className="landing-bullet">
-                                    <li className="tab-class-inner">Setup and customization charges could be applicable for certain customers.</li>
-                                    <li className="tab-class-inner"> For larger customized plans contact us directly.</li>
-                                    <li className="tab-class-inner"> Additional monthly credits packs can be purchased at $ 49 for 400 Credits.</li>
-                                    <li className="tab-class-inner"> Validity of plan & credits is one month and it cannot be carried forward.</li>
-                                    <li className="tab-class-inner"> Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</li>
-                                </ul>
-                            </div>
+                        <div className="column-2 w-col w-col-3">
                         </div>
-                        <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
-                            <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
-                                <Table className="tg">
+                        <div className=" w-col w-col-7" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
+                            <div>
+                                <Table>
                                     <TableRow>
-                                        <TableHead className="tg-rnhl" colspan="4">Credit Chart</TableHead>
+                                        <TableCell colspan="4" align="center">Credit Chart</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell className="tg-rnhl">Action</TableCell>
-                                        <TableCell className="tg-rnhl">Cost per action</TableCell>
-                                        <TableCell className="tg-rnhl">Quantity</TableCell>
-                                        <TableCell className="tg-rnhl" colspan="2">Credit Calculator</TableCell>
+                                        <TableCell>Action</TableCell>
+                                        <TableCell>Cost per action</TableCell>
+                                        <TableCell>Quantity</TableCell>
+                                        <TableCell colspan="2">Credit Calculator</TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell className="tg-rnhl">Projects</TableCell>
-                                        <TableCell className="tg-rnhl">75</TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
+                                        <TableCell>Projects</TableCell>
+                                        <TableCell>75</TableCell>
+                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
+                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell className="tg-rnhl">Partners</TableCell>
-                                        <TableCell className="tg-rnhl">15</TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
+                                        <TableCell>Partners</TableCell>
+                                        <TableCell>15</TableCell>
+                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
+                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell className="tg-rnhl">Products / Docs / Devices</TableCell>
-                                        <TableCell className="tg-g2pk">1</TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></TableCell>
+                                        <TableCell>Products / Docs / Devices</TableCell>
+                                        <TableCell>1</TableCell>
+                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></TableCell>
+                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell className="tg-g2pk" colspan="1"></TableCell>
-                                        <TableCell className="tg-g2pk" colspan="2">Total</TableCell>
-                                        <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
+                                        <TableCell colspan="1"></TableCell>
+                                        <TableCell colspan="2">Total</TableCell>
+                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
                                     </TableRow>
                                 </Table>
+                            </div>
+                        </div>
+                        <div className="column-2 w-col w-col-2">
+                        </div>
+                    </div>
+                    <div className="columns-2 w-row">
+                        <div className="column-2 w-col w-col-12">
+                            <div className="margin-bottom">
+                                <h2 className="heading-2">Note</h2>
+                                <List component="nav" className={classes.root} aria-label="contacts">
+                                  <ListItem>
+                                    <ListItemIcon>
+                                      <FiberManualRecordIcon fontSize="small" />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Setup and customization charges could be applicable for certain customers." />
+                                  </ListItem>
+                                  <ListItem>
+                                    <ListItemIcon>
+                                      <FiberManualRecordIcon fontSize="small" />
+                                    </ListItemIcon>
+                                      <ListItemText primary="For larger customized plans contact us directly." />
+                                  </ListItem>
+                                  <ListItem>
+                                    <ListItemIcon>
+                                      <FiberManualRecordIcon fontSize="small" />
+                                    </ListItemIcon>
+                                      <ListItemText primary="Additional monthly credits packs can be purchased at $ 49 for 400 Credits." />
+                                  </ListItem>
+                                  <ListItem>
+                                    <ListItemIcon>
+                                      <FiberManualRecordIcon fontSize="small" />
+                                    </ListItemIcon>
+                                      <ListItemText primary="Validity of plan & credits is one month and it cannot be carried forward." />
+                                  </ListItem>
+                                  <ListItem>
+                                    <ListItemIcon>
+                                      <FiberManualRecordIcon fontSize="small" />
+                                    </ListItemIcon>
+                                      <ListItemText primary="Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model." />
+                                  </ListItem>
+                                </List>
                             </div>
                         </div>
                     </div>
                 </div>
                 {/* </div> */}
             </div>
+            </Hidden>
             <div id="testimonials" className="section bgtestimonial">
                 <div>
                     <div data-delay={4000} data-animation="slide" className="slider-3 w-slider" data-autoplay={1} data-easing="ease-in-out-expo" data-hide-arrows={1} data-nav-spacing={10} data-duration={1200} data-infinite={1}>

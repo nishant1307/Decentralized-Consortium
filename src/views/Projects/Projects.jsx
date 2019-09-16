@@ -132,7 +132,10 @@ const Projects = (props) => {
                   title=""
                   options={{
                     search: true,
-                    exportButton: true
+                    exportButton: true,
+                    headerStyle: {
+                      fontSize: "11pt"
+                    }
                   }}
                   localization={{
                     body: {

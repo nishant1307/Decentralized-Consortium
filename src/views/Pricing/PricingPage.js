@@ -1,17 +1,8 @@
 import React from 'react';
-import StarIcon from '@material-ui/icons/StarBorder';
-
 import {
   CardActions,
-  Card,
-  CssBaseline,
-  Grid,
-  Toolbar,
   Typography,
-  Link,
   Container,
-  Box,
-  Divider,
   OutlinedInput,
   Table,
   TableHead,
@@ -23,11 +14,12 @@ import enterprise from "assets/images/enterprise.png";
 import business from "assets/images/business.png";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
-import Button from "components/CustomButtons/Button"
+import Button from "components/CustomButtons/Button";
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -42,18 +34,6 @@ const useStyles = makeStyles(theme => ({
     li: {
       listStyle: 'none',
     },
-  },
-  appBar: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  },
-  toolbar: {
-    flexWrap: 'wrap',
-  },
-  toolbarTitle: {
-    flexGrow: 1,
-  },
-  link: {
-    margin: theme.spacing(1, 1.5),
   },
   heroContent: {
     padding: theme.spacing(8, 0, 6),
@@ -153,15 +133,14 @@ export default function PricingPage() {
   return (
     <React.Fragment>
       <Container maxWidth="md" component="main">
-        <Grid container spacing={5} alignItems="flex-end">
+        <GridContainer spacing={5} alignItems="flex-end">
           {tiers.map(tier => (
             // Enterprise card is full width at sm breakpoint
-            <Grid item key={tier.title} xs={12} sm={12} md={4}>
+            <GridItem key={tier.title} xs={12} sm={12} md={4}>
               <Card>
                 <CardHeader plain style={{margin: 0}}>
                   <img src={tier.cardImage} height="100%" width="100%"/>
                 </CardHeader>
-                <Divider />
                 <CardBody >
                   <div className={classes.cardPricing}>
                     <Typography component="h2" variant="h3" color="textPrimary">
@@ -185,9 +164,9 @@ export default function PricingPage() {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid>
+            </GridItem>
           ))}
-        </Grid>
+        </GridContainer>
       </Container>
       <Container>
         <div className="wrapper">
