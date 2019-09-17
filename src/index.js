@@ -24,6 +24,7 @@ const Partners = React.lazy(() => import('views/LandingPagev1/Partners'))
 const Industry = React.lazy(() => import("views/LandingPagev1/Industry"));
 const AboutUs = React.lazy(() => import("views/LandingPagev1/AboutUs"));
 const OurTeam = React.lazy(() => import("views/LandingPagev1/OurTeam"));
+const SignupGoogleForm = React.lazy(() => import("views/SignupGoogleForm"));
 
 const loading = <LinearProgress />;
 ReactDOM.render(
@@ -42,7 +43,7 @@ ReactDOM.render(
             <Route path="/dashboard" component={Admin} />
             <PrivateRoute path="/admin" component={AdminPanel} />
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Kyc} />
+            <Route path="/signup" component={SignupGoogleForm} />
             <Route path="/register" component={Kyc} />
             <Route exact path="/invitation" component={InvitedUserKYC} />
             <Route path="/recover" component={RecoverAccount} />
