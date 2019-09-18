@@ -149,7 +149,6 @@ function Checkout(props) {
       setIsExist(false);
       setLoader(false);
     }
-
   }, []);
 
   const handleToggleChange = name => event => {
@@ -349,7 +348,7 @@ function Checkout(props) {
       case 2:
         return <DocUpload setDoc={handleDoc}/>;
       case 3:
-        return <Eula companyName={state.companyName}/>;
+        return <Eula state={state}/>;
       default:
         throw new Error('Unknown step');
     }

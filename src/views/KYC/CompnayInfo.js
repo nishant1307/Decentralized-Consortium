@@ -48,18 +48,6 @@ export default function companyInfo(props) {
                     />
                 </Grid>
                 <Grid item xs={12}>
-                    <TextField
-                        required
-                        id="address1"
-                        name="address1"
-                        label="Address line 1"
-                        fullWidth
-                        onChange={handleChange}
-                        autoComplete="billing address-line1"
-                        value={state.address1}
-                    />
-                </Grid>
-                <Grid item xs={12}>
                     <PlacesAutocomplete
                         value={state.address}
                         onChange={handleAddressChange}
@@ -100,6 +88,18 @@ export default function companyInfo(props) {
                         )}
                     </PlacesAutocomplete>
                 </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        required
+                        id="address1"
+                        name="address1"
+                        label="Premises number or name"
+                        fullWidth
+                        onChange={handleChange}
+                        autoComplete="billing address-line1"
+                        value={state.address1}
+                    />
+                </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
@@ -113,7 +113,7 @@ export default function companyInfo(props) {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+                    <TextField id="state" name="state" label="State/Province/Region"  value={state.state} fullWidth />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
