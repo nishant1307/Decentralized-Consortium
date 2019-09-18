@@ -116,7 +116,7 @@ export default function Landing(props) {
                     <div className="wrapper">
                         <div className="columns column w-row">
                             <div className="column herocontent w-col w-col-5">
-                                <h1 className="heading" >Decentralized Trade and Supply Chain on Blockchain</h1>
+                                <h2>Decentralized Trade and Supply Chain on Blockchain</h2>
                                 <p className="short-paragraph">Building solutions for transparency, automating processes, trade finance and protecting your brand from counterfeiting.</p>
                                 <p className="short-paragraph">Leverage the power of digitized doccumentation, connected IoT devices, & smart contracts with our Dapps.</p>
                                 <div className="value-proposition-container">
@@ -130,7 +130,7 @@ export default function Landing(props) {
                         <div className="columns column w-row">
                             <div className="w-col w-col-7"><img data-src="/images/two.png" width={1000} height={380} srcSet="/images/two.png 500w, /images/two.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
                             <div className="column herocontent w-col w-col-5">
-                                <h1 className="heading">Anti-Counterfeiting, Provenance and  <br /> Chain of Custody</h1>
+                                <h2>Anti-Counterfeiting, Provenance and Chain of Custody</h2>
                                 <p className="short-paragraph">Create digital identities for physical assets through unique identifiers like connected IoT Devices / Sensors and track them through their journey and make selective information available to all stakeholders.</p>
                                 <div className="value-proposition-container">
                                     <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
@@ -239,28 +239,28 @@ export default function Landing(props) {
                             {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
                             <div className="row-2">
                                 <div className="col lg-3">
-                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/commision.png" width={150} alt="" className="icon" />
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/commision.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Blockchain</h4>
                                         <p className="paragraph"><strong>Secure</strong><br />
                                             Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
-                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} alt="" className="icon" />
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} height={150} alt="" className="icon" />
                                         <h4>DApps</h4>
                                         <p className="paragraph"><strong>Automate </strong><br />
                                             Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
-                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/team.png" width={150} alt="" className="icon" />
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/team.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Partners</h4>
                                         <p className="paragraph"><strong>Collaborate</strong><br />
                                             Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
-                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/report.png" width={150} alt="" className="icon" />
+                                    <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/report.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Industry 4.0</h4>
                                         <p className="paragraph"><strong>Innovate</strong><br />
                                             Unlock new opportunities Eliminate low value activities.</p>
