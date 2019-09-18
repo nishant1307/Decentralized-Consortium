@@ -35,12 +35,12 @@ export default function Partners(props) {
             <div className="div-block-new-1">
                 <div id="solutionsforBusiness" className="section less-v-margin">
                     <div className="wrapper">
-                        <div className="row-2">
-                            <div className="col lg-5 extra-pad">
+                        <div className="row-2" style={{display: "flex", alignItems: "center"}}>
+                            <div className="col lg-4 extra-pad">
                                 <img src={require('../../WA/images/new/6-1.png')}/>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5" id="banks" >
+                            <div className="col lg-6" id="banks" >
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Financial Services - Banks and Insurance</h2>
                                     <ul className="tab-class-main">
@@ -52,7 +52,7 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-5" id="logistics">
+                            <div className="col lg-6" id="logistics">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Logistics</h2>
                                     <ul className="tab-class-main">
@@ -61,14 +61,14 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
+                            <div className="col lg-4 extra-pad">
                                 <img src={require('../../WA/images/new/31.png')} className="cover-images" />
                             </div>
-                            <div className="col lg-5 extra-pad">
+                            <div className="col lg-4 extra-pad">
                                 <img src={require('../../WA/images/new/16.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5" id="government">
+                            <div className="col lg-6" id="government">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Government / Government Authorities</h2>
 
@@ -81,7 +81,7 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-5" id="certificationagencies">
+                            <div className="col lg-6" id="certificationagencies">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Certification Agencies</h2>
                                     <ul className="tab-class-main">
@@ -90,14 +90,14 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
+                            <div className="col lg-4 extra-pad">
                                 <img src={require('../../WA/images/new/28.png')} className="cover-images" />
                             </div>
-                            <div className="col lg-5 extra-pad">
+                            <div className="col lg-4 extra-pad">
                                 <img src={require('../../WA/images/new/10.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5" id="hardwaresoftwareintegrators">
+                            <div className="col lg-6" id="hardwaresoftwareintegrators">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Hardware / Software Integrators </h2>
                                     <ul className="tab-class-main">
@@ -107,7 +107,7 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-5" id="portsandterminals">
+                            <div className="col lg-6" id="portsandterminals">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Ports & Terminals</h2>
                                     {/* <p className="ondark">
@@ -119,14 +119,14 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
+                            <div className="col lg-4 extra-pad">
                                 <img src={require('../../WA/images/new/2.png')} className="cover-images" />
                             </div>
-                            <div className="col lg-5 extra-pad">
+                            <div className="col lg-4 extra-pad">
                                 <img src={require('../../WA/images/new/29.png')} className="cover-images" />
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5" id="recyclers">
+                            <div className="col lg-6" id="recyclers">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Recyclers</h2>
                                     <ul className="tab-class-main">

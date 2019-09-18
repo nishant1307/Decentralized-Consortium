@@ -1,11 +1,8 @@
 import React from 'react';
 import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import Header from './Header';
 import Footer from './Footer';
 export default function Industry(props) {
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
     return (
         <div className="body">
             <Header {...props} />
@@ -24,10 +21,8 @@ export default function Industry(props) {
                     <p style={{ padding: 5, fontWeight: 300, textAlign: "center"}}>Note - The platform & solutions are sector agnostic but certain industries can be greatly benefited from the use cases.</p>
                     <div className="wrapper">
                         <div className="row-2" style={{display: "flex", alignItems: "center"}}>
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/1.png')} />
-                            </div>
-                            <div className="col lg-1" />
+
+
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h4 className="heading-2 ondark" style={{ color: "#333", }}>Luxury / Apparel / Footwear</h4>
@@ -39,7 +34,15 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
+                            <div className="col lg-1" />
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/1.png')} />
+                            </div>
                             {/* 2 */}
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/5.png')} />
+                            </div>
+                            <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Smart Cities</h2>
@@ -50,14 +53,7 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/5.png')} />
-                            </div>
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/2.png')} />
-                            </div>
-                            <div className="col lg-1" />
+
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Consumer Electronics</h2>
@@ -69,7 +65,17 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
+                            <div className="col lg-1" />
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/2.png')} />
+                            </div>
+
                             {/* 2 */}
+
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/7.png')} />
+                            </div>
+                            <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Pharmaceutical</h2>
@@ -79,14 +85,8 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/7.png')} />
-                            </div>
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/3.png')} />
-                            </div>
-                            <div className="col lg-1" />
+
+
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Fine Art / Collectibles</h2>
@@ -97,7 +97,17 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
+                            <div className="col lg-1" />
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/3.png')} />
+                            </div>
+
                             {/* 2 */}
+
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/8.png')} />
+                            </div>
+                            <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>F&B / Dairy / Wines</h2>
@@ -108,14 +118,8 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/8.png')} />
-                            </div>
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/4.png')} />
-                            </div>
-                            <div className="col lg-1" />
+
+
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Jewelry / Precious Metals</h2>
@@ -125,6 +129,15 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
+                            <div className="col lg-1" />
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/4.png')} />
+                            </div>
+
+                            <div className="col lg-5 extra-pad">
+                                <img src={require('../../WA/images/newimgs/6.png')} />
+                            </div>
+                            <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Logistics</h2>
@@ -134,10 +147,7 @@ export default function Industry(props) {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/newimgs/6.png')} />
-                            </div>
+
                         </div>
                     </div>
                 </div>
