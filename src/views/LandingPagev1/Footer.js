@@ -70,6 +70,7 @@ export default function Landing() {
                     <div className="flex-horizontal-space-between footer">
                         <a href="#" className="w-inline-block"><img src="/images/logo2.png" width={75} height={75} alt="" className="footer-logo" /></a>
                         <div className="horizontal-footer-links-container">
+                            <Link to="/" className="footer-link-2 spacing">Home</Link>
                             <Link to="/platform" className="footer-link-2 spacing">Platform</Link>
                             <Link to="/partners" className="footer-link-2 spacing">Partners</Link>
                             <Link to="/solutions" className="footer-link-2 spacing">Solutions</Link>
