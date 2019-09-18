@@ -123,7 +123,7 @@ const OrgList = props => {
                           let gasPrice = await web3.eth.getGasPrice();
                           var transaction = {
                             "to": registryAddress,
-                            "data": registryContract.methods.setUserStatus(
+                            "data": registryContract.methods.setUserKYCStatus(
                               rowData.userAddress,
                               status
                             ).encodeABI(),

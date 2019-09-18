@@ -26,8 +26,7 @@ contract EternalStorage is StorageDefinition {
     // mapping between partnershipType and Organization
     mapping (string => Organization[]) internal partners;
 
-
-    // All Project related definStorageDefinition    // mapping between Project ID and project Details
+    // mapping between Project ID and project Details
     mapping (bytes32 => Project) internal projectRegistry;
 
     // mapping between ProjectId and Users
@@ -40,7 +39,7 @@ contract EternalStorage is StorageDefinition {
     mapping (address => Project[]) internal myProjects;
 
     // mapping between projectID and user with their roles
-    mapping(bytes32 => mapping (address => partnerRoles)) internal projectRoles;
+    mapping(bytes32 => mapping (address => string)) internal projectRoles;
 
     Storage internal s;
 
@@ -131,15 +130,6 @@ contract EternalStorage is StorageDefinition {
   }
 
   /**
-   * @dev Allows the owner to set a value for a int variable.
-   * @param h The keccak256 hash of the variable name
-   * @param v The value to be stored
-   */
-  function setInt(bytes32 h, int v) external onlyRegisteredContract {
-    s._int[h] = v;
-  }
-
-  /**
    * @dev Allows the owner to set a value for a boolean variable.
    * @param h The keccak256 hash of the variable name
    * @param v The value to be stored
@@ -181,14 +171,6 @@ contract EternalStorage is StorageDefinition {
    */
   function getBoolean(bytes32 h) external view returns (bool){
     return s._bool[h];
-  }
-
-  /**
-   * @dev Get the value stored of a int variable by the hash name
-   * @param h The keccak256 hash of the variable name
-   */
-  function getInt(bytes32 h) external view returns (int){
-    return s._int[h];
   }
 
   /**
@@ -250,12 +232,7 @@ contract EternalStorage is StorageDefinition {
         delete s._bool[_key];
     }
 
-    /// @param _key The key for the record
-    function deleteInt(bytes32 _key) onlyRegisteredContract external {
-        delete s._int[_key];
-    }
-
-    function setUser(string calldata organizationID, string calldata email, string calldata kycHash, roles role) external onlyRegisteredContract {
+    function setUser(string calldata organizationID, string calldata email, string calldata kycHash, roles role, bool adminApprovalStatus) external onlyRegisteredContract {
         User memory newUser;
         newUser.organizationID = organizationID;
         newUser.email = email;
@@ -263,6 +240,7 @@ contract EternalStorage is StorageDefinition {
         newUser.publicKey = tx.origin;
         newUser.status =  KYCStatus.kycPending;
         newUser.kycHash = kycHash;
+        newUser.adminApprovalStatus=adminApprovalStatus;
         userDirectory[tx.origin] = newUser;
         users.push(newUser);
         orgEmployees[organizationID].push(newUser);
@@ -346,7 +324,7 @@ contract EternalStorage is StorageDefinition {
         return organizationDirectory[organizationID].status;
     }
 
-    function setUserStatus(address userAddress, KYCStatus status) external onlyRegisteredContract returns (bool) {
+    function setUserKYCStatus(address userAddress, KYCStatus status) external onlyRegisteredContract returns (bool) {
         userDirectory[userAddress].status = status;
         return true;
     }
@@ -391,7 +369,7 @@ contract EternalStorage is StorageDefinition {
         projectRegistry[projectID] = project;
     }
 
-    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) external onlyRegisteredContract {
+    function addUserToProject(bytes32 projectID, address userAddress, string calldata partnerRole) external onlyRegisteredContract {
         consortium[projectID].push(this.getUserDetails(userAddress));
         myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][userAddress] = partnerRole;
@@ -422,12 +400,11 @@ contract EternalStorage is StorageDefinition {
         return (consortium[projectID]);
     }
 
-    function getPartnerRole(bytes32 projectID, address publicKey) external view returns (partnerRoles) {
+    function getPartnerRole(bytes32 projectID, address publicKey) external view returns (string memory) {
         return projectRoles[projectID][publicKey];
     }
 
-    function getMyRole(bytes32 projectID) external view onlyRegisteredContract returns (partnerRoles) {
+    function getPartnerRole(bytes32 projectID) external view onlyRegisteredContract returns (string memory) {
         return projectRoles[projectID][tx.origin];
     }
-
 }
