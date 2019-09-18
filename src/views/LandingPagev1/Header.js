@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import '../../WA/css/normalize.css'
 import '../../WA/css/detheme.css'
 import '../../WA/css/kergan.detheme.css'
+var classNames = require('classnames');
 export default function Header(props) {
     console.log(props);
     const [isOn, setIsOn] = React.useState(false);
@@ -13,15 +14,19 @@ export default function Header(props) {
 
     }
 
+    const isActive = (location) => {
+      return window.location.pathname==location;
+    }
+
     return (
         <div data-collapse="medium" data-animation="default" data-duration={400} className={`nav-bar w-nav ${props.headerStyle}`}>
             <div className="wrapper navbar-2 w-container">
                 <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={50} height={50} alt="" /></Link></div>
                 <nav role="navigation" className="nav-menu-2 w-nav-menu">
-                    <Link to="/" className="nav-link-2 border w-nav-link">Home</Link>
-                    <Link to="/platform" className="nav-link-2 border w-nav-link">Platform</Link>
+                    <Link to="/" className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/")})}>Home</Link>
+                    <Link to="/platform" className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/platform")})}>Platform</Link>
                     <div className="dropdown">
-                        <button className="nav-link-2 border w-nav-link">Partners
+                        <button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/partners")})}>Partners
                             <i className="fa fa-caret-down" />
                         </button>
                         <div className="dropdown-content">
@@ -36,7 +41,7 @@ export default function Header(props) {
                         </div>
                     </div>
                     <div className="dropdown">
-                        <button className="nav-link-2 border w-nav-link ">Solutions
+                        <button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/solutions")})}>Solutions
                             <i className="fa fa-caret-down" />
                         </button>
                         <div className="dropdown-content">
@@ -45,9 +50,9 @@ export default function Header(props) {
                             <Link to="/solutions#solutionsforConsumers" className="nav-link-2 w-nav-link">For Consumers</Link>
                         </div>
                     </div>
-                    <Link to="/industry" className="nav-link-2 border w-nav-link">Industry</Link>
+                    <Link to="/industry" className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/industry")})}>Industry</Link>
                     <div className="dropdown">
-                        <button className="nav-link-2 border w-nav-link">About Us
+                        <button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/aboutus")})}>About Us
                             <i className="fa fa-caret-down" />
                         </button>
                         <div className="dropdown-content">

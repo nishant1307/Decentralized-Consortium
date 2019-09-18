@@ -62,26 +62,27 @@ contract Consortium is StorageDefinition {
         _;
     }
 
+    function compareStrings (string memory a, string memory b) internal pure returns (bool) {
+        return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
+    }
+
     function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
         require(!s.getBoolean(keccak256(abi.encodePacked("organizationExists", organizationID))));
         s.setOrganization(organizationID, name, orgKYCHash);
         s.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
         s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
         s.setString(keccak256(abi.encodePacked("OrganizationAdmin", organizationID)), email);
-        s.setUser(organizationID, email, userKYCHash, roles.admin);
+        s.setUser(organizationID, email, userKYCHash, roles.admin, true);
     }
 
-    function registerInvitedUser(string memory email, string memory kycHash) public uniqueEmail(email) {
-        require(bytes(s.getString(keccak256(abi.encodePacked("InviteEmail", email)))).length > 0, "invalid email.");
+
+    function registerInvitedUser(string calldata email, string calldata organizationID, string calldata kycHash) external uniqueEmail(email) {
+        require(bytes(organizationID).length==0, "Organization does not exist");
         require(bytes(s.getUserDetails().email).length == 0, "address already used.");
         s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
-        s.setUser(s.getString(keccak256(abi.encodePacked("InviteEmail", email))), email, kycHash, roles.regular);
+        s.setUser(organizationID, email, kycHash, roles.regular, false);
     }
 
-    function inviteUser(string memory email) public onlyOrgAdmin() {
-        Organization memory adminOrg = s.getOrganizationDetails();
-        s.setString(keccak256(abi.encodePacked("InviteEmail", email)), adminOrg.organizationID);
-    }
 
     function getInvitedUserOrganizationDetails(string memory email) public view returns (Organization memory){
         return s.getOrganizationDetails(s.getString(keccak256(abi.encodePacked("InviteEmail", email))));
@@ -112,18 +113,22 @@ contract Consortium is StorageDefinition {
         return s.getOrganizationDetails(publicKey);
     }
 
+    function getOrganizationDetails(string calldata organizationID) external view userExists returns (Organization memory) {
+        return s.getOrganizationDetails(organizationID);
+    }
+
     function getUserOrganizationDetails() public view userExists returns (User memory, Organization memory) {
         return s.getUserOrganizationDetails();
     }
 
-    function addNewProject(bytes32 projectID,  string memory name, string memory description, string memory industry, partnerRoles partnerRole, bytes32 passcode) public onlyRegistrant {
+    function addNewProject(bytes32 projectID,  string calldata name, string calldata description, string calldata industry, string calldata partnerRole) external onlyRegistrant {
         s.addNewProject(projectID, name, description, industry);
         emit ProjectCreated(projectID, name, s.getOrganizationDetails().name, now);
-        s.setBytes32(keccak256(abi.encodePacked("ProjectPasscode", projectID)), passcode);
         s.addUserToProject(projectID, msg.sender, partnerRole);
     }
 
-    function addUserToProject(bytes32 projectID, address userAddress, partnerRoles partnerRole) public onlyProjectAdmin(projectID) {
+    function addUserToProject(bytes32 projectID, address userAddress, string calldata partnerRole) external onlyProjectAdmin(projectID) {
+        require(!s.getBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress))));
         s.addUserToProject(projectID, userAddress, partnerRole);
         s.setBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress)), true);
         string memory organizationName = s.getOrganizationDetails().name;
@@ -133,17 +138,12 @@ contract Consortium is StorageDefinition {
         delete(invitedOrganizationName);
     }
 
-    function requestProjectInvite(bytes32 passcode, bytes32 projectID) external userExists returns(bool){
-        require(s.getBytes32(keccak256(abi.encodePacked("ProjectPasscode", projectID)))==passcode);
+    function requestProjectInvite(bytes32 projectID) external userExists returns(bool){
         return s.requestProjectInvite(projectID);
     }
 
     function fetchProjectInvites(bytes32 projectID) onlyProjectAdmin(projectID) external view returns(address[] memory){
         return s.fetchProjectInvites(projectID);
-    }
-
-    function fetchProjectPasscode(bytes32 projectID) onlyProjectAdmin(projectID) external view returns(bytes32){
-        return s.getBytes32(keccak256(abi.encodePacked("ProjectPasscode", projectID)));
     }
 
     function getProjectDetails(bytes32 projectID) public view returns (Project memory) {
@@ -174,16 +174,16 @@ contract Consortium is StorageDefinition {
         return s.getOrganizationEmployees(s.getUserDetails().organizationID);
     }
 
-    function getPartnerRole(bytes32 projectID, address publicKey) external view returns (partnerRoles) {
+    function getPartnerRole(bytes32 projectID, address publicKey) external view returns (string memory) {
         return s.getPartnerRole(projectID, publicKey);
     }
 
-    function getMyRole(bytes32 projectID) public view returns (partnerRoles) {
-        return s.getMyRole(projectID);
+    function getPartnerRole(bytes32 projectID) public view returns (string memory) {
+        return s.getPartnerRole(projectID);
     }
 
-    function setUserStatus(address userAddress, KYCStatus status) public onlyOwner returns (bool) {
-        return s.setUserStatus(userAddress, status);
+    function setUserKYCStatus(address userAddress, KYCStatus status) public onlyOwner returns (bool) {
+        return s.setUserKYCStatus(userAddress, status);
     }
 
     function setOrganizationKYCStatus(string memory organizationID, KYCStatus status) public onlyOwner returns (bool) {

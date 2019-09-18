@@ -133,7 +133,7 @@ a {
 .section.bgform {
   /* background-image: url('https://via.placeholder.com/1000x700'); */
   /* background-position: 0% 50%; */
-  background-size: 700px; 
+  background-size: 700px;
   background-repeat: no-repeat;
 }
 
@@ -291,6 +291,11 @@ a {
 .nav-link-2:hover {
   opacity: 1;
   color: hsla(230.22471910112358, 88.12%, 60.39%, 1.00);
+}
+
+.active {
+  background: hsla(230.22471910112358, 88.12%, 60.39%, 1.00)!important;
+  color: #fff;
 }
 
 .nav-link-2.w--current {
@@ -1113,7 +1118,7 @@ a {
   color: #333;
   line-height: 1.5;
   cursor: pointer;
-  font-size: 16px;  
+  font-size: 16px;
   border: none;
   outline: none;
   background-color: transparent;
@@ -1147,7 +1152,7 @@ a {
   color: #333;
   line-height: 1;
   cursor: pointer;
-  font-size: 16px; 
+  font-size: 16px;
 }
 
 .dropdown-content a {
@@ -1626,7 +1631,7 @@ a {
   margin-right: auto;
   margin-left: auto;
 
-  text-align: center; 
+  text-align: center;
 }
 
 .text-field {
@@ -3261,7 +3266,7 @@ ul {
   }
   .wrapper-2.navbar-2 {
     opacity: 1;
-    
+
   }
   .wrapper-2.space-around {
     -webkit-flex-wrap: wrap;

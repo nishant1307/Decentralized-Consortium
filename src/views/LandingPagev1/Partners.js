@@ -37,10 +37,10 @@ export default function Partners(props) {
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/6-1.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/6-1.png')}/>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-5" id="banks">
+                            <div className="col lg-5" id="banks" >
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Financial Services - Banks and Insurance</h2>
                                     <ul className="tab-class-main">
