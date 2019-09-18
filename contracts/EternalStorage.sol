@@ -11,6 +11,9 @@ contract EternalStorage is StorageDefinition {
 
     // All users
     User[] internal users;
+
+    // Mapping between userAddress and index
+    mapping(address => uint256) userIndex;
     // User Directory
     mapping(address => User) internal userDirectory;
 
@@ -32,9 +35,6 @@ contract EternalStorage is StorageDefinition {
     // mapping between ProjectId and Users
     mapping (bytes32 => User[]) internal consortium;
 
-    // mapping between ProjectId and Consortium Requests
-    mapping (bytes32 => address[]) consortiumRequests;
-
     // mapping between userPublicKey and Projects
     mapping (address => Project[]) internal myProjects;
 
@@ -47,9 +47,6 @@ contract EternalStorage is StorageDefinition {
 
     address public owner;
 
-
-    // All PartnershipRequest
-    PartnershipRequest[] internal partnershipRequests;
 
   /**
    * @dev The constructor sets the original `owner` of the
@@ -157,15 +154,6 @@ contract EternalStorage is StorageDefinition {
   }
 
   /**
-   * @dev Allows the owner to set a value for a bytes variable.
-   * @param h The keccak256 hash of the variable name
-   * @param v The value to be stored
-   */
-  function setBytes32(bytes32 h, bytes32 v) external onlyRegisteredContract {
-    s._bytes32[h] = v;
-  }
-
-  /**
    * @dev Get the value stored of a boolean variable by the hash name
    * @param h The keccak256 hash of the variable name
    */
@@ -197,14 +185,6 @@ contract EternalStorage is StorageDefinition {
     return s._string[h];
   }
 
-  /**
-   * @dev Get the value stored of a bytes variable by the hash name
-   * @param h The keccak256 hash of the variable name
-   */
-  function getBytes32(bytes32 h) external view returns (bytes32){
-    return s._bytes32[h];
-  }
-
   /**** Delete Methods ***********/
 
     /// @param _key The key for the record
@@ -223,11 +203,6 @@ contract EternalStorage is StorageDefinition {
     }
 
     /// @param _key The key for the record
-    function deleteBytes32(bytes32 _key) onlyRegisteredContract external {
-        delete s._bytes32[_key];
-    }
-
-    /// @param _key The key for the record
     function deleteBool(bytes32 _key) onlyRegisteredContract external {
         delete s._bool[_key];
     }
@@ -241,10 +216,24 @@ contract EternalStorage is StorageDefinition {
         newUser.status =  KYCStatus.kycPending;
         newUser.kycHash = kycHash;
         newUser.adminApprovalStatus=adminApprovalStatus;
+        userIndex[tx.origin] = users.length;
         userDirectory[tx.origin] = newUser;
         users.push(newUser);
         orgEmployees[organizationID].push(newUser);
     }
+
+    function deleteUser(address userAddress) external onlyRegisteredContract {
+        uint256 index = userIndex[userAddress];
+        require(index < users.length);
+        if (users.length > 1) {
+            users[index] = users[users.length-1];
+        }
+        delete users[users.length-1];
+        users.length--; // Implicitly recovers gas from last element storage
+        userIndex[users[index].publicKey] = index;
+        delete index;
+    }
+
 
     function setOrganization(string calldata organizationID, string calldata name, string calldata orgKYCHash) external onlyRegisteredContract {
         Organization memory newOrganization;
@@ -333,29 +322,7 @@ contract EternalStorage is StorageDefinition {
         return userDirectory[tx.origin].status;
     }
 
-    function createPartnershipRequest(string calldata organizationID, string calldata partnershipType, string calldata partnershipDoc) external onlyRegisteredContract returns(uint256) {
-        PartnershipRequest memory newRequest;
-        newRequest.organizationID = organizationID;
-        newRequest.partnershipDoc = partnershipDoc;
-        newRequest.partnershipType = partnershipType;
-        newRequest.partnershipStatus = KYCStatus.kycPending;
-        partnershipRequests.push(newRequest);
-        return partnershipRequests.length;
-    }
-
-    function getAllPartnershipRequests() external view onlyRegisteredContract returns(PartnershipRequest[] memory) {
-        return partnershipRequests;
-    }
-
-    function updatePartnershipStatus(string calldata organizationID, string calldata partnershipType, KYCStatus partnershipStatus) external onlyRegisteredContract {
-        uint256 index = this.getUint(keccak256(abi.encodePacked("PartnershipRequestDirectory", partnershipType, organizationID)));
-        partnershipRequests[index].partnershipStatus = partnershipStatus;
-        if(partnershipStatus== KYCStatus.kycComplete){
-            confirmPartnershipStatus(organizationID, partnershipType);
-        }
-    }
-
-    function confirmPartnershipStatus(string memory organizationID, string memory partnershipType) internal {
+    function confirmPartnershipStatus(string calldata organizationID, string calldata partnershipType) external onlyRegisteredContract {
         partners[partnershipType].push(organizationDirectory[organizationID]);
     }
 
@@ -373,15 +340,6 @@ contract EternalStorage is StorageDefinition {
         consortium[projectID].push(this.getUserDetails(userAddress));
         myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][userAddress] = partnerRole;
-    }
-
-    function requestProjectInvite(bytes32 projectID) external onlyRegisteredContract returns(bool){
-        consortiumRequests[projectID].push(tx.origin);
-        return true;
-    }
-
-    function fetchProjectInvites(bytes32 projectID) external view onlyRegisteredContract returns(address[] memory){
-        return consortiumRequests[projectID];
     }
 
     function getProjectDetails(bytes32 projectID) external view onlyRegisteredContract returns (Project memory) {
