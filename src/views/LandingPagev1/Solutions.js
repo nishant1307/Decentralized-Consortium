@@ -1,11 +1,8 @@
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import Header from './Header';
 import Footer from './Footer';
 
 export default function Solutions(props) {
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
     return (
         <div className="body">
@@ -14,7 +11,7 @@ export default function Solutions(props) {
                 <div className="wrapper">
                     <div className="columns column w-row">
                         <div className="column herocontent w-col-12">
-                            <h2 >At Arthanium, we are creating an eco-system of Dapps around the platform to enable various use cases to make supply chains less complicated</h2>
+                            <h2>At Arthanium, we are creating an eco-system of Dapps around the platform to enable various use cases to make supply chains less complicated</h2>
 
                             <div className="value-proposition-container">
                                 <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
@@ -99,7 +96,7 @@ export default function Solutions(props) {
                     <div className="wrapper">
                         <div className="row-2" style={{display: "flex", alignItems: "center"}}>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/18.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/18.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}}/>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -125,10 +122,10 @@ export default function Solutions(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/23.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/23.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/19.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/19.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -155,10 +152,10 @@ export default function Solutions(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/11.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/11.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/9.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/9.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -178,17 +175,17 @@ export default function Solutions(props) {
                                     <ul className="tab-class-main">
                                         <li className="tab-class-inner">Tell the story of your brand and it's journey from production to market place.</li>
                                         <li className="tab-class-inner">Build trust and credibility with customers. Get a digital identity for physical products / assets on the.</li>
-                                        <li className="tab-class-inner">block chain using a combination of connected tags which can be scanned using our app to reveal information.</li>
+                                        <li className="tab-class-inner">Blockchain using a combination of connected tags which can be scanned using our app to reveal information.</li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/21.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/21.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             {/* new */}
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/9.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/9.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -214,7 +211,7 @@ export default function Solutions(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/21.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/21.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                         </div>
                     </div>
