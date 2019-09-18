@@ -1,7 +1,7 @@
 const Web3 = require("web3");
 var web3 = new Web3();
 var provider = new Web3.providers.HttpProvider(
-  "https://blockchain.iotconekt.com"
+  "https://blockchain.arthanium.org"
   //"http://localhost:8545"
 );
 // var provider = new Web3.providers.WebsocketProvider("wss://ropsten.infura.io/ws");
