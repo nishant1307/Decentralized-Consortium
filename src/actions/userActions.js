@@ -158,8 +158,8 @@ export const createNewProject = projectDetails => async (dispatch) => {
             projectDetails.name,
             projectDetails.description,
             projectDetails.industry,
-            projectDetails.partnerRole,
-            web3.utils.utf8ToHex(projectDetails.passcode)
+            projectDetails.partnerRole.toString(),
+            // web3.utils.utf8ToHex(projectDetails.passcode)
           ).encodeABI()
         };
 

@@ -17,6 +17,8 @@ import KeyCreation from './KeyCreation'
 import ExistingAccount from './ExisitingAccount';
 import {makeStyles} from '@material-ui/core/styles';
 import loginImage from "assets/images/login.png";
+import Snackbar from '../../components/Snackbar/Snackbar.jsx'
+
 import {
   Typography,
   CssBaseline,
@@ -84,6 +86,9 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1)
+  },
+  margin: {
+    margin: theme.spacing(1)
   }
 }));
 
@@ -106,6 +111,7 @@ function Checkout(props) {
   const [isExist, setIsExist] = useState(false)
   const [keystore, setKeystore] = useState('');
   const [loader, setLoader] = useState(true);
+  const [snackbar, setSnackbar] = useState({color: 'danger', open: false, message: ''})
 
   // const [address, setAddress] = useState('');
   const [toggleState, setToggleState] = React.useState({checkedA: false, checkedB: false, checkedC: false});
@@ -185,6 +191,11 @@ function Checkout(props) {
   const handleNext = () => {
     if (activeStep === 0) {
       if (isExist) {
+        fetch("http://18.207.156.120:8080/api/v1/faucet/" + localStorage.getItem("address")).then(res => res.json()).then((result) => {
+          console.log(result);
+        }, (error) => {
+          console.log(error);
+        })
         passworder.decrypt(state.password, keystore).then(function(result) {
           sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
           sessionStorage.setItem('timestamp', Date.now())
@@ -232,7 +243,15 @@ function Checkout(props) {
     web3.eth.accounts.signTransaction(transaction, privateKey).then(res => {
       web3.eth.sendSignedTransaction(res.rawTransaction).on('receipt', async function(receipt) {
         // console.log(receipt);
-        setActiveStep(5);
+        if (receipt.status) {
+          setActiveStep(5);
+        }
+      }).on('error', async function(error) {
+        // console.log(error);
+        setSnackbar({open: true, message: "Network error Occured! Please try again later."});
+        setTimeout(() => {
+          setSnackbar({open: false, message:""});
+        }, 10000)
       })
     })
   }
@@ -471,6 +490,7 @@ function Checkout(props) {
         </Button>
       </DialogActions>
     </Dialog>
+    <Snackbar color="danger" open={snackbar.open} place="br" className={classes.margin} message={snackbar.message}/>
   </React.Fragment>);
 }
 
