@@ -180,7 +180,7 @@ contract Consortium is StorageDefinition {
         return s.setOrganizationKYCStatus(organizationID, status);
     }
 
-    function getUserKYCStatus() public view userExists returns (KYCStatus status)  {
+    function getUserKYCStatus() public view returns (KYCStatus status)  {
         return s.getUserKYCStatus();
     }
 
