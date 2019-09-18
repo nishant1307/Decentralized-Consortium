@@ -2,8 +2,6 @@ pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
 import "./Storage.sol";
 import "./EternalStorage.sol";
-import "./Utils.sol";
-
 contract Consortium is StorageDefinition {
 
     EternalStorage s;
@@ -35,7 +33,7 @@ contract Consortium is StorageDefinition {
     }
 
     modifier userExists() {
-        require(!Utils.compareStrings(s.getUserDetails().organizationID, ""));
+        require(!compareStrings(s.getUserDetails().organizationID, ""));
         _;
     }
 
@@ -138,14 +136,6 @@ contract Consortium is StorageDefinition {
         delete(invitedOrganizationName);
     }
 
-    function requestProjectInvite(bytes32 projectID) external userExists returns(bool){
-        return s.requestProjectInvite(projectID);
-    }
-
-    function fetchProjectInvites(bytes32 projectID) onlyProjectAdmin(projectID) external view returns(address[] memory){
-        return s.fetchProjectInvites(projectID);
-    }
-
     function getProjectDetails(bytes32 projectID) public view returns (Project memory) {
         return s.getProjectDetails(projectID);
     }
@@ -236,17 +226,9 @@ contract Consortium is StorageDefinition {
         return s.getAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)));
     }
 
-    function createPartnershipRequest(string calldata organizationID, string calldata partnershipType, string calldata partnershipDoc) external onlyOrgAdmin{
-        uint256 length = s.createPartnershipRequest(organizationID, partnershipType, partnershipDoc);
-        s.setUint(keccak256(abi.encodePacked("PartnershipRequestDirectory", partnershipType, s.getUserDetails().organizationID)), length-1);
-    }
 
-    function getAllPartnershipRequests() external view returns(PartnershipRequest[] memory) {
-        return s.getAllPartnershipRequests();
-    }
-
-    function updatePartnershipStatus(string calldata organizationID, string calldata partnershipType, KYCStatus partnershipStatus) external onlyOwner {
-        s.updatePartnershipStatus(organizationID, partnershipType, partnershipStatus);
+    function confirmPartnershipStatus(string calldata organizationID, string calldata partnershipType) external onlyOwner {
+        s.confirmPartnershipStatus(organizationID, partnershipType);
     }
 
     function getPartnersByType(string calldata orgType) external view returns (Organization[] memory) {
