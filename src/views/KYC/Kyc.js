@@ -191,7 +191,7 @@ function Checkout(props) {
   const handleNext = () => {
     if (activeStep === 0) {
       if (isExist) {
-        fetch("http://18.207.156.120:8080/api/v1/faucet/" + localStorage.getItem("address")).then(res => res.json()).then((result) => {
+        fetch("https://api.arthanium.org/api/v1/faucet/" + localStorage.getItem("address")).then(res => res.json()).then((result) => {
           console.log(result);
         }, (error) => {
           console.log(error);
