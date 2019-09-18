@@ -21,18 +21,18 @@ export default function Industry(props) {
             <div className="div-block-new-1">
 
                 <div id="solutionsforBusiness" className="section less-v-margin">
-                    <p style={{ padding: 5, fontWeight: 300 }}>Note - The platform & solutions are sector agnostic but certain industries can be greatly benefited from the use cases.</p>
+                    <p style={{ padding: 5, fontWeight: 300, textAlign: "center"}}>Note - The platform & solutions are sector agnostic but certain industries can be greatly benefited from the use cases.</p>
                     <div className="wrapper">
-                        <div className="row-2">
+                        <div className="row-2" style={{display: "flex", alignItems: "center"}}>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/17.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/1.png')} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
                                 <div className="margin-bottom">
                                     <h4 className="heading-2 ondark" style={{ color: "#333", }}>Luxury / Apparel / Footwear</h4>
                                     <ul>
-                                        <li className="tab-class-inner">$600 billion global counterfeit fashion marketencompasses huge risks to both brands & consumers.</li>
+                                        <li className="tab-class-inner">$600 billion global counterfeit fashion market encompasses huge risks to both brands & consumers.</li>
                                         <li className="tab-class-inner">Arthanium Platform utilizes IoT chips / inlays to create a unique & unforgeable Digital identity.</li>
                                         <li className="tab-class-inner">Track & trace the product through supply chain & maintain a secured record of its journey (provenance).</li>
                                         <li className="tab-class-inner">  Consumers can verify authentication of products using.	</li>
@@ -52,10 +52,10 @@ export default function Industry(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/26.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/5.png')} />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/20.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/2.png')} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -75,16 +75,16 @@ export default function Industry(props) {
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Pharmaceutical</h2>
                                     <ul>
                                         <li className="tab-class-inner">Asset identity registration, track & trace, anti-counterfeit, & privacy solutions for supply chains.</li>
-                                        <li className="tab-class-inner"> Blockchain provides visibility across entire supply chains, from individual ingredients to the patient to which it was prescribed.Î</li>
+                                        <li className="tab-class-inner"> Blockchain provides visibility across entire supply chains, from individual ingredients to the patient to which it was prescribed.</li>
                                     </ul>
                                 </div>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/30.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/7.png')} />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/24.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/3.png')} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -110,10 +110,10 @@ export default function Industry(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/12.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/8.png')} />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/13.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/4.png')} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -136,7 +136,7 @@ export default function Industry(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/15.png')} className="cover-images" />
+                                <img src={require('../../WA/images/newimgs/6.png')} />
                             </div>
                         </div>
                     </div>
