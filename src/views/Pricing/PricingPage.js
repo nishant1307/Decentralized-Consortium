@@ -9,7 +9,7 @@ import {
   TableCell,
   TableRow
 } from '@material-ui/core';
-import pro from "assets/images/pro.png";
+import basic from "assets/images/basic.png";
 import enterprise from "assets/images/enterprise.png";
 import business from "assets/images/business.png";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -51,12 +51,12 @@ const useStyles = makeStyles(theme => ({
 
 const tiers = [
   {
-    title: 'PRO',
+    title: 'BASIC',
     price: '49',
     description: ['400 Credits'],
     buttonText: 'GET STARTED',
     buttonVariant: 'contained',
-    cardImage: pro
+    cardImage: basic
   },
   {
     title: 'BUSINESS',

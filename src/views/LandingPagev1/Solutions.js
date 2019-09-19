@@ -19,7 +19,7 @@ export default function Solutions(props) {
                             <div className="column herocontent w-col w-col-10">
                                 <h4 className="v1-paragraph">At Arthanium, we are creating an eco-system of Dapps around the platform to enable various use cases to make supply chains less complicated</h4>
                                 <div className="value-proposition-container">
-                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
+                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left ghost hero w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
                             </div>
                         </div>

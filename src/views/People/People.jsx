@@ -88,7 +88,7 @@ const People = (props) => {
             <h4 className={classes.cardTitleWhite}>
               Employees in your Organization
             </h4>
-            {props.user.user[5]==="1" && <AddBoxIcon onClick={toggleColleagueForm}/>}
+            {props.user.user[5]==="1" && <AddBoxIcon onClick={toggleColleagueForm} style={{float: "right"}}/>}
           </CardHeader>
           <MaterialTable
               columns={[
@@ -113,7 +113,7 @@ const People = (props) => {
         onClose={toggleColleagueForm}
         title={"New Colleague Form"}
         content= {
-          <ColleagueForm onColleagueFormSubmit={handleColleagueFormSubmit} />
+          <ColleagueForm onColleagueFormSubmit={handleColleagueFormSubmit} {...props}/>
         }
       />
     </Suspense>

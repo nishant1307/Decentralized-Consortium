@@ -11,18 +11,16 @@ export default function Partners(props) {
             <Header />
             <div className="section full-screen background-image-side" style={{ padding: 0 }}>
                 <div style={{ textAlign: 'center' }}>
+                <br/><br/>
                     <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                        <br />
-                        <br />
-                        <br />
-                        <img src={require('../../WA/images/newimgs/13.png')} height={400} />
+                        <img src={require('../../WA/images/newimgs/13.png')} height={400}/>
                         <div className="columns column w-row">
                             <div className="w-col-1" />
                             <div className="column herocontent w-col w-col-10">
-                                <h4 className="v1-paragraph">	Platform brings together various stakeholders of trade & supply chain on one network
-	including banks, insurance logistics, government, certification agencies & others.								</h4>
-                                <h4 className="v1-paragraph" >Problems -	Delays due to Paperwork, Manual Approvals, Forged Documents, Payment Disputes,
-	Partial / Empty Shipments,Transparency & Traceability of Transaction.							</h4>
+                                <p className="v1-paragraph" style={{textAlign: "justify"}}>	Platform brings together various stakeholders of trade & supply chain on one network
+	including banks, insurance logistics, government, certification agencies & others.								</p>
+                                <p className="v1-paragraph"  style={{textAlign: "justify"}}>Problems -	Delays due to Paperwork, Manual Approvals, Forged Documents, Payment Disputes,
+	Partial / Empty Shipments,Transparency & Traceability of Transaction.							</p>
                                 {/* <div className="value-proposition-container">
                                     <div className="value-proposition-buttons"><a href="/partners#solutionsforBusiness" className="button2 margin-left w-button">Scroll down to know more</a></div>
                                 </div> */}
@@ -72,10 +70,8 @@ export default function Partners(props) {
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Government / Government Authorities</h2>
 
                                     <ul className="tab-class-main">
-                                        <li className="tab-class-inner">  Financial service providers, can observe automated trade flows on the platform after they are added to a project.</li>
-                                        <li className="tab-class-inner">  Our digitized documentation application allows automation of documentation process & connected devices / sensors allow to track / trace product through its journey.</li>
-                                        <li className="tab-class-inner">  Automation reduces the transaction time substantially and blockchain provides higher security and transparency.</li>
-                                        <li className="tab-class-inner">  Proposed solutions for trade finance, import / export credit, guarantees, invoice factoring	.</li>
+                                        <li className="tab-class-inner">  Government / Government Authorities can be silent observers and monitor trade happening in a transparent way.</li>
+                                        <li className="tab-class-inner">  They can chose to automate their processes especially documentation.</li>
                                     </ul>
                                 </div>
                             </div>

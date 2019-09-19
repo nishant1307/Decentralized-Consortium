@@ -11,10 +11,12 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH)
     }),
-    new BundleAnalyzerPlugin()
+    // new BundleAnalyzerPlugin()
   ],
   devServer: {
+    host: '0.0.0.0',
     port: 4001,
+    disableHostCheck: true,
     historyApiFallback: true,
     inline: true,
     hot: true,

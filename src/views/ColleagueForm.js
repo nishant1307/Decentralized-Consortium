@@ -1,18 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {registryContract, registryAddress} from "registryContract";
 import web3 from "../web3";
 import {encryptMessage} from "utils";
 
-import { TextField, Button } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
+import Button from "components/CustomButtons/Button";
 
 const ColleagueForm = (props) => {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [myemail, setMyEmail] = useState('');
+  const [organizationID, setOrganizationID] = useState('');
+  const [organizationName, setOrganizationName] = useState('');
   const [invitePasscode, setInvitePasscode] = useState('');
-
+  console.log(props);
+  useEffect(() => {
+    if(props.user){
+      setOrganizationID(props.user.organization[0]);
+      setOrganizationName(props.user.organization[1]);
+      setMyEmail(props.user.user[2])
+      setName(props.user.user[2])
+    }
+  }, [props])
   const onSubmitForm = (e) => {
     e.preventDefault();
-    axios.post("https://api.arthanium.org/api/v1/inviteColleague", { email: email, link: encryptMessage(email, invitePasscode), passcode: invitePasscode})
+    let companyInfo = {
+      emailid: myemail,
+      companyName: organizationName,
+      name: name
+    }
+    axios.post("https://api.arthanium.org/api/v1/inviteColleague", { email: email,companyInfo: companyInfo , link: encryptMessage(organizationID, invitePasscode), passcode: invitePasscode})
     .then(res=> {
       if(res.data.status=="Invitation sent successsfully"){
         setEmail('');
@@ -45,7 +63,7 @@ const ColleagueForm = (props) => {
         onChange={(e => setInvitePasscode(e.target.value))}
       />
       <br/>
-      <Button className="primary" onClick = {onSubmitForm}>Invite Colleague</Button>
+      <Button color="info" round onClick = {onSubmitForm}>Invite Colleague</Button>
     </>
   )
 }

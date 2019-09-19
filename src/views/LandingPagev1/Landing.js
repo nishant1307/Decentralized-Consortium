@@ -20,7 +20,7 @@ import {
   Typography,
   Container
 } from '@material-ui/core';
-import pro from "assets/images/pro.png";
+import basic from "assets/images/basic.png";
 import enterprise from "assets/images/enterprise.png";
 import business from "assets/images/business.png";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -64,12 +64,12 @@ const useStyles = makeStyles(theme => ({
 
 const tiers = [
   {
-    title: 'PRO',
+    title: 'BASIC',
     price: '49',
     description: ['400 Credits'],
     buttonText: 'GET STARTED',
     buttonVariant: 'contained',
-    cardImage: pro
+    cardImage: basic
   },
   {
     title: 'BUSINESS',
@@ -120,7 +120,7 @@ export default function Landing(props) {
                                 <p className="short-paragraph">Building solutions for transparency, automating processes, trade finance and protecting your brand from counterfeiting.</p>
                                 <p className="short-paragraph">Leverage the power of digitized documentation, connected IoT devices, & smart contracts with our Dapps.</p>
                                 <div className="value-proposition-container">
-                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
+                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left ghost hero w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
                             </div>
                             <div className="w-col w-col-7"><img data-src="/images/r2.png" width={1000} height={380} srcSet="/images/r2.png 500w, /images/r2.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
@@ -133,7 +133,7 @@ export default function Landing(props) {
                                 <h2>Anti-Counterfeiting, Provenance and Chain of Custody</h2>
                                 <p className="short-paragraph">Create digital identities for physical assets through unique identifiers like connected IoT Devices / Sensors and track them through their journey and make selective information available to all stakeholders.</p>
                                 <div className="value-proposition-container">
-                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
+                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left ghost hero w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
                             </div>
                         </div>
@@ -301,7 +301,7 @@ export default function Landing(props) {
                     {tiers.map(tier => (
                       // Enterprise card is full width at sm breakpoint
                       <GridItem key={tier.title} xs={12} sm={12} md={4}>
-                        <Card>
+                        <Card style={{filter: "drop-shadow(16px 16px 10px gray)"}}>
                           <CardHeader plain style={{margin: 0}}>
                             <img src={tier.cardImage} height="100%" width="100%"/>
                           </CardHeader>

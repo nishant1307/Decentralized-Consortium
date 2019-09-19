@@ -34,26 +34,26 @@ const Projects = (props) => {
 
   useEffect(()=> {
     // console.log("Hel");
-    registryContract.methods.fetchProjectInvites(props.projectID).call({
-      from: props.auth.user.publicKey
-    }).then(res => {
-      // console.log("Hello ",res);
-      if(res.length==0)
-        setLoader(false);
-      setProjectInviteList(res);
-      res.forEach(userAddress => {
-        registryContract.methods.getUserDetails(userAddress).call({
-          from: props.auth.user.publicKey
-        }).then(userDetails => {
-          setInviteUserList(inviteUserList => [
-            ...inviteUserList,
-            userDetails
-          ])
-          setLoader(false);
-        });
-      });
-      setProjectInviteList(res);
-    });
+    // registryContract.methods.fetchProjectInvites(props.projectID).call({
+    //   from: props.auth.user.publicKey
+    // }).then(res => {
+    //   // console.log("Hello ",res);
+    //   if(res.length==0)
+    //     setLoader(false);
+    //   setProjectInviteList(res);
+    //   res.forEach(userAddress => {
+    //     registryContract.methods.getUserDetails(userAddress).call({
+    //       from: props.auth.user.publicKey
+    //     }).then(userDetails => {
+    //       setInviteUserList(inviteUserList => [
+    //         ...inviteUserList,
+    //         userDetails
+    //       ])
+    //       setLoader(false);
+    //     });
+    //   });
+    //   setProjectInviteList(res);
+    // });
   }, [props.user.projectCount]);
   const projectURL = (projectID) => {
     return "/dashboard/projects/"+ projectID;

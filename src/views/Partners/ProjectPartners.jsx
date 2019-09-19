@@ -192,7 +192,6 @@ const ProjectPartners = (props) => {
                     <FormControlLabel value={"Logistics"} control={<Radio color="primary"/>} label="Logistics" />
                     <FormControlLabel value={"Bank"} control={<Radio color="primary"/>} label="Bank" />
                     <FormControlLabel value={"Agent"} control={<Radio color="primary"/>} label="Agent" />
-
                   </RadioGroup>
                 </FormControl>
                 </>

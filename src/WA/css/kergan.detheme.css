@@ -79,13 +79,14 @@ a {
 }
 
 .section.full-screen.background-image-side {
-  background-image: url('http://detheme.com/templates/kergan/images/bg-hero-kergan.jpg');
+  background: rgb(64,149,229); background: linear-gradient(0deg, rgba(64,149,229,0.65) 0%, rgba(71,48,153,1) 97%);
   background-position: 0px 0px;
   background-size: cover;
+  color: #fff;
 }
 
 .background-image-side{
-  background-image: url('http://detheme.com/templates/kergan/images/bg-hero-kergan.jpg');
+  background: rgb(64,149,229); background: linear-gradient(0deg, rgba(64,149,229,0.65) 0%, rgba(71,48,153,1) 97%);
   background-position: 0px 0px;
   background-size: cover;
 }
@@ -108,7 +109,7 @@ a {
 }
 
 .section.bggradient {
-  background-image: linear-gradient(96deg, hsla(230.22471910112358, 88.12%, 60.39%, 1.00), #b2629e);
+  background: rgb(64,149,229); background: linear-gradient(0deg, rgba(64,149,229,0.72) 0%, rgba(71,48,153,1) 97%);
 }
 
 .section.bgdark {
@@ -282,7 +283,7 @@ a {
   -webkit-transition: opacity 150ms ease;
   transition: opacity 150ms ease;
   font-family: Roboto, sans-serif;
-  color: #333;
+  color: #fff;
   font-size: 16px;
   line-height: 1.5;
   cursor: pointer;
@@ -290,12 +291,8 @@ a {
 
 .nav-link-2:hover {
   opacity: 1;
-  color: hsla(230.22471910112358, 88.12%, 60.39%, 1.00);
-}
-
-.active {
-  background: hsla(230.22471910112358, 88.12%, 60.39%, 1.00)!important;
-  color: #fff;
+  border-radius: 50px;
+  border-color: #fff;
 }
 
 .nav-link-2.w--current {
@@ -316,9 +313,15 @@ a {
   opacity: 1;
   -webkit-transition: background-color 200ms ease;
   transition: background-color 200ms ease;
-  border: none !important;
   border-radius: 50px;
+  border-color: #fff;
   background-color:transparent;
+}
+
+.nav-link-2.inactive {
+  border-radius: 50px;
+  color: #fff;
+  border: none!important;
 }
 
 .nav-link-2.border:hover {
@@ -694,10 +697,10 @@ a {
 .button2.ghost {
   border-style: solid;
   border-width: 1px;
-  border-color: hsla(230.22471910112358, 88.12%, 60.39%, 1.00);
+  border-color: #fff;
   background-color: transparent;
   box-shadow: none;
-  color: hsla(230.22471910112358, 88.12%, 60.39%, 1.00);
+  color: white;
   font-weight: 700;
 }
 
