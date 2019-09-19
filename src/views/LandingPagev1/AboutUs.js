@@ -1,12 +1,8 @@
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import { Link } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 export default function Landing(props) {
-    const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
     return (
         <div className="body">
             <Header headerStyle="bg-wrap" />
@@ -54,7 +50,7 @@ export default function Landing(props) {
                                         <br />
                                         <br />
                                         <br />
-                                       
+
                                     </div>
                                 </div>
                                 <div className="col lg-12 sm-1">

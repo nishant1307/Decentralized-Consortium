@@ -12,44 +12,18 @@ const ColleagueForm = (props) => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    var transaction = {
-      "to": registryAddress,
-      "data": registryContract.methods.inviteUser(
-        email
-      ).encodeABI()
-    };
-    const privateKey = sessionStorage.getItem('privateKey')
-
-    // web3.eth.estimateGas(transaction).then(gasLimit => {
-    transaction["gasLimit"] = 2000000;
-    web3.eth.accounts.signTransaction(transaction, privateKey)
-      .then(res => {
-        web3.eth.sendSignedTransaction(res.rawTransaction)
-          .once('confirmation', async function (confirmationNumber, receipt) {
-            if (confirmationNumber == 1) {
-              if (receipt.status == true) {
-                axios.post("http://18.207.156.120:8080/api/v1/inviteColleague", { email: email, link: encryptMessage(email, invitePasscode), passcode: invitePasscode})
-                .then(res=> {
-                  if(res.data.status=="Invitation sent successsfully"){
-                    setEmail('');
-                    props.onColleagueFormSubmit(res.data.status)
-                  }
-                })
-                .catch(function (error) {
-                  if (error.response) {
-                    props.onColleagueFormSubmit(error.response.data.message)
-                  }
-                });
-              }
-            }
-          })
-          .on('error', async function (error) {
-            // console.log(error);
-          })
-      })
-      .catch(err => {
-        // console.log(err);
-      });
+    axios.post("https://api.arthanium.org/api/v1/inviteColleague", { email: email, link: encryptMessage(email, invitePasscode), passcode: invitePasscode})
+    .then(res=> {
+      if(res.data.status=="Invitation sent successsfully"){
+        setEmail('');
+        props.onColleagueFormSubmit(res.data.status)
+      }
+    })
+    .catch(function (error) {
+      if (error.response) {
+        props.onColleagueFormSubmit(error.response.data.message)
+      }
+    });
   }
 
   return(

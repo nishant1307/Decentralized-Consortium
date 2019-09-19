@@ -112,7 +112,7 @@ export default function Landing(props) {
         <div className="body">
             <Header />
             <div className="section full-screen background-image-side">
-                <AutoPlaySwipeableViews>
+                <AutoPlaySwipeableViews interval="3000">
                     <div className="wrapper">
                         <div className="columns column w-row">
                             <div className="column herocontent w-col w-col-5">
@@ -241,29 +241,29 @@ export default function Landing(props) {
                                 <div className="col lg-3">
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/commision.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Blockchain</h4>
-                                        <p className="paragraph"><strong>Secure</strong><br />
-                                            Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
+                                        <p className="paragraph"><strong>Secure</strong></p>
+                                            <p >Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} height={150} alt="" className="icon" />
                                         <h4>DApps</h4>
-                                        <p className="paragraph"><strong>Automate </strong><br />
-                                            Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
+                                        <p className="paragraph"><strong>Automate </strong></p>
+                                            <p>Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/team.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Partners</h4>
-                                        <p className="paragraph"><strong>Collaborate</strong><br />
-                                            Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
+                                        <p className="paragraph"><strong>Collaborate</strong></p>
+                                            <p>Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/report.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Industry 4.0</h4>
-                                        <p className="paragraph"><strong>Innovate</strong><br />
-                                            Unlock new opportunities Eliminate low value activities.</p>
+                                        <p className="paragraph"><strong>Innovate</strong></p>
+                                            <p>Unlock new opportunities Eliminate low value activities.</p>
                                     </div>
                                 </div>
                             </div>

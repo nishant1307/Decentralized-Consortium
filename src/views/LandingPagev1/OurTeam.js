@@ -17,10 +17,10 @@ export default function Partners(props) {
                             <div className="col lg-6">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", textAlign: 'center', padding: 20 }}>Company</h2>
-                                    <p className="ondark" style={{ color: "#333", }}>
-                                        Arthanium is an open blockchain based "Platform" converging latest in Blockchain, IoT and Analytics technologies.<br />
-                                        It securely links identity to physical assets through blockchain, smart contract & firmware.<br />
-                                        Applications include decentralized supply chain, trade finance / insurance, digital identity, provenance, authentication and e-commerce.<br />
+                                    <p className="ondark" style={{ color: "#333", textAlign: "justify"}}>
+                                        Arthanium is an open blockchain based "Platform" converging latest in Blockchain, IoT and Analytics technologies.
+                                        It securely links identity to physical assets through blockchain, smart contract & firmware.
+                                        Applications include decentralized supply chain, trade finance / insurance, digital identity, provenance, authentication and e-commerce.
                                         Industries benefiting from the platform include smart cities, pharma, packaging, logistics, fashion / luxury, food & beverages, precious metals & jewelry.
                                     </p>
                                 </div>
