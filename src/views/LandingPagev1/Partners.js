@@ -37,7 +37,7 @@ export default function Partners(props) {
                     <div className="wrapper">
                         <div className="row-2" style={{display: "flex", alignItems: "center"}}>
                             <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/6-1.png')}/>
+                                <img style={{filter: "drop-shadow(16px 16px 10px gray)"}} src={require('../../WA/images/new/6-1.png')}/>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-6" id="banks" >
@@ -52,7 +52,7 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-6" id="logistics">
+                            <div className="col lg-4" id="logistics">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Logistics</h2>
                                     <ul className="tab-class-main">
@@ -61,11 +61,11 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/31.png')} className="cover-images" />
+                            <div className="col lg-6 extra-pad">
+                                <img style={{filter: "drop-shadow(16px 16px 10px gray)"}} src={require('../../WA/images/new/31.png')}/>
                             </div>
                             <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/16.png')} className="cover-images" />
+                                <img style={{filter: "drop-shadow(16px 16px 10px gray)"}} src={require('../../WA/images/new/16.png')}/>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-6" id="government">
@@ -81,7 +81,7 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-6" id="certificationagencies">
+                            <div className="col lg-4" id="certificationagencies">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Certification Agencies</h2>
                                     <ul className="tab-class-main">
@@ -90,23 +90,13 @@ export default function Partners(props) {
                                 </div>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/28.png')} className="cover-images" />
+                            <div className="col lg-6 extra-pad">
+                                <img style={{filter: "drop-shadow(16px 16px 10px gray)"}} src={require('../../WA/images/new/28.png')} />
                             </div>
                             <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/10.png')} className="cover-images" />
+                                <img style={{filter: "drop-shadow(16px 16px 10px gray)"}} src={require('../../WA/images/new/2.png')}/>
                             </div>
                             <div className="col lg-1" />
-                            <div className="col lg-6" id="hardwaresoftwareintegrators">
-                                <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Hardware / Software Integrators </h2>
-                                    <ul className="tab-class-main">
-                                        <li className="tab-class-inner">  Hardware / Software developers for supply chain are welcome to build their applications around our ecosystem.</li>
-                                        <li className="tab-class-inner">  Existing systems can be made blockchain compatible through open API's.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            {/* 2 */}
                             <div className="col lg-6" id="portsandterminals">
                                 <div className="margin-bottom">
                                     <h2 className="heading-2 ondark" style={{ color: "#333", }}>Ports & Terminals</h2>
@@ -118,12 +108,27 @@ export default function Partners(props) {
                                     </ul>
                                 </div>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/2.png')} className="cover-images" />
+
+
+
+                            <div className="col lg-4" id="hardwaresoftwareintegrators">
+                                <div className="margin-bottom">
+                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Hardware / Software Integrators </h2>
+                                    <ul className="tab-class-main">
+                                        <li className="tab-class-inner">  Hardware / Software developers for supply chain are welcome to build their applications around our ecosystem.</li>
+                                        <li className="tab-class-inner">  Existing systems can be made blockchain compatible through open API's.</li>
+                                    </ul>
+                                </div>
                             </div>
+                            <div className="col lg-1" />
+                            <div className="col lg-5 extra-pad">
+                                <img style={{filter: "drop-shadow(16px 16px 10px gray)"}} src={require('../../WA/images/new/10.png')} />
+                            </div>
+
+                            {/* 2 */}
+
                             <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/29.png')} className="cover-images" />
+                                <img style={{filter: "drop-shadow(16px 16px 10px gray)"}} src={require('../../WA/images/new/29.png')}/>
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-6" id="recyclers">
