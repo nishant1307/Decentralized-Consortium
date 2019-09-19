@@ -395,6 +395,22 @@ a {
   flex: 1;
 }
 
+.image-box{
+        position: relative;
+        display: inline-block; /* Make the width of box same as image */
+    }
+    .image-box .text{
+        position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        top: 40%; /* Adjust this value to move the positioned div up and down */
+        text-align: center;
+        text-shadow: 2px 2px 4px #000000;
+        width: 60%; /* Set the width of the positioned div */
+    }
+
 .short-paragraph {
   width: 75%;
   margin-right: auto;

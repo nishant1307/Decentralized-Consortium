@@ -8,8 +8,11 @@ export default function Industry(props) {
             <Header {...props} />
             <div className="section full-screen background-image-side" style={{ padding: 0 }}>
                 <div style={{ textAlign: 'center' }}>
-                    <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                    <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }} className="image-box">
                         <img src={require('../../WA/images/newimgs/Artboard 1.png')} height={400} />
+                        <div class="text">
+                            <h1>INDUSTRY</h1>
+                        </div>
                     </div>
                 </div>
             </div>

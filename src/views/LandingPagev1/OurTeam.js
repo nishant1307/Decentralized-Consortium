@@ -27,7 +27,7 @@ export default function Partners(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/22.png')} className="cover-images" />
+                                <img src={require('../../WA/images/new/22.png')} />
                             </div>
                         </div>
                     </div>

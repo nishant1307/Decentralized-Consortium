@@ -8,23 +8,14 @@ export default function Solutions(props) {
         <div className="body">
             <Header />
             <div className="section full-screen background-image-side" style={{ padding: 0 }}>
-                <div style={{ textAlign: 'center' }}>
-                    <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
-                        <br />
-                        <br />
-                        <br />
-                        <img src={require('../../WA/images/new/33.png')} height={400} />
-                        <div className="columns column w-row">
-                            <div className="w-col-1" />
-                            <div className="column herocontent w-col w-col-10">
-                                <h4 className="v1-paragraph">At Arthanium, we are creating an eco-system of Dapps around the platform to enable various use cases to make supply chains less complicated</h4>
-                                <div className="value-proposition-container">
-                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left ghost hero w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div style={{ textAlign: 'center' }}>
+                  <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }} className="image-box">
+                      <img src={require('../../WA/images/new/33.png')} height={400} />
+                      <div class="text">
+                          <h1>SOLUTIONS</h1>
+                      </div>
+                  </div>
+              </div>
             </div>
             <div className="div-block-new-1" id="dapps">
               <div className="section">
@@ -205,20 +196,6 @@ export default function Solutions(props) {
                                 </div>
                             </div>
                             {/* 2 */}
-                            <div className="col lg-5 extra-pad">
-                                <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark" style={{ color: "#333", }}>Anti-Diversion</h2>
-                                    <ul className="tab-class-main">
-                                        <li className="tab-class-inner">Secure asset identities combined with blockchain registrations & chain-of-custody.</li>
-                                        <li className="tab-class-inner">Track product movements & identify where diversion occurred in the chain & intervene appropriately.</li>
-                                        <li className="tab-class-inner">Industries – Luxury, Pharmaceuticals, Consumer Electronics, Food & Beverages, Cosmetics.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/21.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
-                            </div>
                         </div>
                     </div>
                 </div>
