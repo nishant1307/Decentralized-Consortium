@@ -28,7 +28,7 @@ const ColleagueForm = (props) => {
           .once('confirmation', async function (confirmationNumber, receipt) {
             if (confirmationNumber == 1) {
               if (receipt.status == true) {
-                axios.post("http://18.207.156.120:8080/api/v1/inviteColleague", { email: email, link: encryptMessage(email, invitePasscode), passcode: invitePasscode})
+                axios.post("https://api.arthanium.org/api/v1/inviteColleague", { email: email, link: encryptMessage(email, invitePasscode), passcode: invitePasscode})
                 .then(res=> {
                   if(res.data.status=="Invitation sent successsfully"){
                     setEmail('');
