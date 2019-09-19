@@ -7,14 +7,20 @@ export default function Solutions(props) {
     return (
         <div className="body">
             <Header />
-            <div className="section full-screen background-image-side" id="DApps">
-                <div className="wrapper">
-                    <div className="columns column w-row">
-                        <div className="column herocontent w-col-12">
-                            <h2>At Arthanium, we are creating an eco-system of Dapps around the platform to enable various use cases to make supply chains less complicated</h2>
-
-                            <div className="value-proposition-container">
-                                <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
+            <div className="section full-screen background-image-side" style={{ padding: 0 }}>
+                <div style={{ textAlign: 'center' }}>
+                    <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+                        <br />
+                        <br />
+                        <br />
+                        <img src={require('../../WA/images/new/33.png')} height={400} />
+                        <div className="columns column w-row">
+                            <div className="w-col-1" />
+                            <div className="column herocontent w-col w-col-10">
+                                <h4 className="v1-paragraph">At Arthanium, we are creating an eco-system of Dapps around the platform to enable various use cases to make supply chains less complicated</h4>
+                                <div className="value-proposition-container">
+                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -28,7 +34,7 @@ export default function Solutions(props) {
                       <div className="row-2">
                           <div className="col lg-3">
                               <div className="solution-slider-container">
-                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/kp3.png')} alt="" className="image-5" />
+                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/doc.jpg')} height="150px" alt="" className="image-5" />
                                       <div style={{ paddingTop: 20 }}>
                                           <h4 className="testimonial-title">DocConekt</h4>
                                           <p className="testimonial-text"><strong>Paperless Trade & Certification</strong><br />
@@ -47,9 +53,9 @@ export default function Solutions(props) {
                           </div>
                           <div className="col lg-3">
                               <div className="solution-slider-container">
-                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/kp1.png')} alt="" className="image-5" />
+                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/iot.png')} height="150px"  alt="" className="image-5" />
                                       <div style={{ paddingTop: 20 }}>
-                                          <h4 className="testimonial-title">ConsortiumApp</h4>
+                                          <h4 className="testimonial-title">IOTConekt</h4>
                                           <p className="testimonial-text"><strong>Secure Supply chain</strong>
                                               <br />Securely links IoT identities to physical assets.
   Create digital identity and  provenance.<br />Solutions for tracking, certification, provenance & anti counterfeiting<br /><br />		</p>
@@ -64,7 +70,7 @@ export default function Solutions(props) {
                           </div>
                           <div className="col lg-3">
                               <div className="solution-slider-container">
-                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/kp.png')} alt="" className="image-5" />
+                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/tf.png')} height="150px" alt="" className="image-5" />
                                       <div style={{ paddingTop: 20 }}>
                                           <h4 className="testimonial-title">Trade Finance</h4>
                                           <p className="testimonial-text"><strong>Automate Payments & Financin</strong><br />Products and processes to automate payments<br />Secure transactions & sharing of information<br />proposed applications - Letter of Credits, Invoice Factoring <br /></p>
@@ -185,7 +191,7 @@ export default function Solutions(props) {
                             </div>
                             {/* new */}
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/9.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/5.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -225,7 +231,7 @@ export default function Solutions(props) {
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/5.png')}/>
+                                <img src={require('../../WA/images/new/32.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">

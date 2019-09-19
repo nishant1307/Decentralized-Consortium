@@ -56,7 +56,7 @@ export default function Landing(props) {
                                 <div className="col lg-12 sm-1">
                                     <div>
                                         {/* <h3 className="ondark">More Value</h3> */}
-                                        <p className="ondark" style={{ color: 'black' }}>Connected Devices, Digitized Doccuments</p>
+                                        <p className="ondark" style={{ color: 'black' }}>Connected Devices, Digitized Documents</p>
                                         <br />
                                         <br />
                                         <br />

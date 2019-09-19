@@ -118,7 +118,7 @@ export default function Landing(props) {
                             <div className="column herocontent w-col w-col-5">
                                 <h2>Decentralized Trade and Supply Chain on Blockchain</h2>
                                 <p className="short-paragraph">Building solutions for transparency, automating processes, trade finance and protecting your brand from counterfeiting.</p>
-                                <p className="short-paragraph">Leverage the power of digitized doccumentation, connected IoT devices, & smart contracts with our Dapps.</p>
+                                <p className="short-paragraph">Leverage the power of digitized documentation, connected IoT devices, & smart contracts with our Dapps.</p>
                                 <div className="value-proposition-container">
                                     <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
@@ -249,7 +249,7 @@ export default function Landing(props) {
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} height={150} alt="" className="icon" />
                                         <h4>DApps</h4>
                                         <p className="paragraph"><strong>Automate </strong></p>
-                                            <p>Decentralized Apps ecosystem for digitized doccumentation, connected devices & trade finance.</p>
+                                            <p>Decentralized Apps ecosystem for digitized documentation, connected devices & trade finance.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
@@ -345,7 +345,7 @@ export default function Landing(props) {
                             <div>
                                 <Table>
                                     <TableRow>
-                                        <TableCell colspan="4" align="center">Credit Chart</TableCell>
+                                        <TableCell colspan="4" align="center">Estimate your monthly credit requirements</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>Action</TableCell>

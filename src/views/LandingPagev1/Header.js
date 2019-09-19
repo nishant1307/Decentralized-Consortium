@@ -26,9 +26,10 @@ export default function Header(props) {
                     <Link to="/" className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/")})}>Home</Link>
                     <Link to="/platform" className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/platform")})}>Platform</Link>
                     <div className="dropdown">
-                        <button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/partners")})}>Partners
+                        <Link to="/partners"><button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/partners")})}>Partners
                             <i className="fa fa-caret-down" />
                         </button>
+                        </Link>
                         <div className="dropdown-content">
                             <Link to="/partners#banks" className="nav-link-2 w-nav-link">Banks</Link>
                             {/* <Link to="/partners#insurance" className="nav-link-2 w-nav-link">Insurance</Link> */}
@@ -41,9 +42,9 @@ export default function Header(props) {
                         </div>
                     </div>
                     <div className="dropdown">
-                        <button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/solutions")})}>Solutions
+                        <Link to="/solutions"><button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/solutions")})}>Solutions
                             <i className="fa fa-caret-down" />
-                        </button>
+                        </button></Link>
                         <div className="dropdown-content">
                             <Link to="/solutions#DApps" className="nav-link-2 w-nav-link">DApps</Link>
                             <Link to="/solutions#solutionsforBusiness" className="nav-link-2 w-nav-link">For Business</Link>
@@ -52,9 +53,9 @@ export default function Header(props) {
                     </div>
                     <Link to="/industry" className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/industry")})}>Industry</Link>
                     <div className="dropdown">
-                        <button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/aboutus")})}>About Us
+                        <Link to="/aboutus"><button className={classNames("nav-link-2 border w-nav-link",{"active": isActive("/aboutus")})}>About Us
                             <i className="fa fa-caret-down" />
-                        </button>
+                        </button></Link>
                         <div className="dropdown-content">
                             <Link to="/aboutus" className="nav-link-2 w-nav-link">Company</Link>
                             <Link to="/aboutus#ourteam" className="nav-link-2 w-nav-link">Our Team</Link>

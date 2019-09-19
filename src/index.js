@@ -50,6 +50,7 @@ ReactDOM.render(
               <Route path="/recover" component={RecoverAccount} />
               <Route component={Page404} />
             </Switch>
+
         </BrowserRouter>
       </Suspense>
     </PersistGate>
