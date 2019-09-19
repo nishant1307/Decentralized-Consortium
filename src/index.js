@@ -33,14 +33,6 @@ ReactDOM.render(
     <PersistGate loading={null} persistor={persistor}>
       <Suspense fallback={loading}>
         <BrowserRouter>
-        <Route render={({ location }) => (
-          <TransitionGroup>
-            <CSSTransition
-            in={location!=null}
-              key={location.key}
-              classNames="pageSlider"
-              timeout={3000}
-            >
             <Switch>
               <Route exact path="/" component={Landing} />
               <Route exact path="/platform" component={Platform} />
@@ -58,11 +50,6 @@ ReactDOM.render(
               <Route path="/recover" component={RecoverAccount} />
               <Route component={Page404} />
             </Switch>
-            </CSSTransition>
-            </TransitionGroup>
-        )}
-        />
-        </BrowserRouter>
       </Suspense>
     </PersistGate>
   </Provider>,
