@@ -347,6 +347,7 @@ function Invitation(props) {
                                 .bind(this),
                             10000
                         );
+                        setActiveStep(0);
                     })
             })
     }
