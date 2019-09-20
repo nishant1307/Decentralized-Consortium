@@ -73,6 +73,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Eula(props) {
     let { state } = props
+    console.log(state,"state");
+    
     const date = moment(new Date()).format("Do MMMM YYYY")
     return (
         <React.Fragment>
@@ -85,7 +87,7 @@ export default function Eula(props) {
       East, Mumbai – 400059, India and {state.companyName}  (‘the user”) with
       registered office at {state.address} represented by its
       authorized representative {state.fullName} .  {state.fullName}  with email id as &nbsp;
-      {state.email}  and phone number {state.number} affirms that he is
+      {state.email}  affirms that he is
                                     authorized to represent the user &amp; all know your customer (“KYC”)
                                     documents submitted and / or to be submitted by him / her are authentic
       &amp; in his / her lawful possession at the time of submission.<br /><br />

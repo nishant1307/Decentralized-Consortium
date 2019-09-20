@@ -96,7 +96,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props}/>;
 });
 
-const steps = ['Account Creation', 'Company & Personal Details', 'KYC Documents', 'Terms of Service'];
+const steps = ['Key Creation', 'Company & Personal Details', 'KYC Documents', 'Terms of Service'];
 
 function Checkout(props) {
   const address = localStorage.getItem('address');

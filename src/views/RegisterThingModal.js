@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import ipfs from 'ipfs.js';
 const IPFS = require('ipfs-http-client')
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { renderFromArray } from 'utils';
 import { currencyCode } from "assets/data/countryList";
 import axios from "axios";
-
+import Snackbar from '../components/Snackbar/Snackbar.jsx'
 import {
   TextField,
   CircularProgress,
@@ -23,10 +23,17 @@ import {
   Button
 } from '@material-ui/core';
 import GridItem from "components/Grid/GridItem";
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles(theme => ({
+ 
+  margin: {
+    margin: theme.spacing(1)
+  },
+}));
 const RegisterThingModal = (props) => {
-console.log(props.projectId);
-
+// console.log(props.projectId);
+const classes = useStyles();
   const onSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -48,7 +55,7 @@ console.log(props.projectId);
   };
 
   const [isLoading, setLoading] = useState(false);
-
+  const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
   const [content_add, setContentAdd] = useState("Add claim");
   const [myItems, setMyItems] = useState([]);
   const [urls, setURL] = useState([]);
@@ -73,6 +80,17 @@ console.log(props.projectId);
   let helperspan = null;
   let lastId = -1;
   const width = Math.max(50)
+
+  useEffect(() => {
+    if (props.errors.message !== undefined) {
+      setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
+      setTimeout(() => {
+        setSnackbar({ open: false, message: "" });
+      }, 10000)
+      props.closeThingModal();
+      setLoading(false)
+    }
+  }, [props.errors]);
 
   //claim
   const handleFocus = (event) => {
@@ -451,6 +469,7 @@ console.log(props.projectId);
         />
 
       </GridItem>
+      <Snackbar color="danger" open={snackbar.open} place="bl" className={classes.margin} message={snackbar.message} />
     </div>
   );
 }

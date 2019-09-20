@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone'
 import ipfs from "ipfs";
+const bip39 = require('bip39')
+const etherHDkey = require('ethereumjs-wallet/hdkey')
+const jsPDF = require('jspdf');
+var passworder = require('browser-passworder')
 import { connect } from 'react-redux';
 const Ipfs = require('ipfs-http-client')
 import { registryContract, registryAddress } from '../../registryContract';
 import web3 from '../../web3';
 import uuidv1 from 'uuid/v1';
 import moment from "moment";
-import {decryptMessage} from "utils";
+import axios from 'axios';
+import { decryptMessage } from "utils";
 import {
     Typography,
     Grid,
@@ -18,9 +23,20 @@ import {
     Step,
     StepLabel,
     Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Slide,
+    Checkbox,
+    FormControlLabel,
 } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Eula from "views/KYC/Eula";
+import KeyCreation from './KeyCreation'
+import ExistingAccount from './ExisitingAccount';
+import { log } from 'util';
 
 const useStyles = makeStyles(theme => ({
     listItem: {
@@ -145,7 +161,7 @@ function InvitationPasscode(props) {
                         variant={"outlined"}
                         onChange={props.setPasscode}
                     />
-                    <Button style={{float: "right"}} variant="contained" color="primary" onClick={props.triggerDecrypt}>Submit</Button>
+                    <Button style={{ float: "right" }} variant="contained" color="primary" onClick={props.triggerDecrypt}>Submit</Button>
                     {props.decryptedEmail && props.decryptedEmail}
                 </Grid>
             </Grid>
@@ -155,6 +171,7 @@ function InvitationPasscode(props) {
 
 function UserDetails(props) {
     const { state, handleChange, handleAddressChange, handleSelect } = props;
+    console.log(state, "state", Math.random());
     return (
         <React.Fragment>
             <Grid container spacing={3}>
@@ -166,7 +183,7 @@ function UserDetails(props) {
                         label="Company Name"
                         fullWidth
                         disabled
-                        autoComplete="companyName"
+                        // autoComplete="companyName"
                         value={state.companyName}
                     />
                 </Grid>
@@ -187,7 +204,7 @@ function UserDetails(props) {
                         required
                         id="email"
                         name="email"
-                        label="Email"
+                        label="Company Id"
                         disabled
                         fullWidth
                         onChange={handleChange}
@@ -200,25 +217,81 @@ function UserDetails(props) {
     );
 }
 
-const steps = ['Enter passcode', 'Company & Personal Details', 'KYC Documents', 'Terms of Service'];
+const steps = ['Enter passcode', 'Key Creation ', 'Company & Personal Details', 'KYC Documents', 'Terms of Service'];
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
 
 function Invitation(props) {
     const address = localStorage.getItem('address');
     const classes = useStyles();
+    const [toggleState, setToggleState] = React.useState({ checkedA: false, checkedB: false, checkedC: false });
     const [activeStep, setActiveStep] = React.useState(0);
     const [companyDoc, setCompanyDoc] = useState([]);
     const [ownerDoc, setOwnerDoc] = useState([]);
+    const [error, setError] = useState(false);
     const [ipfsCompanyHash, setIPFSCompanyHash] = useState([]);
     const [ipfsOwnerHash, setIPFSOwnerHash] = useState([]);
     const [passcode, setPasscode] = useState('');
-    const [button, setButton] = useState(false)
+    const [button, setButton] = useState(false);
+    const [isExist, setIsExist] = useState(false);
+    const [modal1, setModal1] = useState(false)
+    const [keystore, setKeystore] = useState('');
     const [state, setState] = useState({
         companyName: '',
         fullName: '',
-        email: ''
+        email: '',
+        address: '',
+        password: '',
+        confirmPassword: '',
+        organizationID: ''
     })
+    const handleToggleChange = name => event => {
+        setToggleState({
+            ...toggleState,
+            [name]: event.target.checked
+        });
+    };
+
+    async function fetchKey() {
+        // console.log("hhsh");
+        // web3.eth.getBalance(address).then(console.log)
+        // let address = localStorage.getItem("address");
+        let temp = await localStorage.getItem("data")
+        // console.log(temp,"temppppppppp");
+        setKeystore(JSON.parse(temp));
+        // setAddress(address);
+        // console.log("hhsh2");
+    }
+
     const handleNext = () => {
-        setActiveStep(activeStep + 1);
+        if (activeStep === 1) {
+            if (isExist) {
+                fetch("https://api.arthanium.org/api/v1/faucet/" + localStorage.getItem("address")).then(res => res.json()).then((result) => {
+                    console.log(result);
+                }, (error) => {
+                    console.log(error);
+                })
+                passworder.decrypt(state.password, keystore).then(function (result) {
+                    sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
+                    sessionStorage.setItem('timestamp', Date.now())
+                    setActiveStep(activeStep + 1);
+                }).catch((reason) => {
+                    console.error(reason)
+                })
+            } else {
+                if (state.password === "" || state.confirmPassword === "" || state.password !== state.confirmPassword) {
+                    setError(true);
+                } else {
+                    setError(false);
+                    setModal1(true);
+                    // setActiveStep(activeStep + 1);
+                }
+            }
+        } else {
+            setActiveStep(activeStep + 1);
+        }
     };
 
     const handleBack = () => {
@@ -230,25 +303,26 @@ function Invitation(props) {
         const privateKey = await sessionStorage.getItem('privateKey')
         // const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ipfsCompanyHash,info:state}))
         // const orgHash = await ipfs.add(orgBuffer);
-        const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs:ipfsOwnerHash,info:state}))
+        const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsOwnerHash, info: state }))
         const userHash = await ipfs.add(userBuffer);
         var transaction = {
             "to": registryAddress,
             "data": registryContract.methods.registerInvitedUser(
-              state.email,
-              userHash[0].hash
+                state.email,
+                state.organizationID,
+                userHash[0].hash
             ).encodeABI()
-          };
+        };
 
-          // web3.eth.estimateGas(transaction).then(gasLimit => {
-          transaction["gasLimit"] = 4700000;
-          web3.eth.accounts.signTransaction(transaction, privateKey)
+        // web3.eth.estimateGas(transaction).then(gasLimit => {
+        transaction["gasLimit"] = 4700000;
+        web3.eth.accounts.signTransaction(transaction, privateKey)
             .then(res => {
-              web3.eth.sendSignedTransaction(res.rawTransaction)
-                .on('receipt', async function (receipt) {
-                    // console.log(receipt);
-                    setActiveStep(4);
-                })
+                web3.eth.sendSignedTransaction(res.rawTransaction)
+                    .on('receipt', async function (receipt) {
+                        // console.log(receipt);
+                        setActiveStep(5);
+                    })
             })
     }
 
@@ -258,6 +332,35 @@ function Invitation(props) {
             ...state,
             [name]: value
         }));
+    }
+
+    const OnmodalAccept = () => {
+        setModal1(false);
+        if (toggleState.checkedA && toggleState.checkedB && toggleState.checkedC && true) {
+            const mnemonic = bip39.generateMnemonic()
+            let HDwallet = etherHDkey.fromMasterSeed(mnemonic)
+            let zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
+            var etherTransfer1 = {
+                "to": zeroWallet.getAddressString(),
+                "value": 5000000000000000000,
+                "gasLimit": 2000000
+            };
+            web3.eth.accounts.signTransaction(etherTransfer1, '0xB90661473A8C66C3EABE255CBE1E9680920DE19CD88E0FF0AC9345BCF842E09A').then(result => {
+                web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
+                    // console.log(confirmationNumber, receipt);
+                })
+            })
+            var doc = new jsPDF()
+            doc.text(mnemonic, 10, 10)
+            doc.save('recovery key.pdf')
+            passworder.encrypt(state.password, JSON.stringify({ mnemonic: mnemonic, privateKey: zeroWallet.getPrivateKeyString() })).then(function (blob) {
+                sessionStorage.setItem("privateKey", zeroWallet.getPrivateKeyString())
+                localStorage.setItem("data", JSON.stringify(blob));
+                localStorage.setItem("address", zeroWallet.getAddressString());
+                // props.history.push('/register')
+                setActiveStep(activeStep + 1);
+            })
+        } else { }
     }
 
     const handleAddressChange = address => {
@@ -290,71 +393,99 @@ function Invitation(props) {
     function handleDoc(data) {
         let i;
         for (i = 0; i < data.acceptedFiles.length; i++) {
-                setOwnerDoc([...ownerDoc, URL.createObjectURL(data.acceptedFiles[i])])
-                data.acceptedFiles.forEach(element => {
-                    let file = element;
-                    let reader = new window.FileReader();
-                    reader.readAsArrayBuffer(file);
-                    reader.onloadend = (res) => {
-                        let content = Ipfs.Buffer.from(res.target.result);
-                        ipfs.add(content, (err, newHash) => {
-                            // console.log(err, newHash);
-                            setIPFSOwnerHash([...ipfsOwnerHash, newHash[0].hash])
-                        })
-                    }
-                });
+            setOwnerDoc([...ownerDoc, URL.createObjectURL(data.acceptedFiles[i])])
+            data.acceptedFiles.forEach(element => {
+                let file = element;
+                let reader = new window.FileReader();
+                reader.readAsArrayBuffer(file);
+                reader.onloadend = (res) => {
+                    let content = Ipfs.Buffer.from(res.target.result);
+                    ipfs.add(content, (err, newHash) => {
+                        // console.log(err, newHash);
+                        setIPFSOwnerHash([...ipfsOwnerHash, newHash[0].hash])
+                    })
+                }
+            });
         }
     }
 
     function getStepContent(step) {
         switch (step) {
-            case 0: return <InvitationPasscode setPasscode={(e)=>setPasscode(e.target.value)} triggerDecrypt={triggerDecrypt}/>
-            case 1:
-                return <UserDetails handleChange={handleChange} handleAddressChange={handleAddressChange} handleSelect={handleSelect} state={state} />;
+            case 0: return <InvitationPasscode setPasscode={(e) => setPasscode(e.target.value)} triggerDecrypt={triggerDecrypt} />
+            case 1: return (
+                isExist
+                    ? <ExistingAccount handleChange={handleChange} state={state} />
+                    : <KeyCreation handleChange={handleChange} state={state} error={error} />)
             case 2:
-                return <KYCDocuments setDoc={handleDoc} />;
+                return <UserDetails handleChange={handleChange} handleAddressChange={handleAddressChange} handleSelect={handleSelect} state={state} />;
             case 3:
-                return <Eula />;
+                return <KYCDocuments setDoc={handleDoc} />;
+            case 4:
+                return <Eula state={state} />;
             default:
                 throw new Error('Unknown step');
         }
     }
 
     const triggerDecrypt = () => {
-      const queryString = require('query-string');
-      const parsed = queryString.parse(props.location.search);
-      console.log(parsed.inviteID);
-      console.log("Changed", passcode);
-      try{
-        let decryptedEmail = decryptMessage(parsed.inviteID, passcode);
-        if(decryptedEmail!=null){
-          setButton(true);
-          setState(state=> ({
-            ...state,
-            email: decryptedEmail
-          }))
-        }
+        const queryString = require('query-string');
+        const parsed = queryString.parse(props.location.search);
+        console.log(parsed.inviteID);
+        console.log("Changed", parsed);
+        let inviteID2 = parsed.inviteID.replace(/ /g, "+");
+        console.log(inviteID2, "inviteID2");
 
-      }catch(err){
-        console.error(err);
-      }
+        try {
+            let decryptedData = decryptMessage(inviteID2, passcode);
+            console.log(decryptedData, "hre");
+            if (decryptedData != null) {
+                let data = JSON.parse(decryptedData)
+                registryContract.methods.getOrganizationDetailsByorganizationID(data.organizationID).call().then(async (details) => {
+                    let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + details.kycHash)
+                    console.log(details, dataFromIPFS)
+                    setButton(true);
+                    setState(state => ({
+                        ...state,
+                        email: data.email,
+                        organizationID: data.organizationID,
+                        companyName: details.name,
+                        address: dataFromIPFS.data.info.address1 + " " + dataFromIPFS.data.info.address
+                    }))
+                    setActiveStep(activeStep + 1);
+                })
+            }
+
+        } catch (err) {
+            console.error(err);
+        }
 
     };
 
     useEffect(() => {
-      registryContract.methods.getInvitedUserOrganizationDetails(state.email).call({
-          from: address
-      }).then(res => {
-        setState(state => ({
-          ...state,
-          companyName: res.name
-        }))
-      });
+        if (localStorage.getItem("address") !== null) {
+            setIsExist(true);
+            fetchKey();
+            fetch("https://api.arthanium.org/api/v1/faucet/" + localStorage.getItem("address")).then(res => res.json()).then((result) => {
+                console.log(result);
+            }, (error) => {
+                console.log(error);
+            })
+        }
+        registryContract.methods.getInvitedUserOrganizationDetails(state.email).call({
+            from: address
+        }).then(res => {
+            console.log(res, "Resss");
+
+            // setState(state => ({
+            //     ...state,
+            //     companyName: res.name
+            // }))
+        });
         registryContract.methods.getUserKYCStatus().call({
             from: address
         }).then(res => {
-            if (res === "0") {
-                setActiveStep(4);
+            if (res.status === "0" && res.kycHash === "") {
+                setActiveStep(5);
             }
         }).catch((e) => {
 
@@ -432,6 +563,57 @@ function Invitation(props) {
                     </React.Fragment>
                 </Paper>
             </main>
+            <Dialog open={modal1} TransitionComponent={Transition} keepMounted="keepMounted" onClose={() => {
+                setModal1(false)
+            }} aria-labelledby="alert-dialog-slide-title" aria-describedby="alert-dialog-slide-description">
+                <DialogTitle id="alert-dialog-slide-title">{"Please take some time to understand this for your own safety. 🙏"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        <FormControlLabel control={<Checkbox
+                            checked={
+                                toggleState.checkedA
+                            }
+                            onChange={
+                                handleToggleChange('checkedA')
+                            }
+                            value="checkedA"
+                            inputProps={{
+                                'aria-label': 'primary checkbox',
+                            }}
+                        />} label="Do not lose it! It cannot be recovered if you lose it." />
+                        <FormControlLabel control={<Checkbox
+                            checked={
+                                toggleState.checkedB
+                            }
+                            onChange={
+                                handleToggleChange('checkedB')
+                            }
+                            value="checkedB"
+                            inputProps={{
+                                'aria-label': 'primary checkbox',
+                            }}
+                        />} label="Do not share it! Your Identity will be stolen if you use this file on a malicious/phishing site." />
+                        <FormControlLabel control={<Checkbox
+                            checked={
+                                toggleState.checkedC
+                            }
+                            onChange={
+                                handleToggleChange('checkedC')
+                            }
+                            value="checkedC"
+                            inputProps={{
+                                'aria-label': 'primary checkbox',
+                            }}
+                        />} label="Make a backup! Secure it like the millions of dollars it may one day be worth." />
+
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={OnmodalAccept} color="primary">
+                        Agree & Download
+        </Button>
+                </DialogActions>
+            </Dialog>
         </React.Fragment>
     );
 }

@@ -1,9 +1,9 @@
-import React, {Suspense, useState, useEffect} from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // @material-ui/icons
-
+import Snackbar from '../../components/Snackbar/Snackbar.jsx'
 import LocalOffer from "@material-ui/icons/LocalOffer";
 const ColleagueForm = React.lazy(() => import('views/ColleagueForm'))
 // core components
@@ -18,17 +18,22 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button";
 import MaterialTable from "material-table";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import {registryContract} from "registryContract";
+import { registryContract } from "registryContract";
 import { connect } from 'react-redux';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import Modal from "components/CustomModal/Modal";
 import { Icon, LinearProgress } from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
-
+import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1)
+  }
+}));
 const loading = <LinearProgress />;
 const People = (props) => {
-
-  const [allPeople, setPeople]=useState([]);
+  const classes2 = useStyles();
+  const [allPeople, setPeople] = useState([]);
   const [colleagueForm, setColleagueForm] = useState(false);
   const [alert, setAlert] = useState('');
 
@@ -37,7 +42,7 @@ const People = (props) => {
     //   setUserName(userDetails.info.fullName);
     // })
     registryContract.methods.getOrganizationEmployees().call({
-      from : props.auth.user.publicKey
+      from: props.auth.user.publicKey
     }).then(res => {
       setPeople(res);
     })
@@ -47,22 +52,22 @@ const People = (props) => {
     setColleagueForm(!colleagueForm);
   }
 
-  const handleColleagueFormSubmit = (message) => {
-    setAlert(<SnackbarContent
-      color="danger"
-      message={message}
-    />);
+  const handleColleagueFormSubmit = (type,message) => {
+    setColleagueForm(!colleagueForm);
+    console.log(type,message,"type,message")
+    setAlert(<Snackbar color={type} open={true} place="bl" className={classes2.margin} message={message} />
+    );
     setTimeout(
       function () {
         setAlert('');
       }
         .bind(this),
-      3000
+      10000
     );
   }
 
-  const fetchRoleFromRoleCode =(roleCode) => {
-    switch(roleCode){
+  const fetchRoleFromRoleCode = (roleCode) => {
+    switch (roleCode) {
       case "0": return "Regular"
       case "1": return "Admin"
       case "2": return "Registrant"
@@ -70,32 +75,32 @@ const People = (props) => {
   }
 
   const fetchAction = (roleCode) => {
-    switch(roleCode){
+    switch (roleCode) {
       case "0": return <Button color="primary">Make Registrant</Button>
       case "1": return "No action"
       case "2": return <Button color="primary">Make Admin</Button>
     }
   }
 
-  const {classes} = props;
+  const { classes } = props;
 
   return (
     <div>
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card plain>
-          <CardHeader plain color="primary">
-            <h4 className={classes.cardTitleWhite}>
-              Employees in your Organization
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card plain>
+            <CardHeader plain color="primary">
+              <h4 className={classes.cardTitleWhite}>
+                Employees in your Organization
             </h4>
-            {props.user.user[5]==="1" && <AddBoxIcon onClick={toggleColleagueForm} style={{float: "right"}}/>}
-          </CardHeader>
-          <MaterialTable
+              {props.user.user[5] === "1" && <AddBoxIcon onClick={toggleColleagueForm} style={{ float: "right" }} />}
+            </CardHeader>
+            <MaterialTable
               columns={[
                 { title: "Email", field: "email" },
                 { title: "PublicKey", field: "publicKey" },
-                { title: "Employee Role", field: "role" , render: rowData => fetchRoleFromRoleCode(rowData.role)},
-                { title: "Action", field: "role" , render: rowData => fetchAction(rowData.role)}
+                { title: "Employee Role", field: "role", render: rowData => fetchRoleFromRoleCode(rowData.role) },
+                { title: "Action", field: "role", render: rowData => fetchAction(rowData.role) }
               ]}
               data={allPeople}
               title=""
@@ -103,20 +108,20 @@ const People = (props) => {
                 search: true,
                 exportButton: true
               }}
-          />
-        </Card>
-      </GridItem>
-    </GridContainer>
-    <Suspense fallback={loading}>
-      <Modal
-        open={colleagueForm}
-        onClose={toggleColleagueForm}
-        title={"New Colleague Form"}
-        content= {
-          <ColleagueForm onColleagueFormSubmit={handleColleagueFormSubmit} {...props}/>
-        }
-      />
-    </Suspense>
+            />
+          </Card>
+        </GridItem>
+      </GridContainer>
+      <Suspense fallback={loading}>
+        <Modal
+          open={colleagueForm}
+          onClose={toggleColleagueForm}
+          title={"New Colleague Form"}
+          content={
+            <ColleagueForm onColleagueFormSubmit={handleColleagueFormSubmit} {...props} />
+          }
+        />
+      </Suspense>
       {alert}
     </div>
   );

@@ -6,7 +6,7 @@ import CSVReader from 'react-csv-reader'
 import { deviceList, protocolList, sensorList, dataProtocolList } from 'dataset/devices';
 import { renderFromArray } from 'utils';
 import Modal from "components/CustomModal/Modal";
-
+import Snackbar from '../components/Snackbar/Snackbar.jsx'
 import {
   TextField,
   CircularProgress,
@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
   progress: {
     margin: theme.spacing(2),
   },
+  margin: {
+    margin: theme.spacing(1)
+  },
   formControl: {
     margin: theme.spacing(1),
     width: 500,
@@ -44,6 +47,7 @@ const RegisterDeviceModal = (props) => {
   const classes = useStyles();
   const [deviceURN, setDeviceURN] = useState('');
   const [isLoading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
   let selectedProject = "";
   selectedProject = props.selectedProject;
   const initialState = {
@@ -55,6 +59,17 @@ const RegisterDeviceModal = (props) => {
     number: 1
   }
   const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    if (props.errors.message !== undefined) {
+      setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
+      setTimeout(() => {
+        setSnackbar({ open: false, message: "" });
+      }, 10000)
+      props.closeDeviceModal();
+      setLoading(false)
+    }
+  }, [props.errors]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -223,6 +238,7 @@ const RegisterDeviceModal = (props) => {
           </div>
         }
       />
+      <Snackbar color="danger" open={snackbar.open} place="bl" className={classes.margin} message={snackbar.message} />
     </div>
   );
 }
