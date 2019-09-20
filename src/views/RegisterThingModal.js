@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const RegisterThingModal = (props) => {
-// console.log(props.projectId);
+console.log(props.projectId);
 const classes = useStyles();
   const onSubmit = (e) => {
     e.preventDefault();

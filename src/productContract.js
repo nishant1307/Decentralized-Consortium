@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const productAddress = '0xf2681f3f9fb28056e39b94dfed47b1def9169d19';
+export const productAddress = '0x79b1fc98eff3e83b8641ff73f17f751b84460bab';
 export const productABI =[
 	{
 		"constant": false,
@@ -112,11 +112,6 @@ export const productABI =[
 				"internalType": "string",
 				"name": "thingValue",
 				"type": "string"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "projectId",
-				"type": "bytes32"
 			}
 		],
 		"name": "MintWithDetails",
@@ -178,9 +173,14 @@ export const productABI =[
 				"internalType": "string",
 				"name": "thingValue",
 				"type": "string"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
 			}
 		],
-		"name": "MintWithDetails",
+		"name": "MintWithDetailsAndProjectId",
 		"outputs": [
 			{
 				"internalType": "bool",

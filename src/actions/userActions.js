@@ -566,9 +566,9 @@ export const createNewThing = thingDetails => async (dispatch) => {
           "nonce": nonce,
           "to": productAddress,
         };
-
+        console.log(thingDetails.projectId!== undefined,thingDetails.projectId)
         if (thingDetails.projectId !== undefined) {
-          transaction["data"] = productContract.methods.MintWithDetails(
+          transaction["data"] = productContract.methods.MintWithDetailsAndProjectId(
             address,
             uuidv1(),
             thingDetails.certificateURLs,
