@@ -1,21 +1,21 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import ipfs from "ipfs";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import web3 from '../../web3';
 const bip39 = require('bip39')
 const etherHDkey = require('ethereumjs-wallet/hdkey')
 const jsPDF = require('jspdf');
 var passworder = require('browser-passworder')
 const Ipfs = require('ipfs-http-client')
-import {registryContract, registryAddress} from '../../registryContract';
+import { registryContract, registryAddress } from '../../registryContract';
 import uuidv1 from 'uuid/v1';
-import {geocodeByAddress} from 'react-places-autocomplete';
+import { geocodeByAddress } from 'react-places-autocomplete';
 import CompnayInfo from './CompnayInfo'
 import DocUpload from './DocUpload'
 import Eula from './Eula'
 import KeyCreation from './KeyCreation'
 import ExistingAccount from './ExisitingAccount';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import loginImage from "assets/images/login.png";
 import Snackbar from '../../components/Snackbar/Snackbar.jsx'
 
@@ -93,7 +93,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props}/>;
+  return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const steps = ['Key Creation', 'Company & Personal Details', 'KYC Documents', 'Terms of Service'];
@@ -111,10 +111,10 @@ function Checkout(props) {
   const [isExist, setIsExist] = useState(false)
   const [keystore, setKeystore] = useState('');
   const [loader, setLoader] = useState(true);
-  const [snackbar, setSnackbar] = useState({color: 'danger', open: false, message: ''})
+  const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
 
   // const [address, setAddress] = useState('');
-  const [toggleState, setToggleState] = React.useState({checkedA: false, checkedB: false, checkedC: false});
+  const [toggleState, setToggleState] = React.useState({ checkedA: false, checkedB: false, checkedC: false });
   const [state, setState] = useState({
     companyName: '',
     fullName: '',
@@ -130,10 +130,10 @@ function Checkout(props) {
   })
 
   useEffect(() => {
-    // console.log(address, "address");
+    console.log(address, "address");
     if (localStorage.getItem("address") !== null) {
-      registryContract.methods.getUserKYCStatus().call({from: address}).then(res => {
-        // console.log(res, "res");
+      registryContract.methods.getUserKYCStatus().call({ from: address }).then(res => {
+        console.log(res, "res");
         if (res === "0") {
           fetchKey();
           setIsExist(true);
@@ -143,7 +143,10 @@ function Checkout(props) {
           props.history.push('/login');
         }
       }).catch((e) => {
-        // console.log(e);
+        console.log(e);
+        fetchKey();
+        setIsExist(true);
+        setLoader(false);
       })
     } else {
       setIsExist(false);
@@ -164,27 +167,22 @@ function Checkout(props) {
       const mnemonic = bip39.generateMnemonic()
       let HDwallet = etherHDkey.fromMasterSeed(mnemonic)
       let zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-      var etherTransfer1 = {
-        "to": zeroWallet.getAddressString(),
-        "value": 5000000000000000000,
-        "gasLimit": 2000000
-      };
-      web3.eth.accounts.signTransaction(etherTransfer1, '0xB90661473A8C66C3EABE255CBE1E9680920DE19CD88E0FF0AC9345BCF842E09A').then(result => {
-        web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function(confirmationNumber, receipt) {
-          // console.log(confirmationNumber, receipt);
-        })
+      fetch("https://api.arthanium.org/api/v1/faucet/" + zeroWallet.getAddressString()).then(res => res.json()).then((result) => {
+        console.log(result);
+      }, (error) => {
+        console.log(error);
       })
       var doc = new jsPDF()
       doc.text(mnemonic, 10, 10)
       doc.save('recovery key.pdf')
-      passworder.encrypt(state.password, JSON.stringify({mnemonic: mnemonic, privateKey: zeroWallet.getPrivateKeyString()})).then(function(blob) {
+      passworder.encrypt(state.password, JSON.stringify({ mnemonic: mnemonic, privateKey: zeroWallet.getPrivateKeyString() })).then(function (blob) {
         sessionStorage.setItem("privateKey", zeroWallet.getPrivateKeyString())
         localStorage.setItem("data", JSON.stringify(blob));
         localStorage.setItem("address", zeroWallet.getAddressString());
         // props.history.push('/register')
         setActiveStep(activeStep + 1);
       })
-    } else {}
+    } else { }
   }
 
   const handleNext = () => {
@@ -195,7 +193,7 @@ function Checkout(props) {
         }, (error) => {
           console.log(error);
         })
-        passworder.decrypt(state.password, keystore).then(function(result) {
+        passworder.decrypt(state.password, keystore).then(function (result) {
           sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
           sessionStorage.setItem('timestamp', Date.now())
           setActiveStep(activeStep + 1);
@@ -224,9 +222,9 @@ function Checkout(props) {
   const submitForm = async () => {
     setActiveStep(activeStep + 1);
     const privateKey = await sessionStorage.getItem('privateKey')
-    const orgBuffer = Ipfs.Buffer.from(JSON.stringify({Docs: ipfsCompanyHash, info: state}))
+    const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsCompanyHash, info: state }))
     const orgHash = await ipfs.add(orgBuffer);
-    const userBuffer = Ipfs.Buffer.from(JSON.stringify({Docs: ipfsOwnerHash, info: state}))
+    const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsOwnerHash, info: state }))
     const userHash = await ipfs.add(userBuffer);
     // console.log(state.companyName,
     //     orgHash[0].hash,
@@ -240,23 +238,23 @@ function Checkout(props) {
     // web3.eth.estimateGas(transaction).then(gasLimit => {
     transaction["gasLimit"] = 4700000;
     web3.eth.accounts.signTransaction(transaction, privateKey).then(res => {
-      web3.eth.sendSignedTransaction(res.rawTransaction).on('receipt', async function(receipt) {
+      web3.eth.sendSignedTransaction(res.rawTransaction).on('receipt', async function (receipt) {
         // console.log(receipt);
         if (receipt.status) {
           setActiveStep(5);
         }
-      }).on('error', async function(error) {
+      }).on('error', async function (error) {
         // console.log(error);
-        setSnackbar({open: true, message: "Network error Occured! Please try again later."});
+        setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
         setTimeout(() => {
-          setSnackbar({open: false, message:""});
+          setSnackbar({ open: false, message: "" });
         }, 10000)
       })
     })
   }
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setState(state => ({
       ...state,
       [name]: value
@@ -341,14 +339,14 @@ function Checkout(props) {
       case 0:
         return (
           isExist
-          ? <ExistingAccount handleChange={handleChange} state={state}/>
-          : <KeyCreation handleChange={handleChange} state={state} error={error}/>)
+            ? <ExistingAccount handleChange={handleChange} state={state} />
+            : <KeyCreation handleChange={handleChange} state={state} error={error} />)
       case 1:
-        return <CompnayInfo handleChange={handleChange} handleAddressChange={handleAddressChange} handleSelect={handleSelect} state={state}/>;
+        return <CompnayInfo handleChange={handleChange} handleAddressChange={handleAddressChange} handleSelect={handleSelect} state={state} />;
       case 2:
-        return <DocUpload setDoc={handleDoc}/>;
+        return <DocUpload setDoc={handleDoc} />;
       case 3:
-        return <Eula state={state}/>;
+        return <Eula state={state} />;
       default:
         throw new Error('Unknown step');
     }
@@ -366,47 +364,47 @@ function Checkout(props) {
   }
 
   return (<React.Fragment>
-    <CssBaseline/>
+    <CssBaseline />
 
     <main className={classes.layout}>
       {
         loader
           ? <CircularProgress style={{
-                position: 'absolute',
-                top: "50%",
-                left: "50%"
-              }}/>
+            position: 'absolute',
+            top: "50%",
+            left: "50%"
+          }} />
           : <Paper className={classes.paper}>
-              <Typography component="h1" variant="h4" align="center">
-                KYC
+            <Typography component="h1" variant="h4" align="center">
+              KYC
               </Typography>
-              <Stepper activeStep={activeStep} className={classes.stepper}>
-                {
-                  steps.map(label => (<Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>))
-                }
-              </Stepper>
-              <React.Fragment>
-                {
-                  activeStep === steps.length + 1
-                    ? (<React.Fragment>
-                      <Typography variant="h5" gutterBottom="gutterBottom">
-                        Thank you.
+            <Stepper activeStep={activeStep} className={classes.stepper}>
+              {
+                steps.map(label => (<Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>))
+              }
+            </Stepper>
+            <React.Fragment>
+              {
+                activeStep === steps.length + 1
+                  ? (<React.Fragment>
+                    <Typography variant="h5" gutterBottom="gutterBottom">
+                      Thank you.
                       </Typography>
-                      <Typography variant="subtitle1">
-                        It will take approximately 24 hours to verify your KYC.
+                    <Typography variant="subtitle1">
+                      It will take approximately 24 hours to verify your KYC.
                       </Typography>
-                      <div className={classes.buttons}>
-                        <Button onClick={() => {
-                            props.history.push('/')
-                          }} className={classes.button}>
-                          Back To Home
+                    <div className={classes.buttons}>
+                      <Button onClick={() => {
+                        props.history.push('/')
+                      }} className={classes.button}>
+                        Back To Home
                         </Button>
-                      </div>
-                    </React.Fragment>)
-                    : (
-                      activeStep === steps.length
+                    </div>
+                  </React.Fragment>)
+                  : (
+                    activeStep === steps.length
                       ? (<React.Fragment>
                         <div className={classes.buttons}>
                           <Typography variant="subtitle1">
@@ -423,8 +421,8 @@ function Checkout(props) {
                             </Button>)
                           }
                           <Button variant="contained" color="primary" onClick={activeStep === steps.length - 1
-                              ? submitForm
-                              : handleNext} className={classes.button}>
+                            ? submitForm
+                            : handleNext} className={classes.button}>
                             {
                               activeStep === steps.length - 1
                                 ? 'Accept'
@@ -433,53 +431,53 @@ function Checkout(props) {
                           </Button>
                         </div>
                       </React.Fragment>))
-                }
-              </React.Fragment>
-            </Paper>
+              }
+            </React.Fragment>
+          </Paper>
       }
     </main>
     <Dialog open={modal1} TransitionComponent={Transition} keepMounted="keepMounted" onClose={() => {
-        setModal1(false)
-      }} aria-labelledby="alert-dialog-slide-title" aria-describedby="alert-dialog-slide-description">
+      setModal1(false)
+    }} aria-labelledby="alert-dialog-slide-title" aria-describedby="alert-dialog-slide-description">
       <DialogTitle id="alert-dialog-slide-title">{"Please take some time to understand this for your own safety. 🙏"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
           <FormControlLabel control={<Checkbox
-            checked = {
+            checked={
               toggleState.checkedA
             }
-            onChange = {
+            onChange={
               handleToggleChange('checkedA')
             }
-            value = "checkedA"
-            inputProps = {{
-                                        'aria-label': 'primary checkbox',
-                                    }}
-            />} label="Do not lose it! It cannot be recovered if you lose it."/>
+            value="checkedA"
+            inputProps={{
+              'aria-label': 'primary checkbox',
+            }}
+          />} label="Do not lose it! It cannot be recovered if you lose it." />
           <FormControlLabel control={<Checkbox
-            checked = {
+            checked={
               toggleState.checkedB
             }
-            onChange = {
+            onChange={
               handleToggleChange('checkedB')
             }
-            value = "checkedB"
-            inputProps = {{
-                                        'aria-label': 'primary checkbox',
-                                    }}
-            />} label="Do not share it! Your Identity will be stolen if you use this file on a malicious/phishing site."/>
+            value="checkedB"
+            inputProps={{
+              'aria-label': 'primary checkbox',
+            }}
+          />} label="Do not share it! Your Identity will be stolen if you use this file on a malicious/phishing site." />
           <FormControlLabel control={<Checkbox
-            checked = {
+            checked={
               toggleState.checkedC
             }
-            onChange = {
+            onChange={
               handleToggleChange('checkedC')
             }
-            value = "checkedC"
-            inputProps = {{
-                                        'aria-label': 'primary checkbox',
-                                    }}
-            />} label="Make a backup! Secure it like the millions of dollars it may one day be worth."/>
+            value="checkedC"
+            inputProps={{
+              'aria-label': 'primary checkbox',
+            }}
+          />} label="Make a backup! Secure it like the millions of dollars it may one day be worth." />
 
         </DialogContentText>
       </DialogContent>
@@ -489,10 +487,10 @@ function Checkout(props) {
         </Button>
       </DialogActions>
     </Dialog>
-    <Snackbar color="danger" open={snackbar.open} place="br" className={classes.margin} message={snackbar.message}/>
+    <Snackbar color="danger" open={snackbar.open} place="br" className={classes.margin} message={snackbar.message} />
   </React.Fragment>);
 }
 
-const mapStateToProps = (state) => ({auth: state.auth, error: state.error})
+const mapStateToProps = (state) => ({ auth: state.auth, error: state.error })
 
 export default connect(mapStateToProps)(Checkout)
