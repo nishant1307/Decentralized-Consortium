@@ -1712,6 +1712,18 @@ padding: 30px;
 .w-nav[data-collapse="all"] .w-nav-button {
   display: block;
 }
+
+.youtube-auto-style{
+  width: 450px;
+  height: 350px;
+}
+
+@media only screen and (max-width: 400px) {
+  .youtube-auto-style{
+    width: auto;
+    height: auto;
+  }
+}
 @media screen and (max-width: 991px) {
   .w-nav[data-collapse="medium"] .w-nav-menu {
     display: none;

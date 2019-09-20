@@ -220,7 +220,7 @@ export default function Landing(props) {
                                 </div> */}
                             </div>
                             <div className="col lg-1 hidden-lg-down" />
-                            <div className="col lg-5"><iframe width="450" height="350"
+                            <div className="col lg-5"><iframe className="youtube-auto-style"
                                 src="https://www.youtube.com/embed/SSo_EIwHSd4" frameborder="0" allowfullscreen>
                             </iframe></div>
                         </div>
@@ -230,10 +230,10 @@ export default function Landing(props) {
 
 
             <div id="features" className="section">
-                <div className="wrapper" style={{ paddingLeft: 0 }}>
+                <div className="wrapper" >
 
-                    <h2 data-w-id="7b5c466a-962a-8742-1d10-203f426a0c19" style={{ opacity: 1 }} className="section-header withdesc">Why Arthanium?</h2>
-                    <div style={{ marginLeft: 70, marginTop: 50 }}>
+                    <h2 data-w-id="7b5c466a-962a-8742-1d10-203f426a0c19" style={{ opacity: 1, marginBottom:20 }} className="section-header withdesc">Why Arthanium?</h2>
+                    <div >
                         <div className="feature-container">
 
                             {/* <p className="short-paragraph sectionsub">Built with education agencies in mind, Kergan is packed with features that you will actually use in your day-to-day business operations</p> */}
