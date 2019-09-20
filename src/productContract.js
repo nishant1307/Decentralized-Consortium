@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const productAddress = '0x737cbf8f354172dd101213ec3fee1d5938f9b19a';
+export const productAddress = '0xf2681f3f9fb28056e39b94dfed47b1def9169d19';
 export const productABI =[
 	{
 		"constant": false,

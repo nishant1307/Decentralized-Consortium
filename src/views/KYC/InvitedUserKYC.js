@@ -13,6 +13,7 @@ import uuidv1 from 'uuid/v1';
 import moment from "moment";
 import axios from 'axios';
 import { decryptMessage } from "utils";
+import Snackbar from '../../components/Snackbar/Snackbar.jsx'
 import {
     Typography,
     Grid,
@@ -82,6 +83,9 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(3),
         marginLeft: theme.spacing(1),
     },
+    margin: {
+        margin: theme.spacing(1)
+    }
 }));
 
 function KYCDocuments(props) {
@@ -238,6 +242,7 @@ function Invitation(props) {
     const [isExist, setIsExist] = useState(false);
     const [modal1, setModal1] = useState(false)
     const [keystore, setKeystore] = useState('');
+    const [alert, setAlert] = useState('');
     const [state, setState] = useState({
         companyName: '',
         fullName: '',
@@ -321,7 +326,27 @@ function Invitation(props) {
                 web3.eth.sendSignedTransaction(res.rawTransaction)
                     .on('receipt', async function (receipt) {
                         // console.log(receipt);
+                        setAlert(<Snackbar color="success" open={true} place="bl" className={classes.margin} message="Transaction Sent!" />
+                        );
+                        setTimeout(
+                            function () {
+                                setAlert('');
+                            }
+                                .bind(this),
+                            10000
+                        );
                         setActiveStep(5);
+                    })
+                    .on('error', function (error) {
+                        setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Error Occured! email already exists." />
+                        );
+                        setTimeout(
+                            function () {
+                                setAlert('');
+                            }
+                                .bind(this),
+                            10000
+                        );
                     })
             })
     }
@@ -340,15 +365,10 @@ function Invitation(props) {
             const mnemonic = bip39.generateMnemonic()
             let HDwallet = etherHDkey.fromMasterSeed(mnemonic)
             let zeroWallet = HDwallet.derivePath("m/44'/60'/0'/0/0").getWallet();
-            var etherTransfer1 = {
-                "to": zeroWallet.getAddressString(),
-                "value": 5000000000000000000,
-                "gasLimit": 2000000
-            };
-            web3.eth.accounts.signTransaction(etherTransfer1, '0xB90661473A8C66C3EABE255CBE1E9680920DE19CD88E0FF0AC9345BCF842E09A').then(result => {
-                web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
-                    // console.log(confirmationNumber, receipt);
-                })
+            fetch("https://api.arthanium.org/api/v1/faucet/" + zeroWallet.getAddressString()).then(res => res.json()).then((result) => {
+                console.log(result);
+            }, (error) => {
+                console.log(error);
             })
             var doc = new jsPDF()
             doc.text(mnemonic, 10, 10)
@@ -501,7 +521,7 @@ function Invitation(props) {
     return (
         <React.Fragment>
             <CssBaseline />
-
+            {alert}
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">

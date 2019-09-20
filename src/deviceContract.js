@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-export const deviceAddress = '0x3ad875786a18994a8a4bcb870354b5f24fbf0782';
+export const deviceAddress = '0xcc51f98456d6d8c9ae4ed3293d4c680b37626298';
 export const abi =[
 	{
 		"constant": false,
