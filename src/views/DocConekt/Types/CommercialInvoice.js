@@ -95,7 +95,7 @@ const CommercialInvoice = props => {
         let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Commercial Invoice"  }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
-        // props.history.push("/dashboard/home")
+        props.history.push("/dashboard/home")
     }
 
     const [open, setOpen] = React.useState(false);
@@ -151,7 +151,7 @@ const CommercialInvoice = props => {
         if (props.data.hash !== undefined) {
             setIsNew(false);
             ipfs.get(props.data.hash, function (err, files) {
-                // console.log(JSON.parse(files[0].content.toString('utf8')));
+                console.log(JSON.parse(files[0].content.toString('utf8')));
                 let data = JSON.parse(files[0].content.toString('utf8'))
                 setMainTable({
                     columns: [
@@ -192,7 +192,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.name}
+                                        value={struture.exporter}
 
                                     />
                                 </GridItem>
@@ -207,7 +207,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.purchaseOrderNumber}
+                                        value={struture.invoiceNumber}
 
                                     />
                                 </GridItem>
@@ -234,7 +234,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.purchaseOrderNumber}
+                                        value={struture.billofLadingNumber}
 
                                     />
                                 </GridItem>
@@ -251,6 +251,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.reference}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
@@ -261,6 +262,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.buyerReference}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -273,6 +275,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.consignee}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={2}>
@@ -286,6 +289,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.buyer}
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -368,6 +372,7 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.vesselOrAircraft}
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -378,6 +383,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.voyageNo}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -388,6 +395,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.Mop}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -417,6 +426,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.dateofDeparture}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -446,6 +457,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.finalDestination}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
@@ -456,6 +469,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.marineCoverPolicyNo}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
@@ -466,6 +481,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.letterOfCreditNo}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -532,6 +549,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.additionalInformation}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -542,6 +561,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.additionalChargesDiscounts}
+
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
@@ -552,6 +573,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.consignmentTotal}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -591,6 +614,7 @@ const CommercialInvoice = props => {
                                                     fullWidth: true
                                                 }}
                                                 onChangeValue={handleChangeValue}
+                                                value={struture.invoiceTotal}
 
                                             />
                                         </GridItem>
@@ -626,6 +650,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.placeOfIssue}
+
 
                                     />
                                 </GridItem>
@@ -637,6 +663,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.dateOfIssue}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -651,6 +679,8 @@ const CommercialInvoice = props => {
                                                 fullWidth: true
                                             }}
                                             onChangeValue={handleChangeValue}
+                                            value={struture.bankDetails}
+
                                         />
                                     </GridItem>
                                 </GridItem>
@@ -661,6 +691,7 @@ const CommercialInvoice = props => {
                                         formControlProps={{
                                             fullWidth: true
                                         }}
+                                        value={struture.signatoryCompany}
                                         onChangeValue={handleChangeValue}
                                     />
                                 </GridItem>
@@ -677,6 +708,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.nameOfAS}
+
                                     />
                                 </GridItem>
                             </GridContainer>
@@ -692,6 +725,8 @@ const CommercialInvoice = props => {
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
+                                        value={struture.signature}
+
                                     />
                                 </GridItem>
                             </GridContainer>

@@ -54,7 +54,7 @@ const Products = (props) => {
       let url = "https://gateway.arthanium.org/ipfs/" + rowData.encryptedData
       window.open(url, "_blank")
     } else {
-      // console.log(rowData, "idhar");
+      console.log(rowData, "idhar");
       setSelected(rowData);
       setOpen(true);
     }

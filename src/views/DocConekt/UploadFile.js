@@ -35,6 +35,56 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const uuidv1 = require('uuid/v1');
 
+const unstructuredTypes = [
+    "Sales Documents",
+    "Shipping Documents",
+    "Banking Documents"
+]
+
+const bankingDocuments = [
+    "Letter of Credit"
+]
+
+const salesDocumentsType = [
+    "RFQ - Request for Quotation",
+    "Quotation",
+    "Purchase Order",
+    "Proforma Invoice",
+    "Order Confirmation",
+    "Sales Confirmation",
+    "Sales Contract",
+]
+
+const shippingDocumentsType = [
+    "Commercial Invoice",
+    "Packing List",
+    "Sea Waybill",
+    "Shipping Instruction",
+    "Verify Copy",
+    "House Bill Of Lading",
+    "Bill Of Lading",
+    "Booking Request",
+    "Booking Confirmation",
+    "Export Declaration",
+    "Import Declaration",
+    "Health Certificate",
+    "Phytosanitary Certificate",
+    "Veterinary Certificate",
+    "Fumigation Certificate",
+    "Inspection Certificate",
+    "Certificate Of Analysis",
+    "Certificate Of Origin",
+    "Container Arrival Notice",
+    "Dangerous Goods Request",
+    "Custom",
+    "Declaration of Origin",
+    "Forwarding Instruction",
+    "Importer Security Filing",
+    "Container Packing List",
+    "Shippers Letter of Instruction",
+    "Packing Declaration",
+]
+
 const salesTypes = [
     // "Request for Quotation",
     // "Quotation",
@@ -216,10 +266,30 @@ function PaymentForm(params) {
     const [name, setName] = useState(params.name);
     const [info, setInfo] = useState("");
     const [password, setPassword] = useState("");
+    const [DocType, setDocType] = React.useState(0);
+    const [subDocType, setSubDocType] = React.useState("");
+    const [subDocRender, setSubDocRender] = useState("");
 
     useEffect(() => {
-        params.infoCallback(name, info, password)
-    }, [info])
+        setSubDocRender(getUnstructureTypeSubContent(DocType));
+    }, [DocType])
+
+    useEffect(() => {
+        params.infoCallback(name, info, password, DocType, subDocType)
+    })
+
+    const getUnstructureTypeSubContent = (count) => {
+        switch (count) {
+            case 0:
+                return renderFromArray(salesDocumentsType);
+            case 1:
+                return renderFromArray(shippingDocumentsType);
+            case 2:
+                return renderFromArray(bankingDocuments);
+            default:
+                throw new Error('Unknown step');
+        }
+    }
 
     return (
         <React.Fragment>
@@ -227,6 +297,32 @@ function PaymentForm(params) {
                 Document Information
         </Typography>
             <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                    <FormControl style={{ width: "100%" }}>
+                        <InputLabel htmlFor="age-native-simple">Document Type</InputLabel>
+                        <Select
+                            value={DocType}
+                            onChange={(e) => setDocType(e.target.value)}
+                            input={<Input id="mainType" />}
+                        >
+                            <MenuItem value={0}>{unstructuredTypes[0]}</MenuItem>
+                            <MenuItem value={1}>{unstructuredTypes[1]}</MenuItem>
+                            <MenuItem value={2}>{unstructuredTypes[2]}</MenuItem>
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <FormControl style={{ width: "100%" }}>
+                        <InputLabel htmlFor="age-simple">Sub-Type</InputLabel>
+                        <Select
+                            value={subDocType}
+                            onChange={(e) => setSubDocType(e.target.value)}
+                            input={<Input id="sub-Type" />}
+                        >
+                            {subDocRender}
+                        </Select>
+                    </FormControl>
+                </Grid>
                 <Grid item xs={12} md={12}>
                     <TextField required value={name} label="Name of the document" onChange={e => setName(e.target.value)} fullWidth />
                 </Grid>
@@ -315,10 +411,12 @@ const Checkout = (props) => {
         // forceUpdate();
     }
 
-    function handleInfo(name, info, password) {
+    function handleInfo(name, info, password, docName, subDocName) {
         setFileName(name);
         setFileInfo(info);
         setFilePassword(password);
+        setDocType(docName);
+        setSubDocType(subDocName);
         // forceUpdate();
     }
     const getSubContent = (count) => {
@@ -358,13 +456,13 @@ const Checkout = (props) => {
     async function uploadFile() {
         handleNext();
         let privateKey = await sessionStorage.getItem('privateKey');
-        const cid = await ipfs.add(bufferData);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash }), filePassword)
+        const file = await ipfs.add(bufferData);
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": file[0].hash, "DocType": unstructuredTypes[DocType], "subDocType": subDocType, "type": "unstructured" }), filePassword)
         let encryptedPassword = await encryptMessage(filePassword, privateKey)
         props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
-        console.log(cid, "cid");
         props.closeDocModal();
     }
+
     return (
         <div className={classes.root}>
             <Tabs

@@ -93,7 +93,7 @@ const PackingList = props => {
         let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Packing List" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
-        // props.history.push("/dashboard/home")
+        props.history.push("/dashboard/home")
     }
 
     const [open, setOpen] = React.useState(false);

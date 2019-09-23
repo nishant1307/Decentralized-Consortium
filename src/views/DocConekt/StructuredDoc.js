@@ -10,15 +10,15 @@ const UserProfile = props => {
     function getPage() {
         switch (props.match.params.structuredDocId) {
             case "Purchase Order":
-                return <PurchaseOrder data={props.location.state} />;
+                return <PurchaseOrder data={props.location.state} {...props} />;
             case "Commercial Invoice":
-                return <CommercialInvoice data={props.location.state} />;
+                return <CommercialInvoice data={props.location.state}  {...props} />;
             case "Packing List":
-                return <PackingList data={props.location.state}/>
+                return <PackingList data={props.location.state}  {...props} />
             case "Seaway Airway Bill":
-                return <SeawayBill data={props.location.state} />
+                return <SeawayBill data={props.location.state}  {...props} />
             case "Shipping Instruction":
-                return <ShippingInstructions data={props.location.state} />
+                return <ShippingInstructions data={props.location.state}  {...props} />
             default:
                 throw new Error('Unknown step');
         }
