@@ -335,7 +335,7 @@ function Invitation(props) {
                                 .bind(this),
                             10000
                         );
-                        setActiveStep(5);
+                        setActiveStep(4);
                     })
                     .on('error', function (error) {
                         setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Error Occured! email already exists." />

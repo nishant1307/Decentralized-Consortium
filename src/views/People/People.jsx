@@ -46,7 +46,17 @@ const People = (props) => {
     registryContract.methods.getOrganizationEmployees().call({
       from: props.auth.user.publicKey
     }).then(res => {
-      setPeople(res);
+      let tempData = []
+      let i = 1;
+      res.forEach(element => {
+        registryContract.methods.getUserDetails().call({from:element.publicKey}).then(result => {
+          tempData.push(result)    
+          if(i === res.length){
+            setPeople(tempData) 
+          }
+          i++;      
+        })
+      });
     })
   }, []);
 
