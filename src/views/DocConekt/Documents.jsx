@@ -63,7 +63,7 @@ const Products = (props) => {
 
   async function unlockDoc() {
     let data = await decryptMessage(selected.encryptedData, password)
-    // console.log(data);
+    console.log(data);
     setData(JSON.parse(data));
     setIsValid(true);
   }
@@ -234,7 +234,7 @@ const Products = (props) => {
                 </DialogActions>
               </Dialog>
               <Suspense fallback={loading}>
-                <RegisterDocModal projectID={props.match.params.projectID === undefined ? undefined : props.match.params.projectID} />
+                <RegisterDocModal projectID={props.match.params.projectID === undefined ? undefined : props.match.params.projectID} {...props} />
               </Suspense>
             </div>
           )

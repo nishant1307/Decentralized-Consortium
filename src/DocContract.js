@@ -1,7 +1,96 @@
 import web3 from './web3';
 
-export const docAddress = '0x171158aa8ed5835809e9af1773b03f1d43ec1dd2';
+export const docAddress = '0x511ff26bf505b15e11b821484adbeb677cc536a7';
 export const abi = [
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "getReviewStatusForIndividual",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
+			}
+		],
+		"name": "_tokensOfProject",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "tokenURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "metadata",
+				"type": "string"
+			}
+		],
+		"name": "setMetadata",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [
@@ -23,6 +112,69 @@ export const abi = [
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "_tokensOfOwner",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -31,12 +183,12 @@ export const abi = [
 				"type": "string"
 			},
 			{
-				"internalType": "address[]",
-				"name": "reviewer",
-				"type": "address[]"
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
 			}
 		],
-		"name": "addReviewers",
+		"name": "setProjectId",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -46,6 +198,116 @@ export const abi = [
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "getReviewersList",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "reviewer",
+				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedData",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "encryptedPassword",
+				"type": "string"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "projectId",
+				"type": "bytes32"
+			}
+		],
+		"name": "MintWithDetailsAndProjectId",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "tokenId",
+				"type": "string"
+			}
+		],
+		"name": "getDocumentDetails",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "encryptedData",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "encryptedPassword",
+						"type": "string"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "projectId",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timeStamp",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct ERC721Metadata.docDetails",
+				"name": "",
+				"type": "tuple"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -100,20 +362,15 @@ export const abi = [
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
 				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "metadata",
-				"type": "string"
 			}
 		],
-		"name": "setMetadata",
+		"name": "getReviewStatus",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -122,7 +379,7 @@ export const abi = [
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -134,43 +391,12 @@ export const abi = [
 				"type": "string"
 			},
 			{
-				"internalType": "bytes32",
-				"name": "projectId",
-				"type": "bytes32"
+				"internalType": "address[]",
+				"name": "reviewer",
+				"type": "address[]"
 			}
 		],
-		"name": "setProjectId",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "remarks",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "encryptedData",
-				"type": "string"
-			}
-		],
-		"name": "updateDetails",
+		"name": "addReviewers",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -219,31 +445,6 @@ export const abi = [
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "remarks",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "encryptedData",
-				"type": "string"
-			}
-		],
-		"name": "DocumentUpdated",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			},
@@ -275,222 +476,6 @@ export const abi = [
 		],
 		"name": "ReviewAdded",
 		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "_tokensOfOwner",
-		"outputs": [
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "projectId",
-				"type": "bytes32"
-			}
-		],
-		"name": "_tokensOfProject",
-		"outputs": [
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			}
-		],
-		"name": "balanceOf",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "getDocumentDetails",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "encryptedData",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "encryptedPassword",
-						"type": "string"
-					},
-					{
-						"internalType": "bytes32",
-						"name": "projectId",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "uint256",
-						"name": "timeStamp",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct ERC721Metadata.docDetails",
-				"name": "",
-				"type": "tuple"
-			},
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "getReviewersList",
-		"outputs": [
-			{
-				"internalType": "address[]",
-				"name": "reviewer",
-				"type": "address[]"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "getReviewStatus",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "getReviewStatusForIndividual",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "ownerOf",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "tokenId",
-				"type": "string"
-			}
-		],
-		"name": "tokenURI",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]
 export const docContract = new web3.eth.Contract(abi, docAddress);

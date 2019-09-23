@@ -10,6 +10,7 @@ import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Store from "@material-ui/icons/Store";
+import ViewModuleIcon from '@material-ui/icons/ViewModule';
 const dashboardRoutes = [
   {
     path: "/home",
@@ -21,6 +22,12 @@ const dashboardRoutes = [
     path: "/projects",
     name: "Projects",
     icon: DescriptionIcon,
+    layout: "/dashboard"
+  },
+  {
+    name: 'Modules',
+    path: '/modules',
+    icon: ViewModuleIcon,
     layout: "/dashboard"
   },
   {

@@ -185,7 +185,7 @@ const  AdminNavbarLinks = (props) => {
                       Settings
                     </MenuItem>
                     </Link>
-                    <Link to= "/dashboard/people">
+                    {props.user.user[5] === "1"  && <Link to= "/dashboard/people">
                     <MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
@@ -193,7 +193,7 @@ const  AdminNavbarLinks = (props) => {
                     <PeopleIcon/>
                       People
                     </MenuItem>
-                    </Link>
+                    </Link>}
                     <Divider light />
                     <MenuItem
                       onClick={props.onLogout}

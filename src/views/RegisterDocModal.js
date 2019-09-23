@@ -77,7 +77,7 @@ const RegisterDocModal = (props) =>  {
       >
       <Suspense fallback={loading}>
         <DialogContent dividers>
-          <UploadFile projectID={props.projectID === undefined ? undefined : props.projectID}  projectList= {props.projectList} history={props}  />
+          <UploadFile projectID={props.projectID === undefined ? undefined : props.projectID}  projectList= {props.projectList} {...props}  />
         </DialogContent>
       </Suspense>
         {/**<DialogActions>

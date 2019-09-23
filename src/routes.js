@@ -26,7 +26,7 @@ const People = React.lazy(() => import('views/People/People.jsx'));
 const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.jsx'));
 const Devices = React.lazy(() => import('views/Devices/Devices'))
 const StructuredDoc = React.lazy(() => import('views/DocConekt/StructuredDoc'))
-
+const Modules = React.lazy(() => import('views/Modules/Modules'))
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
   {
@@ -135,6 +135,12 @@ const dashboardRoutes = [
     name: 'Plans',
     path: '/pricing',
     component: PricingPage,
+    layout: "/dashboard"
+  },
+  {
+    name: 'Modules',
+    path: '/modules',
+    component: Modules,
     layout: "/dashboard"
   }
 ];

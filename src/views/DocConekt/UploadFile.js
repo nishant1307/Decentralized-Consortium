@@ -4,7 +4,7 @@ import web3 from '../../web3';
 import ipfs from "../../ipfs";
 import { docContract } from "../../DocContract";
 import { renderFromArray } from "utils";
-import { addNewDoc, updateDoc } from 'actions/userActions';
+import { addNewDoc, updateDoc, closeDocModal } from 'actions/userActions';
 import { connect } from 'react-redux';
 import { encryptMessage, decryptMessage } from 'utils'
 
@@ -362,8 +362,8 @@ const Checkout = (props) => {
         let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash }), filePassword)
         let encryptedPassword = await encryptMessage(filePassword, privateKey)
         props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
-        // console.log(cid, "cid");
-        props.history.push('/dashboard/documents')
+        console.log(cid, "cid");
+        props.closeDocModal();
     }
     return (
         <div className={classes.root}>

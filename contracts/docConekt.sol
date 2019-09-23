@@ -495,7 +495,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * @param owner address owning the tokens
      * @return uint256[] List of token IDs owned by the requested address
      */
-    function _tokensOfOwner(address owner) internal view returns (string[] storage) {
+    function _tokensOfOwner(address owner) public view returns (string[] memory) {
         return _ownedTokens[owner];
     }
     
@@ -613,6 +613,16 @@ contract DocContract is ERC721, ERC721Enumerable,ERC721Burnable,ERC721Mintable {
     }
     
      function setProjectId(string memory tokenId, bytes32 projectId ) public onlyRegistrant returns (bool) {
+        registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
+        require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
+        _setProjectId(tokenId , projectId);
+        registerContract.addDeviceToProject(tokenId,projectId);
+        return true;
+    }
+    
+     function MintWithDetailsAndProjectId (address to, string memory tokenId,string memory encryptedData, string memory encryptedPassword,  bytes32 projectId) public onlyRegistrant returns (bool){
+        _setDocumentDetails(tokenId, encryptedData, encryptedPassword);
+        mint(to, tokenId); 
         registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setProjectId(tokenId , projectId);
