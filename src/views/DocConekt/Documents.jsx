@@ -69,11 +69,11 @@ const Products = (props) => {
   }
 
   useEffect(() => {
-    try{
-      if(props.user.user[5]!=0){
+    try {
+      if (props.user.user[5] != 0) {
         setIsAdmin(true);
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
     }
     if (props.match.params.projectID === undefined) {
@@ -143,12 +143,17 @@ const Products = (props) => {
     <div>
       {
         isValid ? (
-          <Redirect
+          (data.type === "unstructured" ? <Redirect
             to={{
-              pathname: "/dashboard/structured/" + data.type,
-              state: { hash: data.hash, password: selected.encryptedPassword, tokenId: selected.tokenId }
-            }}
-          />
+              pathname: "/dashboard/unstructured/",
+              state: { data: data, tokenId: selected.tokenId }
+            }} /> :
+            <Redirect
+              to={{
+                pathname: "/dashboard/structured/" + data.type,
+                state: { hash: data.hash, password: selected.encryptedPassword, tokenId: selected.tokenId }
+              }}
+            />)
         ) : (
             <div>
               <GridContainer>
@@ -158,7 +163,7 @@ const Products = (props) => {
                       <h4 className={classes.cardTitleWhite}>
                         My Document
                 </h4>
-                      {isAdmin && <AddBoxIcon onClick={props.openDocModal} style={{float: "right"}}/>}
+                      {isAdmin && <AddBoxIcon onClick={props.openDocModal} style={{ float: "right" }} />}
                     </CardHeader>
                     {loader ?
                       <React.Fragment>
@@ -171,31 +176,31 @@ const Products = (props) => {
                         <Skeleton width="60%" />
                         <Skeleton width="100%" />
                       </React.Fragment> :
-                        <MaterialTable
-                          columns={[
-                            { title: "Document Id", field: "tokenId" },
-                            { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp * 1000).format("DD-MM-YYYY h:mm:ss") },
-                          ]}
-                          data={productList}
-                          title=""
-                          options={{
-                            search: true,
-                            exportButton: false,
-                            grouping: false
-                          }}
-                          localization={{
-                            body: {
-                              emptyDataSourceMessage: "No Documents Found!"
-                            }
-                          }}
-                          actions={[
-                            {
-                              icon: 'folder_open',
-                              tooltip: 'Open Document',
-                              onClick: (event, rowData) => handleUnlock(rowData)
-                            }
-                          ]}
-                        />
+                      <MaterialTable
+                        columns={[
+                          { title: "Document Id", field: "tokenId" },
+                          { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp * 1000).format("DD-MM-YYYY h:mm:ss") },
+                        ]}
+                        data={productList}
+                        title=""
+                        options={{
+                          search: true,
+                          exportButton: false,
+                          grouping: false
+                        }}
+                        localization={{
+                          body: {
+                            emptyDataSourceMessage: "No Documents Found!"
+                          }
+                        }}
+                        actions={[
+                          {
+                            icon: 'folder_open',
+                            tooltip: 'Open Document',
+                            onClick: (event, rowData) => handleUnlock(rowData)
+                          }
+                        ]}
+                      />
                     }
                   </Card>
                 </GridItem>

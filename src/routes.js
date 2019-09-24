@@ -27,12 +27,19 @@ const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.
 const Devices = React.lazy(() => import('views/Devices/Devices'))
 const StructuredDoc = React.lazy(() => import('views/DocConekt/StructuredDoc'))
 const Modules = React.lazy(() => import('views/Modules/Modules'))
+const UnstrucutredDoc = React.lazy(()=> import('views/DocConekt/UnstructuredDoc'));
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
   {
     path: "/structured/:structuredDocId",
     name: "DocConekt",
     component: StructuredDoc,
+    layout: "/dashboard"
+  },
+  {
+    path: "/unstructured",
+    name: "DocConekt",
+    component: UnstrucutredDoc,
     layout: "/dashboard"
   },
   {
