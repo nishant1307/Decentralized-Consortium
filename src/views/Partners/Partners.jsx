@@ -21,6 +21,7 @@ import { partnerContract, partnerAddress } from 'partnersContract';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import Typography from '@material-ui/core/Typography';
+import Snackbar from '../../components/Snackbar/Snackbar.jsx'
 import { connect } from 'react-redux';
 import ipfs from 'ipfs.js';
 const IPFS = require('ipfs-http-client')
@@ -33,7 +34,8 @@ import {
   MenuItem,
   Menu,
   Paper,
-  Chip
+  Chip,
+  CircularProgress
 } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone'
 import { withStyles } from '@material-ui/core/styles';
@@ -57,17 +59,17 @@ const Partners = (props) => {
     'Distributor',
     'Retailer',
     'Recycler'])
-
-  // let options = [
-  //   'Financial Institution',
-  //   'Certification Agency',
-  //   'Government',
-  //   'Business',
-  //   'Logistics',
-  //   'Distributor',
-  //   'Retailer',
-  //   'Recycler'
-  // ];
+  const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
+  let options2 = [
+    'Financial Institution',
+    'Certification Agency',
+    'Government',
+    'Business',
+    'Logistics',
+    'Distributor',
+    'Retailer',
+    'Recycler'
+  ];
   function handleDelete(category) {
     // console.log(selectedCategoryIndices);
     // console.log(category, "to be removed");
@@ -122,9 +124,18 @@ const Partners = (props) => {
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
               console.log(receipt);
+              setSnackbar({ color: "success", open: true, message: "Network error Occured! Please try again later." });
+              setTimeout(() => {
+                setSnackbar({ color: "success", open: false, message: "" });
+              }, 10000)
+
             })
             .on('error', async function (error) {
               console.log(error);
+              setSnackbar({ color: "danger", open: true, message: "Network error Occured! Please try again later." });
+              setTimeout(() => {
+                setSnackbar({ color: "success", open: false, message: "" });
+              }, 10000)
             })
         })
     })
@@ -184,12 +195,14 @@ const Partners = (props) => {
       from: props.auth.user.publicKey
     }).then(async res => {
       console.log(res);
-      
+
       setFetchedCategories(res);
       let temp = options;
       await res.forEach(element => {
-        temp.splice(temp.findIndex(e => e.category === element), 1);
+        console.log(element, temp);
+        temp.splice(temp.findIndex(e => e === element.category), 1);
       });
+      console.log(temp)
       setOptions(temp);
     })
   }, []);
@@ -213,7 +226,7 @@ const Partners = (props) => {
                       aria-haspopup="true"
                       onClick={handleClickListItem}
                     >
-                      <ListItemText primary="Select Organization Type" secondary={options[selectedIndex]} />
+                      <ListItemText primary="Select Organization Type" secondary={options2[selectedIndex]} />
                     </ListItem>
                   </List>
                 </Paper>
@@ -224,7 +237,7 @@ const Partners = (props) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {options.map((option, index) => (
+                  {options2.map((option, index) => (
                     <MenuItem
                       key={option}
                       selected={index === selectedIndex}
@@ -335,7 +348,7 @@ const Partners = (props) => {
                     </GridItem>
                   ))}
                   <ListItem>
-                    <Button onClick={HandleSubmit}>Submit</Button>
+                    {snackbar.open ? <CircularProgress className={classes.progress} /> : <Button onClick={HandleSubmit}>Submit</Button>}
                   </ListItem>
                 </GridContainer>
               </>
@@ -376,6 +389,7 @@ const Partners = (props) => {
                   })}
                 </GridContainer>
                 {/* </Paper> */}
+                <Snackbar color={snackbar.color} open={snackbar.open} place="br" className={classes.margin} message={snackbar.message} />
               </>
             )
           }
