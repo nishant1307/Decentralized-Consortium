@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -7,7 +7,6 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import MaterialTable from "material-table";
 import Card from "components/Card/Card.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
@@ -15,51 +14,65 @@ import Button from "components/CustomButtons/Button.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
 import CustomTabs from "components/CustomTabs/CustomTabs";
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
+import TransitEnterexitIcon from '@material-ui/icons/TransitEnterexit';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
-import {registryContract} from 'registryContract';
+import { registryContract } from 'registryContract';
+import { partnerContract, partnerAddress } from 'partnersContract';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
-
+import ipfs from 'ipfs.js';
+const IPFS = require('ipfs-http-client')
+import web3 from '../../web3';
+import moment from "moment";
 import {
-  Icon,
   List,
   ListItem,
   ListItemText,
   MenuItem,
   Menu,
-  TextField,
-  Divider,
   Paper,
   Chip
 } from '@material-ui/core';
-import {DropzoneDialog, DropzoneArea} from 'material-ui-dropzone'
-import {withStyles} from '@material-ui/core/styles';
+import { DropzoneArea } from 'material-ui-dropzone'
+import { withStyles } from '@material-ui/core/styles';
 
 const Partners = (props) => {
-  const {classes} = props;
+  const { classes } = props;
 
   const [partners, setPartners] = useState([]);
   const [loader, setLoader] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [dropzone, setDropzone] = useState(false);
   const [, forceUpdate] = useState();
   const [selectedCategoryIndices, setSelectedCategoryIndices] = useState([]);
+  const [fetchedCategories, setFetchedCategories] = useState([]);
+  const [certificateFiles, setCertificateFiles] = useState([]);
+  const [options, setOptions] = useState(['Financial Institution',
+    'Certification Agency',
+    'Government',
+    'Business',
+    'Logistics',
+    'Distributor',
+    'Retailer',
+    'Recycler'])
 
-  const options = [
-  'Financial Institution',
-  'Certification Agency',
-  'Government',
-  'Business',
-  'Logistics',
-  'Distributor',
-  'Retailer',
-  'Recycler'
-];
-function handleDelete(category) {
+  // let options = [
+  //   'Financial Institution',
+  //   'Certification Agency',
+  //   'Government',
+  //   'Business',
+  //   'Logistics',
+  //   'Distributor',
+  //   'Retailer',
+  //   'Recycler'
+  // ];
+  function handleDelete(category) {
     // console.log(selectedCategoryIndices);
     // console.log(category, "to be removed");
     let selectedArray = selectedCategoryIndices;
-    if(selectedCategoryIndices.indexOf(category)!=-1){
+    if (selectedCategoryIndices.indexOf(category) != -1) {
       selectedArray.splice(selectedCategoryIndices.indexOf(category), 1);
     }
     setSelectedCategoryIndices(selectedArray);
@@ -93,63 +106,141 @@ function handleDelete(category) {
     setAnchorEl(null);
   }
 
+  const HandleSubmit = async () => {
+    uploadOnIPFS().then(async (result) => {
+      const privateKey = await sessionStorage.getItem('privateKey');
+      var transaction = {
+        "to": partnerAddress,
+        "data": partnerContract.methods.addCategory(
+          result._category,
+          result._documentHash
+        ).encodeABI()
+      };
+      transaction["gasLimit"] = 4700000;
+      web3.eth.accounts.signTransaction(transaction, privateKey)
+        .then(res => {
+          web3.eth.sendSignedTransaction(res.rawTransaction)
+            .on('receipt', async function (receipt) {
+              console.log(receipt);
+            })
+            .on('error', async function (error) {
+              console.log(error);
+            })
+        })
+    })
+  }
+
+  function uploadOnIPFS() {
+    return new Promise((resolve, reject) => {
+      let _category = [];
+      let _documentHash = [];
+      let i = 0;
+      certificateFiles.forEach(element => {
+        let reader = new window.FileReader();
+        reader.readAsArrayBuffer(element.file);
+        reader.onloadend = (res) => {
+          let content = IPFS.Buffer.from(res.target.result);
+          ipfs.add(content, (err, newHash) => {
+            _documentHash.push(newHash[0].hash)
+            _category.push(element.category)
+            i++;
+            if (certificateFiles.length === i) {
+              resolve({ _category: _category, _documentHash: _documentHash })
+            }
+          })
+        }
+
+      })
+    })
+  }
+
+  const handleDropzone = (file, category) => {
+    setCertificateFiles([...certificateFiles, { "file": file, "category": category }])
+  }
+
+  const deleteDropzoneFile = (file, category) => {
+    console.log("inside");
+    let temp = certificateFiles;
+    temp.splice(temp.findIndex(e => e.file === file && e.category === category), 1);
+    console.log(temp);
+    setCertificateFiles(temp);
+  }
+
+
+
   useEffect(() => {
     setLoader(true);
     registryContract.methods.getPartnersByType(options[selectedIndex]).call({
-      from : props.auth.user.publicKey
+      from: props.auth.user.publicKey
     }).then(res => {
       setLoader(false)
       setPartners(res);
     })
   }, [selectedIndex]);
 
+  useEffect(() => {
+    setLoader(true);
+    partnerContract.methods.getCategory().call({
+      from: props.auth.user.publicKey
+    }).then(async res => {
+      console.log(res);
+      
+      setFetchedCategories(res);
+      let temp = options;
+      await res.forEach(element => {
+        temp.splice(temp.findIndex(e => e.category === element), 1);
+      });
+      setOptions(temp);
+    })
+  }, []);
+
   return (
     <>
-    <CustomTabs
-      variant="fullWidth"
-      title="Partnerships:"
-      headerColor="primary"
-      tabs={[
-        {
-          tabName: "Partner List",
-          tabIcon: SupervisedUserCircleIcon,
-          tabContent: (
-            <>
-            <Paper>
-            <List component="nav" aria-label="Device settings">
-                <ListItem
-                  button
-                  aria-haspopup="true"
-                  onClick={handleClickListItem}
+      <CustomTabs
+        variant="fullWidth"
+        title="Partnerships:"
+        headerColor="primary"
+        tabs={[
+          {
+            tabName: "Partner List",
+            tabIcon: SupervisedUserCircleIcon,
+            tabContent: (
+              <>
+                <Paper>
+                  <List component="nav" aria-label="Device settings">
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      onClick={handleClickListItem}
+                    >
+                      <ListItemText primary="Select Organization Type" secondary={options[selectedIndex]} />
+                    </ListItem>
+                  </List>
+                </Paper>
+                <Menu
+                  id="partner-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
                 >
-                  <ListItemText primary="Select Organization Type" secondary={options[selectedIndex]} />
-                </ListItem>
-            </List>
-            </Paper>
-            <Menu
-                id="partner-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {options.map((option, index) => (
-                  <MenuItem
-                    key={option}
-                    selected={index === selectedIndex}
-                    onClick={event => handleMenuItemClick(event, index)}
-                  >
-                    {option}
-                  </MenuItem>
-                ))}
-            </Menu>
-            <GridItem xs={12} sm={12} md={12}>
-              {!loader?
-                <Card plain>
-                    <MaterialTable
+                  {options.map((option, index) => (
+                    <MenuItem
+                      key={option}
+                      selected={index === selectedIndex}
+                      onClick={event => handleMenuItemClick(event, index)}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+                <GridItem xs={12} sm={12} md={12}>
+                  {!loader ?
+                    <Card plain>
+                      <MaterialTable
                         columns={[
-                          { title: "OrganizationID", field: "organizationID"},
-                          { title: "Organization Name", field: "name"}
+                          { title: "OrganizationID", field: "organizationID" },
+                          { title: "Organization Name", field: "name" }
 
                         ]}
                         data={partners}
@@ -164,87 +255,132 @@ function handleDelete(category) {
                           }
                         }}
                       />
-                </Card>:
-                  <React.Fragment>
-                    <Card plain>
-                        <Skeleton width="100%"/>
-                        <Skeleton width="60%" />
+                    </Card> :
+                    <React.Fragment>
+                      <Card plain>
                         <Skeleton width="100%" />
                         <Skeleton width="60%" />
                         <Skeleton width="100%" />
                         <Skeleton width="60%" />
                         <Skeleton width="100%" />
-                    </Card>
-                  </React.Fragment>}
-                  </GridItem>
-            </>
-          )
-        },
-        {
-          tabName: "Enlist your organization as Partner",
-          tabIcon: SupervisedUserCircleIcon,
-          tabContent: (
-            <>
-            <Paper>
-            <List component="nav">
-                <ListItem
-                  button
-                  aria-haspopup="true"
-                  onClick={handleClickListItem}
-                >
-                <ListItemText primary="Select Category/Categories to Enlist Your Organization in" />
-                </ListItem>
-                <ListItem>
-                  {selectedCategoryIndices.map((category, index) => (
-                      <Chip
-                        label= {category}
-                        onClick={handleClick}
-                        onDelete={() => handleDelete(category)}
-                        className={classes.chip}
-                        variant="outlined"
-                      />
-                  ))}
-
-                </ListItem>
-            </List>
-
-            </Paper>
-            <Menu
-                id="partner-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {options.map((option, index) => (
-                  <MenuItem
-                    key={option}
-                    disabled={selectedCategoryIndices.indexOf(option)!=-1}
-                    onClick={event => handleMultiMenuItemClick(event, index)}
-                  >
-                    {option}
-                  </MenuItem>
-                ))}
-            </Menu>
-            <br/>
-              <GridContainer>
-              {selectedCategoryIndices.map((category, index) => (
-                <GridItem xs={12} sm={12} md={4}>
-                  <DropzoneArea
-                    dropzoneText={"Upload supporting documents for "+category}
-                    onSave={() => {}}
-                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
-                    showPreviews={true}
-                    maxFileSize={5000000}
-                    />
+                        <Skeleton width="60%" />
+                        <Skeleton width="100%" />
+                      </Card>
+                    </React.Fragment>}
                 </GridItem>
-              ))}
-              </GridContainer>
-            </>
-          )
-        }
-      ]}
-    />
+              </>
+            )
+          },
+          {
+            tabName: "Enlist your organization as Partner",
+            tabIcon: SupervisedUserCircleIcon,
+            tabContent: (
+              <>
+                <Paper>
+                  <List component="nav">
+                    <ListItem
+                      button
+                      aria-haspopup="true"
+                      onClick={handleClickListItem}
+                    >
+                      <ListItemText primary="Select Category/Categories to Enlist Your Organization in" />
+                    </ListItem>
+                    <ListItem>
+                      {selectedCategoryIndices.map((category, index) => (
+                        <Chip
+                          label={category}
+                          onClick={handleClick}
+                          onDelete={() => handleDelete(category)}
+                          className={classes.chip}
+                          variant="outlined"
+                        />
+                      ))}
+
+                    </ListItem>
+
+                  </List>
+
+                </Paper>
+                <Menu
+                  id="partner-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  {options.map((option, index) => (
+                    <MenuItem
+                      key={option}
+                      disabled={selectedCategoryIndices.indexOf(option) != -1}
+                      onClick={event => handleMultiMenuItemClick(event, index)}
+                    >
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Menu>
+                <br />
+                <GridContainer>
+                  {selectedCategoryIndices.map((category, index) => (
+                    <GridItem xs={12} sm={12} md={4}>
+                      <DropzoneArea
+                        dropzoneText={"Upload supporting documents for " + category}
+                        // onSave={(file) => { console.log(file);}}
+                        onDrop={(file) => { handleDropzone(file, category) }}
+                        onDelete={(file) => { deleteDropzoneFile(file, category) }}
+                        acceptedFiles={['image/jpeg', 'image/png', 'image/bmp', 'application/pdf']}
+                        showPreviews={true}
+                        maxFileSize={5000000}
+                        filesLimit={1}
+                      />
+                    </GridItem>
+                  ))}
+                  <ListItem>
+                    <Button onClick={HandleSubmit}>Submit</Button>
+                  </ListItem>
+                </GridContainer>
+              </>
+            )
+          },
+          {
+            tabName: "Your Organization Categories",
+            tabIcon: TransitEnterexitIcon,
+            tabContent: (
+              <>
+                {/* <Paper> */}
+                <GridContainer>
+                  {fetchedCategories.map((element, key) => {
+                    let time = moment(element.timeStamp * 1000).format("DD-MM-YYYY");
+                    const url = "https://gateway.arthanium.org/ipfs/" + element.documentHash;
+                    return (
+                      <GridItem xs={12} sm={12} md={4}>
+                        <Card>
+                          <CardHeader>
+                            <Typography variant="h5" component="h2">
+                              {element.category}
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                              {time === "01-01-1970" ? null : time}
+                            </Typography>
+                          </CardHeader>
+                          <CardBody>
+                            <iframe onClick={() => {
+                              window.open(url, "_blank")
+                            }} src={url} height="auto" width="auto"></iframe>
+                          </CardBody>
+                          <CardFooter>
+                            {element.status ? <DoneAllIcon /> : <HourglassEmptyIcon />}
+                          </CardFooter>
+                        </Card>
+                      </GridItem>
+                    )
+                  })}
+                </GridContainer>
+                {/* </Paper> */}
+              </>
+            )
+          }
+        ]}
+      />
     </>
   );
 }

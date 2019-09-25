@@ -848,16 +848,14 @@ contract DeviceContract is ERC721, ERC721Enumerable, ERC721Mintable, ERC721Burna
     }
 
 
-    // function stringToBytes32(string memory source) private pure returns (bytes32 result) {
-    // bytes memory tempEmptyStringTest = bytes(source);
-    // if (tempEmptyStringTest.length == 0) {
-    //     return 0x0;
-    // }
-
-    // assembly {
-    //     result := mload(add(source, 32))
-    // }
-    // }
+    function MintWithDetailsAndProjectId (address to, string memory tokenId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor, bytes32 projectId) public onlyRegistrant returns (bool){
+        registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
+        _setDeviceDetails(tokenId, communicationProtocol, dataProtocol, deviceType, sensor);
+        mint(to, tokenId);
+        _setProjectId(tokenId , projectId);
+        registerContract.addDeviceToProject(tokenId,projectId);
+        return true;
+    }
 
     function MintWithDetails(address to, string memory tokenId, string memory communicationProtocol, string memory dataProtocol, string memory deviceType, string memory sensor) public onlyRegistrant returns (bool) {
         _setDeviceDetails(tokenId, communicationProtocol, dataProtocol, deviceType, sensor);

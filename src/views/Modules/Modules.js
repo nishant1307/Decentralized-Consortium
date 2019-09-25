@@ -74,6 +74,20 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
+                <GridItem xs={6} sm={4} md={2}>
+                    <Card onClick={toggleModal}>
+                        <CardHeader color="info" stats icon>
+                            <CardIcon color="info">
+                                <AccountBalanceIcon />
+                            </CardIcon>
+                        </CardHeader>
+                        <CardFooter stats>
+                            <div >
+                                Digital Identity
+              </div>
+                        </CardFooter>
+                    </Card>
+                </GridItem>
             </GridContainer>
             <Modal
                 open={isOpen}

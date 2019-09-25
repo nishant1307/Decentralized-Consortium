@@ -349,8 +349,9 @@ contract ERC721Metadata is  ERC721 {
         string encryptedPassword;
         bytes32 projectId;
         uint256 timeStamp;
-
     }
+    
+    event DetailsUpdated(string tokenId, uint256 timeStamp, string remark );
     
     // Optional mapping for token URIs
     mapping(string  => string) private _tokenURIs;
@@ -407,6 +408,11 @@ contract ERC721Metadata is  ERC721 {
       temp.encryptedPassword = encryptedPassword;
       temp.timeStamp = block.timestamp;
       _tokenDetails[tokenId] = temp;
+    }
+    
+    function _updateDocumentDetails(string memory tokenId,string memory remark, string memory encryptedData) internal {
+        _tokenDetails[tokenId].encryptedData = encryptedData;
+        emit DetailsUpdated(tokenId, block.timestamp, remark);
     }
 
     /**
@@ -627,6 +633,12 @@ contract DocContract is ERC721, ERC721Enumerable,ERC721Burnable,ERC721Mintable {
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setProjectId(tokenId , projectId);
         registerContract.addDeviceToProject(tokenId,projectId);
+        return true;
+    }
+    
+    function updateDetails(string memory tokenId,string memory encryptedData, string memory encryptedPassword ) public onlyRegistrant returns (bool) {
+        require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
+        _updateDocumentDetails(tokenId, encryptedData, encryptedPassword);
         return true;
     }
 

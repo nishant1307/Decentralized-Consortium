@@ -1,7 +1,7 @@
 pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
 
-import "./Storage.sol";
+import "./StorageDefinition.sol";
 /**
  * @title EternalStorage
  * @dev An ownable contract that can be used as a storage where the variables

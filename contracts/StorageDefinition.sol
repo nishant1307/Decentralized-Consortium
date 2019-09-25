@@ -22,6 +22,13 @@ contract StorageDefinition {
         string kycHash;
         KYCStatus status;
     }
+    
+    struct CategoryDetail {
+        string category;
+        string documentHash;
+        bool status;
+        uint256 timeStamp;
+    }
 
     enum roles {regular, admin, registrant}
 

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Switch, Route } from "react-router-dom";
 // core components
-const Navbar = React.lazy(() => import('components/Navbars/Navbar.jsx'));
+const Navbar = React.lazy(() => import('components/Navbars/NavbarForAdmin.jsx'));
 const Footer = React.lazy(() => import('components/Footer/Footer.jsx'));
 const Sidebar = React.lazy(() => import('components/Sidebar/Sidebar.jsx'));
 const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));

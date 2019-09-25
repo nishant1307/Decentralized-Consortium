@@ -1,6 +1,6 @@
 pragma solidity ^0.5.11;
 pragma experimental ABIEncoderV2;
-import "./Storage.sol";
+import "./StorageDefinition.sol";
 import "./EternalStorage.sol";
 contract Consortium is StorageDefinition {
 
@@ -75,7 +75,7 @@ contract Consortium is StorageDefinition {
 
 
     function registerInvitedUser(string calldata email, string calldata organizationID, string calldata kycHash) external uniqueEmail(email) {
-        require(bytes(organizationID).length==0, "Organization does not exist");
+        require(bytes(organizationID).length!=0, "Organization does not exist");
         require(bytes(s.getUserDetails().email).length == 0, "address already used.");
         s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
         s.setUser(organizationID, email, kycHash, roles.regular, false);
@@ -112,6 +112,10 @@ contract Consortium is StorageDefinition {
     }
 
     function getOrganizationDetails(string calldata organizationID) external view userExists returns (Organization memory) {
+        return s.getOrganizationDetails(organizationID);
+    }
+    
+    function getOrganizationDetailsByorganizationID(string calldata organizationID) external view returns (Organization memory) {
         return s.getOrganizationDetails(organizationID);
     }
 
@@ -180,7 +184,7 @@ contract Consortium is StorageDefinition {
         return s.setOrganizationKYCStatus(organizationID, status);
     }
 
-    function getUserKYCStatus() public view returns (KYCStatus status)  {
+    function getUserKYCStatus() public view userExists returns (KYCStatus status)  {
         return s.getUserKYCStatus();
     }
 

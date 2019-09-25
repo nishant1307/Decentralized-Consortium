@@ -814,6 +814,15 @@ contract ThingContract is ERC721, ERC721Enumerable, ERC721Mintable, ERC721Burnab
         registerContract.addProductToProject(tokenId, projectId);
         return true;
     }
+    
+    function MintWithDetailsAndProjectId (address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue, bytes32 projectId) public onlyRegistrant returns (bool){
+        registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
+        _setProductDetails(tokenId,certificateURLs, ipfsHash, thingBrand, thingDescription,  thingName, thingStory,  thingValue );
+        mint(to, tokenId);
+        _setProjectId(tokenId , projectId);
+        registerContract.addProductToProject(tokenId, projectId);
+        return true;
+    }
 
     function MintWithDetails(address to, string memory tokenId, string[] memory certificateURLs, string[] memory ipfsHash, string memory thingBrand, string memory thingDescription, string memory thingName, string memory thingStory, string memory thingValue ) public onlyRegistrant returns (bool) {
         _setProductDetails(tokenId,certificateURLs, ipfsHash, thingBrand, thingDescription,  thingName, thingStory,  thingValue );
