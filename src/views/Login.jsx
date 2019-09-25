@@ -91,7 +91,7 @@ function Login(props) {
     setLoader(true);
     passworder.decrypt(password, keystore)
       .then(function (result) {
-        console.log(JSON.parse(result));
+        // console.log(JSON.parse(result));
         sessionStorage.setItem("privateKey", JSON.parse(result).privateKey)
         sessionStorage.setItem('timestamp', Date.now())
         props.loginUser({address:address,data:result},props.history);

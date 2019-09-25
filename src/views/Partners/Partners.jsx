@@ -45,6 +45,7 @@ const Partners = (props) => {
 
   const [partners, setPartners] = useState([]);
   const [loader, setLoader] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [, forceUpdate] = useState();
@@ -109,7 +110,16 @@ const Partners = (props) => {
   }
 
   const HandleSubmit = async () => {
-    uploadOnIPFS().then(async (result) => {
+    setLoading(true);
+    uploadOnIPFS().then(async (result, error) => {
+      if (error) {
+        console.log(error);
+        setLoading(false);
+        setSnackbar({ color: "danger", open: true, message: "Network error Occured! Please try again later." });
+        setTimeout(() => {
+          setSnackbar({ color: "success", open: false, message: "" });
+        }, 10000)
+      }
       const privateKey = await sessionStorage.getItem('privateKey');
       var transaction = {
         "to": partnerAddress,
@@ -123,15 +133,11 @@ const Partners = (props) => {
         .then(res => {
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
-              console.log(receipt);
-              setSnackbar({ color: "success", open: true, message: "Network error Occured! Please try again later." });
-              setTimeout(() => {
-                setSnackbar({ color: "success", open: false, message: "" });
-              }, 10000)
-
+              window.location.reload();
             })
             .on('error', async function (error) {
               console.log(error);
+              setLoading(false);
               setSnackbar({ color: "danger", open: true, message: "Network error Occured! Please try again later." });
               setTimeout(() => {
                 setSnackbar({ color: "success", open: false, message: "" });
@@ -152,6 +158,9 @@ const Partners = (props) => {
         reader.onloadend = (res) => {
           let content = IPFS.Buffer.from(res.target.result);
           ipfs.add(content, (err, newHash) => {
+            if (err) {
+              reject();
+            }
             _documentHash.push(newHash[0].hash)
             _category.push(element.category)
             i++;
@@ -170,10 +179,10 @@ const Partners = (props) => {
   }
 
   const deleteDropzoneFile = (file, category) => {
-    console.log("inside");
+    // console.log("inside");
     let temp = certificateFiles;
     temp.splice(temp.findIndex(e => e.file === file && e.category === category), 1);
-    console.log(temp);
+    // console.log(temp);
     setCertificateFiles(temp);
   }
 
@@ -199,10 +208,10 @@ const Partners = (props) => {
       setFetchedCategories(res);
       let temp = options;
       await res.forEach(element => {
-        console.log(element, temp);
+        // console.log(element, temp);
         temp.splice(temp.findIndex(e => e === element.category), 1);
       });
-      console.log(temp)
+      // console.log(temp)
       setOptions(temp);
     })
   }, []);
@@ -348,7 +357,7 @@ const Partners = (props) => {
                     </GridItem>
                   ))}
                   <ListItem>
-                    {snackbar.open ? <CircularProgress className={classes.progress} /> : <Button onClick={HandleSubmit}>Submit</Button>}
+                    {isLoading ? <CircularProgress className={classes.progress} /> : <Button onClick={HandleSubmit}>Submit</Button>}
                   </ListItem>
                 </GridContainer>
               </>

@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const partnerAddress = '0xd5c16aa81dd2ccc7995d7555f49ae7587571a261';
+export const partnerAddress = '0xa644c2eafbb521b31e7cc8a0b4c1a377c1f72733';
 export const partnerABI = [
 	{
 		"constant": false,
@@ -106,6 +106,11 @@ export const partnerABI = [
 				"components": [
 					{
 						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
 						"name": "category",
 						"type": "string"
 					},
@@ -177,6 +182,11 @@ export const partnerABI = [
 		"outputs": [
 			{
 				"components": [
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
 					{
 						"internalType": "string",
 						"name": "category",
