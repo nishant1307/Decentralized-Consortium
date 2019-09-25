@@ -44,6 +44,7 @@ const Partners = (props) => {
   const { classes } = props;
 
   const [partners, setPartners] = useState([]);
+  const [allPartners, setAllPartners] = useState([]);
   const [loader, setLoader] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -62,6 +63,7 @@ const Partners = (props) => {
     'Recycler'])
   const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
   let options2 = [
+    'Select Here',
     'Financial Institution',
     'Certification Agency',
     'Government',
@@ -93,6 +95,16 @@ const Partners = (props) => {
 
   function handleMenuItemClick(event, index) {
     setPartners([]);
+    // console.log(index);
+    setLoader(true);
+    let tempData = []
+    allPartners.forEach(element => {
+      if (element.category === options2[index]) {
+        tempData.push(element);
+        setPartners(tempData);
+      }
+    });
+    setLoader(false)
     setSelectedIndex(index);
     setAnchorEl(null);
   }
@@ -186,25 +198,37 @@ const Partners = (props) => {
     setCertificateFiles(temp);
   }
 
-
-
-  useEffect(() => {
-    setLoader(true);
-    registryContract.methods.getPartnersByType(options[selectedIndex]).call({
-      from: props.auth.user.publicKey
+  function fetchPartnerList() {
+    partnerContract.methods.getAllCategory().call({
+      from: "0x66911a74374dF86b19317f9C7F515FC18C5347C2"
     }).then(res => {
-      setLoader(false)
-      setPartners(res);
-    })
-  }, [selectedIndex]);
+      let tempData = [];
+      res.forEach(element => {
+        if (element.status) {
+          registryContract.methods.getOrganizationDetailsByorganizationID(element.organizationID).call().then(res => {
+            element.name = res.name;
+            tempData.push(element)
+            setAllPartners(tempData);
+            setLoader(false);
+
+          })
+        }
+      });
+    });
+  }
+
+
+  // useEffect(() => {
+
+  // }, [selectedIndex]);
 
   useEffect(() => {
+    fetchPartnerList();
     setLoader(true);
     partnerContract.methods.getCategory().call({
       from: props.auth.user.publicKey
     }).then(async res => {
-      console.log(res);
-
+      // console.log(res);
       setFetchedCategories(res);
       let temp = options;
       await res.forEach(element => {
@@ -213,6 +237,7 @@ const Partners = (props) => {
       });
       // console.log(temp)
       setOptions(temp);
+      // setLoader(false);
     })
   }, []);
 
