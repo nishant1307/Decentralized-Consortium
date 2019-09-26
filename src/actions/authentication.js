@@ -4,7 +4,7 @@
 import { GET_ERRORS, SET_CURRENT_USER, CURRENT_USER_INFO, GET_SUBSCRIPTION, FETCH_NOTIFICATION } from './types';
 import { setAuthToken } from '../axiosConfig';
 // import jwt_decode from 'jwt-decode';
-import { currentUserInfo, fetchUserSubscriptionInfo} from './userActions';
+import { currentUserInfo, fetchUserSubscriptionInfo } from './userActions';
 // import web3 from '../web3';
 import { registryContract } from "registryContract";
 // export const registerUser = (user, history) => dispatch => {
@@ -33,33 +33,37 @@ export const loginUser = (user, history) => dispatch => {
         from: user.address
     }).then(res => {
         // console.log(res,"res");
-        
-      if(res[0]&& res[1]){
-        if (res[0].status === '1' && res[1].status === '1') {
-            dispatch(setCurrentUser({ publicKey: user.address }));
-            dispatch(fetchUserSubscriptionInfo());
-            history.push('/dashboard/home');
+        fetch("https://api.arthanium.org/api/v1/faucet/" + user.address).then(res => res.json()).then((result) => {
+            console.log(result);
+        }, (error) => {
+            console.log(error);
+        })
+        if (res[0] && res[1]) {
+            if (res[0].status === '1' && res[1].status === '1') {
+                dispatch(setCurrentUser({ publicKey: user.address }));
+                dispatch(fetchUserSubscriptionInfo());
+                history.push('/dashboard/home');
+            }
+            else if (res[1].status !== '1') {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: { message: "Your Organization KYC Verification Is In Pending State. Please Wait For 24 Hours." }
+                });
+            }
+            else if (res[0].status !== '1') {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: { message: "Your KYC Verification Is In Pending State. Please Wait For 24 Hours." }
+                });
+            }
+            else {
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: { message: "KYC Verification Is Not Initiated" }
+                });
+                history.push('/register');
+            }
         }
-        else if (res[1].status !== '1') {
-            dispatch({
-                type: GET_ERRORS,
-                payload: { message: "Your Organization KYC Verification Is In Pending State. Please Wait For 24 Hours." }
-            });
-        }
-        else if (res[0].status !== '1') {
-            dispatch({
-                type: GET_ERRORS,
-                payload: { message: "Your KYC Verification Is In Pending State. Please Wait For 24 Hours." }
-            });
-        }
-        else {
-            dispatch({
-                type: GET_ERRORS,
-                payload: { message: "KYC Verification Is Not Initiated" }
-            });
-            history.push('/register');
-        }
-      }
     })
         .catch((err) => {
             console.log(err);

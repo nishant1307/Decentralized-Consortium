@@ -20,12 +20,19 @@ import MaterialTable from "material-table";
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
+//create your forceUpdate hook
+function useForceUpdate(){
+    const [value, set] = useState(true); //boolean state
+    return () => set(value => !value); // toggle the state to force render
+}
+
 const Partners = (props) => {
     const [categoryList, setCategoryList] = useState([])
     const [loader, setLoader] = useState(true);
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setModalStatus] = useState(false);
     const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
+    const forceUpdate = useForceUpdate();
 
     useEffect(() => {
         partnerContract.methods.getAllCategory().call({
@@ -39,6 +46,20 @@ const Partners = (props) => {
             // });
         });
     }, []);
+
+    useEffect(() => {
+        let temp = categoryList;
+        for (let index = 0; index < temp.length; index++) {
+            registryContract.methods.getOrganizationDetailsByorganizationID(temp[index].organizationID).call().then(res => {
+                temp[index].name = res.name;
+                setCategoryList(temp)
+                setLoader(false);
+                forceUpdate();
+            })
+        }
+    }, [categoryList])
+
+
 
     const handleStatusUpdate = (rowData) => async () => {
         setLoading(true);
@@ -114,6 +135,7 @@ const Partners = (props) => {
                             </React.Fragment> :
                             <MaterialTable
                                 columns={[
+                                    { title: "Organization Name", field: "name" },
                                     { title: "Organization ID", field: "organizationID" },
                                     { title: "Category", field: "category" },
                                     {
