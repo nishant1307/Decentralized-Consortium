@@ -1,255 +1,260 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
+// nodejs library to set properties for components
+// core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Button from "components/CustomButtons/Button.jsx";
+import DoneAllIcon from '@material-ui/icons/DoneAll';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
-import Snackbar from '../../components/Snackbar/Snackbar.jsx'
-import MaterialTable, { MTableToolbar } from "material-table";
+import { CircularProgress } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
+import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { registryContract, registryAddress } from '../../registryContract';
+import Snackbar from '../../components/Snackbar/Snackbar.jsx'
+import moment from "moment";
 import web3 from '../../web3';
 import axios from 'axios';
-import { Divider } from '@material-ui/core';
+import Modal from "components/CustomModal/Modal";
+import MaterialTable from "material-table";
 import { withStyles } from '@material-ui/core/styles';
-import Skeleton from '@material-ui/lab/Skeleton';
-import CustomLoader from "components/Loaders/CustomLoader";
-const styles = theme => ({
-  progress: {
-    margin: theme.spacing(2)
-  },
-  cardCategoryWhite: {
-    color: "rgba(255,255,255,.62)",
-    margin: "0",
-    fontSize: "14px",
-    marginTop: "0",
-    marginBottom: "0"
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none"
-  },
-  formControl: {
-    margin: theme.spacing(120),
-    minWidth: 120
-  },
-  margin: {
-    margin: theme.spacing(1)
-  }
-});
+import { Button } from '@material-ui/core';
+import BlockIcon from '@material-ui/icons/Block';
+//create your forceUpdate hook
+function useForceUpdate() {
+  const [value, set] = useState(true); //boolean state
+  return () => set(value => !value); // toggle the state to force render
+}
 
-const OrgList = props => {
-  const { classes } = props;
-  const [privateKey, setPrivateKey] = React.useState("");
-  const [mainData, setMainData] = React.useState([])
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [snackbarColor, setSnackbarColor] = React.useState("danger");
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
+const Partners = (props) => {
   const [loader, setLoader] = useState(true);
-  async function fetchData() {
+  const [isLoading, setLoading] = useState(false);
+  const [isModalOpen, setModalStatus] = useState(false);
+  const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
+  const forceUpdate = useForceUpdate();
+  const [mainData, setMainData] = React.useState([])
+  const [modalData, setModalData] = React.useState({});
+
+
+  useEffect(() => {
+    setLoading(true);
     setLoader(true);
-    // let temp = await sessionStorage.getItem("privateKey")
-    // setPrivateKey(temp);
     let data = []
-    let fetchedData = await registryContract.methods.getAllUsers().call();
-    let temp = await sessionStorage.getItem("privateKey")
-    console.log(fetchedData.length,"length");
-    
-    setPrivateKey(temp);
-    fetchedData.map(async (e, i) => {
-      // console.log("Here");
-      let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + e.kycHash)
-      let KYCStatus = await registryContract.methods.getUserKYCStatus().call({ from: e.publicKey })
-      let mainData = {}
-      mainData.userAddress = e.publicKey
-      mainData.docs = dataFromIPFS.data.Docs
-      mainData.organizationID = e.organizationID;
-      mainData.companyName = dataFromIPFS.data.info.companyName
-      mainData.role = e.role === "1"
-        ? "Admin"
-        : e.role === "2"
-          ? "Regular"
-          : "Registrant"
-      mainData.status = KYCStatus === "0"
-        ? "KYC Pending"
-        : KYCStatus === "1"
-          ? "KYC Complete"
-          : "Banned"
-      mainData.email = e.email
-      mainData.fullName = dataFromIPFS.data.info.fullName
-      mainData.address = dataFromIPFS.data.info.address1 + dataFromIPFS.data.info.address + dataFromIPFS.data.info.city + dataFromIPFS.data.info.state + dataFromIPFS.data.info.country + dataFromIPFS.data.info.zip
-      await data.push(mainData)
-      if (i == fetchedData.length - 1) {
-        console.log(data, "data");
-        setMainData(data);
-        setLoader(false);
-      }
+    registryContract.methods.getAllUsers().call().then((fetchedData) => {
+      fetchedData.map(async (e, i) => {
+        let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + e.kycHash)
+        let KYCStatus = await registryContract.methods.getUserKYCStatus().call({ from: e.publicKey })
+        let mainData = {}
+        mainData.userAddress = e.publicKey
+        mainData.docs = dataFromIPFS.data.Docs
+        mainData.organizationID = e.organizationID;
+        mainData.companyName = dataFromIPFS.data.info.companyName
+        mainData.role = e.role === "1"
+          ? "Admin"
+          : e.role === "2"
+            ? "Regular"
+            : "Registrant"
+        mainData.status = KYCStatus === "0"
+          ? "KYC Pending"
+          : KYCStatus === "1"
+            ? "KYC Complete"
+            : "Banned"
+        mainData.email = e.email
+        mainData.fullName = dataFromIPFS.data.info.fullName
+        mainData.address = dataFromIPFS.data.info.address1 + dataFromIPFS.data.info.address + dataFromIPFS.data.info.city + dataFromIPFS.data.info.state + dataFromIPFS.data.info.country + dataFromIPFS.data.info.zip
+        await data.push(mainData)
+        if (i === fetchedData.length - 1) {
+          console.log(data, "data");
+          setMainData(data);
+          setLoader(false);
+          forceUpdate();
+        }
+      })
+    })
+    setLoading(false);
+    forceUpdate();
+  }, [])
+
+
+  const updateStatus = (rowData, status) => async () => {
+    console.log(rowData, status);
+    const privateKey = await sessionStorage.getItem("privateKey")
+    setLoading(true);
+    let gasPrice = await web3.eth.getGasPrice();
+    var transaction = {
+      "to": registryAddress,
+      "data": registryContract.methods.setUserKYCStatus(rowData.userAddress, status).encodeABI(),
+      gasPrice: gasPrice
+    };
+    transaction["gasLimit"] = 4700000;
+    web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
+      web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
+        if (confirmationNumber == 1) {
+          if (receipt.status == true) {
+            const data = mainData;
+            console.log(data[rowData.tableData.id]);
+            data[rowData.tableData.id].status = status === 0
+              ? "KYC Pending"
+              : status === 1
+                ? "KYC Complete"
+                : "Banned"
+            setMainData(data);
+            setModalStatus(false);
+            setLoading(false);
+            setLoader(false)
+            forceUpdate();
+            setSnackbar({ color: "success", open: true, message: "Status Updated" });
+            setTimeout(() => {
+              setSnackbar({ color: "success", open: false, message: "" });
+            }, 30000)
+          }
+        }
+      }).on('error', async function (error) {
+        // console.log(error);
+        setLoading(false);
+        setSnackbarMessage("Error occured!");
+        setIsSnackbarOpen(true);
+        setTimeout(() => {
+          setIsSnackbarOpen(false);
+        }, 10000)
+      })
     })
   }
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetchData();
-    setIsLoading(false);
-  }, [])
+  const openKYCmodal = (rowData) => () => {
+    setModalStatus(true);
+    setModalData(rowData);
+    forceUpdate();
+  }
 
-  return (<div>
-    {isLoading && <CustomLoader />}
-    <GridContainer>
-      <GridItem xs={12} sm={12} md={12}>
-        <Card>
-          <CardHeader color="primary">
-            <h4 className={classes.cardTitleWhite}>User List</h4>
-          </CardHeader>
-          <CardBody>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={12}>
-                {loader ?
-                  <React.Fragment>
-                    <Skeleton width="100%" />
-                    <Skeleton width="60%" />
-                    <Skeleton width="100%" />
-                    <Skeleton width="60%" />
-                    <Skeleton width="100%" />
-                    <Skeleton width="60%" />
-                    <Skeleton width="100%" />
-                  </React.Fragment> :
-                  <MaterialTable
-                    options={{
-                      sorting: true,
-                      pageSize: 20
-                    }}
-                    style={{
-                      margin: "30px 0 0 0"
-                    }}
-                    title=""
-                    columns={[
-                      {
-                        title: "Organization ID",
-                        field: "organizationID"
-                      }, {
-                        title: "KYC Status",
-                        field: "status"
-                      }, {
-                        title: "Email",
-                        field: "email"
-                      }, {
-                        title: "Full Name",
-                        field: "fullName"
-                      }, {
-                        title: "Address",
-                        field: "address"
-                      }, {
-                        title: "Role",
-                        field: "role"
-                      }, {
-                        title: "Organization Name",
-                        field: "companyName"
-                      }
-                    ]}
-                    data={mainData}
-                    components={{
-                      Action: props => (<div>
-                        <Button onClick={(event) => props.action.onClick(event, props.data, 1)} color="primary" variant="contained" style={{
-                          textTransform: 'none'
-                        }} size="sm">
-                          Accept
-                            </Button>
-                        <Button onClick={(event) => props.action.onClick(event, props.data, 0)} color="primary" variant="contained" style={{
-                          textTransform: 'none'
-                        }} size="sm">
-                          On Hold
-                            </Button>
-                        <Button onClick={(event) => props.action.onClick(event, props.data, 2)} color="primary" variant="contained" style={{
-                          textTransform: 'none'
-                        }} size="sm">
-                          Reject
-                            </Button>
-                      </div>)
-                    }}
-                    localization={{
-                      toolbar: {
-                        showColumnsTitle: "Total"
-                      },
-                      body: {
-                        emptyDataSourceMessage: "No Organizations Found"
-                      }
-                    }}
-                    actions={[
-                      {
-                        icon: "save",
-                        tooltip: "Save User",
-                        onClick: async (event, rowData, status) => {
-                          setIsLoading(true);
-                          let gasPrice = await web3.eth.getGasPrice();
-                          var transaction = {
-                            "to": registryAddress,
-                            "data": registryContract.methods.setUserKYCStatus(rowData.userAddress, status).encodeABI(),
-                            gasPrice: gasPrice
-                          };
-                          transaction["gasLimit"] = 4700000;
-                          web3.eth.accounts.signTransaction(transaction, privateKey).then(result => {
-                            web3.eth.sendSignedTransaction(result.rawTransaction).on('confirmation', async function (confirmationNumber, receipt) {
-                              if (confirmationNumber == 1) {
-                                if (receipt.status == true) {
-                                  // const data = mainData;
-                                  // console.log(data[rowData.tableData.id]);
-                                  // data[rowData.tableData.id].status = "KYC Complete";
-                                  // setMainData(data);
-                                  fetchData();
-                                  setIsLoading(false);
-                                  setSnackbarColor("success");
-                                  setSnackbarMessage("Status Updated!");
-                                  setIsSnackbarOpen(true);
-                                  setTimeout(() => {
-                                    setIsSnackbarOpen(false);
-                                  }, 10000)
-                                }
-                              }
-                            }).on('error', async function (error) {
-                              // console.log(error);
-                              setIsLoading(false);
-                              setSnackbarMessage("Error occured!");
-                              setIsSnackbarOpen(true);
-                              setTimeout(() => {
-                                setIsSnackbarOpen(false);
-                              }, 10000)
-                            })
-                          })
-                        }
-                      },
-                    ]}
-                    detailPanel={rowData => {
-                      return (<GridContainer>
-                        {
-                          rowData.docs.map((element) => {
-                            let url = "https://gateway.arthanium.org/ipfs/" + element
-                            return (<GridItem key={Math.random()} xs={12} sm={12} md={4}>
-                              <img src={url} key={Math.random()} alt="boohoo" width="200" height="200" onClick={() => {
-                                window.open(url, "_blank")
-                              }} className="img-responsive" />
-                            </GridItem>)
-                          })
-                        }
+  const { classes } = props;
 
-                      </GridContainer>)
-                    }}
-                    onRowClick={(event, rowData, togglePanel) => togglePanel()} />}
-              </GridItem>
-            </GridContainer>
-          </CardBody>
-        </Card>
-      </GridItem>
-    </GridContainer>
-    <Snackbar color={snackbarColor} open={isSnackbarOpen} place="bl" className={classes.margin} message={snackbarMessage} />
-  </div>);
-};
+  return (
+    <div>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card plain>
+            <CardHeader plain color="primary">
+              <h4 className={classes.cardTitleWhite}>
+                Category List
+                            </h4>
+            </CardHeader>
+            {loader ?
+              <React.Fragment>
 
-export default withStyles(styles, customInputStyle)(OrgList);
+                <Skeleton width="100%" />
+                <Skeleton width="60%" />
+                <Skeleton width="100%" />
+                <Skeleton width="60%" />
+                <Skeleton width="100%" />
+                <Skeleton width="60%" />
+                <Skeleton width="100%" />
+              </React.Fragment> :
+              <MaterialTable
+                columns={[
+                  {
+                    title: "Full Name",
+                    field: "fullName"
+                  },
+                  {
+                    title: "Email",
+                    field: "email"
+                  }, {
+                    title: "Address",
+                    field: "address"
+                  }, {
+                    title: "Role",
+                    field: "role"
+                  },
+                  {
+                    title: "KYC Status",
+                    field: "status",
+                    render: rowData => {
+                      return (rowData.status === "KYC Complete" ? <DoneAllIcon /> : rowData.status === "KYC Pending" ? <HourglassEmptyIcon /> : <BlockIcon />)
+                    }
+                  },
+                  {
+                    field: 'kycHash',
+                    title: 'Documents',
+                    render: rowData => {
+                      return (
+                        <>
+                          <Button onClick={openKYCmodal(rowData)} variant="contained" color="primary">View Documents </Button>
+                        </>)
+                    }
+                  }, {
+                    title: "Organization Name",
+                    field: "companyName"
+                  },
+                  {
+                    title: "Organization ID",
+                    field: "organizationID"
+                  },
+                ]}
+                data={mainData}
+                title=""
+                options={{
+                  search: true,
+                  exportButton: false,
+                  grouping: true,
+                  paginationType: "stepped",
+                }}
+                localization={{
+                  body: {
+                    emptyDataSourceMessage: "No Devices Found!"
+                  }
+                }}
+              />
+            }
+          </Card>
+        </GridItem>
+      </GridContainer>
+      {isModalOpen && <Modal
+        open={isModalOpen}
+        onClose={() => {
+          setModalStatus(false)
+          setModalData({});
+          forceUpdate();
+        }
+        }
+        title="Documents"
+        content={
+          modalData.docs.map((element) => {
+            let url = "https://gateway.arthanium.org/ipfs/" + element
+            return (<GridItem xs={12} sm={12} md={4}>
+              <img src={url} alt="boohoo" width="200" height="200" onClick={() => {
+                window.open(url, "_blank")
+              }} className="img-responsive" />
+            </GridItem>)
+          })
+        }
+        action={
+          !isLoading ? <div>
+            {modalData.status !== "KYC Complete" && <Button onClick={updateStatus(modalData, 1)} color="primary" variant="contained" style={{
+              textTransform: 'none', margin: 10
+            }} size="sm">
+              Accept
+          </Button>}
+            {modalData.status !== "KYC Pending" && < Button onClick={updateStatus(modalData, 0)} color="primary" variant="contained" style={{
+              textTransform: 'none', margin: 10
+            }} size="sm">
+              On Hold
+                            </Button>}
+            {modalData.status !== "Banned" && <Button onClick={updateStatus(modalData, 2)} color="primary" variant="contained" style={{
+              textTransform: 'none', margin: 10
+            }} size="sm">
+              Reject
+                            </Button>}
+          </div> : <CircularProgress />
+        }
+
+      />}
+      <Snackbar color={snackbar.color} open={snackbar.open} place="bl" className={classes.margin} message={snackbar.message} />
+    </div>
+  );
+}
+
+
+
+
+export default (withStyles(dashboardStyle)(Partners));

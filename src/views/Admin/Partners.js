@@ -19,9 +19,10 @@ import Modal from "components/CustomModal/Modal";
 import MaterialTable from "material-table";
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
+import { openDocModal } from "actions/userActions.js";
 
 //create your forceUpdate hook
-function useForceUpdate(){
+function useForceUpdate() {
     const [value, set] = useState(true); //boolean state
     return () => set(value => !value); // toggle the state to force render
 }
@@ -33,6 +34,7 @@ const Partners = (props) => {
     const [isModalOpen, setModalStatus] = useState(false);
     const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
     const forceUpdate = useForceUpdate();
+    const [modalData, setModalData] = React.useState({});
 
     useEffect(() => {
         partnerContract.methods.getAllCategory().call({
@@ -110,6 +112,13 @@ const Partners = (props) => {
         })
     }
 
+    const openDocModal = (rowData) => () => {
+        console.log(rowData)
+        setModalStatus(true);
+        setModalData(rowData);
+        forceUpdate();
+    }
+
     const { classes } = props;
 
     return (
@@ -142,24 +151,9 @@ const Partners = (props) => {
                                         field: 'documentHash',
                                         title: 'Documents',
                                         render: rowData => {
-                                            const url = "https://gateway.arthanium.org/ipfs/" + rowData.documentHash;
                                             return (
                                                 <>
-                                                    <Button onClick={() => setModalStatus(true)} variant="contained" color="primary">View</Button>
-                                                    <Modal
-                                                        open={isModalOpen}
-                                                        onClose={() => setModalStatus(false)}
-                                                        title="Documents"
-                                                        content={
-                                                            <iframe onClick={() => {
-                                                                window.open(url, "_blank")
-                                                            }} src={url} height="700" width="1000"></iframe>
-                                                        }
-                                                        action={
-                                                            !isLoading ? !rowData.status ? <Button onClick={handleStatusUpdate(rowData)} variant="contained" color="primary">Accept</Button> : <h4><DoneAllIcon /> &nbsp; Already Approved</h4> : <CircularProgress />
-                                                        }
-
-                                                    />
+                                                    <Button onClick={openDocModal(rowData)} variant="contained" color="primary">View</Button>
                                                 </>)
                                         }
                                     },
@@ -190,7 +184,27 @@ const Partners = (props) => {
                     </Card>
                 </GridItem>
             </GridContainer>
-            <Snackbar color={snackbar.color} open={snackbar.open} place="br" className={classes.margin} message={snackbar.message} />
+            {isModalOpen &&
+                <Modal
+                    open={isModalOpen}
+                    onClose={() => {
+                        setModalStatus(false)
+                        setModalData({});
+                        forceUpdate();
+                    }}
+                    title="Documents"
+                    content={
+                        <iframe onClick={() => {
+                            window.open(url, "_blank")
+                        }} src={`https://gateway.arthanium.org/ipfs/${modalData.documentHash}`} height="700" width="1000" className="img-responsive"></iframe>
+                    }
+                    action={
+                        !isLoading ? !modalData.status ? <Button onClick={handleStatusUpdate(modalData)} variant="contained" color="primary">Accept</Button> : <h4><DoneAllIcon /> &nbsp; Already Approved</h4> : <CircularProgress />
+                    }
+
+                />
+            }
+            <Snackbar color={snackbar.color} open={snackbar.open} place="bl" className={classes.margin} message={snackbar.message} />
         </div>
     );
 }
