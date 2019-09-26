@@ -11,6 +11,7 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import Store from "@material-ui/icons/Store";
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
+import BuildIcon from '@material-ui/icons/Build';
 const dashboardRoutes = [
   {
     path: "/home",
@@ -25,17 +26,24 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    name: 'Modules',
-    path: '/modules',
-    icon: ViewModuleIcon,
-    layout: "/dashboard"
-  },
-  {
     path: "/partners",
     name: "Partners",
     icon: AccessibilityIcon,
     layout: "/dashboard"
   },
+  // {
+  //   name: 'Tools',
+  //   path: '/home',
+  //   icon: BuildIcon,
+  //   layout: "/dashboard"
+  // },
+  {
+    name: 'Modules',
+    path: '/modules',
+    icon: ViewModuleIcon,
+    layout: "/dashboard"
+  },
+
   {
     path: "/devices",
     name: "Devices",

@@ -8,6 +8,10 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import FindReplaceIcon from '@material-ui/icons/FindReplace';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+import DescriptionIcon from '@material-ui/icons/Description';
 import Modal from '../../components/CustomModal/Modal'
 const Partners = props => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -27,7 +31,7 @@ const Partners = props => {
                         </CardHeader>
                         <CardFooter stats>
                             <div >
-                                Shipment Tracker
+                                Shipment Manager
               </div>
                         </CardFooter>
                     </Card>
@@ -50,7 +54,7 @@ const Partners = props => {
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
-                                <AccountBalanceIcon />
+                                <ReceiptIcon />
                             </CardIcon>
                         </CardHeader>
                         <CardFooter stats>
@@ -64,7 +68,7 @@ const Partners = props => {
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
-                                <AccountBalanceIcon />
+                                <DescriptionIcon />
                             </CardIcon>
                         </CardHeader>
                         <CardFooter stats>
@@ -78,12 +82,26 @@ const Partners = props => {
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
-                                <AccountBalanceIcon />
+                                <PermIdentityIcon />
                             </CardIcon>
                         </CardHeader>
                         <CardFooter stats>
                             <div >
                                 Digital Identity
+              </div>
+                        </CardFooter>
+                    </Card>
+                </GridItem>
+                <GridItem xs={6} sm={4} md={2}>
+                    <Card onClick={toggleModal}>
+                        <CardHeader color="info" stats icon>
+                            <CardIcon color="info">
+                                <FindReplaceIcon />
+                            </CardIcon>
+                        </CardHeader>
+                        <CardFooter stats>
+                            <div >
+                                Geo Tagging
               </div>
                         </CardFooter>
                     </Card>
