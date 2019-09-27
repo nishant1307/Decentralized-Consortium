@@ -10,33 +10,35 @@ export default function Partners(props) {
     return (
         <div className="body">
             <Header headerStyle="bg-wrap" />
-            <div className="div-block-new-1" style={{ padding: 50, marginTop: 100 }}>
+            <div className="div-block-new-1" style={{ marginTop: 100 }}>
                 <div id="solutionsforBusiness" className="section less-v-margin">
                     <div className="wrapper">
                         <div className="row-2">
-                            <div className="col lg-6">
-                                <div className="margin-bottom">
-                                    <h2 className="heading-2 ondark" style={{ color: "#333", textAlign: 'center', padding: 20 }}>Company</h2>
-                                    <p className="ondark" style={{ color: "#333", textAlign: "justify"}}>
-                                        Arthanium is an open blockchain based "Platform" converging latest in Blockchain, IoT and Analytics technologies.
-                                        It securely links identity to physical assets through blockchain, smart contract & firmware.
-                                        Applications include decentralized supply chain, trade finance / insurance, digital identity, provenance, authentication and e-commerce.
-                                        Industries benefiting from the platform include smart cities, pharma, packaging, logistics, fashion / luxury, food & beverages, precious metals & jewelry.
+                            <div className="col lg-5">
+                                <div className="cn">
+                                    <div class="inner">
+                                        <h2 className="heading-2 ondark" style={{ color: "#333", textAlign: 'center', padding: 30 }}>Company</h2>
+                                        <p className="ondark" style={{ color: "#333", textAlign: "justify", wordSpacing: 3 }}>
+                                            Arthanium is an open blockchain based "Platform" converging latest in Blockchain, IoT and Analytics technologies.
+                                        It securely links identity to physical assets through blockchain, smart contract & firmware.<br />
+                                            Applications include decentralized supply chain, trade finance / insurance, digital identity, provenance, authentication and e-commerce.
+                                            Industries benefiting from the platform include smart cities, pharma, packaging, logistics, fashion / luxury, food & beverages, precious metals & jewelry.
                                     </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col lg-1" />
-                            <div className="col lg-4 extra-pad">
-                                <img src={require('../../WA/images/new/22.png')} />
+                            <div className="col lg-1 " />
+                            <div className="col lg-5">
+                                <img width="1200" height="600" src={require('../../WA/images/company 4.png')} />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="div-block-new-1" style={{ padding: 50, }} id="ourteam">
-                <div className="section">
-                    <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Our Team</h1>
-                </div>
+            <div className="div-block-new-1" id="ourteam">
+                {/* <div className="section"> */}
+                <h1 style={{ textAlign: 'center', color: "#333", paddingBottom: 50 }} className="heading-2 ondark">Our Team</h1>
+                {/* </div> */}
                 <div className="container">
                     <div className="row-2">
                         {/* <div className="heading-title text-center">
@@ -67,8 +69,8 @@ export default function Partners(props) {
                         </div>
                         <div className="col-md-3 col-sm-3">
                             <div className="team-member">
-                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", marginLeft: "20px", overflow: 'hidden' }}>
-                                    <img src={require('../../WA/images/new/nishant.png')} width="auto" height="250" alt="team member" className="img-responsive" />
+                                <div className="team-img" style={{ width: 250, height: 250, borderRadius: "50%", overflow: 'hidden' }}>
+                                    <img src={require('../../WA/images/new/nishant.png')} style={{marginLeft: "25px"}} width="auto" height="250" alt="team member" className="img-responsive" />
                                 </div>
                                 <div className="team-hover">
                                     <div className="desk">

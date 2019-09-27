@@ -16,9 +16,9 @@ import {
     Hidden
 } from '@material-ui/core';
 import {
-  CardActions,
-  Typography,
-  Container
+    CardActions,
+    Typography,
+    Container
 } from '@material-ui/core';
 import basic from "assets/images/basic.png";
 import enterprise from "assets/images/enterprise.png";
@@ -36,64 +36,64 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.gray,
+    '@global': {
+        body: {
+            backgroundColor: theme.palette.common.gray,
+        },
+        ul: {
+            margin: 0,
+            padding: 0,
+        },
+        li: {
+            listStyle: 'none',
+        },
     },
-    ul: {
-      margin: 0,
-      padding: 0,
+    heroContent: {
+        padding: theme.spacing(8, 0, 6),
     },
-    li: {
-      listStyle: 'none',
+    cardHeader: {
+        backgroundColor: theme.palette.white,
     },
-  },
-  heroContent: {
-    padding: theme.spacing(8, 0, 6),
-  },
-  cardHeader: {
-    backgroundColor: theme.palette.white,
-  },
-  cardPricing: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'baseline',
-    marginBottom: theme.spacing(2),
-  }
+    cardPricing: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'baseline',
+        marginBottom: theme.spacing(2),
+    }
 }));
 
 const tiers = [
-  {
-    title: 'BASIC',
-    price: '49',
-    description: ['400 Credits'],
-    buttonText: 'GET STARTED',
-    buttonVariant: 'contained',
-    cardImage: basic
-  },
-  {
-    title: 'BUSINESS',
-    price: '149',
-    description: [
-      '1200 Credits'
-    ],
-    buttonText: 'GET STARTED',
-    buttonVariant: 'contained',
-    cardImage: business
-  },
-  {
-    title: 'ENTERPRISE',
-    price: '449',
-    description: [
-      '3600 Credits'
-    ],
-    buttonText: 'GET STARTED',
-    buttonVariant: 'contained',
-    cardImage: enterprise
-  },
+    {
+        title: 'BASIC',
+        price: '49',
+        description: ['400 Credits'],
+        buttonText: 'GET STARTED',
+        buttonVariant: 'contained',
+        cardImage: basic
+    },
+    {
+        title: 'BUSINESS',
+        price: '149',
+        description: [
+            '1200 Credits'
+        ],
+        buttonText: 'GET STARTED',
+        buttonVariant: 'contained',
+        cardImage: business
+    },
+    {
+        title: 'ENTERPRISE',
+        price: '449',
+        description: [
+            '3600 Credits'
+        ],
+        buttonText: 'GET STARTED',
+        buttonVariant: 'contained',
+        cardImage: enterprise
+    },
 ];
 export default function Landing(props) {
-  const classes = useStyles();
+    const classes = useStyles();
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     const [projects, setProjects] = React.useState(0);
     const [partners, setPartners] = React.useState(0);
@@ -232,7 +232,7 @@ export default function Landing(props) {
             <div id="features" className="section">
                 <div className="wrapper" >
 
-                    <h2 data-w-id="7b5c466a-962a-8742-1d10-203f426a0c19" style={{ opacity: 1, marginBottom:20 }} className="section-header withdesc">Why Arthanium?</h2>
+                    <h2 data-w-id="7b5c466a-962a-8742-1d10-203f426a0c19" style={{ opacity: 1, marginBottom: 20 }} className="section-header withdesc">Why Arthanium?</h2>
                     <div >
                         <div className="feature-container">
 
@@ -242,28 +242,28 @@ export default function Landing(props) {
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c1d" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/commision.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Blockchain</h4>
                                         <p className="paragraph"><strong>Secure</strong></p>
-                                            <p >Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
+                                        <p >Heterogenous multi chain blockchain architecture Scalable, Interoperable Secure & High TPS.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c24" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/timeline.png" width={150} height={150} alt="" className="icon" />
                                         <h4>DApps</h4>
                                         <p className="paragraph"><strong>Automate </strong></p>
-                                            <p>Decentralized Apps ecosystem for digitized documentation, connected devices & trade finance.</p>
+                                        <p>Decentralized Apps ecosystem for digitized documentation, connected devices & trade finance.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c2b" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/team.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Partners</h4>
                                         <p className="paragraph"><strong>Collaborate</strong></p>
-                                            <p>Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
+                                        <p>Brings all diverse stakeholders on one platform Integrate diverse activities more efficiently.</p>
                                     </div>
                                 </div>
                                 <div className="col lg-3">
                                     <div data-w-id="7b5c466a-962a-8742-1d10-203f426a0c32" style={{ opacity: 1, textAlign: '-webkit-center', paddingTop: 10 }} className="margin-bottom"><img src="http://detheme.com/templates/kergan/images/report.png" width={150} height={150} alt="" className="icon" />
                                         <h4>Industry 4.0</h4>
                                         <p className="paragraph"><strong>Innovate</strong></p>
-                                            <p>Unlock new opportunities Eliminate low value activities.</p>
+                                        <p>Unlock new opportunities Eliminate low value activities.</p>
                                     </div>
                                 </div>
                             </div>
@@ -296,134 +296,134 @@ export default function Landing(props) {
             </div> */}
             <div id="testimonials" className="section bgtestimonial1">
                 <div className="mask w-slider-mask">
-                <Container maxWidth="md" component="main">
-                  <GridContainer alignItems="flex-end">
-                    {tiers.map(tier => (
-                      // Enterprise card is full width at sm breakpoint
-                      <GridItem key={tier.title} xs={12} sm={12} md={4}>
-                        <Card style={{filter: "drop-shadow(16px 16px 10px gray)"}}>
-                          <CardHeader plain style={{margin: 0}}>
-                            <img src={tier.cardImage} height="100%" width="100%"/>
-                          </CardHeader>
-                          <CardBody >
-                            <div className={classes.cardPricing}>
-                              <Typography component="h2" variant="h3" color="textPrimary">
-                                ${tier.price}
+                    <Container maxWidth="md" component="main">
+                        <GridContainer alignItems="flex-end">
+                            {tiers.map(tier => (
+                                // Enterprise card is full width at sm breakpoint
+                                <GridItem key={tier.title} xs={12} sm={12} md={4}>
+                                    <Card style={{ filter: "drop-shadow(16px 16px 10px gray)" }}>
+                                        <CardHeader plain style={{ margin: 0 }}>
+                                            <img src={tier.cardImage} style={{ borderTopLeftRadius: '5%', borderTopRightRadius: '5%' }} height="100%" width="100%" />
+                                        </CardHeader>
+                                        <CardBody >
+                                            <div className={classes.cardPricing}>
+                                                <Typography component="h2" variant="h3" color="textPrimary">
+                                                    ${tier.price}
+                                                </Typography>
+                                                <Typography variant="h6" color="textSecondary">
+                                                    /month
                               </Typography>
-                              <Typography variant="h6" color="textSecondary">
-                                /month
-                              </Typography>
-                            </div>
-                            <ul>
-                              {tier.description.map(line => (
-                                <Typography component="li" variant="subtitle1" align="center" key={line}>
-                                  {line}
-                                </Typography>
-                              ))}
-                            </ul>
-                          </CardBody>
-                          <CardActions style={{justifyContent: "center"}}>
-                            <Button variant={tier.buttonVariant} style={{marginBottom: "50px"}} round color="warning" onClick={() => props.history.push("/login")}>
-                              {tier.buttonText}
-                            </Button>
-                          </CardActions>
-                        </Card>
-                      </GridItem>
-                    ))}
-                  </GridContainer>
-                </Container>
+                                            </div>
+                                            <ul>
+                                                {tier.description.map(line => (
+                                                    <Typography component="li" variant="subtitle1" align="center" key={line}>
+                                                        {line}
+                                                    </Typography>
+                                                ))}
+                                            </ul>
+                                        </CardBody>
+                                        <CardActions style={{ justifyContent: "center" }}>
+                                            <Button variant={tier.buttonVariant} style={{ marginBottom: "50px" }} round color="warning" onClick={() => props.history.push("/login")}>
+                                                {tier.buttonText}
+                                            </Button>
+                                        </CardActions>
+                                    </Card>
+                                </GridItem>
+                            ))}
+                        </GridContainer>
+                    </Container>
                 </div>
             </div>
             {/* <div className="section"> */}
             <Hidden smDown>
-            <div className="wrapper">
-                <div className="row">
-                    <div className="columns-2 w-row">
-                        <div className="column-2 w-col w-col-3">
-                        </div>
-                        <div className=" w-col w-col-7" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
-                            <div>
-                                <Table>
-                                    <TableRow>
-                                        <TableCell colspan="4" align="center">Estimate your monthly credit requirements</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Action</TableCell>
-                                        <TableCell>Cost per action</TableCell>
-                                        <TableCell>Quantity</TableCell>
-                                        <TableCell colspan="2">Credit Calculator</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Projects</TableCell>
-                                        <TableCell>75</TableCell>
-                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
-                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Partners</TableCell>
-                                        <TableCell>15</TableCell>
-                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
-                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>Products / Docs / Devices</TableCell>
-                                        <TableCell>1</TableCell>
-                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></TableCell>
-                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell colspan="1"></TableCell>
-                                        <TableCell colspan="2">Total</TableCell>
-                                        <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
-                                    </TableRow>
-                                </Table>
+                <div className="wrapper">
+                    <div className="row">
+                        <div className="columns-2 w-row">
+                            <div className="column-2 w-col w-col-3">
+                            </div>
+                            <div className=" w-col w-col-7" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
+                                <div>
+                                    <Table>
+                                        <TableRow>
+                                            <TableCell colspan="4" align="center">Estimate your monthly credit requirements</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Action</TableCell>
+                                            <TableCell>Cost per action</TableCell>
+                                            <TableCell>Quantity</TableCell>
+                                            <TableCell colspan="2">Credit Calculator</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Projects</TableCell>
+                                            <TableCell>75</TableCell>
+                                            <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
+                                            <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Partners</TableCell>
+                                            <TableCell>15</TableCell>
+                                            <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
+                                            <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>Products / Docs / Devices</TableCell>
+                                            <TableCell>1</TableCell>
+                                            <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></TableCell>
+                                            <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell colspan="1"></TableCell>
+                                            <TableCell colspan="2">Total</TableCell>
+                                            <TableCell><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
+                                        </TableRow>
+                                    </Table>
+                                </div>
+                            </div>
+                            <div className="column-2 w-col w-col-2">
                             </div>
                         </div>
-                        <div className="column-2 w-col w-col-2">
-                        </div>
-                    </div>
-                    <div className="columns-2 w-row">
-                        <div className="column-2 w-col w-col-12">
-                            <div className="margin-bottom">
-                                <h2 className="heading-2">Note</h2>
-                                <List component="nav" className={classes.root} aria-label="contacts">
-                                  <ListItem>
-                                    <ListItemIcon>
-                                      <FiberManualRecordIcon fontSize="small" />
-                                    </ListItemIcon>
-                                    <ListItemText primary="Setup and customization charges could be applicable for certain customers." />
-                                  </ListItem>
-                                  <ListItem>
-                                    <ListItemIcon>
-                                      <FiberManualRecordIcon fontSize="small" />
-                                    </ListItemIcon>
-                                      <ListItemText primary="For larger customized plans contact us directly." />
-                                  </ListItem>
-                                  <ListItem>
-                                    <ListItemIcon>
-                                      <FiberManualRecordIcon fontSize="small" />
-                                    </ListItemIcon>
-                                      <ListItemText primary="Additional monthly credits packs can be purchased at $ 49 for 400 Credits." />
-                                  </ListItem>
-                                  <ListItem>
-                                    <ListItemIcon>
-                                      <FiberManualRecordIcon fontSize="small" />
-                                    </ListItemIcon>
-                                      <ListItemText primary="Validity of plan & credits is one month and it cannot be carried forward." />
-                                  </ListItem>
-                                  <ListItem>
-                                    <ListItemIcon>
-                                      <FiberManualRecordIcon fontSize="small" />
-                                    </ListItemIcon>
-                                      <ListItemText primary="Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model." />
-                                  </ListItem>
-                                </List>
+                        <div className="columns-2 w-row">
+                            <div className="column-2 w-col w-col-12">
+                                <div className="margin-bottom">
+                                    <h2 className="heading-2">Note</h2>
+                                    <List component="nav" className={classes.root} aria-label="contacts">
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <FiberManualRecordIcon fontSize="small" />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Setup and customization charges could be applicable for certain customers." />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <FiberManualRecordIcon fontSize="small" />
+                                            </ListItemIcon>
+                                            <ListItemText primary="For larger customized plans contact us directly." />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <FiberManualRecordIcon fontSize="small" />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Additional monthly credits packs can be purchased at $ 49 for 400 Credits." />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <FiberManualRecordIcon fontSize="small" />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Validity of plan & credits is one month and it cannot be carried forward." />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <FiberManualRecordIcon fontSize="small" />
+                                            </ListItemIcon>
+                                            <ListItemText primary="Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model." />
+                                        </ListItem>
+                                    </List>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {/* </div> */}
                 </div>
-                {/* </div> */}
-            </div>
             </Hidden>
             <div id="testimonials" className="section bgtestimonial">
                 <div>

@@ -86,18 +86,18 @@ export default function Landing() {
                     </div>
                 </div>
             </div>
-            <div style={{ backgroundColor: "white", display: 'flex', alignContent: 'center', justifyContent: 'center' }}>
+            <div style={{ backgroundColor: "white", display: 'flex', alignContent: 'center', justifyContent: 'center', fontFamily: "Arial, Helvetica, sans-serif" }}>
                 <Typography variant="body2" color="textSecondary" align="right">
                     {'Copyright © '}
-                    <Link color="none" style={{}} href="https://www.arthanium.com">
+                    <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.54)' }} href="https://www.arthanium.com">
                         www.arthanium.com
               </Link>{' '}
                     {new Date().getFullYear()}
                     {'. Powered by '}
-                    <Link color="inherit" href="https://www.arthanium.org">
+                    <Link style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.54)' }} href="https://www.arthanium.org">
                         Arthanium.
               </Link>
-              {/* {' Contact us at '} */}
+                    {/* {' Contact us at '} */}
                     {/* <Link color="none" style={{}} href="info@arthanium.com">
                          info@arthanium.com
               </Link> */}

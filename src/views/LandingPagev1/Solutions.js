@@ -8,74 +8,75 @@ export default function Solutions(props) {
         <div className="body">
             <Header />
             <div className="section full-screen background-image-side" style={{ padding: 0 }}>
-              <div style={{ textAlign: 'center' }}>
-                  <div className="columns column w-row" style={{ display: 'inline-block', verticalAlign: 'middle' }} className="image-box">
-                      <img src={require('../../WA/images/new/33.png')} height={400} />
-                      <div class="text">
-                          <h1>SOLUTIONS</h1>
-                      </div>
-                  </div>
-              </div>
+                <div style={{ textAlign: 'center' }}>
+                    <div className="columns column w-row" style={{ zIndex: 2, display: 'inline-block', verticalAlign: 'middle' }} className="image-box">
+                        <img src={require('../../WA/images/new/33.png')} height={400} />
+                        <div className="text">
+                            <h1>SOLUTIONS</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="div-block-new-1" id="dapps">
-              <div className="section">
-                  <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Decentralized Applications</h1>
-              </div>
-              <div className="w-col-12">
-                      <div className="row-2">
-                          <div className="col lg-3">
-                              <div className="solution-slider-container">
-                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/doc.jpg')} height="150px" alt="" className="image-5" />
-                                      <div style={{ paddingTop: 20 }}>
-                                          <h4 className="testimonial-title">DocConekt</h4>
-                                          <p className="testimonial-text"><strong>Paperless Trade & Certification</strong><br />
-                                              Share Trade Doccuments securely with privacy
-  Access based on combination of role & permission
-  Permissioned Upload, download, Edit and Viewing
+                <div className="section">
+                    <h1 style={{ textAlign: 'center', color: "#333", }} className="heading-2 ondark">Decentralized Applications</h1>
+                </div>
+                <div className="w-col-12">
+                    <div className="row-2" style={{ zIndex: 3 }}>
+                        <div className="col lg-3">
+                            <div className="solution-slider-container">
+                                <div className="payment-testimonial-content"><img src={require('../../WA/images/doc.jpg')} height="150px" alt="" className="image-5" />
+                                    <div style={{ paddingTop: 20 }}>
+                                        <h4 className="testimonial-title">DocConekt</h4>
+                                        <p className="testimonial-text"><strong>Paperless Trade & Certification</strong><br />
+                                            Share Trade Doccuments securely with privacy
+Access based on combination of role & permission
+Permissioned Upload, download, Edit and Viewing
   Share Documents with Partners for viewing or action		</p>
 
-                                      </div>
-                                      {/* <div className="value-proposition-container">
+                                    </div>
+                                    {/* <div className="value-proposition-container">
                                           <div className="value-proposition-buttons"><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                           <br />
                                       </div> */}
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="col lg-3">
-                              <div className="solution-slider-container">
-                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/iot.png')} height="150px"  alt="" className="image-5" />
-                                      <div style={{ paddingTop: 20 }}>
-                                          <h4 className="testimonial-title">IOTConekt</h4>
-                                          <p className="testimonial-text"><strong>Secure Supply chain</strong>
-                                              <br />Securely links IoT identities to physical assets.
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col lg-3">
+                            <div className="solution-slider-container">
+                                <div className="payment-testimonial-content"><img src={require('../../WA/images/iot.png')} height="150px" alt="" className="image-5" />
+                                    <div style={{ paddingTop: 20 }}>
+                                        <h4 className="testimonial-title">IOTConekt</h4>
+                                        <p className="testimonial-text"><strong>Secure Supply chain</strong>
+                                            <br />Securely links IoT identities to physical assets.
   Create digital identity and  provenance.<br />Solutions for tracking, certification, provenance & anti counterfeiting<br /><br />		</p>
-                                          {/* <h5 className="heading-3">$149/Month</h5> */}
-                                      </div>
-                                      {/* <div className="value-proposition-container">
+                                        {/* <h5 className="heading-3">$149/Month</h5> */}
+                                    </div>
+                                    {/* <div className="value-proposition-container">
                                           <div className="value-proposition-buttons"><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                           <br />
                                       </div> */}
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="col lg-3">
-                              <div className="solution-slider-container">
-                                  <div className="payment-testimonial-content"><img src={require('../../WA/images/tf.png')} height="150px" alt="" className="image-5" />
-                                      <div style={{ paddingTop: 20 }}>
-                                          <h4 className="testimonial-title">Trade Finance</h4>
-                                          <p className="testimonial-text"><strong>Automate Payments & Financin</strong><br />Products and processes to automate payments<br />Secure transactions & sharing of information<br />proposed applications - Letter of Credits, Invoice Factoring <br /></p>
-                                          {/* <h5 className="heading-3">$449/Month</h5> */}
-                                      </div>
-                                      {/* <div className="value-proposition-container">
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col lg-3">
+                            <div className="solution-slider-container">
+                                <div className="payment-testimonial-content"><img src={require('../../WA/images/tf.png')} height="150px" alt="" className="image-5" />
+                                    <div style={{ paddingTop: 20 }}>
+                                        <h4 className="testimonial-title">Trade Finance</h4>
+                                        <p className="testimonial-text"><strong>Automate Payments & Financin</strong><br />Products and processes to automate payments<br />Secure transactions & sharing of information<br />proposed applications - Letter of Credits, Invoice Factoring <br /></p>
+                                        {/* <h5 className="heading-3">$449/Month</h5> */}
+                                    </div>
+                                    {/* <div className="value-proposition-container">
                                           <div className="value-proposition-buttons"><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                           <br />
                                       </div> */}
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-              </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <img src={require('../../WA/images/line.png')} style={{ zIndex: 1, height: 70, width: '90%', position: 'absolute', top: '168%', marginRight: 70, marginLeft: 70 }} />
+                </div>
             </div>
             <div className="div-block-new-1" id="solutionsforBusiness">
                 <div className="section">
@@ -91,9 +92,9 @@ export default function Solutions(props) {
                 </div>
                 <div id="solutionsforBusiness" className="section less-v-margin">
                     <div className="wrapper">
-                        <div className="row-2" style={{display: "flex", alignItems: "center"}}>
+                        <div className="row-2" style={{ display: "flex", alignItems: "center" }}>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/18.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}}/>
+                                <img src={require('../../WA/images/new/18.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -119,10 +120,10 @@ export default function Solutions(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/23.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/23.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/19.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/19.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -149,10 +150,10 @@ export default function Solutions(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/11.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/11.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/9.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/9.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -178,11 +179,11 @@ export default function Solutions(props) {
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/21.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/21.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             {/* new */}
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/5.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/5.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
@@ -208,7 +209,7 @@ export default function Solutions(props) {
                     <div className="wrapper">
                         <div className="row-2">
                             <div className="col lg-5 extra-pad">
-                                <img src={require('../../WA/images/new/32.png')} style={{filter: "drop-shadow(16px 16px 10px gray)"}} />
+                                <img src={require('../../WA/images/new/32.png')} style={{ filter: "drop-shadow(16px 16px 10px gray)" }} />
                             </div>
                             <div className="col lg-1" />
                             <div className="col lg-5 extra-pad">
