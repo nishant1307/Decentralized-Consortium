@@ -65,10 +65,10 @@ export default function Header(props) {
                             <Link to="/aboutus#contact" className="nav-link-2 w-nav-link">Contact </Link>
                         </div>
                     </div>
-                    {/* <div className="nav-cta-button-container">
+                    <div className="nav-cta-button-container">
                         <a href="/login" className="nav-link-2  w-nav-link">Get Started</a>
-                    </div> */}
-                    <Link to="/login" className={classNames("nav-link-2 border w-nav-link", { "inactive": isInactive("/") })}>Get Started</Link>
+                    </div>
+                    {/* <Link href="/login" className={classNames("nav-link-2 border w-nav-link", { "inactive": isInactive("/") })}>Get Started</Link> */}
                 </nav>
                 <div className="menu-button-2 w-nav-button w--open" onClick={toggleMenu}>
                     <div className="burger-icon w-icon-nav-menu" />
