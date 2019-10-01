@@ -341,6 +341,13 @@ contract EternalStorage is StorageDefinition {
         myProjects[userAddress].push(projectRegistry[projectID]);
         projectRoles[projectID][userAddress] = partnerRole;
     }
+    
+     function removeUserToProject(bytes32 projectID, address userAddress, string calldata partnerRole) external onlyRegisteredContract {
+        delete consortium[projectID];//.pop(this.getUserDetails(userAddress));
+        delete myProjects[userAddress];//.pop(projectRegistry[projectID]);
+        delete projectRoles[projectID][userAddress];
+    }
+
 
     function getProjectDetails(bytes32 projectID) external view onlyRegisteredContract returns (Project memory) {
         return (projectRegistry[projectID]);

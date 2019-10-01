@@ -129,16 +129,16 @@ contract Consortium is StorageDefinition {
         s.addUserToProject(projectID, msg.sender, partnerRole);
     }
 
-    function addUserToProject(bytes32 projectID, address userAddress, string calldata partnerRole) external onlyProjectAdmin(projectID) {
-        require(!s.getBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress))));
-        s.addUserToProject(projectID, userAddress, partnerRole);
-        s.setBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress)), true);
-        string memory organizationName = s.getOrganizationDetails().name;
-        string memory invitedOrganizationName = s.getOrganizationDetails(userAddress).name;
-        emit PartnerAddedToConsortium(projectID, organizationName, invitedOrganizationName, partnerRole, now);
-        delete(organizationName);
-        delete(invitedOrganizationName);
-    }
+    // function addUserToProject(bytes32 projectID, address userAddress, string calldata partnerRole) external onlyProjectAdmin(projectID) {
+    //     require(!s.getBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress))));
+    //     s.addUserToProject(projectID, userAddress, partnerRole);
+    //     s.setBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress)), true);
+    //     string memory organizationName = s.getOrganizationDetails().name;
+    //     string memory invitedOrganizationName = s.getOrganizationDetails(userAddress).name;
+    //     emit PartnerAddedToConsortium(projectID, organizationName, invitedOrganizationName, partnerRole, now);
+    //     delete(organizationName);
+    //     delete(invitedOrganizationName);
+    // }
 
     function getProjectDetails(bytes32 projectID) public view returns (Project memory) {
         return s.getProjectDetails(projectID);
@@ -168,13 +168,13 @@ contract Consortium is StorageDefinition {
         return s.getOrganizationEmployees(s.getUserDetails().organizationID);
     }
 
-    function getPartnerRole(bytes32 projectID, address publicKey) external view returns (string memory) {
-        return s.getPartnerRole(projectID, publicKey);
-    }
+    // function getPartnerRole(bytes32 projectID, address publicKey) external view returns (string memory) {
+    //     return s.getPartnerRole(projectID, publicKey);
+    // }
 
-    function getPartnerRole(bytes32 projectID) public view returns (string memory) {
-        return s.getPartnerRole(projectID);
-    }
+    // function getPartnerRole(bytes32 projectID) public view returns (string memory) {
+    //     return s.getPartnerRole(projectID);
+    // }
 
     function setUserKYCStatus(address userAddress, KYCStatus status) public onlyOwner returns (bool) {
         return s.setUserKYCStatus(userAddress, status);
