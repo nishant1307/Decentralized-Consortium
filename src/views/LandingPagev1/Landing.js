@@ -32,8 +32,23 @@ import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import Modal from '@material-ui/core/Modal';
 
 import { makeStyles } from '@material-ui/core/styles';
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+    };
+}
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -59,6 +74,15 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         alignItems: 'baseline',
         marginBottom: theme.spacing(2),
+    },
+    paper: {
+        position: 'absolute',
+        width: 900,
+        height: 504,
+        backgroundColor: 'transaparent',
+        // border: '2px solid #000',
+        // boxShadow: theme.shadows[5],
+        // padding: theme.spacing(2, 4, 3),
     }
 }));
 
@@ -94,12 +118,21 @@ const tiers = [
 ];
 export default function Landing(props) {
     const classes = useStyles();
+    const [modalStyle] = React.useState(getModalStyle);
     const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
     const [projects, setProjects] = React.useState(0);
     const [partners, setPartners] = React.useState(0);
     const [products, setProducts] = React.useState(0);
     const [mediumData, setMediumData] = React.useState([]);
+    const [open, setOpen] = React.useState(false);
 
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     React.useEffect(() => {
         fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/arthanium")
             .then(res => res.json())
@@ -120,7 +153,9 @@ export default function Landing(props) {
                                 <p className="short-paragraph">Building solutions for transparency, automating processes, trade finance and protecting your brand from counterfeiting.</p>
                                 <p className="short-paragraph">Leverage the power of digitized documentation, connected IoT devices, & smart contracts with our Dapps.</p>
                                 <div className="value-proposition-container">
-                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left ghost hero w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
+                                    <div className="value-proposition-buttons">
+                                        <a className="button2 margin-left ghost hero w-button" onClick={handleOpen}>GET TOUR</a>
+                                        <a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
                             </div>
                             <div className="w-col w-col-7"><img data-src="/images/r2.png" width={1000} height={380} srcSet="/images/r2.png 500w, /images/r2.png 800w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 83vw, 45vw" alt="" className="image" /></div>
@@ -133,7 +168,8 @@ export default function Landing(props) {
                                 <h2>Anti-Counterfeiting, Provenance and Chain of Custody</h2>
                                 <p className="short-paragraph">Create digital identities for physical assets through unique identifiers like connected IoT Devices / Sensors and track them through their journey and make selective information available to all stakeholders.</p>
                                 <div className="value-proposition-container">
-                                    <div className="value-proposition-buttons"><a href="/demo" className="button2 margin-left ghost hero w-button">GET TOUR</a><a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
+                                    <div className="value-proposition-buttons">                                        <a className="button2 margin-left ghost hero w-button" onClick={handleOpen}>GET TOUR</a>
+                                        <a href="/login" className="button2 ghost hero w-button">GET STARTED</a></div>
                                 </div>
                             </div>
                         </div>
@@ -224,8 +260,8 @@ export default function Landing(props) {
 
                                 <iframe className="youtube-auto-style" src="https://www.youtube.com/embed/xugfg90YDbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-                              
-                              </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -468,6 +504,16 @@ export default function Landing(props) {
                         <div className="slide-nav-2 w-slider-nav w-slider-nav-invert w-round" />
                     </div>
                 </div>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={open}
+                    onClose={handleClose}
+                >
+                    {/* <div style={modalStyle} className={classes.paper}> */}
+                    <iframe style={modalStyle} className={classes.paper} src="https://www.youtube.com/embed/xugfg90YDbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    {/* </div> */}
+                </Modal>
             </div>
             <Footer />
         </div>
