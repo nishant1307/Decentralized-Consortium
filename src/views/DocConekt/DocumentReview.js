@@ -34,98 +34,23 @@ function useForceUpdate() {
 const Projects = (props) => {
 
   const [projectInviteList, setProjectInviteList] = useState([]);
-  const [inviteUserList, setInviteUserList] = useState([]);
   const [loader, setLoader] = useState(true);
-  const [joinProjectModal, setJoinProjectModal] = useState(false);
-  const [inviteProjectID, setInviteProjectID] = useState('');
-  const [inviteProjectPasscode, setInviteProjectPasscode] = useState('');
   const [inviteSent, setInviteSent] = useState(false);
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    let tempData = []
-    partnerContract.getPastEvents('PartnerRequestAdded', {
-      filter: { partnerOrganizationID: props.user.user[1] },
-      fromBlock: 0,
-      toBlock: 'latest'
-    }, function (error, events) {
-      events.forEach(element => {
-        // console.log(props.user.user[0]);
-        let data = {}
-        if (element.returnValues.partnerOrganizationID === props.user.user[1]) {
-          partnerContract.methods.getPartnershipStatus(element.returnValues.projectID, element.returnValues.partnerRole).call().then(status => {
-            // console.log(status, "status");
-            // if (!status) {
-            registryContract.methods.getOrganizationDetailsByorganizationID(element.returnValues.hostOrganizationID).call().then(res => {
-              data["partnerRole"] = element.returnValues.partnerRole;
-              data["projectID"] = element.returnValues.projectID;
-              data["hostOrganizationID"] = element.returnValues.hostOrganizationID;
-              data["timestamp"] = element.returnValues.timestamp;
-              data["name"] = res.name;
-              data["status"] = status;
-              tempData.push(data);
-              setLoader(false);
-              setProjectInviteList(tempData);
-              forceUpdate();
-              // console.log(tempData);
-            })
-            // }
-          })
-        } else {
-          setLoader(false);
-          setProjectInviteList(tempData);
-        }
-      });
-    })
-    forceUpdate();
-    setLoader(false);
-    setProjectInviteList(tempData);
+    // ReviewersAdded
+    // partnerContract.getPastEvents('ReviewersAdded', {
+    //     filter: { partnerOrganizationID: props.user.user[1] },
+    //     fromBlock: 0,
+    //     toBlock: 'latest'
+    //   }, function (error, events) {
+
+    //   })
   }, []);
-  const projectURL = (projectID) => {
-    return "/dashboard/projects/" + projectID;
-  }
 
-  const acceptInvite = (rowData) => async () => {
-    let privateKey = await sessionStorage.getItem('privateKey');
-    var transaction = {
-      "to": partnerAddress,
-      "data": partnerContract.methods.acceptPartnership(
-        rowData.projectID,
-        rowData.partnerRole,
-        //address
-        props.user.user[0]
-      ).encodeABI()
-    };
-    transaction["gasLimit"] = 4700000;
-    web3.eth.accounts.signTransaction(transaction, privateKey)
-      .then(res => {
-        web3.eth.sendSignedTransaction(res.rawTransaction)
-          .on('receipt', async function (receipt) {
-            window.location.reload();
-          })
-      })
-  }
 
-  const closePartnership = (rowData) => async () => {
-    let privateKey = await sessionStorage.getItem('privateKey');
-    var transaction = {
-      "to": partnerAddress,
-      "data": partnerContract.methods.closePartnership(
-        rowData.projectID,
-        rowData.partnerRole,
-        //address
-        props.user.user[0]
-      ).encodeABI()
-    };
-    transaction["gasLimit"] = 4700000;
-    web3.eth.accounts.signTransaction(transaction, privateKey)
-      .then(res => {
-        web3.eth.sendSignedTransaction(res.rawTransaction)
-          .on('receipt', async function (receipt) {
-            window.location.reload();
-          })
-      })
-  }
+
 
   const { classes } = props;
 

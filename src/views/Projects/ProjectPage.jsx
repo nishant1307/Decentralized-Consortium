@@ -6,7 +6,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import WorkIcon from '@material-ui/icons/Work';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
-import EmailIcon from '@material-ui/icons/Email';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import InfoIcon from '@material-ui/icons/Info';
 import ShoppingCart from "@material-ui/icons/ShoppingCart"
 // core components
@@ -31,7 +31,7 @@ const TimelineComponent = React.lazy(() => import('components/Timeline/Timeline.
 import {registryContract} from 'registryContract';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {withStyles} from '@material-ui/core/styles';
-
+import DocumentReview from 'views/DocConekt/DocumentReview';
 const ProjectPage = (props) => {
   const {classes} = props;
 
@@ -140,10 +140,10 @@ const ProjectPage = (props) => {
               )
             },
             {
-              tabName: "Invitations",
-              tabIcon: EmailIcon,
+              tabName: "Document Review List",
+              tabIcon: AssignmentIcon,
               tabContent: (
-                <ProjectInvites projectID={props.match.params.projectID}/>
+                <DocumentReview projectID={props.match.params.projectID}/>
               )
             },
             {

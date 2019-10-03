@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,12 +26,14 @@ import { connect } from 'react-redux';
 // core components
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
-
+import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 const useStyles = makeStyles(styles);
 
-const  AdminNavbarLinks = (props) => {
+const AdminNavbarLinks = (props) => {
   const classes = useStyles();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
@@ -58,21 +60,37 @@ const  AdminNavbarLinks = (props) => {
   };
   return (
     <div>
-
-      <Link to ="/dashboard/home">
+      <Tooltip title="Dashboard">
+      <Link to="/dashboard/home" style={{ color: 'black' }}>
         <Button
-        color={window.innerWidth > 959 ? "transparent" : "white"}
-        justIcon={window.innerWidth > 959}
-        simple={!(window.innerWidth > 959)}
-        aria-label="Dashboard"
-        className={classes.buttonLink}
+          color={window.innerWidth > 959 ? "transparent" : "white"}
+          justIcon={window.innerWidth > 959}
+          simple={!(window.innerWidth > 959)}
+          aria-label="Dashboard"
+          className={classes.buttonLink}
         >
-        <Dashboard className={classes.icons} />
-        <Hidden mdUp implementation="css">
-          <p className={classes.linkText}>Dashboard</p>
-        </Hidden>
+          <Dashboard className={classes.icons} />
+          <Hidden mdUp implementation="css">
+            <p className={classes.linkText}>Dashboard</p>
+          </Hidden>
         </Button>
       </Link>
+      </Tooltip>
+      <Tooltip title="Project Invitations">
+      <Link to="/dashboard/projectinvites" style={{ color: 'black' }}>
+        <Button
+          color={window.innerWidth > 959 ? "transparent" : "white"}
+          justIcon={window.innerWidth > 959}
+          simple={!(window.innerWidth > 959)}
+          aria-label="Dashboard"
+          className={classes.buttonLink}
+        >
+          <InsertInvitationIcon className={classes.icons} />
+          {/* <span className={classes.notifications}>10</span> */}
+        </Button>
+      </Link>
+      </Tooltip>
+      <Tooltip title="Notifications">
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -84,7 +102,7 @@ const  AdminNavbarLinks = (props) => {
           className={classes.buttonLink}
         >
           <Notifications className={classes.icons} />
-          {(props.user.notificationList.length>0)&&<span className={classes.notifications}>{props.user.notificationList.length}</span>}
+          {(props.user.notificationList.length > 0) && <span className={classes.notifications}>{props.user.notificationList.length}</span>}
           <Hidden mdUp implementation="css">
             <p onClick={handleCloseNotification} className={classes.linkText}>
               Notification
@@ -114,16 +132,16 @@ const  AdminNavbarLinks = (props) => {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseNotification}>
                   <MenuList role="menu">
-                  {props.user.notificationList.map((notification, index) => {
-                    return(
-                      <MenuItem
-                        onClick={handleCloseNotification}
-                        className={classes.dropdownItem}
-                      >
-                        <ArrowRightIcon/>{ notification}
-                      </MenuItem>
-                    )
-                  })}
+                    {props.user.notificationList.map((notification, index) => {
+                      return (
+                        <MenuItem
+                          onClick={handleCloseNotification}
+                          className={classes.dropdownItem}
+                        >
+                          <ArrowRightIcon />{notification}
+                        </MenuItem>
+                      )
+                    })}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -131,6 +149,7 @@ const  AdminNavbarLinks = (props) => {
           )}
         </Poppers>
       </div>
+      </Tooltip>
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -169,29 +188,29 @@ const  AdminNavbarLinks = (props) => {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
-                    <Link to= "/dashboard/user"><MenuItem
+                    <Link to="/dashboard/user"><MenuItem
                       onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
-                      <Person/>Profile
+                      <Person />Profile
                     </MenuItem>
                     </Link>
-                    <Link to= "/dashboard/settings">
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      <SettingsIcon/>
-                      Settings
+                    <Link to="/dashboard/settings">
+                      <MenuItem
+                        onClick={handleCloseProfile}
+                        className={classes.dropdownItem}
+                      >
+                        <SettingsIcon />
+                        Settings
                     </MenuItem>
                     </Link>
-                    {props.user.user[5] === "1"  && <Link to= "/dashboard/people">
-                    <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                    <PeopleIcon/>
-                      People
+                    {props.user.user[5] === "1" && <Link to="/dashboard/people">
+                      <MenuItem
+                        onClick={handleCloseProfile}
+                        className={classes.dropdownItem}
+                      >
+                        <PeopleIcon />
+                        People
                     </MenuItem>
                     </Link>}
                     <Divider light />
@@ -199,7 +218,7 @@ const  AdminNavbarLinks = (props) => {
                       onClick={props.onLogout}
                       className={classes.dropdownItem}
                     >
-                    <ExitToAppIcon/>
+                      <ExitToAppIcon />
                       Logout
                     </MenuItem>
                   </MenuList>
@@ -213,9 +232,9 @@ const  AdminNavbarLinks = (props) => {
   );
 }
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    errors: state.errors,
-    user: state.user
+  auth: state.auth,
+  errors: state.errors,
+  user: state.user
 })
 
 

@@ -30,6 +30,7 @@ const styles = theme => ({
 
 import { registryContract } from "registryContract";
 import { inviteUserToConsortium } from "actions/userActions";
+import { partnerContract, partnerAddress } from 'partnersContract';
 import web3 from "../../web3";
 // import CustomLoader from 'components/Loaders/CustomLoader';
 import { connect } from "react-redux";
@@ -112,6 +113,7 @@ const ProjectPartners = (props) => {
       from: props.auth.user.publicKey
     })
       .then(userAddress => {
+
         if (userAddress == "0x0000000000000000000000000000000000000000") {
           setError("No user found with the Entered email")
         } else {
@@ -120,7 +122,7 @@ const ProjectPartners = (props) => {
             from: userAddress
           }).then(org => {
             console.log(org);
-            setInviteOrg(org.name)
+            setInviteOrg(org)
           })
         }
       })
@@ -134,7 +136,7 @@ const ProjectPartners = (props) => {
       from: props.auth.user.publicKey
     }).then(res => {
       res.forEach(partner => {
-        registryContract.methods.getPartnerRole(props.projectID, partner.publicKey).call({
+        partnerContract.methods.getPartnerRole(props.projectID, partner.publicKey).call({
           from: props.auth.user.publicKey
         }).then(role => {
           let temp = parseInt(role);
@@ -166,32 +168,35 @@ const ProjectPartners = (props) => {
   }, []);
 
   const inviteUser = () => {
-    axios.post("http://18.207.156.120:8080/api/v1/inviteUserToConsortium", {
+    // console.log(inviteOrg,"inviteOrg");
+    axios.post("https://api.arthanium.org/api/v1/inviteUserToConsortium", {
       email: inviteEmail,
       projectID: props.projectID,
       passcode: revealedPasscode,
       role: role
     }).then(res => {
+      console.log(res);
       if (res.status = 200)
         setInvitationStatus(true);
     })
     //
-    // props.inviteUserToConsortium({
-    //   projectID: props.projectID,
-    //   inviteAddress: invitePublicKey,
-    //   partnerRole: 5
-    // })
+    props.inviteUserToConsortium({
+      partnerOrganizationID: inviteOrg.organizationID,
+      projectID: props.projectID,
+      // inviteAddress: invitePublicKey,
+      partnerRole:role
+    })
   }
 
-  const fetchPasscode = () => {
-    registryContract.methods.fetchProjectPasscode(props.projectID).call({
-      from: props.auth.user.publicKey
-    })
-      .then(passcode => {
-        setRevealedPasscode(web3.utils.hexToUtf8(passcode));
-        // console.log("Role", passcode);
-      });
-  }
+  // const fetchPasscode = () => {
+  //   registryContract.methods.fetchProjectPasscode(props.projectID).call({
+  //     from: props.auth.user.publicKey
+  //   })
+  //     .then(passcode => {
+  //       setRevealedPasscode(web3.utils.hexToUtf8(passcode));
+  //       // console.log("Role", passcode);
+  //     });
+  // }
 
   return (
     <div>
@@ -262,7 +267,7 @@ const ProjectPartners = (props) => {
                   <div>
 
                     {!inviteOrg && <Button onClick={checkForUser}>Check for user </Button>}
-                    {inviteOrg && revealedPasscode && <p>Invite {inviteOrg} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
+                    {inviteOrg && <p>Invite {inviteOrg.name} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
                     {invitationStatus && "Invitation sent successsfully"}
                   </div>
                 }

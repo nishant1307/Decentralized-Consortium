@@ -16,7 +16,11 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import { decryptMessage } from 'utils'
 import moment from "moment";
-
+import AssignProject from "views/Products/AssignProject";
+import Modal from "components/CustomModal/Modal";
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
+import { CircularProgress } from '@material-ui/core';
+import web3 from '../../web3';
 import {
   Dialog,
   DialogActions,
@@ -34,7 +38,7 @@ const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));
 
 const Products = (props) => {
   // console.log(props.match.params.projectID === undefined);
-
+  const [assignProductModal, setAssignProductModal] = useState(false);
   const [tokenIDList, setTokenIDList] = useState([])
   const [productList, setProductList] = useState([])
   const [password, setPassword] = useState("");
@@ -44,7 +48,9 @@ const Products = (props) => {
   const [open, setOpen] = React.useState(false);
   const [isValid, setIsValid] = React.useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-
+  const [selectedProject, setSelectedProject] = useState('');
+  const [isLoading, setLoading] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
   function handleClose() {
     setOpen(false);
   }
@@ -89,8 +95,10 @@ const Products = (props) => {
           docContract.methods.getDocumentDetails(tokenId).call({
             from: props.auth.user.publicKey
           }).then(productDetails => {
-            // console.log(productDetails, "productDetails inside");
-
+            console.log(productDetails, "productDetails inside");
+            productDetails[0].projectId = (productDetails[0].projectId == 0x0000000000000000000000000000000000000000000000000000000000000000) ?
+              "Unassigned" :
+              productDetails[0].projectId;
             productDetails[0].tokenId = tokenId
             setProductList(productList => [
               ...productList,
@@ -137,6 +145,49 @@ const Products = (props) => {
   const projectURL = (projectID) => {
     return "/dashboard/projects/" + projectID;
   }
+
+
+  const addProductsToProject = (data1) => {
+    // console.log(data1);
+    setAssignProductModal(true);
+    setSelectedItems(data1);
+  }
+
+  async function assignProductsToProject() {
+    setLoading(true);
+    let address = localStorage.getItem("address");
+    let privateKey = await sessionStorage.getItem('privateKey');
+    let nonce = await web3.eth.getTransactionCount(address);
+    var batch = new web3.BatchRequest();
+    console.log(selectedItems);
+    selectedItems.forEach(element => {
+      var transaction = {
+        "nonce": nonce,
+        "to": docAddress,
+        "data": docContract.methods.setProjectId(
+          element.tokenId,
+          selectedProject
+        ).encodeABI()
+      };
+      // console.log(transaction);
+      // let gasLimit = await web3.eth.estimateGas(transaction);
+      transaction["gasLimit"] = 4700000;
+      web3.eth.accounts.signTransaction(transaction, privateKey)
+        .then((result) => {
+          batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
+            .once('receipt', (receipt) => {
+              console.log(receipt);
+              setLoading(false);
+              setAssignProductModal(false);
+              // window.location.reload();
+            }));
+        })
+      nonce++
+    })
+    batch.execute();
+  }
+
+
   const { classes } = props;
 
   return (
@@ -180,13 +231,16 @@ const Products = (props) => {
                         columns={[
                           { title: "Document Id", field: "tokenId" },
                           { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp * 1000).format("DD-MM-YYYY h:mm:ss") },
+                          { title: "View Document", field: "action", render: rowData => <Button onClick={() => { handleUnlock(rowData) }}> <ImportContactsIcon /></Button> },
+                          { title: "Project ID", field: "projectId", defaultGroupOrder: 0 },
                         ]}
                         data={productList}
                         title=""
                         options={{
                           search: true,
-                          exportButton: false,
-                          grouping: false
+                          exportButton: true,
+                          grouping: true,
+                          selection: true
                         }}
                         localization={{
                           body: {
@@ -194,10 +248,15 @@ const Products = (props) => {
                           }
                         }}
                         actions={[
+                          // {
+                          //   icon: 'folder_open',
+                          //   tooltip: 'Open Document',
+                          //   onClick: (event, rowData) => handleUnlock(rowData)
+                          // },
                           {
-                            icon: 'folder_open',
-                            tooltip: 'Open Document',
-                            onClick: (event, rowData) => handleUnlock(rowData)
+                            tooltip: 'Add Selected Devices To Project',
+                            icon: 'link',
+                            onClick: (event, rowData) => { addProductsToProject(rowData) }
                           }
                         ]}
                       />
@@ -244,6 +303,23 @@ const Products = (props) => {
             </div>
           )
       }
+      <Modal
+        open={assignProductModal}
+        onClose={() => setAssignProductModal(false)}
+        title="Assign to Project"
+        content={
+          <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+            // console.log("Selected", e.target.value);
+            setSelectedProject(e.target.value);
+          }}
+            selectedProject={selectedProject}
+          />
+        }
+        action={
+          !isLoading ? <Button onClick={assignProductsToProject}>Assign {selectedItems.length} products to Project</Button> : <CircularProgress />
+        }
+
+      />
     </div>
   );
 }

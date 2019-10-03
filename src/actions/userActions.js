@@ -28,6 +28,7 @@ import { productAddress, productContract } from '../productContract.js'
 import { deviceContract, deviceAddress } from '../deviceContract.js'
 import { docContract, docAddress } from '../DocContract';
 import { registryABI, registryAddress, registryContract } from 'registryContract';
+import { partnerAddress, partnerContract } from 'partnersContract';
 import { creditABI, creditAddress, creditContract } from 'creditContract';
 import { certificationABI, certificationAddress, certificationContract } from "certificationContract";
 let address = localStorage.getItem("address");
@@ -213,10 +214,11 @@ export const inviteUserToConsortium = invitationDetails => async (dispatch) => {
     // console.log(balance);
     if (balance > 1000000000000000000) {
       var transaction = {
-        "to": registryAddress,
-        "data": registryContract.methods.addUserToProject(
+        "to": partnerAddress,
+        "data": partnerContract.methods.invitedOrganizationForPartnership(
+          invitationDetails.partnerOrganizationID,
           invitationDetails.projectID,
-          invitationDetails.inviteAddress,
+          // invitationDetails.inviteAddress,
           invitationDetails.partnerRole
         ).encodeABI()
       };
@@ -528,7 +530,7 @@ export const createNewDevice = deviceDetails => async (dispatch) => {
                 setTimeout(() => {
                   dispatch({
                     type: GET_ERRORS,
-                    payload: { }
+                    payload: {}
                   });
                 }, 10000)
               })
@@ -566,7 +568,7 @@ export const createNewThing = thingDetails => async (dispatch) => {
           "nonce": nonce,
           "to": productAddress,
         };
-        console.log(thingDetails.projectId!== undefined,thingDetails.projectId)
+        console.log(thingDetails.projectId !== undefined, thingDetails.projectId)
         if (thingDetails.projectId !== undefined) {
           transaction["data"] = productContract.methods.MintWithDetailsAndProjectId(
             address,
@@ -606,18 +608,18 @@ export const createNewThing = thingDetails => async (dispatch) => {
               payload: 1
             });
           }).on('error', async function (error) {
-                // console.log(error, "err");
-                dispatch({
-                  type: GET_ERRORS,
-                  payload: { message: "Error occured! Please try again later." }
-                });
-                setTimeout(() => {
-                  dispatch({
-                    type: GET_ERRORS,
-                    payload: { }
-                  });
-                }, 10000)
-              }));
+            // console.log(error, "err");
+            dispatch({
+              type: GET_ERRORS,
+              payload: { message: "Error occured! Please try again later." }
+            });
+            setTimeout(() => {
+              dispatch({
+                type: GET_ERRORS,
+                payload: {}
+              });
+            }, 10000)
+          }));
         })
         count++;
       }

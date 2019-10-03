@@ -1,6 +1,32 @@
 import web3 from './web3';
-export const partnerAddress = '0x752d59b5d8f9c692bbffb0a697d589cffaf2ede8';
+export const partnerAddress = '0x721e6ac0251423aefa6e692adf6511bf21574f51';
 export const partnerABI = [
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "string",
+				"name": "partnerRole",
+				"type": "string"
+			}
+		],
+		"name": "getPartnershipStatus",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
 	{
 		"constant": false,
 		"inputs": [
@@ -21,6 +47,31 @@ export const partnerABI = [
 			}
 		],
 		"name": "updateCategory",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "string",
+				"name": "partnerRole",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "userAddress",
+				"type": "address"
+			}
+		],
+		"name": "acceptPartnership",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -56,6 +107,57 @@ export const partnerABI = [
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "partnerOrganizationID",
+				"type": "string"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "string",
+				"name": "partnerRole",
+				"type": "string"
+			}
+		],
+		"name": "invitedOrganizationForPartnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "address",
+				"name": "publicKey",
+				"type": "address"
+			}
+		],
+		"name": "getPartnerRole",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
@@ -218,6 +320,27 @@ export const partnerABI = [
 		"type": "function"
 	},
 	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getPartnerRole",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
@@ -227,6 +350,31 @@ export const partnerABI = [
 			}
 		],
 		"name": "removeReviewer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "string",
+				"name": "partnerRole",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "userAddress",
+				"type": "address"
+			}
+		],
+		"name": "closePartnership",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -243,6 +391,43 @@ export const partnerABI = [
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "partnerRole",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "hostOrganizationID",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "partnerOrganizationID",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "PartnerRequestAdded",
+		"type": "event"
 	},
 	{
 		"anonymous": false,
