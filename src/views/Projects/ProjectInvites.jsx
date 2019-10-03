@@ -24,6 +24,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Icon, Button, Divider, TextField } from '@material-ui/core';
 import moment from "moment";
 import { withStyles } from '@material-ui/core/styles';
+import web3 from '../../web3';
 
 function useForceUpdate() {
   const [value, set] = useState(true); //boolean state
