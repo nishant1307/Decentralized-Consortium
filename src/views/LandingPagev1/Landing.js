@@ -220,9 +220,12 @@ export default function Landing(props) {
                                 </div> */}
                             </div>
                             <div className="col lg-1 hidden-lg-down" />
-                            <div className="col lg-5"><iframe className="youtube-auto-style"
-                                src="https://www.youtube.com/embed/SSo_EIwHSd4" frameborder="0" allowfullscreen>
-                            </iframe></div>
+                            <div className="col lg-5">
+
+                                <iframe className="youtube-auto-style" src="https://www.youtube.com/embed/xugfg90YDbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                              
+                              </div>
                         </div>
                     </div>
                 </div>
