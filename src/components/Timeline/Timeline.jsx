@@ -86,10 +86,14 @@ const TimelineComponent = (props) => {
         <p style={{
             whiteSpace: "nowrap",
             overflow: "hidden",
-            textOverflow: "ellipsis"
-        }}><br/>
+            textOverflow: "ellipsis",
+            cursor:'pointer'
+        }}
+        onClick={()=> window.open("https://explorer.arthanium.org/tx/" + event.transactionHash, "_blank")}
+        ><br/>
           <b>Blockchain Details:</b> <br />
-          <Link to={"/" + event.transactionHash}>View in Blockchain Explorer</Link><br />
+          <p>View in Blockchain Explorer</p>
+          {/* <Link to={"https://explorer.arthanium.org/tx/" + event.transactionHash}>View in Blockchain Explorer</Link><br /> */}
         </p>
       </TimelineItem>
     )

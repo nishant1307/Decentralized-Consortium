@@ -10,9 +10,10 @@ contract Partners is StorageDefinition {
         bytes32 projectID;
         string partnerOrganizationID;
         string partnerRole;
+        bool status;
     }
     
-    event PartnerRequestAdded(bytes32, string, string, uint256);
+    event PartnerRequestAdded( bytes32 projectID, string partnerRole,  string hostOrganizationID,  string partnerOrganizationID,  uint256 timestamp);
     //projectID >> to roles >> to details
     mapping (bytes32 => mapping(string => partnerInvitationDetail)) partnerInvitationList;
 
@@ -126,7 +127,8 @@ contract Partners is StorageDefinition {
         partnerInvitationList[projectID][partnerRole].projectID = projectID;
         partnerInvitationList[projectID][partnerRole].partnerOrganizationID = partnerOrganizationID;
         partnerInvitationList[projectID][partnerRole].partnerRole = partnerRole;
-        emit PartnerRequestAdded(projectID, partnerRole, partnerOrganizationID, now);
+        partnerInvitationList[projectID][partnerRole].status = false;
+        emit PartnerRequestAdded(projectID, partnerRole, s.getUserDetails().organizationID,partnerOrganizationID, now);
     }
     
     
@@ -134,9 +136,14 @@ contract Partners is StorageDefinition {
         string memory _organizationID = s.getOrganizationDetails().organizationID;
         require(keccak256(abi.encodePacked(_organizationID)) == keccak256(abi.encodePacked(partnerInvitationList[projectID][partnerRole].partnerOrganizationID)));
         require(!s.getBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress))));
+        partnerInvitationList[projectID][partnerRole].status = true;
         s.addUserToProject(projectID, userAddress, partnerRole);
         s.setBoolean(keccak256(abi.encodePacked("BelongsToProject", projectID, userAddress)), true);
         delete(_organizationID);
+    }
+    
+    function getPartnershipStatus(bytes32 projectID, string memory partnerRole) view public returns(bool){
+        return(partnerInvitationList[projectID][partnerRole].status);
     }
     
     function closePartnership(bytes32 projectID, string calldata partnerRole, address userAddress) external {
