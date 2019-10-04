@@ -61,12 +61,12 @@ const Projects = (props) => {
     }).then(res => {
       setPeople(res);
       res.forEach(user => {
-        if (!user.adminApprovalStatus) {
+        // if (!user.adminApprovalStatus) {
           setUserListRender(userListRender => [
             ...userListRender,
             <MenuItem key={Math.random()} name={user.email} value={user.publicKey}>{user.email}</MenuItem>
           ]);
-        }
+        // }
       })
     })
     let tempData = []
