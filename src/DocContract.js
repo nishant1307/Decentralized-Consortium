@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-export const docAddress = '0x911aab0b6b82b181199410565de1cc86894c48dd';
+export const docAddress = '0xb2ceaca12ae4fbee83fee09cad62493c4a3b0cc7';
 export const abi = [
 	{
 		"constant": false,

@@ -82,12 +82,14 @@ const Projects = (props) => {
     const [isLoading, setLoading] = useState(false);
     const forceUpdate = useForceUpdate();
     const [partners, setPartners] = useState([]);
+    const [originalList, setOriginalList] = useState([])
 
     useEffect(() => {
         let tempData = []
-        docContract.methods.getReviewersList(props.rowData.tokenId).call().then(async res => {
-            for (let index = 0; index < res.length; index++) {
-                const element = res[index];
+        docContract.methods.getReviewersList(props.rowData.tokenId).call().then(async res1 => {
+            setOriginalList(res1);
+            for (let index = 0; index < res1.length; index++) {
+                const element = res1[index];
                 let temp1 = {}
                 temp1["address"] = element;
                 docContract.methods.getReviewStatusForIndividual(props.rowData.tokenId).call({ from: element }).then(fetchedStatus => {
@@ -103,11 +105,14 @@ const Projects = (props) => {
                 registryContract.methods.getConsortiumMembers(props.rowData.projectId).call({
                     from: props.auth.user.publicKey
                 }).then(res => {
+                    console.log(res);
+                    
                     for (let index = 0; index < res.length; index++) {
                         const partner = res[index];
                         if (partner.publicKey !== props.user.user[0]) {
-                            tempData.forEach(preKey => {
-                                if (preKey !== partner.publicKey) {
+                            // res1.forEach(preKey => {
+                                // console.log(preKey, partner.publicKey, "sd",preKey !== partner.publicKey);
+                                // if (preKey !== partner.publicKey) {
                                     partnerContract.methods.getPartnerRole(props.rowData.projectId, partner.publicKey).call({
                                         from: props.auth.user.publicKey
                                     }).then(role => {
@@ -117,9 +122,10 @@ const Projects = (props) => {
                                             ...partners,
                                             partner
                                         ])
+                                        forceUpdate()
                                     })
-                                }
-                            })
+                                // }
+                            // })
                         }
                     }
                 })
@@ -128,20 +134,17 @@ const Projects = (props) => {
         })
     }, []);
 
-    function addReviewers() {
+    function addReviewers(data) {
         docContract.methods.ownerOf(props.rowData.tokenId).call().then(async ownerAddress => {
             if (ownerAddress === props.user.user[0]) {
+
                 console.log("owner");
-                let addressArray = []
-                for (let index = 0; index < fetchedData.length; index++) {
-                    addressArray.push(fetchedData[index].address)
-                }
                 let privateKey = await sessionStorage.getItem('privateKey');
                 var transaction = {
                     "to": docAddress,
                     "data": docContract.methods.addReviewers(
                         props.rowData.tokenId,
-                        addressArray
+                        originalList.concat(data)
                     ).encodeABI()
                 };
                 transaction["gasLimit"] = 4700000;
@@ -272,11 +275,17 @@ const Projects = (props) => {
                                                                 tooltip: "Add Selected Users To Reviewer's list",
                                                                 icon: 'link',
                                                                 onClick: (evt, data) => {
-                                                                    console.log(data);
+                                                                    let tempData = []
+                                                                    for (let index = 0; index < data.length; index++) {
+                                                                        tempData.push(data[index].publicKey);
+                                                                    }
+                                                                    // console.log(tempData);
+                                                                    addReviewers(tempData)
                                                                 }
                                                             }
                                                         ]}
-                                                    /> : <> <MaterialTable
+                                                    /> : <>
+                                                            {/* <MaterialTable
                                                         columns={[
                                                             { title: "Address", field: "address" },
                                                             { title: "Status", field: "status", editable: 'never' },
@@ -330,7 +339,7 @@ const Projects = (props) => {
                                                     />
                                                             <>
                                                                 {isLoading ? <CircularProgress /> : <Button variant="contained" color="primary" onClick={() => addReviewers()}>Accept Invite</Button>}
-                                                            </>
+                                                            </> */}
                                                         </>
                                                     }
                                                 </>}

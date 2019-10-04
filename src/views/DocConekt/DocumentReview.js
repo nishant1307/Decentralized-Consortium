@@ -5,25 +5,17 @@ import PropTypes from "prop-types";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
-import CardHeader from "components/Card/CardHeader.jsx";
-import CardBody from "components/Card/CardBody.jsx";
-import CardIcon from "components/Card/CardIcon.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import Skeleton from '@material-ui/lab/Skeleton';
 const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import { openProjectModal, inviteUserToConsortium } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
-import { registryContract } from 'registryContract';
-import { partnerContract, partnerAddress } from 'partnersContract';
+import { docContract } from 'DocContract';
 import MaterialTable from "material-table";
-import AddBoxIcon from '@material-ui/icons/AddBox';
-import Modal from "components/CustomModal/Modal";
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { Icon, Button, Divider, TextField } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import moment from "moment";
 import { withStyles } from '@material-ui/core/styles';
+import web3 from '../../web3';
 
 function useForceUpdate() {
   const [value, set] = useState(true); //boolean state
@@ -39,14 +31,62 @@ const Projects = (props) => {
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    // ReviewersAdded
-    // partnerContract.getPastEvents('ReviewersAdded', {
-    //     filter: { partnerOrganizationID: props.user.user[1] },
-    //     fromBlock: 0,
-    //     toBlock: 'latest'
-    //   }, function (error, events) {
+    let tempData = []
+    docContract.getPastEvents('ReviewersAdded', {
+      filter: { "_projectId": props.projectID },
+      fromBlock: 0,
+      toBlock: 'latest'
+    }, function (error, events) {
+      console.log(events);
 
-    //   })
+      for (let index = 0; index < events.length; index++) {
+        const element = events[index];
+        for (let index = 0; index < element.returnValues._listOfAddress.length; index++) {
+          const element2 = element.returnValues._listOfAddress[index];
+          // console.log(element2,"in here",element2 === props.user.user[0]);
+          if (element2 === props.user.user[0]) {
+            console.log("in here", element.returnValues._tokenId, element.blockNumber);
+            tempData.push(element.returnValues._tokenId)
+          }
+        }
+      }
+
+      console.log(tempData  );
+      
+      // var grades = {};
+      // tempData.forEach(function (item) {
+      //   var grade = grades[item.returnValues._tokenId] = grades[item.returnValues._tokenId] || {};
+      //   grade[item.Domain] = true;
+      // });
+
+      // console.log(JSON.stringify(grades, null, 4));
+
+
+      // for (let index = 0; index < events.length; index++) {
+      //   const element = events[index];
+      //   docContract.methods._tokensOfProject(props.projectID).call({
+      //     from: props.auth.user.publicKey
+      //   }).then(async res => {
+      //     for (let index = 0; index < res.length; index++) {
+      //       const element2 = res[index];
+      //       let _tokenId = await web3.utils.sha3(element2);
+      //       if (_tokenId === element.returnValues._tokenId) {
+      //         tempData.push(element)
+      //         console.log("inside this", element.blockNumber);
+      //       }
+      //     }
+      //   })
+      // }
+      // for (let index = 0; index < tempData.length; index++) {
+      //   const element3 = tempData[index];
+      //   if (element3.returnValues._tokenId === element.returnValues._tokenId) {
+      //     console.log("same");
+
+      //   }
+      // }
+    })
+
+    // ReviewersAdded
   }, []);
 
 
