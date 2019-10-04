@@ -1,6 +1,6 @@
 import web3 from './web3';
 
-export const docAddress = '0xfc4356f2ebad8c06f8df7377aa4d98b7bb582737';
+export const docAddress = '0x911aab0b6b82b181199410565de1cc86894c48dd';
 export const abi = [
 	{
 		"constant": false,
@@ -239,13 +239,13 @@ export const abi = [
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			},
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "string",
 				"name": "metadata",
 				"type": "string"
@@ -258,19 +258,19 @@ export const abi = [
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "string",
 				"name": "tokenId",
 				"type": "string"
 			},
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "uint256",
 				"name": "timeStamp",
 				"type": "uint256"
 			},
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "string",
 				"name": "remark",
 				"type": "string"
@@ -283,15 +283,21 @@ export const abi = [
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "string",
-				"name": "tokenId",
+				"name": "_tokenId",
 				"type": "string"
+			},
+			{
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "_projectId",
+				"type": "bytes32"
 			},
 			{
 				"indexed": false,
 				"internalType": "address[]",
-				"name": "listOfAddress",
+				"name": "_listOfAddress",
 				"type": "address[]"
 			}
 		],
@@ -302,15 +308,15 @@ export const abi = [
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "string",
-				"name": "tokenId",
+				"name": "_tokenId",
 				"type": "string"
 			},
 			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "address",
-				"name": "reviewer",
+				"name": "_reviewer",
 				"type": "address"
 			}
 		],

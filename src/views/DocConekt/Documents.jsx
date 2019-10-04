@@ -20,6 +20,7 @@ import AssignProject from "views/Products/AssignProject";
 import Modal from "components/CustomModal/Modal";
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import { CircularProgress } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
 import web3 from '../../web3';
 import {
   Dialog,
@@ -30,6 +31,7 @@ import {
   LinearProgress,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import DocumentInfo from "./DocumentInfo";
 
 
 const loading = <LinearProgress />;
@@ -51,6 +53,8 @@ const Products = (props) => {
   const [selectedProject, setSelectedProject] = useState('');
   const [isLoading, setLoading] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedData, selectData] = useState(undefined);
+  const [infoModal, setInfoModal] = React.useState(false);
   function handleClose() {
     setOpen(false);
   }
@@ -187,6 +191,12 @@ const Products = (props) => {
     batch.execute();
   }
 
+ 
+
+  function handleInfo(rowData)  {    
+    selectData(rowData);
+    setInfoModal(true);
+  }
 
   const { classes } = props;
 
@@ -232,6 +242,7 @@ const Products = (props) => {
                           { title: "Document Id", field: "tokenId" },
                           { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp * 1000).format("DD-MM-YYYY h:mm:ss") },
                           { title: "View Document", field: "action", render: rowData => <Button onClick={() => { handleUnlock(rowData) }}> <ImportContactsIcon /></Button> },
+                          { title: "Document Details", field: "action2", render: rowData => <Button onClick={() => { handleInfo(rowData) }}><InfoIcon /></Button> },
                           { title: "Project ID", field: "projectId", defaultGroupOrder: 0 },
                         ]}
                         data={productList}
@@ -299,27 +310,35 @@ const Products = (props) => {
               </Dialog>
               <Suspense fallback={loading}>
                 <RegisterDocModal projectID={props.match.params.projectID === undefined ? undefined : props.match.params.projectID} {...props} />
+                <Modal
+                  open={assignProductModal}
+                  onClose={() => setAssignProductModal(false)}
+                  title="Assign to Project"
+                  content={
+                    <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+                      // console.log("Selected", e.target.value);
+                      setSelectedProject(e.target.value);
+                    }}
+                      selectedProject={selectedProject}
+                    />
+                  }
+                  action={
+                    !isLoading ? <Button onClick={assignProductsToProject}>Assign {selectedItems.length} products to Project</Button> : <CircularProgress />
+                  }
+
+                />
+                <Modal
+                  open={infoModal}
+                  onClose={() => setInfoModal(false)}
+                  title="Document Details"
+                  content={
+                    <DocumentInfo rowData={selectedData} />
+                  }
+                />
               </Suspense>
             </div>
           )
       }
-      <Modal
-        open={assignProductModal}
-        onClose={() => setAssignProductModal(false)}
-        title="Assign to Project"
-        content={
-          <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
-            // console.log("Selected", e.target.value);
-            setSelectedProject(e.target.value);
-          }}
-            selectedProject={selectedProject}
-          />
-        }
-        action={
-          !isLoading ? <Button onClick={assignProductsToProject}>Assign {selectedItems.length} products to Project</Button> : <CircularProgress />
-        }
-
-      />
     </div>
   );
 }
