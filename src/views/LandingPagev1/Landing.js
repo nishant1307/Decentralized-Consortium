@@ -258,7 +258,7 @@ export default function Landing(props) {
                             <div className="col lg-1 hidden-lg-down" />
                             <div className="col lg-5">
 
-                                <iframe className="youtube-auto-style" src="https://www.youtube.com/embed/xugfg90YDbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe className="youtube-auto-style" src="https://www.youtube.com/embed/NSc2L2XGS-s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
                             </div>
@@ -511,7 +511,7 @@ export default function Landing(props) {
                     onClose={handleClose}
                 >
                     {/* <div style={modalStyle} className={classes.paper}> */}
-                    <iframe style={modalStyle} className={classes.paper} src="https://www.youtube.com/embed/xugfg90YDbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe style={modalStyle} className={classes.paper} src="https://www.youtube.com/embed/NSc2L2XGS-s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     {/* </div> */}
                 </Modal>
             </div>
