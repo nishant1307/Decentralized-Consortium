@@ -1,19 +1,19 @@
 import web3 from './web3';
 
-export const docAddress = '0xb2ceaca12ae4fbee83fee09cad62493c4a3b0cc7';
+export const docAddress = '0xf0907b4c8fab541a893c1bc7d1118ee55ed9cf13';
 export const abi = [
 	{
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "status",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"name": "addReview",
@@ -26,14 +26,14 @@ export const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
-				"internalType": "address[]",
+				"internalType": "address",
 				"name": "reviewer",
-				"type": "address[]"
+				"type": "address"
 			}
 		],
 		"name": "addReviewers",
@@ -52,9 +52,9 @@ export const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "burn",
@@ -72,9 +72,9 @@ export const abi = [
 				"type": "address"
 			},
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"internalType": "string",
@@ -108,9 +108,9 @@ export const abi = [
 				"type": "address"
 			},
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"internalType": "string",
@@ -144,9 +144,9 @@ export const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"internalType": "string",
@@ -170,9 +170,9 @@ export const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"internalType": "bytes32",
@@ -196,9 +196,9 @@ export const abi = [
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"internalType": "string",
@@ -240,9 +240,9 @@ export const abi = [
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"indexed": true,
@@ -258,10 +258,10 @@ export const abi = [
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": true,
-				"internalType": "string",
+				"indexed": false,
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"indexed": true,
@@ -284,9 +284,9 @@ export const abi = [
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "_tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"indexed": true,
@@ -295,10 +295,10 @@ export const abi = [
 				"type": "bytes32"
 			},
 			{
-				"indexed": false,
-				"internalType": "address[]",
-				"name": "_listOfAddress",
-				"type": "address[]"
+				"indexed": true,
+				"internalType": "address",
+				"name": "_address",
+				"type": "address"
 			}
 		],
 		"name": "ReviewersAdded",
@@ -309,9 +309,9 @@ export const abi = [
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "_tokenId",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"indexed": true,
@@ -335,9 +335,9 @@ export const abi = [
 		"name": "_tokensOfOwner",
 		"outputs": [
 			{
-				"internalType": "string[]",
+				"internalType": "bytes32[]",
 				"name": "",
-				"type": "string[]"
+				"type": "bytes32[]"
 			}
 		],
 		"payable": false,
@@ -356,9 +356,9 @@ export const abi = [
 		"name": "_tokensOfProject",
 		"outputs": [
 			{
-				"internalType": "string[]",
+				"internalType": "bytes32[]",
 				"name": "",
-				"type": "string[]"
+				"type": "bytes32[]"
 			}
 		],
 		"payable": false,
@@ -390,9 +390,9 @@ export const abi = [
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "getDocumentDetails",
@@ -438,9 +438,9 @@ export const abi = [
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "getReviewersList",
@@ -459,9 +459,9 @@ export const abi = [
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "getReviewStatus",
@@ -480,17 +480,17 @@ export const abi = [
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "getReviewStatusForIndividual",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "enum ERC721.reviewStatus",
 				"name": "",
-				"type": "bool"
+				"type": "uint8"
 			}
 		],
 		"payable": false,
@@ -501,9 +501,9 @@ export const abi = [
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "ownerOf",
@@ -522,9 +522,9 @@ export const abi = [
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "tokenId",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "tokenURI",

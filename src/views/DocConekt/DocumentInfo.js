@@ -22,7 +22,7 @@ import YoutubeSearchedForIcon from '@material-ui/icons/YoutubeSearchedFor';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 function useForceUpdate() {
     const [value, set] = useState(true); //boolean state
     return () => set(value => !value); // toggle the state to force render
@@ -93,8 +93,8 @@ const Projects = (props) => {
                 let temp1 = {}
                 temp1["address"] = element;
                 docContract.methods.getReviewStatusForIndividual(props.rowData.tokenId).call({ from: element }).then(fetchedStatus => {
-                    console.log(fetchedStatus, "fetchedStatus");
-                    temp1["status"] = fetchedStatus
+                    console.log(fetchedStatus, "fetchedStatus", element);
+                    temp1["status"] = fetchedStatus === "0"
                     tempData.push(temp1);
                     setData(tempData);
                     setLoader(false);
@@ -105,27 +105,26 @@ const Projects = (props) => {
                 registryContract.methods.getConsortiumMembers(props.rowData.projectId).call({
                     from: props.auth.user.publicKey
                 }).then(res => {
-                    console.log(res);
-                    
+                    // console.log(res);
                     for (let index = 0; index < res.length; index++) {
                         const partner = res[index];
                         if (partner.publicKey !== props.user.user[0]) {
-                            // res1.forEach(preKey => {
-                                // console.log(preKey, partner.publicKey, "sd",preKey !== partner.publicKey);
-                                // if (preKey !== partner.publicKey) {
-                                    partnerContract.methods.getPartnerRole(props.rowData.projectId, partner.publicKey).call({
-                                        from: props.auth.user.publicKey
-                                    }).then(role => {
-                                        let temp = parseInt(role);
-                                        partner.role = temp === 0 ? "Role Unassigned" : roleCategory[parseInt(role)]
+                            // console.log(partner.publicKey, props.user.user[0]);
+                            partnerContract.methods.getPartnerRole(props.rowData.projectId, partner.publicKey).call({
+                                from: props.auth.user.publicKey
+                            }).then(role => {
+                                partner.role = role
+                                docContract.methods.getReviewStatusForIndividual(props.rowData.tokenId).call({ from: partner.publicKey }).then(fetchedStatus => {
+                                    // console.log(role, fetchedStatus, "fetchedStatus");
+                                    if (fetchedStatus === "0") {
                                         setPartners(partners => [
                                             ...partners,
                                             partner
                                         ])
                                         forceUpdate()
-                                    })
-                                // }
-                            // })
+                                    }
+                                })
+                            })
                         }
                     }
                 })
@@ -135,16 +134,19 @@ const Projects = (props) => {
     }, []);
 
     function addReviewers(data) {
+        setLoader(true);
         docContract.methods.ownerOf(props.rowData.tokenId).call().then(async ownerAddress => {
             if (ownerAddress === props.user.user[0]) {
-
-                console.log("owner");
+                // let newList = originalList.concat(data);
+                // let uniqueList = newList.filter(function (item, pos) {
+                //     return newList.indexOf(item) == pos;
+                // })
                 let privateKey = await sessionStorage.getItem('privateKey');
                 var transaction = {
                     "to": docAddress,
                     "data": docContract.methods.addReviewers(
                         props.rowData.tokenId,
-                        originalList.concat(data)
+                        data.publicKey
                     ).encodeABI()
                 };
                 transaction["gasLimit"] = 4700000;
@@ -261,29 +263,34 @@ const Projects = (props) => {
                                                             { title: "Email", field: "email" },
                                                             // { title: "PublicKey", field: "publicKey" },
                                                             { title: "OrganizationID", field: "organizationID" },
-                                                            // { title: "Role in Consortium", field: "role" },
+                                                            { title: "Role in Consortium", field: "role" },
+                                                            {
+                                                                title: "Action", field: "status", render: rowData => {
+                                                                    return <PlaylistAddIcon onClick={() => addReviewers(rowData)} />
+                                                                }
+                                                            }
                                                         ]}
                                                         data={partners}
                                                         title="List of all current participants"
                                                         options={{
                                                             search: true,
-                                                            exportButton: true,
-                                                            selection: true
+                                                            // exportButton: true,
+                                                            // selection: true
                                                         }}
-                                                        actions={[
-                                                            {
-                                                                tooltip: "Add Selected Users To Reviewer's list",
-                                                                icon: 'link',
-                                                                onClick: (evt, data) => {
-                                                                    let tempData = []
-                                                                    for (let index = 0; index < data.length; index++) {
-                                                                        tempData.push(data[index].publicKey);
-                                                                    }
-                                                                    // console.log(tempData);
-                                                                    addReviewers(tempData)
-                                                                }
-                                                            }
-                                                        ]}
+                                                    // actions={[
+                                                    //     {
+                                                    //         tooltip: "Add Selected Users To Reviewer's list",
+                                                    //         icon: 'link',
+                                                    //         onClick: (evt, data) => {
+                                                    //             let tempData = []
+                                                    //             for (let index = 0; index < data.length; index++) {
+                                                    //                 tempData.push(data[index].publicKey);
+                                                    //             }
+                                                    //             // console.log(tempData);
+                                                    //             addReviewers(tempData)
+                                                    //         }
+                                                    //     }
+                                                    // ]}
                                                     /> : <>
                                                             {/* <MaterialTable
                                                         columns={[

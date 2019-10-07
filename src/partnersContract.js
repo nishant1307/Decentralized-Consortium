@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const partnerAddress = '0x721e6ac0251423aefa6e692adf6511bf21574f51';
+export const partnerAddress = '0x8a92422ce3fea69cb0a0c283c5beab5c897e4f62';
 export const partnerABI = [
 	{
 		"constant": true,

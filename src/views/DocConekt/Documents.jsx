@@ -21,6 +21,7 @@ import Modal from "components/CustomModal/Modal";
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import { CircularProgress } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 import web3 from '../../web3';
 import {
   Dialog,
@@ -78,6 +79,20 @@ const Products = (props) => {
     setIsValid(true);
   }
 
+  function returnLast(tempData) {
+    let k;
+    for (let i = 0, k = 0; i < tempData.length; i++) {
+      for (let j = 0; j < i; j++) {
+        if (tempData[i].blockNumber > tempData[j].blockNumber) {
+          k = tempData[i];
+          tempData[i] = tempData[j];
+          tempData[j] = k;
+        }
+      }
+    }
+    return tempData[0].returnValues
+  }
+
   useEffect(() => {
     try {
       if (props.user.user[5] != 0) {
@@ -125,12 +140,24 @@ const Products = (props) => {
         setTokenIDList(res);
         res.forEach(tokenId => {
           // console.log(tokenId,"projectID");
-
           docContract.methods.getDocumentDetails(tokenId).call({
             from: props.auth.user.publicKey
           }).then(productDetails => {
+            docContract.getPastEvents('ReviewersAdded', {
+              filter: { "_projectId": props.match.params.projectID, "_address": props.user.user[0], "_tokenId": tokenId },
+              fromBlock: 0,
+              toBlock: 'latest'
+            }, async function (error, events) {
+              if (events.length > 0) {
+                let temp = await returnLast(events);
+                if (temp._tokenId === tokenId) {
+                  productDetails[0].reviewStatus = true;
+                }
+              } else {
+                productDetails[0].reviewStatus = false;
+              }
+            })
             // console.log(productDetails, "productDetails inside");
-
             productDetails[0].tokenId = tokenId
             setProductList(productList => [
               ...productList,
@@ -144,7 +171,7 @@ const Products = (props) => {
   }, []);
 
   useEffect(() => {
-    // console.log("productList");
+    console.log("productList", productList);
   }, [productList])
   const projectURL = (projectID) => {
     return "/dashboard/projects/" + projectID;
@@ -191,9 +218,9 @@ const Products = (props) => {
     batch.execute();
   }
 
- 
 
-  function handleInfo(rowData)  {    
+
+  function handleInfo(rowData) {
     selectData(rowData);
     setInfoModal(true);
   }
@@ -244,6 +271,9 @@ const Products = (props) => {
                           { title: "View Document", field: "action", render: rowData => <Button onClick={() => { handleUnlock(rowData) }}> <ImportContactsIcon /></Button> },
                           { title: "Document Details", field: "action2", render: rowData => <Button onClick={() => { handleInfo(rowData) }}><InfoIcon /></Button> },
                           { title: "Project ID", field: "projectId", defaultGroupOrder: 0 },
+                          {
+                            title: "For Review", field: "reviewStatus", render: rowData => { return (rowData.reviewStatus && <RateReviewIcon />) }
+                          },
                         ]}
                         data={productList}
                         title=""

@@ -21,7 +21,8 @@ import {
   FETCH_NOTIFICATION,
   EDIT_PROFILE,
   GET_SUBSCRIPTION,
-  DOCUMENT_UPDATED
+  DOCUMENT_UPDATED,
+  ADD_DOCUMENT_REVIEWER
 } from "./types";
 import { setAuthToken } from '../axiosConfig';
 import { productAddress, productContract } from '../productContract.js'
@@ -377,7 +378,7 @@ export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
 export const addNewDoc = docDetails => async dispatch => {
   // console.log(docDetails,"docDetails");
   privateKey = await sessionStorage.getItem('privateKey');
-  let uuid = uuidv1();
+  let uuid = web3.utils.randomHex(32);  //uuidv1();
   web3.eth.getBalance(address).then((balance) => {
     // console.log(balance);
     if (balance > 1000000000000000000) {
@@ -464,6 +465,46 @@ export const addNewDoc = docDetails => async dispatch => {
     }
   })
 };
+
+export const addDocumentReviewer = (tokenId, addressList) => async dispatch => {
+  // console.log(tokenId, addressList, "here");
+  // privateKey = await sessionStorage.getItem('privateKey');
+  // var batch = new web3.BatchRequest();
+  // web3.eth.getTransactionCount(address).then(async (nonce) => {
+  //   for (var i = 0; i < addressList.length; i++ , nonce++) {
+  //     let _address = await web3.utils.toChecksumAddress(addressList[i]);
+  //     var transaction = {
+  //       "nonce": nonce,
+  //       "to": docContract,
+  //       "data": docContract.methods.addReviewers(
+  //         tokenId,
+  //         _address
+  //       ).encodeABI()
+  //     };
+  //     transaction["gasLimit"] = 4700000;
+  //     web3.eth.accounts.signTransaction(transaction, privateKey)
+  //       .then((result) => {
+  //         batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
+  //           .once('receipt', (receipt) => {
+  //             console.log(receipt);
+  //           }).on('error', async function (error) {
+  //             dispatch({
+  //               type: GET_ERRORS,
+  //               payload: { message: "Error occured! Please try again later." }
+  //             });
+  //             setTimeout(() => {
+  //               dispatch({
+  //                 type: GET_ERRORS,
+  //                 payload: {}
+  //               });
+  //             }, 10000)
+  //           })
+  //         );
+  //       })
+  //   }
+  //   batch.execute();
+  // })
+}
 
 export const createNewDevice = deviceDetails => async (dispatch) => {
   privateKey = await sessionStorage.getItem('privateKey');

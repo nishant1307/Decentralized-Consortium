@@ -31,65 +31,45 @@ const Projects = (props) => {
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    let tempData = []
-    docContract.getPastEvents('ReviewersAdded', {
-      filter: { "_projectId": props.projectID },
-      fromBlock: 0,
-      toBlock: 'latest'
-    }, function (error, events) {
-      console.log(events);
-
-      for (let index = 0; index < events.length; index++) {
-        const element = events[index];
-        for (let index = 0; index < element.returnValues._listOfAddress.length; index++) {
-          const element2 = element.returnValues._listOfAddress[index];
-          // console.log(element2,"in here",element2 === props.user.user[0]);
-          if (element2 === props.user.user[0]) {
-            console.log("in here", element.returnValues._tokenId, element.blockNumber);
-            tempData.push(element.returnValues._tokenId)
+    let sortedByToken = []
+    docContract.methods._tokensOfProject(props.projectID).call().then(tokens => {
+      // console.log(tokens);
+      for (let index = 0; index < tokens.length; index++) {
+        const element = tokens[index];
+        docContract.getPastEvents('ReviewersAdded', {
+          filter: { "_projectId": props.projectID, "_address": props.user.user[0], "_tokenId": element },
+          fromBlock: 0,
+          toBlock: 'latest'
+        }, async function (error, events) {
+          if (events.length > 0) {
+            // console.log(await returnLast(events), "returned");
+            let temp = await returnLast(events);
+            // console.log(temp,element);
+            sortedByToken.push(temp.returnValues)
+            setProjectInviteList(sortedByToken)
+            forceUpdate();
+            forceUpdate();
+            setLoader(false);
           }
-        }
+        })
+
       }
-
-      console.log(tempData  );
-      
-      // var grades = {};
-      // tempData.forEach(function (item) {
-      //   var grade = grades[item.returnValues._tokenId] = grades[item.returnValues._tokenId] || {};
-      //   grade[item.Domain] = true;
-      // });
-
-      // console.log(JSON.stringify(grades, null, 4));
-
-
-      // for (let index = 0; index < events.length; index++) {
-      //   const element = events[index];
-      //   docContract.methods._tokensOfProject(props.projectID).call({
-      //     from: props.auth.user.publicKey
-      //   }).then(async res => {
-      //     for (let index = 0; index < res.length; index++) {
-      //       const element2 = res[index];
-      //       let _tokenId = await web3.utils.sha3(element2);
-      //       if (_tokenId === element.returnValues._tokenId) {
-      //         tempData.push(element)
-      //         console.log("inside this", element.blockNumber);
-      //       }
-      //     }
-      //   })
-      // }
-      // for (let index = 0; index < tempData.length; index++) {
-      //   const element3 = tempData[index];
-      //   if (element3.returnValues._tokenId === element.returnValues._tokenId) {
-      //     console.log("same");
-
-      //   }
-      // }
     })
-
-    // ReviewersAdded
   }, []);
 
-
+  function returnLast(tempData) {
+    let k;
+    for (let i = 0, k = 0; i < tempData.length; i++) {
+      for (let j = 0; j < i; j++) {
+        if (tempData[i].blockNumber > tempData[j].blockNumber) {
+          k = tempData[i];
+          tempData[i] = tempData[j];
+          tempData[j] = k;
+        }
+      }
+    }
+    return tempData[0]
+  }
 
 
   const { classes } = props;
@@ -112,12 +92,12 @@ const Projects = (props) => {
               projectInviteList.length !== 0 ?
                 <MaterialTable
                   columns={[
-                    { title: "Host Organization", field: "name" },
-                    { title: "Partner Role", field: "partnerRole" },
-                    { title: "Organization ID", field: "hostOrganizationID" },
-                    { title: 'time', render: rowData => <p>{moment(rowData['timestamp'] * 1000).format("DD-MM-YYYY h:mm:ss")}</p> },
-                    { title: "Action", render: rowData => <> {rowData.status ? <Button variant="contained" color="secondary" onClick={closePartnership(rowData)} >Cancel Partnership</Button> : <Button variant="contained" color="primary" onClick={acceptInvite(rowData)}>Accept Invite</Button>} </> },
-                    // { title: "Project Id", field: "projectID" }
+                    { title: "Document Id", field: "_tokenId" },
+                    // { title: "Partner Role", field: "partnerRole" },
+                    // { title: "Organization ID", field: "hostOrganizationID" },
+                    // { title: 'time', render: rowData => <p>{moment(rowData['timestamp'] * 1000).format("DD-MM-YYYY h:mm:ss")}</p> },
+                    // { title: "Action", render: rowData => <> {rowData.status ? <Button variant="contained" color="secondary" onClick={closePartnership(rowData)} >Cancel Partnership</Button> : <Button variant="contained" color="primary" onClick={acceptInvite(rowData)}>Accept Invite</Button>} </> },
+                    { title: "Project Id", field: "_projectId" }
                   ]}
                   data={projectInviteList}
                   title=""
