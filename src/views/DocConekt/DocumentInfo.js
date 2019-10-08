@@ -93,8 +93,8 @@ const Projects = (props) => {
                 let temp1 = {}
                 temp1["address"] = element;
                 docContract.methods.getReviewStatusForIndividual(props.rowData.tokenId).call({ from: element }).then(fetchedStatus => {
-                    console.log(fetchedStatus, "fetchedStatus", element);
-                    temp1["status"] = fetchedStatus === "0"
+                    // console.log(fetchedStatus, "fetchedStatus", element);
+                    temp1["status"] = fetchedStatus //=== "0"
                     tempData.push(temp1);
                     setData(tempData);
                     setLoader(false);
@@ -221,7 +221,9 @@ const Projects = (props) => {
                                                             { title: "Address", field: "address" },
                                                             {
                                                                 title: "Status", field: "status", render: rowData => {
-                                                                    return (rowData.status ? <DoneAllIcon /> : <HourglassEmptyIcon />)
+                                                                    // console.log(rowData);
+                                                                    
+                                                                    return (rowData.status === "2" ?  <DoneAllIcon /> :  <HourglassEmptyIcon />)
                                                                 }
                                                             }
                                                         ]}

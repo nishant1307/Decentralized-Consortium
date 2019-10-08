@@ -22,7 +22,8 @@ import {
   EDIT_PROFILE,
   GET_SUBSCRIPTION,
   DOCUMENT_UPDATED,
-  ADD_DOCUMENT_REVIEWER
+  ADD_DOCUMENT_REVIEWER,
+  ADD_DOCUMENT_REVIEW
 } from "./types";
 import { setAuthToken } from '../axiosConfig';
 import { productAddress, productContract } from '../productContract.js'
@@ -319,6 +320,47 @@ export const joinProjectRequest = invitationDetails => async (dispatch) => {
     }
   })
 };
+
+export const addReview = (tokenId, remark) => async dispatch => {  
+  privateKey = await sessionStorage.getItem('privateKey');
+  var transaction = {
+    "to": docAddress,
+    "data": docContract.methods.addReview(
+      tokenId,
+      remark === true ? 2 : 3,
+    ).encodeABI()
+  };
+  // web3.eth.estimateGas(transaction).then(gasLimit => {
+  transaction["gasLimit"] = 4700000;
+  web3.eth.accounts.signTransaction(transaction, privateKey)
+    .then(res => {
+      web3.eth.sendSignedTransaction(res.rawTransaction)
+        .on('receipt', async function (receipt) {
+          // console.log(receipt);
+          if (receipt.status == true) {
+            dispatch({
+              type: ADD_DOCUMENT_REVIEW,
+              payload: ""
+            });
+            window.location.reload();
+          }
+        })
+        .on('error', async function (error) {
+          // console.log(error);
+          dispatch({
+            type: GET_ERRORS,
+            payload: "Error Occured While Adding Review."
+          });
+        })
+    })
+    .catch(err => {
+      // console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: "Error Occured While Adding Review."
+      });
+    });
+}
 
 export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
   // console.log("inside", docDetails, tokenId);

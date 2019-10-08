@@ -17,7 +17,8 @@ import {
   EDIT_PROFILE,
   GET_SUBSCRIPTION,
   NEW_DOCUMENT_CREATED,
-  DOCUMENT_UPDATED
+  DOCUMENT_UPDATED,
+  ADD_DOCUMENT_REVIEW
 } from '../actions/types';
 import isEmpty from '../is-empty';
 
@@ -119,6 +120,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         docModalOpen: false
+      }
+      break;
+      case ADD_DOCUMENT_REVIEW:
+      return {
+        ...state,
+        notificationList: [...state.notificationList, "Review added to Document"]
       }
       break;
     case NEW_DOCUMENT_CREATED:

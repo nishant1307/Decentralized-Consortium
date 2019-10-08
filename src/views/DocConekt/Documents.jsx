@@ -65,7 +65,7 @@ const Products = (props) => {
       let url = "https://gateway.arthanium.org/ipfs/" + rowData.encryptedData
       window.open(url, "_blank")
     } else {
-      console.log(rowData, "idhar");
+      // console.log(rowData, "idhar");
       setSelected(rowData);
       setOpen(true);
     }
@@ -73,9 +73,12 @@ const Products = (props) => {
   }
 
   async function unlockDoc() {
+    console.log(selected);
     let data = await decryptMessage(selected.encryptedData, password)
-    console.log(data);
-    setData(JSON.parse(data));
+    // console.log(data);
+    let temp = JSON.parse(data);
+    temp.reviewStatus = selected.reviewStatus
+    setData(temp);
     setIsValid(true);
   }
 
@@ -297,7 +300,7 @@ const Products = (props) => {
                           {
                             tooltip: 'Add Selected Devices To Project',
                             icon: 'link',
-                            onClick: (event, rowData) => { addProductsToProject(rowData) }
+                            onClick: (event, rowData) => { if (props.match.params.projectID === undefined) { addProductsToProject(rowData) } }
                           }
                         ]}
                       />
