@@ -10,12 +10,12 @@ const ProjectFormModal = React.lazy(() => import('views/ProjectFormModal.js'));
 import { openProjectModal, inviteUserToConsortium } from 'actions/userActions';
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 import { connect } from 'react-redux';
-import { docContract } from 'DocContract';
+// import { docContract } from 'DocContract';
 import MaterialTable from "material-table";
-import { Button } from '@material-ui/core';
-import moment from "moment";
+// import { Button } from '@material-ui/core';
+// import moment from "moment";
 import { withStyles } from '@material-ui/core/styles';
-import web3 from '../../web3';
+// import web3 from '../../web3';
 
 function useForceUpdate() {
   const [value, set] = useState(true); //boolean state
@@ -25,51 +25,58 @@ function useForceUpdate() {
 
 const Projects = (props) => {
 
-  const [projectInviteList, setProjectInviteList] = useState([]);
+  // const [projectInviteList, setProjectInviteList] = useState([]);
   const [loader, setLoader] = useState(true);
-  const [inviteSent, setInviteSent] = useState(false);
+  // const [inviteSent, setInviteSent] = useState(false);
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    let sortedByToken = []
-    docContract.methods._tokensOfProject(props.projectID).call().then(tokens => {
-      // console.log(tokens);
-      for (let index = 0; index < tokens.length; index++) {
-        const element = tokens[index];
-        docContract.getPastEvents('ReviewersAdded', {
-          filter: { "_projectId": props.projectID, "_address": props.user.user[0], "_tokenId": element },
-          fromBlock: 0,
-          toBlock: 'latest'
-        }, async function (error, events) {
-          if (events.length > 0) {
-            // console.log(await returnLast(events), "returned");
-            let temp = await returnLast(events);
-            // console.log(temp,element);
-            sortedByToken.push(temp.returnValues)
-            setProjectInviteList(sortedByToken)
-            forceUpdate();
-            forceUpdate();
-            setLoader(false);
-          }
-        })
-
-      }
-    })
-  }, []);
-
-  function returnLast(tempData) {
-    let k;
-    for (let i = 0, k = 0; i < tempData.length; i++) {
-      for (let j = 0; j < i; j++) {
-        if (tempData[i].blockNumber > tempData[j].blockNumber) {
-          k = tempData[i];
-          tempData[i] = tempData[j];
-          tempData[j] = k;
-        }
-      }
+    if (props.documentReviewList) { 
+      setLoader(false);
+      forceUpdate()
     }
-    return tempData[0]
-  }
+  }, [])
+
+  // useEffect(() => {
+  //   let sortedByToken = []
+  //   docContract.methods._tokensOfProject(props.projectID).call().then(tokens => {
+  //     // console.log(tokens);
+  //     for (let index = 0; index < tokens.length; index++) {
+  //       const element = tokens[index];
+  //       docContract.getPastEvents('ReviewersAdded', {
+  //         filter: { "_projectId": props.projectID, "_address": props.user.user[0], "_tokenId": element },
+  //         fromBlock: 0,
+  //         toBlock: 'latest'
+  //       }, async function (error, events) {
+  //         if (events.length > 0) {
+  //           // console.log(await returnLast(events), "returned");
+  //           let temp = await returnLast(events);
+  //           // console.log(temp,element);
+  //           sortedByToken.push(temp.returnValues)
+  //           setProjectInviteList(sortedByToken)
+  //           forceUpdate();
+  //           forceUpdate();
+  //           setLoader(false);
+  //         }
+  //       })
+
+  //     }
+  //   })
+  // }, []);
+
+  // function returnLast(tempData) {
+  //   let k;
+  //   for (let i = 0, k = 0; i < tempData.length; i++) {
+  //     for (let j = 0; j < i; j++) {
+  //       if (tempData[i].blockNumber > tempData[j].blockNumber) {
+  //         k = tempData[i];
+  //         tempData[i] = tempData[j];
+  //         tempData[j] = k;
+  //       }
+  //     }
+  //   }
+  //   return tempData[0]
+  // }
 
 
   const { classes } = props;
@@ -89,7 +96,7 @@ const Projects = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
               </React.Fragment> :
-              projectInviteList.length !== 0 ?
+              props.documentReviewList.length !== 0 ?
                 <MaterialTable
                   columns={[
                     { title: "Document Id", field: "_tokenId" },
@@ -99,7 +106,7 @@ const Projects = (props) => {
                     // { title: "Action", render: rowData => <> {rowData.status ? <Button variant="contained" color="secondary" onClick={closePartnership(rowData)} >Cancel Partnership</Button> : <Button variant="contained" color="primary" onClick={acceptInvite(rowData)}>Accept Invite</Button>} </> },
                     { title: "Project Id", field: "_projectId" }
                   ]}
-                  data={projectInviteList}
+                  data={props.documentReviewList}
                   title=""
                   options={{
                     search: true,

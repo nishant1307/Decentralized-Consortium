@@ -40,6 +40,8 @@ const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));
 
 
 const Products = (props) => {
+  // console.log(props.location.state.documentReviewList, "state");
+
   // console.log(props.match.params.projectID === undefined);
   const [assignProductModal, setAssignProductModal] = useState(false);
   const [tokenIDList, setTokenIDList] = useState([])
@@ -73,7 +75,7 @@ const Products = (props) => {
   }
 
   async function unlockDoc() {
-    console.log(selected);
+    // console.log(selected);
     let data = await decryptMessage(selected.encryptedData, password)
     // console.log(data);
     let temp = JSON.parse(data);
@@ -82,19 +84,19 @@ const Products = (props) => {
     setIsValid(true);
   }
 
-  function returnLast(tempData) {
-    let k;
-    for (let i = 0, k = 0; i < tempData.length; i++) {
-      for (let j = 0; j < i; j++) {
-        if (tempData[i].blockNumber > tempData[j].blockNumber) {
-          k = tempData[i];
-          tempData[i] = tempData[j];
-          tempData[j] = k;
-        }
-      }
-    }
-    return tempData[0].returnValues
-  }
+  // function returnLast(tempData) {
+  //   let k;
+  //   for (let i = 0, k = 0; i < tempData.length; i++) {
+  //     for (let j = 0; j < i; j++) {
+  //       if (tempData[i].blockNumber > tempData[j].blockNumber) {
+  //         k = tempData[i];
+  //         tempData[i] = tempData[j];
+  //         tempData[j] = k;
+  //       }
+  //     }
+  //   }
+  //   return tempData[0].returnValues
+  // }
 
   useEffect(() => {
     try {
@@ -117,7 +119,7 @@ const Products = (props) => {
           docContract.methods.getDocumentDetails(tokenId).call({
             from: props.auth.user.publicKey
           }).then(productDetails => {
-            console.log(productDetails, "productDetails inside");
+            // console.log(productDetails, "productDetails inside");
             productDetails[0].projectId = (productDetails[0].projectId == 0x0000000000000000000000000000000000000000000000000000000000000000) ?
               "Unassigned" :
               productDetails[0].projectId;
@@ -146,20 +148,31 @@ const Products = (props) => {
           docContract.methods.getDocumentDetails(tokenId).call({
             from: props.auth.user.publicKey
           }).then(productDetails => {
-            docContract.getPastEvents('ReviewersAdded', {
-              filter: { "_projectId": props.match.params.projectID, "_address": props.user.user[0], "_tokenId": tokenId },
-              fromBlock: 0,
-              toBlock: 'latest'
-            }, async function (error, events) {
-              if (events.length > 0) {
-                let temp = await returnLast(events);
-                if (temp._tokenId === tokenId) {
-                  productDetails[0].reviewStatus = true;
-                }
-              } else {
+
+            for (let i = 0; i < props.location.state.documentReviewList.length; i++) {
+              const element = props.location.state.documentReviewList[i];
+              if (element._tokenId === tokenId) {
+                productDetails[0].reviewStatus = true;
+                break;
+              }
+              else {
                 productDetails[0].reviewStatus = false;
               }
-            })
+            }
+            // docContract.getPastEvents('ReviewersAdded', {
+            //   filter: { "_projectId": props.match.params.projectID, "_address": props.user.user[0], "_tokenId": tokenId },
+            //   fromBlock: 0,
+            //   toBlock: 'latest'
+            // }, async function (error, events) {
+            //   if (events.length > 0) {
+            //     let temp = await returnLast(events);
+            //     if (temp._tokenId === tokenId) {
+            //       productDetails[0].reviewStatus = true;
+            //     }
+            //   } else {
+            //     productDetails[0].reviewStatus = false;
+            //   }
+            // })
             // console.log(productDetails, "productDetails inside");
             productDetails[0].tokenId = tokenId
             setProductList(productList => [
@@ -174,7 +187,7 @@ const Products = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("productList", productList);
+    // console.log("productList", productList);
   }, [productList])
   const projectURL = (projectID) => {
     return "/dashboard/projects/" + projectID;
@@ -193,7 +206,7 @@ const Products = (props) => {
     let privateKey = await sessionStorage.getItem('privateKey');
     let nonce = await web3.eth.getTransactionCount(address);
     var batch = new web3.BatchRequest();
-    console.log(selectedItems);
+    // console.log(selectedItems);
     selectedItems.forEach(element => {
       var transaction = {
         "nonce": nonce,
@@ -210,7 +223,7 @@ const Products = (props) => {
         .then((result) => {
           batch.add(web3.eth.sendSignedTransaction(result.rawTransaction)
             .once('receipt', (receipt) => {
-              console.log(receipt);
+              // console.log(receipt);
               setLoading(false);
               setAssignProductModal(false);
               // window.location.reload();
@@ -275,7 +288,9 @@ const Products = (props) => {
                           { title: "Document Details", field: "action2", render: rowData => <Button onClick={() => { handleInfo(rowData) }}><InfoIcon /></Button> },
                           { title: "Project ID", field: "projectId", defaultGroupOrder: 0 },
                           {
-                            title: "For Review", field: "reviewStatus", render: rowData => { return (rowData.reviewStatus && <RateReviewIcon />) }
+                            title: "For Review", field: "reviewStatus", render: rowData => {
+                              return (rowData.reviewStatus && <RateReviewIcon />)
+                            }
                           },
                         ]}
                         data={productList}
