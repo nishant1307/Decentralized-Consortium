@@ -7,7 +7,7 @@ const Navbar = React.lazy(() => import('components/Navbars/Navbar.jsx'));
 const Footer = React.lazy(() => import('components/Footer/Footer.jsx'));
 const Sidebar = React.lazy(() => import('components/Sidebar/Sidebar.jsx'));
 const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
+// import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import sidebarRoutes from "sidebarRoutes.js";
 import styles from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 import { connect } from 'react-redux';
@@ -126,11 +126,11 @@ function Admin({ ...props }) {
         )}
         {getRoute() ? <Footer /> : null}
         </Suspense>
-        <FixedPlugin
+        {/* <FixedPlugin
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
           {...props}
-        />
+        /> */}
       </div>
     </div>
   );
