@@ -14,14 +14,18 @@ import {withStyles} from '@material-ui/core/styles';
 
 function Navbar({ ...props }) {
   function makeBrand() {
-    var name;
-    props.routes.map(prop => {
-      if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
-        name = prop.name;
-      }
-      return null;
-    });
-    return name;
+    // if(window.location.href="/dashboard/home")
+    //   return "Welcome to Arthanium";
+    // else
+    //   return null;
+    // var name;
+    // props.routes.map(prop => {
+    //   if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
+    //     name = prop.name;
+    //   }
+    //   return null;
+    // });
+    // return name;
   }
   const { classes, color } = props;
   const appBarClasses = classNames({

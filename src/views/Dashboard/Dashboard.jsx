@@ -16,6 +16,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import Button from "components/CustomButtons/Button";
 import Skeleton from '@material-ui/lab/Skeleton';
 import { connect } from 'react-redux';
 // core components
@@ -35,19 +36,37 @@ import ClaimViews from "views/Claims&Certifications/ClaimViews";
 import { Typography, Box } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import CustomTabs from "components/CustomTabs/CustomTabs";
+import Tour from 'reactour';
+
+const steps = [
+  {
+    selector: '[data-tut="project__card"]',
+    content: 'The first step is to create a project',
+  },
+  {
+    selector: '[data-tut="device__card"]',
+    content: 'This is my first Step',
+  },
+  {
+    selector: '[data-tut="project__card"]',
+    content: 'This is my first Step',
+  }
+]
+
 const Dashboard = (props) => {
 
   const [productCount, setProductCount] = useState(0);
   const [projects, setProjects] = useState([]);
   const {classes} = props;
   const [userName, setUserName] = useState('');
+  const [tourOpen, setTourOpen] = useState(false);
   return (
     <div>
     <h4>Welcome to Arthanium</h4>
       {props.user && <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/projects">
-          <Card>
+          <Card data-tut="project__card">
             <CardHeader color="warning" stats icon>
               <CardIcon color="warning">
                 <DescriptionIcon/>
@@ -68,7 +87,7 @@ const Dashboard = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/devices">
-          <Card>
+          <Card data-tut="device__card">
             <CardHeader color="info" stats icon>
               <CardIcon color="info">
                 <DeviceHubIcon/>
@@ -163,7 +182,17 @@ const Dashboard = (props) => {
             ]}
           />
         </GridItem>
+        <GridItem xs={12} sm={6} md={4}>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={4}>
+          <Button fullWidth onClick={() => setTourOpen(true)}>Start Tour</Button>
+        </GridItem>
         </GridContainer>
+        <Tour
+          steps={steps}
+          isOpen={tourOpen}
+          onRequestClose={() => setTourOpen(false)}
+        />
     </div>
   );
 }
