@@ -7,6 +7,7 @@ const Navbar = React.lazy(() => import('components/Navbars/Navbar.jsx'));
 const Footer = React.lazy(() => import('components/Footer/Footer.jsx'));
 const Sidebar = React.lazy(() => import('components/Sidebar/Sidebar.jsx'));
 const Page404 = React.lazy(() => import('views/ErrorPages/Page404.js'));
+import Modal from "components/CustomModal/Modal";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 import sidebarRoutes from "sidebarRoutes.js";
 import styles from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
@@ -41,6 +42,7 @@ function Admin({ ...props }) {
   const mainPanel = React.createRef();
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [onlineStatus, setOnlineStatus] = React.useState(true);
 
   const signOut = (e) => {
     e.preventDefault()
@@ -71,6 +73,9 @@ function Admin({ ...props }) {
       props.history.push('/login');
     }
     checkSessionStatus();
+    if(navigator.onLine!=onlineStatus){
+      setOnlineStatus(navigator.onLine);
+    }
   }, [props])
 
   const checkSessionStatus= () => {
@@ -116,6 +121,15 @@ function Admin({ ...props }) {
           {...props}
         />
         <Suspense fallback={loading}>
+        {onlineStatus? null:
+          <>
+            <Modal
+            open={!onlineStatus}
+            title={"Network connection failed"}
+            content={<>You seem to be offline. This may affect your experience on using this platform. <br/>Please check your internet connection and try again</>}
+            />
+          </>
+        }
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
           <div className={classes.content}>

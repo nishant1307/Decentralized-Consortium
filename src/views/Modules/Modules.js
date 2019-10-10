@@ -22,7 +22,7 @@ const Partners = props => {
     return (
         <div>
             <GridContainer>
-                <GridItem xs={6} sm={4} md={2}>
+                <GridItem xs={6} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -36,7 +36,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={2}>
+                <GridItem xs={6} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -50,7 +50,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={2}>
+                <GridItem xs={6} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -64,7 +64,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={2}>
+                <GridItem xs={6} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -78,7 +78,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={2}>
+                <GridItem xs={6} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -92,7 +92,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={2}>
+                <GridItem xs={6} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">

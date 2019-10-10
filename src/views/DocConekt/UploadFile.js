@@ -563,7 +563,7 @@ const Checkout = (props) => {
                 </form>
                 <React.Fragment>
                     <div className={classes.buttons}>
-                        <Link to={{ pathname: '/dashboard/structured/' + subDocType, state: { projectList: props.projectList, projectID: props.history.projectID === undefined ? undefined : props.history.projectID } }}>
+                        <Link to={{ pathname: '/dashboard/structured/' + subDocType, state: { projectList: props.projectList, projectID: props.history === undefined ? undefined : props.history.projectID } }}>
                             <Button
                                 variant="contained"
                                 color="primary"

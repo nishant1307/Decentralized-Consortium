@@ -80,36 +80,6 @@ const Projects = (props) => {
                 <Tooltip title={"Create new project"}>
                   <AddBoxIcon style={{float: "right"}} onClick={props.openProjectModal}/>
                 </Tooltip>}
-              <Tooltip title={"Request to join a project"}>
-                <ExitToAppIcon style={{float: "right"}} onClick={() => setJoinProjectModal(true)}/>
-              </Tooltip>
-              <Modal
-                open={joinProjectModal}
-                title="Join Project"
-                onClose={() => setJoinProjectModal(false)}
-                content={
-                  <>
-                    <TextField type="text"
-                      variant="outlined"
-                      label= "Project ID"
-
-                      required
-                      onChange={(e => setInviteProjectID(e.target.value))}
-                    />
-                    &nbsp;
-                    <TextField type="text"
-                      variant="outlined"
-                      label= "Project Passcode"
-
-                      required
-                      onChange={(e => setInviteProjectPasscode(e.target.value))}
-                    />
-                  </>
-                }
-                action= {
-                  <Button onClick={joinProject}>{!inviteSent ? "Send Join Project Request": "Request being sent to Blockchain. Please wait..."}</Button>
-                }
-                />
             </CardHeader>
         {loader ?
           <React.Fragment>
@@ -123,7 +93,7 @@ const Projects = (props) => {
           </React.Fragment> :
               <MaterialTable
                   columns={[
-                    { title: "", field: "projectID" , render: rowData => <Link to={{ pathname: projectURL(rowData.projectID), state: { projectDetails: rowData} }}><VisibilityIcon/></Link>},
+                    { title: "", field: "projectID" , render: rowData => <Link to={{ pathname: projectURL(rowData.projectID), state: { projectDetails: rowData} }}><ExitToAppIcon/></Link>},
                     { title: "Project Name", field: "name" },
                     { title: "Industry", field: "industry"},
                     { title: "Project Admin", field: "projectAdmin"},

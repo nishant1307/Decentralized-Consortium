@@ -44,6 +44,7 @@ className={formControlProps.className + " " + classes.formControl}
         <InputLabel
           className={classes.labelRoot + labelClasses}
           htmlFor={id}
+          shrink= {value? true: false}
           {...labelProps}
         >
           {labelText}
