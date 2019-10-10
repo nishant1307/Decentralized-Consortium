@@ -173,7 +173,7 @@ function Checkout(props) {
         console.log(error);
       })
       var doc = new jsPDF()
-      doc.text(mnemonic, 10, 10)
+      doc.text(mnemonic, 20, 20)
       doc.save('recovery key.pdf')
       passworder.encrypt(state.password, JSON.stringify({ mnemonic: mnemonic, privateKey: zeroWallet.getPrivateKeyString() })).then(function (blob) {
         sessionStorage.setItem("privateKey", zeroWallet.getPrivateKeyString())

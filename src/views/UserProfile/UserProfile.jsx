@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // core components
@@ -7,7 +7,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
-
+import { makeStyles } from '@material-ui/core/styles';
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
@@ -16,11 +16,19 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import EditIcon from '@material-ui/icons/Edit';
 import { connect } from 'react-redux';
 import avatar from "assets/img/faces/marc.jpg";
-import {registryContract} from "registryContract";
-import {parseJSONFromIPFSHash} from "utils";
+import { registryContract } from "registryContract";
+import { parseJSONFromIPFSHash } from "utils";
 import axios from "axios";
-import { TextField } from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import Fab from '@material-ui/core/Fab';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField
+} from '@material-ui/core';
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -39,13 +47,26 @@ const styles = {
     textDecoration: "none"
   }
 };
+const jsPDF = require('jspdf');
+var passworder = require('browser-passworder');
+const useStyles = makeStyles(theme => ({
+  fab: {
+    margin: theme.spacing(2),
+    width: theme.spacing(25),
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1),
+  },
+}));
 
 const UserProfile = props => {
-
+  const classes2 = useStyles();
   const [userDetails, setUserDetails] = useState('');
   const [organizationDetails, setOrganizationDetails] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [email, setEmail] = useState('');
+  const [open, setOpen] = React.useState(false);
+  const [password, setPassword] = React.useState('');
   useEffect(() => {
     // registryContract.methods.getUserOrganizationDetails().call({
     //   from : localStorage.getItem("address")
@@ -66,8 +87,20 @@ const UserProfile = props => {
 
   const { classes } = props;
 
-  const updateProfile = () => {
-    // console.log("Updated");
+  const handleDownload = () => {
+    let temp = localStorage.getItem("data");
+    passworder.decrypt(password, JSON.parse(temp))
+      .then(function (result) {
+        let dataToPrint = JSON.parse(result).mnemonic ? JSON.parse(result).mnemonic : JSON.parse(result).privateKey        
+        var doc = new jsPDF()
+        doc.text(JSON.stringify(dataToPrint), 20, 20) 
+        doc.save('recovery key.pdf')
+        setOpen(false);
+        setPassword("");
+      }).catch((reason) => {
+        console.error(reason)
+      })
+    console.log(password);
   }
   return (
     <div>
@@ -76,9 +109,9 @@ const UserProfile = props => {
           <Card>
             <CardHeader color="primary"  >
               <h4 className={classes.cardTitleWhite}>Your Profile</h4>
-              <EditIcon onClick={() => setEditMode(true)}/>
+              <EditIcon onClick={() => setEditMode(true)} />
             </CardHeader>
-            { userDetails ? <CardBody>
+            {userDetails ? <CardBody>
               <GridContainer>
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
@@ -168,22 +201,62 @@ const UserProfile = props => {
                 </GridItem>
               </GridContainer>
             </CardBody>
-            :
-            (
-            <React.Fragment>
-              <Skeleton width="100%"/>
-              <Skeleton width="60%" />
-              <Skeleton width="100%" />
-              <Skeleton width="60%" />
-              <Skeleton width="100%" />
-              <Skeleton width="60%" />
-              <Skeleton width="100%" />
-            </React.Fragment>
-          )
-          }
+              :
+              (
+                <React.Fragment>
+                  <Skeleton width="100%" />
+                  <Skeleton width="60%" />
+                  <Skeleton width="100%" />
+                  <Skeleton width="60%" />
+                  <Skeleton width="100%" />
+                  <Skeleton width="60%" />
+                  <Skeleton width="100%" />
+                </React.Fragment>
+              )
+            }
+            <Fab onClick={() => { setOpen(true) }} variant="extended" aria-label="delete" className={classes2.fab} onClick={() => setOpen(true)}>
+              <SaveAltIcon className={classes2.extendedIcon} />
+              Save Access key
+                        </Fab>
           </Card>
         </GridItem>
       </GridContainer>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Please enter the password"}</DialogTitle>
+        <DialogContent>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                // autoComplete="current-password"
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                }}
+              />
+            </GridItem>
+          </GridContainer>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color="primary">
+            Cancel
+            </Button>
+          <Button onClick={() => handleDownload()} color="primary" autoFocus>
+            Submit
+            </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

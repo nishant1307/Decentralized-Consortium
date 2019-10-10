@@ -14,6 +14,7 @@ import {
   Divider,
 } from '@material-ui/core';
 // @material-ui/icons
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
@@ -29,6 +30,8 @@ import Button from "components/CustomButtons/Button.jsx";
 import InsertInvitationIcon from '@material-ui/icons/InsertInvitation';
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.jsx";
 import Tooltip from '@material-ui/core/Tooltip';
+import moment from "moment";
+import Badge from '@material-ui/core/Badge';
 
 
 const useStyles = makeStyles(styles);
@@ -60,55 +63,57 @@ const AdminNavbarLinks = (props) => {
   };
   return (
     <div>
-      <Tooltip title="Dashboard">
-      <Link to="/dashboard/home" style={{ color: 'black' }}>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Dashboard"
-          className={classes.buttonLink}
-        >
-          <Dashboard className={classes.icons} />
+      <Tooltip title={<h4>Dashboard</h4>}>
+        <Link to="/dashboard/home" style={{ color: '#555555' }}>
+          {/* <Button
+            color={window.innerWidth > 959 ? "transparent" : "white"}
+            justIcon={window.innerWidth > 959}
+            simple={!(window.innerWidth > 959)}
+            aria-label="Dashboard"
+            className={classes.buttonLink}
+          > */}
+          <Dashboard fontSize="inherit" style={{ fontSize: 30, marginRight: 15 }} className={classes.icons} />
           <Hidden mdUp implementation="css">
             <p className={classes.linkText}>Dashboard</p>
           </Hidden>
-        </Button>
-      </Link>
+          {/* </Button> */}
+        </Link>
       </Tooltip>
-      <Tooltip title="Project Invitations">
-      <Link to="/dashboard/projectinvites" style={{ color: 'black' }}>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-label="Dashboard"
-          className={classes.buttonLink}
-        >
-          <InsertInvitationIcon className={classes.icons} />
+      <Tooltip title={<h4>Project Invitations</h4>}>
+        <Link to="/dashboard/projectinvites" style={{ color: '#555555' }}>
+          {/* <Button
+            color={window.innerWidth > 959 ? "transparent" : "white"}
+            justIcon={window.innerWidth > 959}
+            simple={!(window.innerWidth > 959)}
+            aria-label="Dashboard"
+            className={classes.buttonLink}
+          > */}
+          <InsertInvitationIcon fontSize="inherit" style={{ fontSize: 30, marginRight: 15 }} className={classes.icons} />
           {/* <span className={classes.notifications}>10</span> */}
-        </Button>
-      </Link>
+          {/* </Button> */}
+        </Link>
       </Tooltip>
-      <Tooltip title="Notifications">
+      {/* <Tooltip title={<h4>Notifications</h4>}> */}
       <div className={classes.manager}>
-        <Button
-          color={window.innerWidth > 959 ? "transparent" : "white"}
-          justIcon={window.innerWidth > 959}
-          simple={!(window.innerWidth > 959)}
-          aria-owns={openNotification ? "notification-menu-list-grow" : null}
-          aria-haspopup="true"
-          onClick={handleClickNotification}
-          className={classes.buttonLink}
-        >
-          <Notifications className={classes.icons} />
-          {(props.user.notificationList.length > 0) && <span className={classes.notifications}>{props.user.notificationList.length}</span>}
-          <Hidden mdUp implementation="css">
-            <p onClick={handleCloseNotification} className={classes.linkText}>
-              Notification
+        {/* <Button
+            color={window.innerWidth > 959 ? "transparent" : "white"}
+            justIcon={window.innerWidth > 959}
+            simple={!(window.innerWidth > 959)}
+            aria-owns={openNotification ? "notification-menu-list-grow" : null}
+            aria-haspopup="true"
+            onClick={handleClickNotification}
+            className={classes.buttonLink}
+          > */}
+        <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} style={{ marginRight: 15 }} badgeContent={props.user.notificationList.length} color="primary">
+          <Notifications onClick={handleClickNotification} fontSize="inherit" style={{ fontSize: 30 }} className={classes.icons} />
+        </Badge>
+        {/* {(props.user.notificationList.length > 0) && <span className={classes.notifications}>{props.user.notificationList.length}</span>} */}
+        <Hidden mdUp implementation="css">
+          <p onClick={handleCloseNotification} className={classes.linkText}>
+            Notification
             </p>
-          </Hidden>
-        </Button>
+        </Hidden>
+        {/* </Button> */}
         <Poppers
           open={Boolean(openNotification)}
           anchorEl={openNotification}
@@ -119,6 +124,7 @@ const AdminNavbarLinks = (props) => {
             " " +
             classes.popperNav
           }
+          style={{ marginTop: 7 }}
         >
           {({ TransitionProps, placement }) => (
             <Grow
@@ -132,6 +138,12 @@ const AdminNavbarLinks = (props) => {
               <Paper>
                 <ClickAwayListener onClickAway={handleCloseNotification}>
                   <MenuList role="menu">
+                    {props.user.notificationList.length === 0 && <MenuItem
+                      className={classes.dropdownItem}
+                      disabled
+                    >
+                      No New Notifications
+                      </MenuItem>}
                     {props.user.notificationList.map((notification, index) => {
                       return (
                         <MenuItem
@@ -149,9 +161,17 @@ const AdminNavbarLinks = (props) => {
           )}
         </Poppers>
       </div>
+      {/* </Tooltip> */}
+      <Tooltip title={
+        <div style={{ width: "auto", height: "auto" }}>
+          <h4>PACKAGE DETAILS</h4>
+          <h6>Credits: {props.user.credits}</h6>
+          <h6>Days Left: {moment.duration(moment(props.user.endDate * 1000).diff(moment()))._data.days}</h6>
+        </div>}>
+        <AccountBalanceWalletIcon fontSize="inherit" style={{ fontSize: 30, marginRight: 15 }} className={classes.icons} />
       </Tooltip>
       <div className={classes.manager}>
-        <Button
+        {/* <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}
@@ -159,12 +179,12 @@ const AdminNavbarLinks = (props) => {
           aria-haspopup="true"
           onClick={handleClickProfile}
           className={classes.buttonLink}
-        >
-          <Person className={classes.icons} />
-          <Hidden mdUp implementation="css">
-            <p className={classes.linkText}>Account Settings</p>
-          </Hidden>
-        </Button>
+        > */}
+        <Person onClick={handleClickProfile} fontSize="inherit" style={{ fontSize: 30, marginRight: 15 }} className={classes.icons} />
+        <Hidden mdUp implementation="css">
+          <p className={classes.linkText}>Account Settings</p>
+        </Hidden>
+        {/* </Button> */}
         <Poppers
           open={Boolean(openProfile)}
           anchorEl={openProfile}
@@ -175,6 +195,7 @@ const AdminNavbarLinks = (props) => {
             " " +
             classes.popperNav
           }
+          style={{ marginTop: 7 }}
         >
           {({ TransitionProps, placement }) => (
             <Grow
@@ -228,7 +249,7 @@ const AdminNavbarLinks = (props) => {
           )}
         </Poppers>
       </div>
-    </div>
+    </div >
   );
 }
 const mapStateToProps = (state) => ({

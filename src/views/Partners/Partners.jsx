@@ -39,6 +39,7 @@ import {
 } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone'
 import { withStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 
 const Partners = (props) => {
   const { classes } = props;
@@ -330,7 +331,7 @@ const Partners = (props) => {
                       aria-haspopup="true"
                       onClick={handleClickListItem}
                     >
-                      <ListItemText primary="Select Organization Type" secondary={options2[selectedIndex]} />
+                      <ListItemText primary="Select Organization Type &#8681;" secondary={options2[selectedIndex]} />
                     </ListItem>
                   </List>
                 </Paper>
@@ -402,6 +403,7 @@ const Partners = (props) => {
                     >
                       <ListItemText primary="Select Category/Categories to Enlist Your Organization in" />
                     </ListItem>
+                    <Divider style={{ marginTop: 10, marginBottom: 10 }} variant="middle" />
                     <ListItem>
                       {selectedCategoryIndices.map((category, index) => (
                         <Chip
