@@ -209,7 +209,7 @@ const PackingList = props => {
 
                                     />
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={3}>
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
                                             className={"CustomInput-formControl-197"}
@@ -357,7 +357,7 @@ const PackingList = props => {
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={3}>
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
                                             className={"CustomInput-formControl-197"}
@@ -372,12 +372,10 @@ const PackingList = props => {
                                         />
                                     </MuiPickersUtilsProvider>
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={6}>
+                                <GridItem xs={12} sm={12} md={3}>
 
                                 </GridItem>
-                            </GridContainer>
-                            <GridContainer>
-                                <GridItem xs={12} sm={12} md={3}>
+                                <GridItem xs={12} sm={12} md={6}>
                                     <CustomInput
                                         labelText="Final Destination"
                                         id="finalDestination"
@@ -462,17 +460,21 @@ const PackingList = props => {
 
                                     />
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={3}>
-                                    <CustomInput
-                                        labelText="Date of Issue"
-                                        id="dateOfIssue"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.dateOfIssue}
-                                    />
-                                </GridItem>
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            className={"CustomInput-formControl-197"}
+                                            autoOk
+                                            variant="inline"
+                                            inputVariant="outlined"
+                                            label="Date of Issue"
+                                            format="MM/dd/yyyy"
+                                            value={struture.dateOfIssue}
+                                            InputAdornmentProps={{ position: "start" }}
+                                            onChange={date => setStruture({ ...struture, ["dateOfIssue"]: date })}
+                                        />
+                                    </MuiPickersUtilsProvider>
+                                </GridItem>Î
                             </GridContainer>
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={4}>

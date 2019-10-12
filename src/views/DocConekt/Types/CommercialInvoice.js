@@ -36,7 +36,7 @@ import {
     FormControl,
     Select,
 } from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 
 const Ipfs = require('ipfs-http-client')
@@ -92,7 +92,7 @@ const CommercialInvoice = props => {
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Commercial Invoice"  }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Commercial Invoice" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         props.history.push("/dashboard/home")
@@ -211,7 +211,7 @@ const CommercialInvoice = props => {
 
                                     />
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={3}>
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
                                             className={"CustomInput-formControl-197"}
@@ -293,7 +293,7 @@ const CommercialInvoice = props => {
                                     />
                                 </GridItem>
                             </GridContainer>
-                            <GridContainer>
+                            <GridContainer style={{ marginTop: 27 }}>
                                 <GridItem xs={12} sm={12} md={3}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel htmlFor="age-helper">Method of Dispatch</InputLabel>
@@ -401,7 +401,7 @@ const CommercialInvoice = props => {
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={4}>
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel htmlFor="age-helper">Port of Loading</InputLabel>
                                         <Select
@@ -418,21 +418,24 @@ const CommercialInvoice = props => {
                                         </Select>
                                     </FormControl>
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Date of Departure"
-                                        id="dateofDeparture"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.dateofDeparture}
-
-                                    />
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            className={"CustomInput-formControl-197"}
+                                            autoOk
+                                            variant="inline"
+                                            inputVariant="outlined"
+                                            label="Date of Departure"
+                                            format="MM/dd/yyyy"
+                                            value={struture.dateofDeparture}
+                                            InputAdornmentProps={{ position: "start" }}
+                                            onChange={date => setStruture({ ...struture, ["dateofDeparture"]: date })}
+                                        />
+                                    </MuiPickersUtilsProvider>
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={3}>
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel htmlFor="age-helper">Port of Discharge</InputLabel>
                                         <Select
@@ -582,7 +585,7 @@ const CommercialInvoice = props => {
                                 <GridItem xs={12} sm={12} md={4}>
 
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel style={{ width: 250 }} htmlFor="age-helper">Shipping Terms</InputLabel>
                                         <Select
@@ -618,7 +621,7 @@ const CommercialInvoice = props => {
 
                                             />
                                         </GridItem>
-                                        <GridItem xs={12} sm={12} md={6}>
+                                        <GridItem xs={12} sm={12} md={6} style={{ marginTop: 27 }}>
                                             <FormControl className={"CustomInput-formControl-197"}  >
                                                 <InputLabel htmlFor="age-helper">Currency</InputLabel>
                                                 <Select
@@ -655,17 +658,20 @@ const CommercialInvoice = props => {
 
                                     />
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Date of Issue"
-                                        id="dateOfIssue"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.dateOfIssue}
-
-                                    />
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            className={"CustomInput-formControl-197"}
+                                            autoOk
+                                            variant="inline"
+                                            inputVariant="outlined"
+                                            label="Date of Issue"
+                                            format="MM/dd/yyyy"
+                                            value={struture.dateOfIssue}
+                                            InputAdornmentProps={{ position: "start" }}
+                                            onChange={date => setStruture({ ...struture, ["dateOfIssue"]: date })}
+                                        />
+                                    </MuiPickersUtilsProvider>
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
@@ -784,10 +790,10 @@ const CommercialInvoice = props => {
                     {isSubmitted ?
                         <CircularProgress /> :
                         <div>
-                            <Button onClick={handleClose} color="primary">
+                            <Button onClick={handleClose} variant="contained" color="primary" >
                                 Cancel
           </Button>
-                            <Button onClick={submitDocument} color="primary" autoFocus>
+                            <Button onClick={submitDocument} variant="contained" color="primary" autoFocus>
                                 Submit
           </Button>
                         </div>

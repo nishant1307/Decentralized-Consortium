@@ -37,11 +37,11 @@ const Devices = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
-    try {
-      if (props.user.user[5] != 0) {
+    try{
+      if(props.user.user[5]!=0){
         setIsAdmin(true);
       }
-    } catch (err) {
+    }catch(err){
       console.log(err);
     }
     deviceContract.methods._tokensOfOwner(props.auth.user.publicKey).call({
@@ -120,7 +120,7 @@ const Devices = (props) => {
               <h4 className={classes.cardTitleWhite}>
                 My Devices
               </h4>
-              {isAdmin && <AddBoxIcon onClick={props.openDeviceModal} style={{ float: "right" }} />}
+              {isAdmin && <AddBoxIcon onClick={props.openDeviceModal} style={{float: "right"}} />}
             </CardHeader>
             {loader ?
               <React.Fragment>
@@ -133,59 +133,38 @@ const Devices = (props) => {
                 <Skeleton width="60%" />
                 <Skeleton width="100%" />
               </React.Fragment> :
-              <MaterialTable
-                columns={[
-                  {
-                    title: 'Avatar',
-                    field: 'avatar',
-                    render: rowData => (
-                      <img
-                        style={{ height: 36, borderRadius: '50%' }}
-                        src={rowData.avatar}
-                      />
-                    ),
-                  },
-                  { title: 'Id', field: 'id' },
-                  { title: 'First Name', field: 'first_name' },
-                  { title: 'Last Name', field: 'last_name' },
-                ]}
-                data={query =>
-                  new Promise((resolve, reject) => {
-                    let url = 'https://reqres.in/api/users?'
-                    url += 'per_page=' + query.pageSize
-                    url += '&page=' + (query.page + 1)
-                    fetch(url)
-                      .then(response => response.json())
-                      .then(result => {
-                        resolve({
-                          data: result.data,
-                          page: result.page - 1,
-                          totalCount: result.total,
-                        })
-                      })
-                  })
-                }
-                title=""
-                options={{
-                  search: true,
-                  exportButton: true,
-                  grouping: true,
-                  paginationType: "stepped",
-                  selection: true
-                }}
-                localization={{
-                  body: {
-                    emptyDataSourceMessage: "No Devices Found!"
-                  }
-                }}
-                actions={[
-                  {
-                    tooltip: 'Add Selected Devices To Project',
-                    icon: 'link',
-                    onClick: (evt, data) => { addDevicesToProject(data) }
-                  }
-                ]}
-              />
+                <MaterialTable
+                  columns={[
+                    { title: "Device URN", field: "deviceURN" },
+                    { title: "Device Type", field: "deviceType" },
+                    { title: "Communication Protocol", field: "communicationProtocol" },
+                    { title: "Data Protocol", field: "dataProtocol" },
+                    { title: "Sensor", field: "sensor" },
+                    { title: "Project ID", field: "projectId", defaultGroupOrder: 0 },
+                    { title: "Created at", field: "timeStamp", render: rowData => moment(rowData.timeStamp * 1000).format("DD-MM-YYYY h:mm:ss") },
+                  ]}
+                  data={deviceList}
+                  title=""
+                  options={{
+                    search: true,
+                    exportButton: true,
+                    grouping: true,
+                    paginationType: "stepped",
+                    selection: true
+                  }}
+                  localization={{
+                    body: {
+                      emptyDataSourceMessage: "No Devices Found!"
+                    }
+                  }}
+                  actions={[
+                    {
+                      tooltip: 'Add Selected Devices To Project',
+                      icon: 'link',
+                      onClick: (evt, data) => { addDevicesToProject(data) }
+                    }
+                  ]}
+                />
             }
           </Card>
         </GridItem>

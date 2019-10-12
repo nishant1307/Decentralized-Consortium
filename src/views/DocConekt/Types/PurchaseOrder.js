@@ -18,6 +18,7 @@ import customInputStyle from "assets/jss/material-dashboard-react/components/cus
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { encryptMessage, decryptMessage } from 'utils'
 import ipfs from '../../../ipfs';
+import { seaPorts } from 'assets/data/seaPort'
 
 import {
     Dialog,
@@ -30,7 +31,7 @@ import {
     FormControl,
     Select,
 } from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 
 const Ipfs = require('ipfs-http-client')
@@ -81,9 +82,9 @@ const PurchaseOrder = props => {
     });
 
     useEffect(() => {
-      console.log(props);
+        console.log(props);
         if (props.data.hash !== undefined) {
-          console.log("Hey");
+            console.log("Hey");
             setIsNew(false);
             ipfs.get(props.data.hash, function (err, files) {
                 // console.log(JSON.parse(files[0].content.toString('utf8')));
@@ -279,29 +280,39 @@ const PurchaseOrder = props => {
 
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Port of Loading"
-                                        id="portOfLoading"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.portOfLoading}
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
+                                    <FormControl className={"CustomInput-formControl-197"}  >
+                                        <InputLabel htmlFor="age-helper">Port of Loading</InputLabel>
+                                        <Select
+                                            style={{ width: 250 }}
+                                            value={struture.portofLoading === undefined ? null : struture.portofLoading}
+                                            onChange={(e) => setStruture({ ...struture, ["portofLoading"]: e.target.value })}
+                                        >
+                                            {
+                                                seaPorts.map((value, index) => {
+                                                    return (<MenuItem key={index} value={value.Port}>{value.Country} | {value.Port}</MenuItem>)
+                                                })
+                                            }
 
-                                    />
+                                        </Select>
+                                    </FormControl>
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Port of Discharge"
-                                        id="portOfDischarge"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.portOfDischarge}
+                                <GridItem xs={12} sm={12} md={3} style={{ marginTop: 27 }}>
+                                    <FormControl className={"CustomInput-formControl-197"}  >
+                                        <InputLabel htmlFor="age-helper">Port of Discharge</InputLabel>
+                                        <Select
+                                            style={{ width: 250 }}
+                                            value={struture.portofDischarge === undefined ? null : struture.portofDischarge}
+                                            onChange={(e) => setStruture({ ...struture, ["portofDischarge"]: e.target.value })}
+                                        >
+                                            {
+                                                seaPorts.map((value, index) => {
+                                                    return (<MenuItem key={index} value={value.Port}>{value.Country} | {value.Port}</MenuItem>)
+                                                })
+                                            }
 
-                                    />
+                                        </Select>
+                                    </FormControl>
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
                                     <CustomInput

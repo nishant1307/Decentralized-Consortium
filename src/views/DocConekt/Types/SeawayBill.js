@@ -22,7 +22,7 @@ import { encryptMessage, decryptMessage } from 'utils'
 import { addNewDoc, updateDoc } from 'actions/userActions';
 import { connect } from 'react-redux';
 import ipfs from '../../../ipfs';
-
+import { seaPorts } from 'assets/data/seaPort'
 import {
     Dialog,
     DialogActions,
@@ -34,7 +34,7 @@ import {
     FormControl,
     Select,
 } from '@material-ui/core';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 
 const Ipfs = require('ipfs-http-client')
@@ -205,7 +205,7 @@ const SeawayBill = props => {
 
                                     />
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
                                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                         <KeyboardDatePicker
                                             className={"CustomInput-formControl-197"}
@@ -246,7 +246,7 @@ const SeawayBill = props => {
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={4}>
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel htmlFor="age-helper">Method of Dispatch</InputLabel>
                                         <Select
@@ -262,7 +262,7 @@ const SeawayBill = props => {
                                         </Select>
                                     </FormControl>
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel style={{ width: 250 }} htmlFor="age-helper">Type of Shipment</InputLabel>
                                         <Select
@@ -282,28 +282,40 @@ const SeawayBill = props => {
                                 </GridItem>
 
                             </GridContainer>
-                            <GridContainer>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Port of Loading"
-                                        id="portOfLoading"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.portOfLoading}
-                                    />
+                            <GridContainer >
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
+                                    <FormControl className={"CustomInput-formControl-197"}  >
+                                        <InputLabel htmlFor="age-helper">Port of Loading</InputLabel>
+                                        <Select
+                                            style={{ width: 250 }}
+                                            value={struture.portofLoading === undefined ? null : struture.portofLoading}
+                                            onChange={(e) => setStruture({ ...struture, ["portofLoading"]: e.target.value })}
+                                        >
+                                            {
+                                                seaPorts.map((value, index) => {
+                                                    return (<MenuItem key={index} value={value.Port}>{value.Country} | {value.Port}</MenuItem>)
+                                                })
+                                            }
+
+                                        </Select>
+                                    </FormControl>
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Port of Discharge"
-                                        id="portOfDischarge"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.portOfDischarge}
-                                    />
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
+                                    <FormControl className={"CustomInput-formControl-197"}  >
+                                        <InputLabel htmlFor="age-helper">Port of Discharge</InputLabel>
+                                        <Select
+                                            style={{ width: 250 }}
+                                            value={struture.portofDischarge === undefined ? null : struture.portofDischarge}
+                                            onChange={(e) => setStruture({ ...struture, ["portofDischarge"]: e.target.value })}
+                                        >
+                                            {
+                                                seaPorts.map((value, index) => {
+                                                    return (<MenuItem key={index} value={value.Port}>{value.Country} | {value.Port}</MenuItem>)
+                                                })
+                                            }
+
+                                        </Select>
+                                    </FormControl>
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
                                     <CustomInput
@@ -422,16 +434,20 @@ const SeawayBill = props => {
 
                                     />
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Date of Issue"
-                                        id="dateOfIssue"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.dateOfIssue}
-                                    />
+                                <GridItem xs={12} sm={12} md={4} style={{ marginTop: 27 }}>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            className={"CustomInput-formControl-197"}
+                                            autoOk
+                                            variant="inline"
+                                            inputVariant="outlined"
+                                            label="Date of Issue"
+                                            format="MM/dd/yyyy"
+                                            value={struture.dateOfIssue}
+                                            InputAdornmentProps={{ position: "start" }}
+                                            onChange={date => setStruture({ ...struture, ["dateOfIssue"]: date })}
+                                        />
+                                    </MuiPickersUtilsProvider>
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
