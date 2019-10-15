@@ -139,24 +139,7 @@ const ProjectPartners = (props) => {
         partnerContract.methods.getPartnerRole(props.projectID, partner.publicKey).call({
           from: props.auth.user.publicKey
         }).then(role => {
-          let temp = parseInt(role);
-
-          // let decodedRole;
-          // switch (parseInt(role)) {
-          //   case 0: decodedRole = "Role Unassigned"
-          //     break;
-          //   case 1: decodedRole = "Buyer";
-          //     break;
-          //   case 2: decodedRole = "Seller";
-          //     break;
-          //   case 3: decodedRole = "Logistics";
-          //     break;
-          //   case 4: decodedRole = "Agent";
-          //     break;
-          //   case 5: decodedRole = "Bank";
-          //     break;
-          // }
-          partner.role = temp === 0 ? "Role Unassigned" : roleCategory[parseInt(role)]
+          partner.role = role === "" ? "Role Unassigned" : role
           setPartners(partners => [
             ...partners,
             partner
@@ -184,7 +167,7 @@ const ProjectPartners = (props) => {
       partnerOrganizationID: inviteOrg.organizationID,
       projectID: props.projectID,
       // inviteAddress: invitePublicKey,
-      partnerRole:role
+      partnerRole: role
     })
   }
 
