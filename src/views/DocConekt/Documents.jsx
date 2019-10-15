@@ -62,16 +62,26 @@ const Products = (props) => {
     setOpen(false);
   }
 
-  function handleUnlock(rowData) {
+  async function handleUnlock(rowData) {
     if (rowData.encryptedPassword === " ") {
       let url = "https://gateway.arthanium.org/ipfs/" + rowData.encryptedData
       window.open(url, "_blank")
     } else {
-      // console.log(rowData, "idhar");
-      setSelected(rowData);
-      setOpen(true);
-    }
 
+      if (rowData.owner === props.auth.user.publicKey) {
+        setSelected(rowData);
+        let privateKey = await sessionStorage.getItem('privateKey');
+        let decryptedpassword = await decryptMessage(rowData.encryptedPassword, privateKey)
+        let data = await decryptMessage(rowData.encryptedData, decryptedpassword)
+        let temp = JSON.parse(data);
+        temp.reviewStatus = rowData.reviewStatus
+        setData(temp);
+        setIsValid(true);
+      } else {
+        setSelected(rowData);
+        setOpen(true);
+      }
+    }
   }
 
   async function unlockDoc() {
@@ -115,10 +125,10 @@ const Products = (props) => {
         setTokenIDList(res);
         res.forEach(tokenId => {
           // console.log(tokenId);
-
           docContract.methods.getDocumentDetails(tokenId).call({
             from: props.auth.user.publicKey
           }).then(productDetails => {
+            productDetails[0].owner = props.auth.user.publicKey;
             // console.log(productDetails, "productDetails inside");
             productDetails[0].projectId = (productDetails[0].projectId == 0x0000000000000000000000000000000000000000000000000000000000000000) ?
               "Unassigned" :
