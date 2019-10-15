@@ -86,32 +86,6 @@ export const registryABI = [
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "docID",
-				"type": "string"
-			},
-			{
-				"internalType": "bytes32",
-				"name": "_projectID",
-				"type": "bytes32"
-			}
-		],
-		"name": "addDocumentToProject",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [],
 		"name": "getMyProjectsCount",
@@ -556,6 +530,32 @@ export const registryABI = [
 		],
 		"payable": false,
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "docID",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes32",
+				"name": "_projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "addDocumentToProject",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1299,10 +1299,10 @@ export const registryABI = [
 				"type": "string"
 			},
 			{
-				"indexed": false,
-				"internalType": "string",
+				"indexed": true,
+				"internalType": "bytes32",
 				"name": "itemID",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
 				"indexed": false,
