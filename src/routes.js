@@ -13,6 +13,7 @@ const UserProfile = React.lazy(() => import('views/UserProfile/UserProfile.jsx')
 const OrganizationProfile = React.lazy(() => import('views/OrganizationProfile'));
 const UserInfo = React.lazy(() => import('views/UserProfile/UserInfo.jsx'));
 // const Apps = React.lazy(() => import('views/Apps/Apps.jsx'));
+const Certifications = React.lazy(() => import("views/Claims&Certifications/Certifications"));
 const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
 const Products = React.lazy(() => import('views/Products/Products.jsx'));
 const Documents = React.lazy(() => import('views/DocConekt/Documents.jsx'));
@@ -28,7 +29,7 @@ const Devices = React.lazy(() => import('views/Devices/Devices'))
 const StructuredDoc = React.lazy(() => import('views/DocConekt/StructuredDoc'))
 const Modules = React.lazy(() => import('views/Modules/Modules'))
 const UnstrucutredDoc = React.lazy(()=> import('views/DocConekt/UnstructuredDoc'));
-const ProjectInvites =React.lazy(()=> import('views/Projects/ProjectInvites')); 
+const ProjectInvites =React.lazy(()=> import('views/Projects/ProjectInvites'));
 
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
@@ -78,6 +79,12 @@ const dashboardRoutes = [
     path: "/projects",
     name: "Projects",
     component: Projects,
+    layout: "/dashboard"
+  },
+  {
+    path: "/certifications",
+    name: "Certifications",
+    component: Certifications,
     layout: "/dashboard"
   },
   {

@@ -11,15 +11,15 @@ const Claims = (props) => {
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
-    if(props.user && props.user.organization){
-      certificationContract.methods.getOrganizationClaims(props.user.organization[0])
-      .call({
-        from: props.auth.user.publicKey
-      }).then(claims => {
-        setMyClaims(claims);
-        setLoader(false);
-      })
-    }
+    // if(props.user && props.user.organization){
+    //   certificationContract.methods.getOrganizationClaims(props.user.organization[0])
+    //   .call({
+    //     from: props.auth.user.publicKey
+    //   }).then(claims => {
+    //     setMyClaims(claims);
+    //     setLoader(false);
+    //   })
+    // }
   }, [props.user.organization])
 
   return (

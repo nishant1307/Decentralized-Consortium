@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
@@ -37,6 +38,7 @@ const Partners = props => {
                     </Card>
                 </GridItem>
                 <GridItem xs={6} sm={4} md={4}>
+                  <Link to="/dashboard/certifications">
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -46,9 +48,10 @@ const Partners = props => {
                         <CardFooter stats>
                             <div >
                                 Certification
-              </div>
+                            </div>
                         </CardFooter>
                     </Card>
+                  </Link>
                 </GridItem>
                 <GridItem xs={6} sm={4} md={4}>
                     <Card onClick={toggleModal}>

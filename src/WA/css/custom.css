@@ -1,0 +1,5 @@
+.blueGradient {
+  background: rgb(64,149,229);
+  background: linear-gradient(0deg, rgba(64,149,229,0.72) 0%, rgba(71,48,153,1) 97%);
+
+}

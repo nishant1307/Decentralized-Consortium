@@ -31,12 +31,6 @@ const dashboardRoutes = [
     icon: AccessibilityIcon,
     layout: "/dashboard"
   },
-  // {
-  //   name: 'Tools',
-  //   path: '/home',
-  //   icon: BuildIcon,
-  //   layout: "/dashboard"
-  // },
   {
     name: 'Modules',
     path: '/modules',
