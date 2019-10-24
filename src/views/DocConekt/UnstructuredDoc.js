@@ -60,7 +60,7 @@ const UnstructuredDoc = props => {
                         <CardBody >
                             <iframe onClick={() => {
                                 window.open(url, "_blank")
-                            }} src={url} height="700" width="1000"></iframe>
+                            }} src={url} height="700" width="100%"></iframe>
                         </CardBody>
                     </Card>
                     {props.location.state.data.reviewStatus && <Fab variant="extended" aria-label="delete" className={classes.fab} onClick={() => setOpen(true)}>
@@ -114,4 +114,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, { addReview })(withStyles(dashboardStyle)(UnstructuredDoc));
-

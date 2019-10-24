@@ -367,7 +367,7 @@ a {
 }
 
 .nav-bar {
-  position: absolute;
+  position: fixed;
   left: 0px;
   top: 0px;
   right: 0px;
@@ -393,6 +393,10 @@ a {
   align-items: center;
   background-color: transparent;
   font-family: Montserrat, sans-serif;
+}
+
+.scroll {
+  background: rgb(64,149,229); background: linear-gradient(0deg, rgba(64,149,229,0.72) 0%, rgba(71,48,153,1) 97%);
 }
 
 .div-block-8 {

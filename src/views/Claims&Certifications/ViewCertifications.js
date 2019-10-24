@@ -31,8 +31,8 @@ const ViewCertifications = () => {
     <MaterialTable
       columns={[
         { title: "Certification ID", field: "certificateID" },
-        { title: "Certification Claim", field: "title" },
-        { title: "Certification Claim", field: "type" },
+        { title: "Title", field: "title" },
+        { title: "Type", field: "type" },
         { title: "Certification Claim", field: "properties.name" },
         { title: "Certificate Image", render: rowData => <img src={"https://gateway.arthanium.org/ipfs/"+rowData.properties.image} height="50px" width="50px"/>}
 

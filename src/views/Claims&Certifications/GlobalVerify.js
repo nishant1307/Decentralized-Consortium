@@ -42,7 +42,9 @@ const GlobalVerify = () => {
           <h1>{certificateDetails.title}</h1>
           <h4>Type: {certificateDetails.type}</h4>
           <h5>Claim Name: {certificateDetails.properties.name}</h5>
-          <img src={"https://gateway.arthanium.org/ipfs/"+certificateDetails.properties.image} width="100%" height="100%"/>
+          <div class="iframe-container">
+            <iframe src={"https://gateway.arthanium.org/ipfs/"+certificateDetails.properties.image}/>
+          </div>
           </>
           :
           <>

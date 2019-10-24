@@ -32,10 +32,8 @@ import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userA
 import productContract from "productContract";
 import {registryContract} from "registryContract";
 import {parseJSONFromIPFSHash} from "utils";
-import ClaimViews from "views/Claims&Certifications/ClaimViews";
 import { Typography, Box } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
-import CustomTabs from "components/CustomTabs/CustomTabs";
 import Tour from 'reactour';
 
 const steps = [
@@ -159,28 +157,6 @@ const Dashboard = (props) => {
             <Skeleton width="60%" />
           </>}
           </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={6}>
-            <CustomTabs
-            title="Claims & Certifications"
-            headerColor="primary"
-            tabs={[
-              {
-                tabName: "Claims",
-                tabIcon: FeaturedPlayListIcon,
-                tabContent: (
-                  <ClaimViews {...props}/>
-                )
-              },
-              {
-                tabName: "Certifications",
-                tabIcon: ChromeReaderModeIcon,
-                tabContent: (
-                  "Certifications Coming Soon"
-                )
-              },
-            ]}
-          />
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
         </GridItem>

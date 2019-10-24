@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import '../../WA/css/normalize.css'
 import '../../WA/css/detheme.css'
@@ -7,6 +7,7 @@ var classNames = require('classnames');
 export default function Header(props) {
     console.log(props);
     const [isOn, setIsOn] = React.useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     function toggleMenu() {
         // console.log("inside");
@@ -14,12 +15,28 @@ export default function Header(props) {
 
     }
 
+    const listenScrollEvent = e => {
+      if (window.scrollY > 400) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    }
+
+  useEffect(() => {
+    window.addEventListener('scroll', listenScrollEvent)
+
+    return () => {
+      window.removeEventListener('scroll', listenScrollEvent, false);
+    }
+  },[]);
+
     const isInactive = (location) => {
         return window.location.pathname != location;
     }
 
     return (
-        <div data-collapse="medium" data-animation="default" data-duration={400} className={`nav-bar w-nav ${props.headerStyle}`}>
+        <div data-collapse="medium" data-animation="default" data-duration={400} className={classNames(`nav-bar w-nav ${props.headerStyle}`, {"scroll": scrolled})}>
             <div className="wrapper navbar-2 w-container">
                 <div className="div-block-8"><Link to="/" className="nav-logo-2 w-inline-block"><img src="images/logo3.png" width={50} height={50} alt="" /></Link></div>
                 <nav role="navigation" className="nav-menu-2 w-nav-menu">
