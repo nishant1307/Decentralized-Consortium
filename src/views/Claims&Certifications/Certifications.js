@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, Suspense} from "react";
 import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -6,17 +6,19 @@ import PublishIcon from '@material-ui/icons/Publish';
 import CustomTabs from "components/CustomTabs/CustomTabs";
 import { DropzoneArea } from 'material-ui-dropzone'
 import uuidv1 from 'uuid/v1';
+const ViewCertifications = React.lazy(() => import("views/Claims&Certifications/ViewCertifications"));
 import { connect } from 'react-redux';
 import { certificationContract, certificationAddress } from 'certificationContract';
+
 import ipfs from 'ipfs.js';
 const IPFS = require('ipfs-http-client');
-import MaterialTable from "material-table";
 import {
   TextField,
   FormControlLabel,
   Checkbox
 } from '@material-ui/core';
 import web3 from '../../web3';
+import CustomLoader from "components/Loaders/CustomLoader";
 const Certifications = (props) => {
 
   const [certificateFiles, setCertificateFiles] = useState([]);
@@ -168,26 +170,9 @@ const Certifications = (props) => {
           tabName: "View certificates",
           tabIcon: PublishIcon,
           tabContent: (
-            <>
-              <MaterialTable
-                columns={[
-                  { title: "Certification ID", field: "organizationID" },
-                  { title: "Certification Claim", field: "name" }
-
-                ]}
-                data={[]}
-                title="Certificates"
-                options={{
-                  search: true,
-                  exportButton: true
-                }}
-                localization={{
-                  body: {
-                    emptyDataSourceMessage: "No certificates for your organization yet"
-                  }
-                }}
-              />
-            </>
+            <Suspense fallback = {<CustomLoader/>}>
+              <ViewCertifications/>
+            </Suspense>
           )
         },
         {

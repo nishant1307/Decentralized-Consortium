@@ -47,7 +47,7 @@ class CustomTabs extends React.Component {
               indicator: classes.displayNone,
               scrollButtons: classes.displayNone
             }}
-            variant={variant? variant: "scrollable"}
+            variant={(window.innerWidth >= 960)? variant ? variant: "scrollable" : "scrollable"}
             scrollButtons="auto"
           >
             {tabs.map((prop, key) => {

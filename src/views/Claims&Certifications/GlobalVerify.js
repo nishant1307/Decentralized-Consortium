@@ -6,12 +6,15 @@ import {TextField, Grid} from '@material-ui/core';
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import {certificationContract} from "certificationContract";
+import CustomLoader from "components/Loaders/CustomLoader";
 import "WA/css/custom.css"
 const GlobalVerify = () => {
 
   const [certificateID, setCertificateID] = useState('');
   const [certificateDetails, setCertificateDetails] = useState('');
+  const [loading, setLoading] = useState(false);
   const findDetails = () => {
+    setLoading(true);
     certificationContract.methods.getCertificateDetailsFromID(certificateID).call({
       from: localStorage.getItem("address")
     }).then(details => {
@@ -19,6 +22,7 @@ const GlobalVerify = () => {
       let tokenDetails = JSON.parse(details[0])
       console.log(tokenDetails);
       setCertificateDetails(tokenDetails);
+      setLoading(false);
     })
   }
   return (
@@ -54,6 +58,7 @@ const GlobalVerify = () => {
           </>
         }
         </CardBody>
+        {loading && <CustomLoader/>}
         </Card>
       </Grid>
     </Grid>

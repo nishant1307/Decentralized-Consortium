@@ -23,21 +23,7 @@ const Partners = props => {
     return (
         <div>
             <GridContainer>
-                <GridItem xs={6} sm={4} md={4}>
-                    <Card onClick={toggleModal}>
-                        <CardHeader color="info" stats icon>
-                            <CardIcon color="info">
-                                <LocalShippingIcon />
-                            </CardIcon>
-                        </CardHeader>
-                        <CardFooter stats>
-                            <div >
-                                Shipment Manager
-              </div>
-                        </CardFooter>
-                    </Card>
-                </GridItem>
-                <GridItem xs={6} sm={4} md={4}>
+                <GridItem xs={12} sm={4} md={4}>
                   <Link to="/dashboard/certifications">
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
@@ -53,7 +39,21 @@ const Partners = props => {
                     </Card>
                   </Link>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={4}>
+                <GridItem xs={12} sm={4} md={4}>
+                    <Card onClick={toggleModal}>
+                        <CardHeader color="info" stats icon>
+                            <CardIcon color="info">
+                                <LocalShippingIcon />
+                            </CardIcon>
+                        </CardHeader>
+                        <CardFooter stats>
+                            <div >
+                                Shipment Manager
+              </div>
+                        </CardFooter>
+                    </Card>
+                </GridItem>
+                <GridItem xs={12} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -67,7 +67,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={4}>
+                <GridItem xs={12} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -81,7 +81,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={4}>
+                <GridItem xs={12} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -95,7 +95,7 @@ const Partners = props => {
                         </CardFooter>
                     </Card>
                 </GridItem>
-                <GridItem xs={6} sm={4} md={4}>
+                <GridItem xs={12} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">

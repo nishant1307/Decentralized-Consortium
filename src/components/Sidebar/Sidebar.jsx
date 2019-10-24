@@ -102,7 +102,7 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-            {<AdminNavbarLinks  onLogout={props.onLogout} {...props}/>}
+            {/**<AdminNavbarLinks  onLogout={props.onLogout} {...props}/>*/}
             {links}
           </div>
           {image !== undefined ? (
