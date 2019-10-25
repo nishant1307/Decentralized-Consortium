@@ -38,14 +38,16 @@ const GlobalVerify = () => {
       <Card raised>
       <CardBody>
         {certificateDetails ?
-          <>
+          <div style={{width: '100%', height: '100%', padding: '20px', textAlign: 'center', border: '10px ridge #787878'}}>
+            <div style={{width: '100%', height: '100%', padding: '20px', textAlign: 'center', border: '5px ridge #787878'}}>
           <h1>{certificateDetails.title}</h1>
           <h4>Type: {certificateDetails.type}</h4>
           <h5>Claim Name: {certificateDetails.properties.name}</h5>
           <div class="iframe-container">
             <iframe src={"https://gateway.arthanium.org/ipfs/"+certificateDetails.properties.image}/>
           </div>
-          </>
+          </div>
+          </div>
           :
           <>
           <TextField

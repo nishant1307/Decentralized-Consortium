@@ -7,6 +7,7 @@ import CustomTabs from "components/CustomTabs/CustomTabs";
 
 const ViewCertifications = React.lazy(() => import("views/Claims&Certifications/ViewCertifications"));
 const PublishCertificate = React.lazy(() => import("views/Claims&Certifications/PublishCertificate"));
+const TemplateCertificate = React.lazy(() => import("views/Claims&Certifications/TemplateCertificate"));
 import { connect } from 'react-redux';
 
 import CustomLoader from "components/Loaders/CustomLoader";
@@ -22,7 +23,9 @@ const Certifications = (props) => {
           tabName: "Publish a certificate",
           tabIcon: PublishIcon,
           tabContent: (
-            <PublishCertificate/>
+            <Suspense fallback = {<CustomLoader/>}>
+              <PublishCertificate/>
+            </Suspense>
           )
         },
         {
@@ -38,8 +41,9 @@ const Certifications = (props) => {
           tabName: "Submit for platform verification",
           tabIcon: PublishIcon,
           tabContent: (
-            <>
-            </>
+            <Suspense fallback = {<CustomLoader/>}>
+              <TemplateCertificate/>
+            </Suspense>
           )
         },
       ]}
