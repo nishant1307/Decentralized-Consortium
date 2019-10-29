@@ -4,6 +4,12 @@
 
 }
 
+.backimageblue {
+  background-image: url("../images/certificationback.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
 
 .iframe-container {
   overflow: hidden;

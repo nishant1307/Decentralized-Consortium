@@ -26,7 +26,7 @@ const GlobalVerify = () => {
     })
   }
   return (
-    <div className="blueGradient">
+    <div className="backimageblue">
     <Grid
       container
       direction="row"

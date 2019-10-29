@@ -13,7 +13,9 @@ const UserProfile = React.lazy(() => import('views/UserProfile/UserProfile.jsx')
 const OrganizationProfile = React.lazy(() => import('views/OrganizationProfile'));
 const UserInfo = React.lazy(() => import('views/UserProfile/UserInfo.jsx'));
 // const Apps = React.lazy(() => import('views/Apps/Apps.jsx'));
-const Certifications = React.lazy(() => import("views/Claims&Certifications/Certifications"));
+const ViewCertifications = React.lazy(() => import("views/Claims&Certifications/ViewCertifications"));
+const PublishCertificate = React.lazy(() => import("views/Claims&Certifications/PublishCertificate"));
+const TemplateCertificate = React.lazy(() => import("views/Claims&Certifications/TemplateCertificate"));
 const Projects = React.lazy(() => import('views/Projects/Projects.jsx'));
 const Products = React.lazy(() => import('views/Products/Products.jsx'));
 const Documents = React.lazy(() => import('views/DocConekt/Documents.jsx'));
@@ -84,7 +86,19 @@ const dashboardRoutes = [
   {
     path: "/certifications",
     name: "Certifications",
-    component: Certifications,
+    component: ViewCertifications,
+    layout: "/dashboard"
+  },
+  {
+    path: "/certifications/publish",
+    name: "Certifications",
+    component: PublishCertificate,
+    layout: "/dashboard"
+  },
+  {
+    path: "/certifications/template",
+    name: "Certifications",
+    component: TemplateCertificate,
     layout: "/dashboard"
   },
   {
