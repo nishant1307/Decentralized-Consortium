@@ -59,7 +59,7 @@ const styles = theme => ({
     },
 });
 
-const PurchaseOrder = props => {
+const ProformaInvoice = props => {
     // console.log(props);
 
     const { classes } = props;
@@ -173,32 +173,32 @@ const PurchaseOrder = props => {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
-                            <h4 className={classes.cardTitleWhite}>Purchase Order</h4>
+                            <h4 className={classes.cardTitleWhite}>Proforma Invoice</h4>
                             <p className={classes.cardCategoryWhite}></p>
                         </CardHeader>
                         <CardBody>
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={5}>
                                     <CustomInput
-                                        labelText="Buyer"
-                                        id="buyer"
+                                        labelText="Seller"
+                                        id="seller"
                                         formControlProps={{
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.buyer}
+                                        value={struture.seller}
 
                                     />
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
                                     <CustomInput
-                                        labelText="Purchase Order  Number"
-                                        id="purchaseOrderNumber"
+                                        labelText="Invoice Number"
+                                        id="invoiceNumber"
                                         formControlProps={{
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.purchaseOrderNumber}
+                                        value={struture.invoiceNumber}
 
                                     />
                                 </GridItem>
@@ -219,31 +219,52 @@ const PurchaseOrder = props => {
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Seller"
-                                        id="seller"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.seller}
-                                    />
-                                </GridItem>
+                                <GridItem xs={12} sm={12} md={4} />
                                 <GridItem xs={12} sm={12} md={6}>
                                     <CustomInput
-                                        labelText="Supplier Reference"
-                                        id="supplierReference"
+                                        labelText="Buyer Reference"
+                                        id="buyerReference"
                                         formControlProps={{
                                             fullWidth: true
                                         }}
                                         onChangeValue={handleChangeValue}
-                                        value={struture.supplierReference}
+                                        value={struture.buyerReference}
                                     />
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={4}>
+                                <GridItem xs={12} sm={6} md={4}>
+                                    <FormControl className={"CustomInput-formControl-197"}  >
+                                        <InputLabel htmlFor="age-helper">Buyer</InputLabel>
+                                        <Select
+                                            style={{ width: 250 }}
+                                            value={struture.buyer}
+                                            onChange={(e) => setStruture({ ...struture, ["buyer"]: e.target.value })}
+                                        >
+                                            <MenuItem value={"Air"}>Air</MenuItem>
+
+                                        </Select>
+                                    </FormControl>
+                                </GridItem>
+                                <GridItem xs={12} sm={6} md={4} />
+                                <GridItem xs={12} sm={6} md={4} style={{ marginTop: 27 }}>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            className={"CustomInput-formControl-197"}
+                                            autoOk
+                                            variant="inline"
+                                            inputVariant="outlined"
+                                            label="Delivery Date"
+                                            format="MM/dd/yyyy"
+                                            value={struture.deliveryDate}
+                                            InputAdornmentProps={{ position: "start" }}
+                                            onChange={date => setStruture({ ...struture, ["deliveryDate"]: date })}
+                                        />
+                                    </MuiPickersUtilsProvider>
+                                </GridItem>
+                            </GridContainer>
+                            <GridContainer>
+                                <GridItem xs={12} sm={6} md={3}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel htmlFor="age-helper">Method of Dispatch</InputLabel>
                                         <Select
@@ -259,7 +280,7 @@ const PurchaseOrder = props => {
                                         </Select>
                                     </FormControl>
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
+                                <GridItem xs={12} sm={6} md={3}>
                                     <FormControl className={"CustomInput-formControl-197"}  >
                                         <InputLabel style={{ width: 250 }} htmlFor="age-helper">Type of Shipment</InputLabel>
                                         <Select
@@ -272,7 +293,7 @@ const PurchaseOrder = props => {
                                             <MenuItem value={"Break Bulk"}>Break Bulk</MenuItem>
                                             <MenuItem value={"LCL/FCL (CFS/CY) "}>LCL/FCL (CFS/CY) </MenuItem>
                                             <MenuItem value={"FCL/LCL (CY/CFS) "}>FCL/LCL (CY/CFS) </MenuItem>
-                                            <MenuItem value={"Reefer"}>Refer</MenuItem>
+                                            <MenuItem value={"Reefer"}>Reefer</MenuItem>
 
                                         </Select>
                                     </FormControl>
@@ -382,6 +403,22 @@ const PurchaseOrder = props => {
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
+                                <GridItem xs={12} sm={12} md={4} />
+                                <GridItem xs={12} sm={12} md={4} />
+                                <GridItem xs={12} sm={12} md={4}>
+                                    <CustomInput
+                                        labelText="Consignment Total"
+                                        id="consignmentTotal"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.consignmentTotal}
+
+                                    />
+                                </GridItem>
+                            </GridContainer>
+                            <GridContainer>
                                 <GridItem xs={12} sm={12} md={4}>
                                     <CustomInput
                                         labelText="Additional Information"
@@ -403,18 +440,6 @@ const PurchaseOrder = props => {
                                         }}
                                         onChangeValue={handleChangeValue}
                                         value={struture.additionalChargesDiscounts}
-
-                                    />
-                                </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Consignment Total"
-                                        id="consignmentTotal"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.consignmentTotal}
 
                                     />
                                 </GridItem>
@@ -443,7 +468,7 @@ const PurchaseOrder = props => {
                                             autoOk
                                             variant="inline"
                                             inputVariant="outlined"
-                                            label="Date"
+                                            label="Date of issue"
                                             format="MM/dd/yyyy"
                                             value={struture.dateOfIssue}
                                             InputAdornmentProps={{ position: "start" }}
@@ -453,10 +478,20 @@ const PurchaseOrder = props => {
                                 </GridItem>
                             </GridContainer>
                             <GridContainer>
-                                <GridItem xs={12} sm={12} md={6}>
+                                <GridItem xs={12} sm={12} md={3}>
+                                    <CustomInput
+                                        labelText="Bank Details"
+                                        id="bankDetails"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.bankDetails}
 
+                                    />
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={6}>
+                                <GridItem xs={12} sm={12} md={3} />
+                                <GridItem xs={12} sm={12} md={3}>
                                     <CustomInput
                                         labelText="Signatory Company"
                                         id="signatoryCompany"
@@ -576,4 +611,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { addNewDoc, updateDoc })(withStyles(styles, customInputStyle)(PurchaseOrder));
+export default connect(mapStateToProps, { addNewDoc, updateDoc })(withStyles(styles, customInputStyle)(ProformaInvoice));

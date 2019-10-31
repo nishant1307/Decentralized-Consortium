@@ -4,6 +4,7 @@ const CommercialInvoice = React.lazy(() => import('./Types/CommercialInvoice'));
 const PackingList = React.lazy(() => import('./Types/PackingList'));
 const SeawayBill = React.lazy(() => import('./Types/SeawayBill'));
 const ShippingInstructions = React.lazy(() => import('./Types/ShippingInstructions'));
+const ProformaInvoice = React.lazy(() => import('./Types/ProformaInvoice'));
 const UserProfile = props => {
     // console.log(props.location.state.projectID, "pros");
 
@@ -19,6 +20,8 @@ const UserProfile = props => {
                 return <SeawayBill data={props.location.state}  {...props} />
             case "Shipping Instruction":
                 return <ShippingInstructions data={props.location.state}  {...props} />
+            case "Proforma Invoice":
+                return <ProformaInvoice data={props.location.state}  {...props} />
             default:
                 throw new Error('Unknown step');
         }

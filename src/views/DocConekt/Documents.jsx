@@ -33,7 +33,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import DocumentInfo from "./DocumentInfo";
-
+import CustomSnackbar from '../../components/Snackbar/Snackbar'
 
 const loading = <LinearProgress />;
 const RegisterDocModal = React.lazy(() => import('views/RegisterDocModal'));
@@ -58,6 +58,7 @@ const Products = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedData, selectData] = useState(undefined);
   const [infoModal, setInfoModal] = React.useState(false);
+  const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
   function handleClose() {
     setOpen(false);
   }
@@ -85,13 +86,20 @@ const Products = (props) => {
   }
 
   async function unlockDoc() {
-    // console.log(selected);
-    let data = await decryptMessage(selected.encryptedData, password)
-    // console.log(data);
-    let temp = JSON.parse(data);
-    temp.reviewStatus = selected.reviewStatus
-    setData(temp);
-    setIsValid(true);
+    try {
+      let data = await decryptMessage(selected.encryptedData, password)
+      let temp = JSON.parse(data);
+      temp.reviewStatus = selected.reviewStatus
+      setData(temp);
+      setIsValid(true);
+    } catch (error) {
+      // console.log(error);
+      setSnackbar({ color: "danger", open: true, message: "Incorrect Password!" });
+      setTimeout(() => {
+        setSnackbar({ color: "danger", open: false, message: "" });
+      }, 30000)
+    }
+
   }
 
   // function returnLast(tempData) {
@@ -397,6 +405,7 @@ const Products = (props) => {
             </div>
           )
       }
+      < CustomSnackbar color={snackbar.color} open={snackbar.open} place="bl" className={classes.margin} message={snackbar.message} />
     </div>
   );
 }
