@@ -38,16 +38,24 @@ import Tour from 'reactour';
 
 const steps = [
   {
+    selector: '[data-tut="container_grid"]',
+    content: 'Welcome to the Dashboard',
+  },
+  {
     selector: '[data-tut="project__card"]',
-    content: 'The first step is to create a project',
+    content: 'This is Projects',
   },
   {
     selector: '[data-tut="device__card"]',
-    content: 'This is my first Step',
+    content: 'This is Device',
   },
   {
-    selector: '[data-tut="project__card"]',
-    content: 'This is my first Step',
+    selector: '[data-tut="product__card"]',
+    content: 'This is Product',
+  },
+  {
+    selector: '[data-tut="document__card"]',
+    content: 'This is Document',
   }
 ]
 
@@ -59,7 +67,7 @@ const Dashboard = (props) => {
   const [userName, setUserName] = useState('');
   const [tourOpen, setTourOpen] = useState(false);
   return (
-    <div>
+    <div data-tut="container_grid">
     <h4>Welcome to Arthanium</h4>
       {props.user && <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
@@ -104,7 +112,7 @@ const Dashboard = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/products">
-          <Card>
+          <Card data-tut="product__card">
             <CardHeader color="success" stats icon>
               <CardIcon color="success">
                 <Store />
@@ -123,7 +131,7 @@ const Dashboard = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={3}>
         <Link to="/dashboard/documents">
-          <Card>
+          <Card data-tut="document__card">
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
                 <FileCopyIcon/>
