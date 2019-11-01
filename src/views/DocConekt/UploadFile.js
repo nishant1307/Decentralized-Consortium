@@ -89,7 +89,7 @@ const salesTypes = [
     // "Request for Quotation",
     // "Quotation",
     "Purchase Order",
-    // "Proforma Invoice",
+    "Proforma Invoice",
     // "Order Confirmation",
     // "Sales Confirmation",
     // "Sales Contract",
