@@ -14,6 +14,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 const useStyles = makeStyles(theme => ({
   exampleWrapper: {
     display: 'inline-block'
@@ -42,11 +43,13 @@ const ViewCertifications = (props) => {
           address: localStorage.getItem("address")
         }).then(certificate => {
           let details = JSON.parse(certificate[0]);
+          details.approvedBy = certificate[1];
+          details.rejectedBy = certificate[2];
+          console.log(certificate);
           setCertificationList(certificationList => [
             ...certificationList,
             details
           ])
-          console.log(details);
         })
       })
     })
@@ -61,7 +64,7 @@ const ViewCertifications = (props) => {
       <GridContainer>
         <GridItem xs={12} sm={12} md={12}>
           <Card plain>
-            <CardHeader plain color="primary">
+            <CardHeader plain color="primary" style={{display: "flex"}}>
               <h4 className={classes.cardTitleWhite}>
                 My Certificates
               </h4>
@@ -72,7 +75,7 @@ const ViewCertifications = (props) => {
             onOpen={handleOpen}
             open={open}
             direction={'left'}
-            style={{float: "right"}}
+            style={{float: "right", width: "90%"}}
           >
             {actions.map(action => (
               <SpeedDialAction
@@ -100,8 +103,8 @@ const ViewCertifications = (props) => {
               { title: "Title", field: "title" },
               { title: "Type", field: "type" },
               { title: "Certification Claim", field: "properties.name" },
-              { title: "Certificate Image", render: rowData => <img src={"https://gateway.arthanium.org/ipfs/"+rowData.properties.image} height="50px" width="50px"/>}
-
+              { title: "Certificate Image", render: rowData => <img src={"https://gateway.arthanium.org/ipfs/"+rowData.properties.image} height="50px" width="50px"/>},
+              { title: "Approval Status", fieldBy: "approvedBy", render: rowData => (rowData.approvedBy.length>0) ? <VerifiedUserIcon/>: <VerifiedUserIcon color="disabled"/>}
             ]}
             data={certificationList}
             title="Certificates"
@@ -114,6 +117,13 @@ const ViewCertifications = (props) => {
                 emptyDataSourceMessage: "No certificates for your organization yet"
               }
             }}
+            actions={[
+          {
+            icon: 'assessment',
+            tooltip: 'Apply for approval to Certification Agency(s)',
+            onClick: (event, rowData) => alert("Thanks for applying")
+          }
+        ]}
           />
         }
         </Card>

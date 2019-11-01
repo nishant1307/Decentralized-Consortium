@@ -12,12 +12,10 @@ import {parseJSONFromIPFSHash} from "utils";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import Claims from "views/Claims&Certifications/Claims";
 import { TextField, List, ListItem, Button, Tabs, Tab, Typography, Box} from '@material-ui/core';
 import SnackbarContent from "components/Snackbar/SnackbarContent";
 import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
 import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
-import CustomTabs from "components/CustomTabs/CustomTabs";
 import {submitNewClaim} from "actions/userActions";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import moment from "moment";
@@ -343,29 +341,8 @@ class OrganizationProfile extends Component {
           {alertMessage}
         </GridItem>*/}
         {this.props.user.user[5]==1 && <GridItem xs={12} sm={6} md={6}>
-        <CustomTabs
-        title="Claims & Certifications"
-        headerColor="primary"
-        tabs={[
-          {
-            tabName: "Claims",
-            tabIcon: FeaturedPlayListIcon,
-            tabContent: (
-              <Claims {...this.props}/>
-            )
-          },
-          {
-            tabName: "Certifications",
-            tabIcon: ChromeReaderModeIcon,
-            tabContent: (
-              "Certifications Coming Soon"
-            )
-          },
-        ]}
-      />
         </GridItem>}
       </GridContainer>
-      {isOpen && (<Lightbox mainSrc={imageFiles[0]} onCloseRequest={() => this.setState({ isOpen: false })} />)}
     </div>)
   }
 }
