@@ -272,7 +272,7 @@ const Products = (props) => {
             }} /> :
             <Redirect
               to={{
-                pathname: "/dashboard/structured/" + data.type,
+                pathname: "/dashboard/structured/" + data.subDocType,
                 state: { hash: data.hash, password: selected.encryptedPassword, tokenId: selected.tokenId }
               }}
             />)

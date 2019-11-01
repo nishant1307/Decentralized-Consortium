@@ -7,6 +7,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import FindReplaceIcon from '@material-ui/icons/FindReplace';
@@ -24,36 +25,60 @@ const Partners = props => {
         <div>
             <GridContainer>
                 <GridItem xs={12} sm={4} md={4}>
-                  <Link to="/dashboard/certifications">
-                    <Card onClick={toggleModal}>
-                        <CardHeader color="info" stats icon>
-                            <CardIcon color="info">
-                                <CardMembershipIcon />
-                            </CardIcon>
-                        </CardHeader>
-                        <CardFooter stats>
-                            <div >
-                                Certification
+                    <Link to="/dashboard/certifications">
+                        <Card onClick={toggleModal}>
+                            <CardHeader color="info" stats icon>
+                                <CardIcon color="info">
+                                    <CardMembershipIcon />
+                                </CardIcon>
+                            </CardHeader>
+                            <CardFooter stats>
+                                <div >
+                                    Certification
                             </div>
-                        </CardFooter>
-                    </Card>
-                  </Link>
+                            </CardFooter>
+                        </Card>
+                    </Link>
                 </GridItem>
                 <GridItem xs={12} sm={4} md={4}>
-                    <Card onClick={toggleModal}>
-                        <CardHeader color="info" stats icon>
-                            <CardIcon color="info">
-                                <LocalShippingIcon />
-                            </CardIcon>
-                        </CardHeader>
-                        <CardFooter stats>
-                            <div >
-                                Shipment Manager
+                    <Link to={{
+                        pathname: "/dashboard/doucmentsByType",
+                        state: { documentType: "Shipping" }
+                    }} >
+                        <Card onClick={toggleModal}>
+                            <CardHeader color="info" stats icon>
+                                <CardIcon color="info">
+                                    <LocalShippingIcon />
+                                </CardIcon>
+                            </CardHeader>
+                            <CardFooter stats>
+                                <div >
+                                    Shipment Manager
               </div>
-                        </CardFooter>
-                    </Card>
+                            </CardFooter>
+                        </Card>
+                        /</Link>
                 </GridItem>
                 <GridItem xs={12} sm={4} md={4}>
+                    <Link to={{
+                        pathname: "/dashboard/doucmentsByType",
+                        state: { documentType: "Sales" }
+                    }} >
+                        <Card onClick={toggleModal}>
+                            <CardHeader color="info" stats icon>
+                                <CardIcon color="info">
+                                    <TrendingUpIcon />
+                                </CardIcon>
+                            </CardHeader>
+                            <CardFooter stats>
+                                <div >
+                                    Sales
+              </div>
+                            </CardFooter>
+                        </Card>
+                    </Link>
+                </GridItem>
+                {/* <GridItem xs={12} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -108,7 +133,7 @@ const Partners = props => {
               </div>
                         </CardFooter>
                     </Card>
-                </GridItem>
+                </GridItem> */}
             </GridContainer>
             <Modal
                 open={isOpen}

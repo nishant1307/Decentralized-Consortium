@@ -92,7 +92,7 @@ const CommercialInvoice = props => {
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Commercial Invoice" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "DocType": "Shipping", "subDocType": "Commercial Invoice", "type": "structured" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         props.history.push("/dashboard/home")
@@ -113,7 +113,7 @@ const CommercialInvoice = props => {
         let privateKey = await sessionStorage.getItem('privateKey');
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Commercial Invoice" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "DocType": "Shipping", "subDocType": "Commercial Invoice", "type": "structured" }), password)
         let encryptedPassword = await encryptMessage(password, privateKey)
         // console.log(encryptData, encryptedPassword);
         setIsSubmitted(false);
