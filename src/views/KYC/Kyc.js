@@ -222,9 +222,9 @@ function Checkout(props) {
   const submitForm = async () => {
     setActiveStep(activeStep + 1);
     const privateKey = await sessionStorage.getItem('privateKey')
-    const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsCompanyHash, info: state }))
+    const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsCompanyHash, info: { ...state, password: "", confirmPassword: "" } }))
     const orgHash = await ipfs.add(orgBuffer);
-    const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsOwnerHash, info: state }))
+    const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsOwnerHash, info: { ...state, password: "", confirmPassword: "" } }))
     const userHash = await ipfs.add(userBuffer);
     // console.log(state.companyName,
     //     orgHash[0].hash,

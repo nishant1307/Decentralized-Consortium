@@ -36,9 +36,9 @@ import { makeStyles } from '@material-ui/core/styles';
 const uuidv1 = require('uuid/v1');
 
 const unstructuredTypes = [
-    "Sales Documents",
-    "Shipping Documents",
-    "Banking Documents"
+    "Sales",
+    "Shipping",
+    "Banking"
 ]
 
 const bankingDocuments = [

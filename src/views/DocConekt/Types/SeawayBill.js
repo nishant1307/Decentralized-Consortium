@@ -89,7 +89,7 @@ const SeawayBill = props => {
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Seaway Airway Bill" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "DocType": "Shipping", "subDocType": "Seaway Airway Bill", "type": "structured" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         props.history.push("/dashboard/home")
@@ -110,7 +110,7 @@ const SeawayBill = props => {
         let privateKey = await sessionStorage.getItem('privateKey');
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "type": "Seaway Airway Bill" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "DocType": "Shipping", "subDocType": "Seaway Airway Bill", "type": "structured" }), password)
         let encryptedPassword = await encryptMessage(password, privateKey)
         // console.log(encryptData, encryptedPassword);
         setIsSubmitted(false);
@@ -176,7 +176,7 @@ const SeawayBill = props => {
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
                         <CardHeader color="primary">
-                            <h4 className={classes.cardTitleWhite}>Purchase Order</h4>
+                            <h4 className={classes.cardTitleWhite}>Seaway Airway Bill</h4>
                             <p className={classes.cardCategoryWhite}></p>
                         </CardHeader>
                         <CardBody>

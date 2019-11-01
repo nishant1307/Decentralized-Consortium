@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0x076ea629e22b539f8e5e6e0cc6d0da082abac5b7';
+export const registryAddress = '0x18fd5cc75f66b2b9396cbf09baff269c017e3b1f';
 export const registryABI = [
 	{
 		"constant": true,
