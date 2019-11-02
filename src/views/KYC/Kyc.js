@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ipfs from "ipfs";
 import { connect } from 'react-redux';
 import web3 from '../../web3';
@@ -112,6 +112,7 @@ function Checkout(props) {
   const [keystore, setKeystore] = useState('');
   const [loader, setLoader] = useState(true);
   const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
+  let docRef = useRef(null);
 
   // const [address, setAddress] = useState('');
   const [toggleState, setToggleState] = React.useState({ checkedA: false, checkedB: false, checkedC: false });
@@ -286,52 +287,70 @@ function Checkout(props) {
     }).catch(error => console.error('Error', error));
   };
 
-  function handleDoc(data) {
-    let i;
-    for (i = 0; i < data.acceptedFiles.length; i++) {
-      if (data.type === "companyDoc") {
-        setCompanyDoc([
-          ...companyDoc,
-          URL.createObjectURL(data.acceptedFiles[i])
-        ])
-        data.acceptedFiles.forEach(element => {
-          let file = element;
-          let reader = new window.FileReader();
-          reader.readAsArrayBuffer(file);
-          reader.onloadend = (res) => {
-            let content = Ipfs.Buffer.from(res.target.result);
-            ipfs.add(content, (err, newHash) => {
-              // console.log(err, newHash);
-              setIPFSCompanyHash([
-                ...ipfsCompanyHash,
-                newHash[0].hash
-              ])
-            })
-          }
-        });
+  function deleteImage({ imgURI, type }) {
+    ownerDoc.forEach(element => {
+      console.log(imgURI === element, imgURI, element);
+    });
+    // if (type === "ownerDoc") {
+    //   var array1 = ownerDoc
+    //   array1 = array1.filter(function (item) { return item != imgURI; });
+    //   console.log(array1, "filtered");
+    // } else {
+    //   var array2 = companyDoc
+    //   array2 = array2.filter(function (item) { return item != imgURI; });
+    //   console.log(array2, "filtered");
+    // }
+    // console.log(data, companyDoc, ownerDoc); ownerDoc  companyDoc
+  }
 
-      } else {
-        setOwnerDoc([
-          ...ownerDoc,
-          URL.createObjectURL(data.acceptedFiles[i])
-        ])
-        data.acceptedFiles.forEach(element => {
-          let file = element;
-          let reader = new window.FileReader();
-          reader.readAsArrayBuffer(file);
-          reader.onloadend = (res) => {
-            let content = Ipfs.Buffer.from(res.target.result);
-            ipfs.add(content, (err, newHash) => {
-              // console.log(err, newHash);
-              setIPFSOwnerHash([
-                ...ipfsOwnerHash,
-                newHash[0].hash
-              ])
-            })
-          }
-        });
-      }
-    }
+  function handleDoc(data) {
+    console.log(data, "data is called at the end");
+    // let i;
+    // for (i = 0; i < data.acceptedFiles.length; i++) {
+    //   if (data.type === "companyDoc") {
+    //     setCompanyDoc([
+    //       ...companyDoc,
+    //       URL.createObjectURL(data.acceptedFiles[i])
+    //     ])
+    //     data.acceptedFiles.forEach(element => {
+    //       console.log(element);
+    //       let file = element;
+    //       let reader = new window.FileReader();
+    //       reader.readAsArrayBuffer(file);
+    //       reader.onloadend = (res) => {
+    //         let content = Ipfs.Buffer.from(res.target.result);
+    //         ipfs.add(content, (err, newHash) => {
+    //           // console.log(err, newHash);
+    //           setIPFSCompanyHash([
+    //             ...ipfsCompanyHash,
+    //             newHash[0].hash
+    //           ])
+    //         })
+    //       }
+    //     });
+
+    //   } else {
+    //     setOwnerDoc([
+    //       ...ownerDoc,
+    //       URL.createObjectURL(data.acceptedFiles[i])
+    //     ])
+    //     data.acceptedFiles.forEach(element => {
+    //       let file = element;
+    //       let reader = new window.FileReader();
+    //       reader.readAsArrayBuffer(file);
+    //       reader.onloadend = (res) => {
+    //         let content = Ipfs.Buffer.from(res.target.result);
+    //         ipfs.add(content, (err, newHash) => {
+    //           // console.log(err, newHash);
+    //           setIPFSOwnerHash([
+    //             ...ipfsOwnerHash,
+    //             newHash[0].hash
+    //           ])
+    //         })
+    //       }
+    //     });
+    //   }
+    // }
   }
 
   function getStepContent(step) {
@@ -344,8 +363,9 @@ function Checkout(props) {
       case 1:
         return <CompnayInfo handleChange={handleChange} handleAddressChange={handleAddressChange} handleSelect={handleSelect} state={state} />;
       case 2:
-        return <DocUpload setDoc={handleDoc} />;
+        return <DocUpload setDoc={handleDoc} deleteImage={deleteImage} ref={docRef} />;
       case 3:
+        docRef.current.getDocs();
         return <Eula state={state} />;
       default:
         throw new Error('Unknown step');

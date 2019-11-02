@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import Dropzone from 'react-dropzone'
 
 
@@ -7,19 +7,45 @@ import { Grid, TextField } from '@material-ui/core';
 
 
 
-export default function DocUpload(props) {
+const DocUpload = forwardRef((props, ref) => {
     const [companyDoc, setCompanyDoc] = useState([]);
     const [ownerDoc, setOwnerDoc] = useState([]);
     const onDrop = (type) => (acceptedFiles) => {
         let i;
         for (i = 0; i < acceptedFiles.length; i++) {
-            if (type === "companyDoc")
-                setCompanyDoc([...companyDoc, URL.createObjectURL(acceptedFiles[i])])
-            else
-                setOwnerDoc([...ownerDoc, URL.createObjectURL(acceptedFiles[i])])
+            let url = URL.createObjectURL(acceptedFiles[i])
+            acceptedFiles["urlOfDoc"] = url
+            if (type === "companyDoc") {
+                setCompanyDoc([...companyDoc, acceptedFiles])
+            }
+            else {
+                setOwnerDoc([...ownerDoc, acceptedFiles])
+            }
         }
-        props.setDoc({ acceptedFiles: acceptedFiles, type: type })
     }
+
+    useImperativeHandle(ref, () => ({
+        getDocs() {
+            console.log("called");
+            // props.setDoc({ companyDoc: companyDoc, ownerDoc: ownerDoc })
+        }
+    }))
+
+    function deleteImage({ imgURI, type }) {
+        if (window.confirm("Do you want to delete the image?")) {
+            if (type === "companyDoc") {
+                let arr = companyDoc;
+                var newArray = arr.filter((value) => value.urlOfDoc != imgURI.urlOfDoc);
+                setCompanyDoc([...newArray])
+
+            } else {
+                let arr = companyDoc;
+                var newArray = arr.filter((value) => value.urlOfDoc != imgURI.urlOfDoc);
+                setOwnerDoc([...newArray])
+            }
+        }
+    }
+
     return (
         <React.Fragment>
             <Grid container spacing={3}>
@@ -62,7 +88,7 @@ export default function DocUpload(props) {
                     </Dropzone>
                     {companyDoc.length > 0 ? <div>
                         <h4>{companyDoc.length} images uploaded</h4>
-                        <div>{companyDoc.map((file) => <img src={file} key={Math.random()} height="50px" width="50px" />)}</div>
+                        <div>{companyDoc.map((file) => <img src={file.urlOfDoc} key={Math.random()} height="50px" width="50px" onClick={() => deleteImage({ "imgURI": file, "type": "companyDoc" })} />)}</div>
                     </div> : null}
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -104,10 +130,12 @@ export default function DocUpload(props) {
                     </Dropzone>
                     {ownerDoc.length > 0 ? <div>
                         <h4>{ownerDoc.length} images uploaded</h4>
-                        <div>{ownerDoc.map((file) => <img src={file} key={Math.random()} height="50px" width="50px" />)}</div>
+                        <div>{ownerDoc.map((file) => <img src={file.urlOfDoc} key={Math.random()} height="50px" width="50px" onClick={() => deleteImage({ "imgURI": file, "type": "ownerDoc" })} />)}</div>
                     </div> : null}
                 </Grid>
             </Grid>
         </React.Fragment>
     );
-}
+})
+
+export default DocUpload;
