@@ -98,7 +98,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const steps = ['Key Creation', 'Company & Personal Details', 'KYC Documents', 'Terms of Service'];
 
-function Checkout(props) {
+function KYCComponent(props) {
   const address = localStorage.getItem('address');
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -121,7 +121,7 @@ function Checkout(props) {
     email: '',
     address: '',
     city: '',
-    state: '',
+    stateName: '',
     zipcode: '',
     country: '',
     password: '',
@@ -280,7 +280,7 @@ function Checkout(props) {
         ...state,
         zipcode: raw[raw.length - 1]['long_name'],
         country: raw[raw.length - 2]['long_name'],
-        state: raw[raw.length - 3]['long_name'],
+        stateName: raw[raw.length - 3]['long_name'],
         city: raw[raw.length - 4]['long_name']
       }));
     }).catch(error => console.error('Error', error));
@@ -493,4 +493,4 @@ function Checkout(props) {
 
 const mapStateToProps = (state) => ({ auth: state.auth, error: state.error })
 
-export default connect(mapStateToProps)(Checkout)
+export default connect(mapStateToProps)(KYCComponent)

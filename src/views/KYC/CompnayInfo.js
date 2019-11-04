@@ -1,13 +1,20 @@
 
 import React from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
-
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { Grid, TextField } from '@material-ui/core';
-
+const useStyles = makeStyles(theme => ({
+  icon: {
+    color: theme.palette.text.secondary,
+    marginRight: theme.spacing(2),
+  },
+}));
 
 export default function companyInfo(props) {
     const { state, handleChange, handleAddressChange, handleSelect } = props;
+    const classes = useStyles();
     return (
         <React.Fragment>
             <Grid container spacing={3}>
@@ -73,6 +80,11 @@ export default function companyInfo(props) {
                                             ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                                             : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                         return (
+                                          <Grid container alignItems="center">
+                                            <Grid item>
+                                              <LocationOnIcon className={classes.icon} />
+                                            </Grid>
+                                            <Grid item xs>
                                             <div
                                                 {...getSuggestionItemProps(suggestion, {
                                                     className,
@@ -81,6 +93,8 @@ export default function companyInfo(props) {
                                             >
                                                 <span>{suggestion.description}</span>
                                             </div>
+                                            </Grid>
+                  </Grid>
                                         );
                                     })}
                                 </div>
@@ -113,13 +127,17 @@ export default function companyInfo(props) {
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField id="state" name="state" label="State/Province/Region"  value={state.state} fullWidth />
+                    <TextField id="state"
+                    name="stateName"
+                    label="State/Province/Region"
+                    onChange={handleChange}
+                    value={state.stateName} fullWidth />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
                         id="zip"
-                        name="zip"
+                        name="zipcode"
                         label="Zip / Postal code"
                         fullWidth
                         onChange={handleChange}
@@ -136,6 +154,7 @@ export default function companyInfo(props) {
                         fullWidth
                         autoComplete="billing country"
                         value={state.country}
+                        onChange={handleChange}
                     />
                 </Grid>
             </Grid>
