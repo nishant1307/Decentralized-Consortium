@@ -27,7 +27,7 @@ const DocUpload = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         getDocs() {
             console.log("called");
-            // props.setDoc({ companyDoc: companyDoc, ownerDoc: ownerDoc })
+            props.setDoc({ companyDoc: companyDoc, ownerDoc: ownerDoc })
         }
     }))
 

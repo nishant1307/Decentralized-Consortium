@@ -187,6 +187,7 @@ function Checkout(props) {
   }
 
   const handleNext = () => {
+    console.log(activeStep, "activeStep");
     if (activeStep === 0) {
       if (isExist) {
         fetch("https://api.arthanium.org/api/v1/faucet/" + localStorage.getItem("address")).then(res => res.json()).then((result) => {
@@ -210,7 +211,11 @@ function Checkout(props) {
           // setActiveStep(activeStep + 1);
         }
       }
-    } else {
+    } else if (activeStep === 2) {
+      docRef.current.getDocs();
+      setActiveStep(activeStep + 1);
+    }
+    else {
       setActiveStep(activeStep + 1);
     }
 
@@ -221,6 +226,8 @@ function Checkout(props) {
   };
 
   const submitForm = async () => {
+    console.log(ipfsCompanyHash, ipfsOwnerHash);
+
     setActiveStep(activeStep + 1);
     const privateKey = await sessionStorage.getItem('privateKey')
     const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsCompanyHash, info: { ...state, password: "", confirmPassword: "" } }))
@@ -287,24 +294,44 @@ function Checkout(props) {
     }).catch(error => console.error('Error', error));
   };
 
-  function deleteImage({ imgURI, type }) {
-    ownerDoc.forEach(element => {
-      console.log(imgURI === element, imgURI, element);
-    });
-    // if (type === "ownerDoc") {
-    //   var array1 = ownerDoc
-    //   array1 = array1.filter(function (item) { return item != imgURI; });
-    //   console.log(array1, "filtered");
-    // } else {
-    //   var array2 = companyDoc
-    //   array2 = array2.filter(function (item) { return item != imgURI; });
-    //   console.log(array2, "filtered");
-    // }
-    // console.log(data, companyDoc, ownerDoc); ownerDoc  companyDoc
-  }
-
   function handleDoc(data) {
     console.log(data, "data is called at the end");
+    let tempIpfsCompanyHash = ipfsCompanyHash;
+    for (let index = 0; index < data.companyDoc.length; index++) {
+      const element = data.companyDoc[index];
+      console.log(element, "c");
+      let file = element[0];
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = (res) => {
+        let content = Ipfs.Buffer.from(res.target.result);
+        ipfs.add(content, (err, newHash) => {
+          // console.log(err, newHash);
+          tempIpfsCompanyHash.push(newHash[0].hash)
+          setIPFSCompanyHash([
+            ...tempIpfsCompanyHash
+          ])
+        })
+      }
+    }
+    let tempIpfsOwnerHash = ipfsOwnerHash;
+    for (let index = 0; index < data.ownerDoc.length; index++) {
+      const element = data.ownerDoc[index];
+      console.log(element, "o");
+      let file = element[0];
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = (res) => {
+        let content = Ipfs.Buffer.from(res.target.result);
+        ipfs.add(content, (err, newHash) => {
+          // console.log(err, newHash);
+          tempIpfsOwnerHash.push(newHash[0].hash)
+          setIPFSOwnerHash([
+            ...tempIpfsOwnerHash
+          ])
+        })
+      }
+    }
     // let i;
     // for (i = 0; i < data.acceptedFiles.length; i++) {
     //   if (data.type === "companyDoc") {
@@ -363,9 +390,8 @@ function Checkout(props) {
       case 1:
         return <CompnayInfo handleChange={handleChange} handleAddressChange={handleAddressChange} handleSelect={handleSelect} state={state} />;
       case 2:
-        return <DocUpload setDoc={handleDoc} deleteImage={deleteImage} ref={docRef} />;
+        return <DocUpload setDoc={handleDoc} ref={docRef} />;
       case 3:
-        docRef.current.getDocs();
         return <Eula state={state} />;
       default:
         throw new Error('Unknown step');
@@ -436,7 +462,7 @@ function Checkout(props) {
                         {getStepContent(activeStep)}
                         <div className={classes.buttons}>
                           {
-                            activeStep !== 0 && activeStep !== 1 && (<Button onClick={handleBack} className={classes.button}>
+                            activeStep !== 0 && activeStep !== 1 && activeStep !== 2 && (<Button onClick={handleBack} className={classes.button}>
                               Back
                             </Button>)
                           }
