@@ -15,7 +15,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import DescriptionIcon from '@material-ui/icons/Description';
 import Modal from '../../components/CustomModal/Modal'
-const Partners = props => {
+const Modules = props => {
     const [isOpen, setIsOpen] = React.useState(false);
     const toggleModal = () => {
         setIsOpen(!isOpen)
@@ -25,7 +25,7 @@ const Partners = props => {
         <div>
             <GridContainer>
                 <GridItem xs={12} sm={4} md={4}>
-                    <Link to="/dashboard/certifications">
+                    <Link to="/dashboard/modules/certifications">
                         <Card onClick={toggleModal}>
                             <CardHeader color="info" stats icon>
                                 <CardIcon color="info">
@@ -42,7 +42,7 @@ const Partners = props => {
                 </GridItem>
                 <GridItem xs={12} sm={4} md={4}>
                     <Link to={{
-                        pathname: "/dashboard/doucmentsByType",
+                        pathname: "/dashboard/documentsByType/shipping",
                         state: { documentType: "Shipping" }
                     }} >
                         <Card onClick={toggleModal}>
@@ -57,11 +57,11 @@ const Partners = props => {
               </div>
                             </CardFooter>
                         </Card>
-                        /</Link>
+                        </Link>
                 </GridItem>
                 <GridItem xs={12} sm={4} md={4}>
                     <Link to={{
-                        pathname: "/dashboard/doucmentsByType",
+                        pathname: "/dashboard/documentsByType/sales",
                         state: { documentType: "Sales" }
                     }} >
                         <Card onClick={toggleModal}>
@@ -78,7 +78,7 @@ const Partners = props => {
                         </Card>
                     </Link>
                 </GridItem>
-                {/* <GridItem xs={12} sm={4} md={4}>
+                {/** <GridItem xs={12} sm={4} md={4}>
                     <Card onClick={toggleModal}>
                         <CardHeader color="info" stats icon>
                             <CardIcon color="info">
@@ -138,7 +138,6 @@ const Partners = props => {
             <Modal
                 open={isOpen}
                 onClose={toggleModal}
-                // title={""}
                 content={
                     <div>Coming Soon!</div>
                 }
@@ -147,4 +146,4 @@ const Partners = props => {
     );
 };
 
-export default Partners;
+export default Modules;

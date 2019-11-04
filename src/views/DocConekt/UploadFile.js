@@ -269,14 +269,22 @@ function PaymentForm(params) {
     const [DocType, setDocType] = React.useState(0);
     const [subDocType, setSubDocType] = React.useState("");
     const [subDocRender, setSubDocRender] = useState("");
-
+    const [locked, setLocked] = useState(false);
     useEffect(() => {
+      try{
+        if(params.match.params.docType){
+          lockDocType();
+        }
+      }
+      catch(err) {
+        console.log("Error", err);
+      }
         setSubDocRender(getUnstructureTypeSubContent(DocType));
     }, [DocType])
 
     useEffect(() => {
         params.infoCallback(name, info, password, DocType, subDocType)
-    })
+    }, [])
 
     const getUnstructureTypeSubContent = (count) => {
         switch (count) {
@@ -291,6 +299,17 @@ function PaymentForm(params) {
         }
     }
 
+    const lockDocType = () => {
+      switch(params.match.params.docType) {
+        case "sales": setDocType(0)
+        setLocked(true);
+                      break;
+        case "shipping": setDocType(1)
+        setLocked(true);
+                      break;
+      }
+    }
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -302,6 +321,7 @@ function PaymentForm(params) {
                         <InputLabel htmlFor="age-native-simple">Document Type</InputLabel>
                         <Select
                             value={DocType}
+                            disabled={locked}
                             onChange={(e) => setDocType(e.target.value)}
                             input={<Input id="mainType" />}
                         >
@@ -355,7 +375,7 @@ function Review(props) {
     );
 }
 
-const Checkout = (props) => {
+const UploadFileComponent = (props) => {
     // console.log(props);
 
     const classes = useStyles();
@@ -373,10 +393,10 @@ const Checkout = (props) => {
     const [DocType, setDocType] = React.useState(0);
     const [subDocType, setSubDocType] = React.useState("");
     const [subDocRender, setSubDocRender] = useState("");
+    const [locked, setLocked] = useState(false);
     function handleChange(event, newValue) {
         setValue(newValue);
     }
-
     useEffect(() => {
         function tick() {
             // reset when reaching 100%
@@ -389,8 +409,28 @@ const Checkout = (props) => {
         };
     }, []);
     useEffect(() => {
+      try{
+        if(props.match.params.docType){
+          lockDocType();
+        }
+      }
+      catch(err) {
+        console.log("Error", err);
+      }
+
         setSubDocRender(getSubContent(DocType));
     }, [DocType])
+
+    const lockDocType = () => {
+      switch(props.match.params.docType) {
+        case "sales": setDocType(0)
+        setLocked(true);
+                      break;
+        case "shipping": setDocType(1)
+        setLocked(true);
+                      break;
+      }
+    }
 
     const handleNext = () => {
         // console.log("in nnext");
@@ -439,7 +479,7 @@ const Checkout = (props) => {
             case 0:
                 return <AddressForm parentCallback={callback} />;
             case 1:
-                return <PaymentForm name={fileName} infoCallback={handleInfo} />;
+                return <PaymentForm name={fileName} infoCallback={handleInfo} {...props}/>;
             case 2:
                 return (<div className={classes.progress2}>
                     <CircularProgress className={classes.progress} variant="determinate" value={progress} />
@@ -538,6 +578,7 @@ const Checkout = (props) => {
                                 <InputLabel htmlFor="age-native-simple">Document Type</InputLabel>
                                 <Select
                                     value={DocType}
+                                    disabled={locked}
                                     onChange={(e) => setDocType(e.target.value)}
                                     input={<Input id="mainType" />}
                                 >
@@ -587,4 +628,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { addNewDoc })(Checkout);
+export default connect(mapStateToProps, { addNewDoc })(UploadFileComponent);
