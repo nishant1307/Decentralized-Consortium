@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ipfs from "ipfs";
 import { connect } from 'react-redux';
 import web3 from '../../web3';
@@ -112,6 +112,7 @@ function KYCComponent(props) {
   const [keystore, setKeystore] = useState('');
   const [loader, setLoader] = useState(true);
   const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
+  let docRef = useRef(null);
 
   // const [address, setAddress] = useState('');
   const [toggleState, setToggleState] = React.useState({ checkedA: false, checkedB: false, checkedC: false });
@@ -186,6 +187,7 @@ function KYCComponent(props) {
   }
 
   const handleNext = () => {
+    console.log(activeStep, "activeStep");
     if (activeStep === 0) {
       if (isExist) {
         fetch("https://api.arthanium.org/api/v1/faucet/" + localStorage.getItem("address")).then(res => res.json()).then((result) => {
@@ -209,7 +211,11 @@ function KYCComponent(props) {
           // setActiveStep(activeStep + 1);
         }
       }
-    } else {
+    } else if (activeStep === 2) {
+      docRef.current.getDocs();
+      setActiveStep(activeStep + 1);
+    }
+    else {
       setActiveStep(activeStep + 1);
     }
 
@@ -220,6 +226,8 @@ function KYCComponent(props) {
   };
 
   const submitForm = async () => {
+    console.log(ipfsCompanyHash, ipfsOwnerHash);
+
     setActiveStep(activeStep + 1);
     const privateKey = await sessionStorage.getItem('privateKey')
     const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsCompanyHash, info: { ...state, password: "", confirmPassword: "" } }))
@@ -287,51 +295,89 @@ function KYCComponent(props) {
   };
 
   function handleDoc(data) {
-    let i;
-    for (i = 0; i < data.acceptedFiles.length; i++) {
-      if (data.type === "companyDoc") {
-        setCompanyDoc([
-          ...companyDoc,
-          URL.createObjectURL(data.acceptedFiles[i])
-        ])
-        data.acceptedFiles.forEach(element => {
-          let file = element;
-          let reader = new window.FileReader();
-          reader.readAsArrayBuffer(file);
-          reader.onloadend = (res) => {
-            let content = Ipfs.Buffer.from(res.target.result);
-            ipfs.add(content, (err, newHash) => {
-              // console.log(err, newHash);
-              setIPFSCompanyHash([
-                ...ipfsCompanyHash,
-                newHash[0].hash
-              ])
-            })
-          }
-        });
-
-      } else {
-        setOwnerDoc([
-          ...ownerDoc,
-          URL.createObjectURL(data.acceptedFiles[i])
-        ])
-        data.acceptedFiles.forEach(element => {
-          let file = element;
-          let reader = new window.FileReader();
-          reader.readAsArrayBuffer(file);
-          reader.onloadend = (res) => {
-            let content = Ipfs.Buffer.from(res.target.result);
-            ipfs.add(content, (err, newHash) => {
-              // console.log(err, newHash);
-              setIPFSOwnerHash([
-                ...ipfsOwnerHash,
-                newHash[0].hash
-              ])
-            })
-          }
-        });
+    console.log(data, "data is called at the end");
+    let tempIpfsCompanyHash = ipfsCompanyHash;
+    for (let index = 0; index < data.companyDoc.length; index++) {
+      const element = data.companyDoc[index];
+      console.log(element, "c");
+      let file = element[0];
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = (res) => {
+        let content = Ipfs.Buffer.from(res.target.result);
+        ipfs.add(content, (err, newHash) => {
+          // console.log(err, newHash);
+          tempIpfsCompanyHash.push(newHash[0].hash)
+          setIPFSCompanyHash([
+            ...tempIpfsCompanyHash
+          ])
+        })
       }
     }
+    let tempIpfsOwnerHash = ipfsOwnerHash;
+    for (let index = 0; index < data.ownerDoc.length; index++) {
+      const element = data.ownerDoc[index];
+      console.log(element, "o");
+      let file = element[0];
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = (res) => {
+        let content = Ipfs.Buffer.from(res.target.result);
+        ipfs.add(content, (err, newHash) => {
+          // console.log(err, newHash);
+          tempIpfsOwnerHash.push(newHash[0].hash)
+          setIPFSOwnerHash([
+            ...tempIpfsOwnerHash
+          ])
+        })
+      }
+    }
+    // let i;
+    // for (i = 0; i < data.acceptedFiles.length; i++) {
+    //   if (data.type === "companyDoc") {
+    //     setCompanyDoc([
+    //       ...companyDoc,
+    //       URL.createObjectURL(data.acceptedFiles[i])
+    //     ])
+    //     data.acceptedFiles.forEach(element => {
+    //       console.log(element);
+    //       let file = element;
+    //       let reader = new window.FileReader();
+    //       reader.readAsArrayBuffer(file);
+    //       reader.onloadend = (res) => {
+    //         let content = Ipfs.Buffer.from(res.target.result);
+    //         ipfs.add(content, (err, newHash) => {
+    //           // console.log(err, newHash);
+    //           setIPFSCompanyHash([
+    //             ...ipfsCompanyHash,
+    //             newHash[0].hash
+    //           ])
+    //         })
+    //       }
+    //     });
+
+    //   } else {
+    //     setOwnerDoc([
+    //       ...ownerDoc,
+    //       URL.createObjectURL(data.acceptedFiles[i])
+    //     ])
+    //     data.acceptedFiles.forEach(element => {
+    //       let file = element;
+    //       let reader = new window.FileReader();
+    //       reader.readAsArrayBuffer(file);
+    //       reader.onloadend = (res) => {
+    //         let content = Ipfs.Buffer.from(res.target.result);
+    //         ipfs.add(content, (err, newHash) => {
+    //           // console.log(err, newHash);
+    //           setIPFSOwnerHash([
+    //             ...ipfsOwnerHash,
+    //             newHash[0].hash
+    //           ])
+    //         })
+    //       }
+    //     });
+    //   }
+    // }
   }
 
   function getStepContent(step) {
@@ -344,7 +390,7 @@ function KYCComponent(props) {
       case 1:
         return <CompnayInfo handleChange={handleChange} handleAddressChange={handleAddressChange} handleSelect={handleSelect} state={state} />;
       case 2:
-        return <DocUpload setDoc={handleDoc} />;
+        return <DocUpload setDoc={handleDoc} ref={docRef} />;
       case 3:
         return <Eula state={state} />;
       default:
@@ -416,7 +462,7 @@ function KYCComponent(props) {
                         {getStepContent(activeStep)}
                         <div className={classes.buttons}>
                           {
-                            activeStep !== 0 && activeStep !== 1 && (<Button onClick={handleBack} className={classes.button}>
+                            activeStep !== 0 && activeStep !== 1 && activeStep !== 2 && (<Button onClick={handleBack} className={classes.button}>
                               Back
                             </Button>)
                           }
