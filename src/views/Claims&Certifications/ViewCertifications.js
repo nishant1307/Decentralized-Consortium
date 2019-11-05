@@ -3,9 +3,7 @@ import MaterialTable, { MTableToolbar }  from "material-table";
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import { certificationContract, certificationAddress } from 'certificationContract';
-import { SpeedDial } from '@material-ui/lab';
-import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
-import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
+import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
 
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import PublishIcon from '@material-ui/icons/Publish';
@@ -23,8 +21,8 @@ const useStyles = makeStyles(theme => ({
 
 
 const actions = [
-  { icon: <PublishIcon />, name: 'Publish new Certificate', goTo: "/dashboard/certifications/publish" },
-  { icon: <FilterNoneIcon />, name: 'Template Certificate', goTo: "/dashboard/certifications/template" },
+  { icon: <PublishIcon />, name: 'Publish new Certificate', goTo: "/dashboard/modules/certifications/publish" },
+  { icon: <FilterNoneIcon />, name: 'Template Certificate', goTo: "/dashboard/modules/certifications/template" },
 ];
 
 const ViewCertifications = (props) => {

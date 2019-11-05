@@ -32,7 +32,7 @@ const StructuredDoc = React.lazy(() => import('views/DocConekt/StructuredDoc'))
 const Modules = React.lazy(() => import('views/Modules/Modules'))
 const UnstrucutredDoc = React.lazy(() => import('views/DocConekt/UnstructuredDoc'));
 const ProjectInvites = React.lazy(() => import('views/Projects/ProjectInvites'));
-const ViewDoucmentsByType = React.lazy(() => import('views/DocConekt/ViewDocumentsByType'))
+const ViewDocumentsByType = React.lazy(() => import('views/DocConekt/ViewDocumentsByType'))
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
   {
@@ -84,19 +84,19 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/certifications",
+    path: "/modules/certifications",
     name: "Certifications",
     component: ViewCertifications,
     layout: "/dashboard"
   },
   {
-    path: "/certifications/publish",
+    path: "/modules/certifications/publish",
     name: "Certifications",
     component: PublishCertificate,
     layout: "/dashboard"
   },
   {
-    path: "/certifications/template",
+    path: "/modules/certifications/template",
     name: "Certifications",
     component: TemplateCertificate,
     layout: "/dashboard"
@@ -114,9 +114,9 @@ const dashboardRoutes = [
     layout: "/dashboard"
   },
   {
-    path: "/doucmentsByType",
-    name: "Doucments",
-    component: ViewDoucmentsByType,
+    path: "/documentsByType/:docType",
+    name: "Documents",
+    component: ViewDocumentsByType,
     layout: "/dashboard"
   },
   {

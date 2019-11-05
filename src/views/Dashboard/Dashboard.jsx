@@ -12,6 +12,7 @@ import Accessibility from "@material-ui/icons/Accessibility";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import DescriptionIcon from '@material-ui/icons/Description';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PeopleIcon from '@material-ui/icons/People';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import FeaturedPlayListIcon from '@material-ui/icons/FeaturedPlayList';
@@ -32,30 +33,30 @@ import { openProjectModal, openDeviceModal, openThingModal } from 'actions/userA
 import productContract from "productContract";
 import {registryContract} from "registryContract";
 import {parseJSONFromIPFSHash} from "utils";
-import { Typography, Box } from '@material-ui/core';
+import { Typography, Box, Fab } from '@material-ui/core';
 import {withStyles} from '@material-ui/core/styles';
 import Tour from 'reactour';
-
+import "WA/css/custom.css";
 const steps = [
   {
-    selector: '[data-tut="container_grid"]',
-    content: 'Welcome to the Dashboard',
+    selector: '[data-tut="main__panel"]',
+    content: 'This is the Arthanium Dashboard homepage',
   },
   {
     selector: '[data-tut="project__card"]',
-    content: 'This is Projects',
+    content: 'Club multiple processes/steps with a common link under respective Projects  ',
   },
   {
     selector: '[data-tut="device__card"]',
-    content: 'This is Device',
+    content: 'Register Tags & IoT devices using this option which can be assigned to specific projects',
   },
   {
     selector: '[data-tut="product__card"]',
-    content: 'This is Product',
+    content: 'Create a database of your product / service portfolio ',
   },
   {
     selector: '[data-tut="document__card"]',
-    content: 'This is Document',
+    content: 'Create structured & unstructured docs which can be assigned to specific projects',
   }
 ]
 
@@ -168,14 +169,19 @@ const Dashboard = (props) => {
         </GridItem>
         <GridItem xs={12} sm={6} md={4}>
         </GridItem>
-        <GridItem xs={12} sm={6} md={4}>
-          <Button fullWidth onClick={() => setTourOpen(true)}>Start Tour</Button>
-        </GridItem>
+        <div className="tour-button"xs={12} sm={6} md={4}>
+          <Fab color="primary" variant="extended" aria-label="tour" onClick={() => setTourOpen(true)}>
+            <PlayArrowIcon />
+            Start Tour
+          </Fab>
+        </div>
         </GridContainer>
         <Tour
           steps={steps}
           isOpen={tourOpen}
+          rounded={25}
           onRequestClose={() => setTourOpen(false)}
+          lastStepNextButton={<Button round color="info">End Tour</Button>}
         />
     </div>
   );
