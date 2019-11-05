@@ -177,23 +177,25 @@ contract ERC721 {
     using Address for address;
     using Counters for Counters.Counter;
     
-    event ReviewersAdded(string tokenId, address[] listOfAddress);
-    event ReviewAdded(string tokenId, address reviewer);
+    event ReviewersAdded(bytes32 indexed _tokenId,bytes32 indexed _projectId, address indexed _address);
+    event ReviewAdded(bytes32 indexed _tokenId, address indexed _reviewer);
 
     EternalStorage s;
     Consortium registerContract;
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
+    
+    enum reviewStatus {notInitiated, pending ,approved, rejected}
 
     // Mapping from token ID to owner
-    mapping (string => address) private _tokenOwner;
+    mapping (bytes32 => address) private _tokenOwner;
     
     //mapping from token id to other parties
-    mapping (string => address[]) private _reviewer;
+    mapping (bytes32 => address[]) private _reviewer;
     
     //mapping from token id to other parties
-    mapping (string => mapping (address => bool)) private _reviewerStatus;
+    mapping (bytes32 => mapping (address => reviewStatus)) private _reviewerStatus;
 
 
     //Mapping from owner to number of owned token
@@ -211,24 +213,24 @@ contract ERC721 {
     }
     
     
-    function addReview(string memory tokenId, bool status) public{
+    function addReview(bytes32 tokenId, uint256 status) public{
          for (uint i=0; i< _reviewer[tokenId].length; i++){
             if(_reviewer[tokenId][i] == msg.sender){
-                _reviewerStatus[tokenId][msg.sender] = status;
+                _reviewerStatus[tokenId][msg.sender] = reviewStatus(status);
             }
          }
          emit ReviewAdded(tokenId, msg.sender );
     }
     
-    function getReviewStatusForIndividual(string memory tokenId) public view returns(bool){
+    function getReviewStatusForIndividual(bytes32 tokenId) public view returns(reviewStatus){
         return _reviewerStatus[tokenId][msg.sender];
     }
     
-    function getReviewStatus(string memory tokenId)public view returns(bool){
+    function getReviewStatus(bytes32 tokenId)public view returns(bool){
         // address[] storage approvedReviwer;
         // address[] storage notApprovedReviwer;
           for (uint i=0; i< _reviewer[tokenId].length; i++){
-            if(!_reviewerStatus[tokenId][_reviewer[tokenId][i]]){
+            if(_reviewerStatus[tokenId][_reviewer[tokenId][i]] != reviewStatus.approved ){
                 // approvedReviwer.push(_reviewer[tokenId][i]);
                 return false;
             }
@@ -252,13 +254,13 @@ contract ERC721 {
         return _ownedTokensCount[owner].current();
     }
     
-    function addReviewers(string memory tokenId, address[] memory reviewer) public returns(bool){
+    function addReviewers(bytes32  tokenId, address reviewer) public returns(bool){
         require(ownerOf(tokenId) == msg.sender, "Roles: account does not have access");
-        _reviewer[tokenId] = reviewer;
-        emit ReviewersAdded(tokenId, reviewer);
+        _reviewer[tokenId].push(reviewer);
+        _reviewerStatus[tokenId][reviewer] = reviewStatus.pending;
     }
     
-    function getReviewersList(string memory tokenId) public view returns(address[] memory reviewer){
+    function getReviewersList(bytes32  tokenId) public view returns(address[] memory reviewer){
       return _reviewer[tokenId];
     }
 
@@ -267,7 +269,7 @@ contract ERC721 {
      * @param tokenId uint256 ID of the token to query the owner of
      * @return address currently marked as the owner of the given token ID
      */
-    function ownerOf(string memory tokenId) public view returns (address) {
+    function ownerOf(bytes32  tokenId) public view returns (address) {
         address owner = _tokenOwner[tokenId];
         require(owner != address(0), "ERC721: owner query for nonexistent token");
 
@@ -279,7 +281,7 @@ contract ERC721 {
      * @param tokenId uint256 ID of the token to query the existence of
      * @return bool whether the token exists
      */
-    function _exists(string memory tokenId) internal view returns (bool) {
+    function _exists(bytes32 tokenId) internal view returns (bool) {
         address owner = _tokenOwner[tokenId];
         return owner != address(0);
     }
@@ -290,7 +292,7 @@ contract ERC721 {
      * @param to The address that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, string memory tokenId) internal {
+    function _mint(address to, bytes32 tokenId) internal {
         require(to != address(0), "ERC721: mint to the zero address");
         require(!_exists(tokenId), "ERC721: token already minted");
 
@@ -307,7 +309,7 @@ contract ERC721 {
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned
      */
-    function _burn(address owner, string memory tokenId) internal {
+    function _burn(address owner, bytes32 tokenId) internal {
         require(ownerOf(tokenId) == owner, "ERC721: burn of token that is not own");
         _ownedTokensCount[owner].decrement();
         _tokenOwner[tokenId] = address(0);
@@ -320,7 +322,7 @@ contract ERC721 {
      * Reverts if the token does not exist.
      * @param tokenId uint256 ID of the token being burned
      */
-    function _burn(string memory tokenId) internal {
+    function _burn(bytes32 tokenId) internal {
         _burn(ownerOf(tokenId), tokenId);
     }
 
@@ -337,7 +339,7 @@ contract ERC721Mintable is ERC721 {
      * @param tokenId The token id to mint.
      * @return A boolean that indicates if the operation was successful.
      */
-    function mint(address to, string memory tokenId) internal returns (bool) {
+    function mint(address to, bytes32 tokenId) internal returns (bool) {
         _mint(to, tokenId);
         return true;
     }
@@ -351,13 +353,13 @@ contract ERC721Metadata is  ERC721 {
         uint256 timeStamp;
     }
     
-    event DetailsUpdated(string tokenId, uint256 timeStamp, string remark );
+    event DetailsUpdated(bytes32 tokenId, uint256 indexed timeStamp, string indexed remark );
     
     // Optional mapping for token URIs
-    mapping(string  => string) private _tokenURIs;
+    mapping(bytes32  => string) private _tokenURIs;
     
       // mapping for token deviceDetails
-    mapping(string => docDetails) private _tokenDetails;
+    mapping(bytes32 => docDetails) private _tokenDetails;
 
     /*
      *     bytes4(keccak256('name()')) == 0x06fdde03
@@ -373,12 +375,12 @@ contract ERC721Metadata is  ERC721 {
      * Throws if the token ID does not exist. May return an empty string.
      * @param tokenId uint256 ID of the token to query
      */
-    function tokenURI(string calldata tokenId) external view returns (string memory) {
+    function tokenURI(bytes32 tokenId) external view returns (string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return _tokenURIs[tokenId];
     }
     
-     function getDocumentDetails(string calldata tokenId) external view returns (docDetails memory,string memory) {
+     function getDocumentDetails(bytes32 tokenId) external view returns (docDetails memory,string memory) {
         require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
         return (_tokenDetails[tokenId],_tokenURIs[tokenId]);
     }
@@ -389,12 +391,12 @@ contract ERC721Metadata is  ERC721 {
      * @param tokenId uint256 ID of the token to set its URI
      * @param uri string URI to assign
      */
-    function _setTokenURI(string memory tokenId, string memory uri) internal {
+    function _setTokenURI(bytes32 tokenId, string memory uri) internal {
         require(_exists(tokenId), "ERC721Metadata: URI set of nonexistent token");
         _tokenURIs[tokenId] = uri;
     }
     
-      function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+      function _setProjectId (bytes32 tokenId, bytes32 projectId) internal{
         require(_tokenDetails[tokenId].projectId == 0x0, "Project Id reassign denied!");
         docDetails memory temp = _tokenDetails[tokenId];
         temp.projectId = projectId;
@@ -402,7 +404,7 @@ contract ERC721Metadata is  ERC721 {
     }
     
     
-    function _setDocumentDetails(string memory tokenId,string memory encryptedData, string memory encryptedPassword ) internal {
+    function _setDocumentDetails(bytes32 tokenId,string memory encryptedData, string memory encryptedPassword ) internal {
       docDetails memory temp;
       temp.encryptedData = encryptedData;
       temp.encryptedPassword = encryptedPassword;
@@ -410,7 +412,7 @@ contract ERC721Metadata is  ERC721 {
       _tokenDetails[tokenId] = temp;
     }
     
-    function _updateDocumentDetails(string memory tokenId,string memory remark, string memory encryptedData) internal {
+    function _updateDocumentDetails(bytes32 tokenId,string memory remark, string memory encryptedData) internal {
         _tokenDetails[tokenId].encryptedData = encryptedData;
         emit DetailsUpdated(tokenId, block.timestamp, remark);
     }
@@ -422,7 +424,7 @@ contract ERC721Metadata is  ERC721 {
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned by the msg.sender
      */
-    function _burn(address owner, string memory tokenId) internal {
+    function _burn(address owner, bytes32 tokenId) internal {
         super._burn(owner, tokenId);
 
         // Clear metadata (if any)
@@ -430,6 +432,13 @@ contract ERC721Metadata is  ERC721 {
             delete _tokenURIs[tokenId];
         }
     }
+    
+     function addReviewers(bytes32 tokenId, address reviewer) public returns(bool){
+        require(ownerOf(tokenId) == msg.sender, "Roles: account does not have access");
+        super.addReviewers(tokenId,reviewer);
+        emit ReviewersAdded(tokenId,_tokenDetails[tokenId].projectId ,reviewer);
+    } 
+
 }
 
 // contract ERC721MetadataMintable is ERC721, ERC721Metadata {
@@ -448,22 +457,22 @@ contract ERC721Metadata is  ERC721 {
 // }
 contract ERC721Enumerable is ERC721 , ERC721Metadata {
     // Mapping from owner to list of owned token IDs
-    mapping(address => string[]) private _ownedTokens;
+    mapping(address => bytes32[]) private _ownedTokens;
 
     // Mapping from token ID to index of the owner tokens list
-    mapping(string => uint256) private _ownedTokensIndex;
+    mapping(bytes32 => uint256) private _ownedTokensIndex;
 
     // Array with all token ids, used for enumeration
-    string[] private _allTokens;
+    bytes32[] private _allTokens;
 
     // Mapping from token id to position in the allTokens array
-    mapping(string => uint256) private _allTokensIndex;
+    mapping(bytes32 => uint256) private _allTokensIndex;
     
         // Mapping from project to list of owned token IDs
-    mapping(bytes32 => string[]) private _ownedTokensByProject;
+    mapping(bytes32 => bytes32[]) private _ownedTokensByProject;
 
     // Mapping from token ID to index of the project tokens list
-    mapping(string => uint256) private _ownedTokensByProjectIndex;
+    mapping(bytes32 => uint256) private _ownedTokensByProjectIndex;
 
     /**
      * @dev Internal function to mint a new token.
@@ -471,7 +480,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * @param to address the beneficiary that will own the minted token
      * @param tokenId uint256 ID of the token to be minted
      */
-    function _mint(address to, string memory tokenId) internal {
+    function _mint(address to, bytes32 tokenId) internal {
         super._mint(to, tokenId);
 
         _addTokenToOwnerEnumeration(to, tokenId);
@@ -486,7 +495,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * @param owner owner of the token to burn
      * @param tokenId uint256 ID of the token being burned
      */
-    function _burn(address owner, string memory tokenId) internal {
+    function _burn(address owner, bytes32 tokenId) internal {
         super._burn(owner, tokenId);
 
         _removeTokenFromOwnerEnumeration(owner, tokenId);
@@ -501,20 +510,20 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * @param owner address owning the tokens
      * @return uint256[] List of token IDs owned by the requested address
      */
-    function _tokensOfOwner(address owner) public view returns (string[] memory) {
+    function _tokensOfOwner(address owner) public view returns (bytes32[] memory) {
         return _ownedTokens[owner];
     }
     
-     function _tokensOfProject(bytes32 projectId) public view returns (string[] memory) {
+     function _tokensOfProject(bytes32 projectId) public view returns (bytes32[] memory) {
         return _ownedTokensByProject[projectId];
     }
     
-     function _setProjectId (string memory tokenId, bytes32 projectId) internal{
+     function _setProjectId (bytes32 tokenId, bytes32 projectId) internal{
         super._setProjectId(tokenId,projectId);
        _addTokenToProjectEnumeration(projectId, tokenId);
     }
     
-     function _addTokenToProjectEnumeration(bytes32 projectId , string memory tokenId) private {
+     function _addTokenToProjectEnumeration(bytes32 projectId , bytes32 tokenId) private {
         _ownedTokensIndex[tokenId] = _ownedTokensByProject[projectId].length;
         _ownedTokensByProject[projectId].push(tokenId);
     }
@@ -524,7 +533,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * @param to address representing the new owner of the given token ID
      * @param tokenId uint256 ID of the token to be added to the tokens list of the given address
      */
-    function _addTokenToOwnerEnumeration(address to, string memory tokenId) private {
+    function _addTokenToOwnerEnumeration(address to, bytes32 tokenId) private {
         _ownedTokensIndex[tokenId] = _ownedTokens[to].length;
         _ownedTokens[to].push(tokenId);
     }
@@ -533,7 +542,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * @dev Private function to add a token to this extension's token tracking data structures.
      * @param tokenId uint256 ID of the token to be added to the tokens list
      */
-    function _addTokenToAllTokensEnumeration(string memory tokenId) private {
+    function _addTokenToAllTokensEnumeration(bytes32 tokenId) private {
         _allTokensIndex[tokenId] = _allTokens.length;
         _allTokens.push(tokenId);
     }
@@ -546,7 +555,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * @param from address representing the previous owner of the given token ID
      * @param tokenId uint256 ID of the token to be removed from the tokens list of the given address
      */
-    function _removeTokenFromOwnerEnumeration(address from, string memory tokenId) private {
+    function _removeTokenFromOwnerEnumeration(address from, bytes32 tokenId) private {
         // To prevent a gap in from's tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
@@ -555,7 +564,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
 
         // When the token to delete is the last token, the swap operation is unnecessary
         if (tokenIndex != lastTokenIndex) {
-            string memory lastTokenId = _ownedTokens[from][lastTokenIndex];
+           bytes32 lastTokenId = _ownedTokens[from][lastTokenIndex];
 
             _ownedTokens[from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
             _ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
@@ -573,7 +582,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
      * This has O(1) time complexity, but alters the order of the _allTokens array.
      * @param tokenId uint256 ID of the token to be removed from the tokens list
      */
-    function _removeTokenFromAllTokensEnumeration(string memory tokenId) private {
+    function _removeTokenFromAllTokensEnumeration(bytes32 tokenId) private {
         // To prevent a gap in the tokens array, we store the last token in the index of the token to delete, and
         // then delete the last slot (swap and pop).
 
@@ -583,7 +592,7 @@ contract ERC721Enumerable is ERC721 , ERC721Metadata {
         // When the token to delete is the last token, the swap operation is unnecessary. However, since this occurs so
         // rarely (when the last minted token is burnt) that we still do the swap here to avoid the gas cost of adding
         // an 'if' statement (like in _removeTokenFromOwnerEnumeration)
-        string memory lastTokenId = _allTokens[lastTokenIndex];
+        bytes32 lastTokenId = _allTokens[lastTokenIndex];
 
         _allTokens[tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
         _allTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
@@ -600,7 +609,7 @@ contract ERC721Burnable is ERC721 {
      * @dev Burns a specific ERC721 token.
      * @param tokenId uint256 id of the ERC721 token to be burned.
      */
-    function burn(string memory tokenId) public {
+    function burn(bytes32 tokenId) public {
         //solhint-disable-next-line max-line-length
         _burn(tokenId);
     }
@@ -609,40 +618,40 @@ contract DocContract is ERC721, ERC721Enumerable,ERC721Burnable,ERC721Mintable {
     constructor(address storageAddress) ERC721(storageAddress) public {
     }
 
-    event MetadataChanged(string tokenId , string metadata);
+    event MetadataChanged(bytes32 indexed tokenId , string indexed metadata);
 
-    function setMetadata(string memory tokenId, string memory metadata ) public onlyRegistrant returns (bool) {
+    function setMetadata(bytes32 tokenId, string memory metadata ) public onlyRegistrant returns (bool) {
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setTokenURI(tokenId , metadata);
         emit MetadataChanged(tokenId,metadata);
         return true;
     }
     
-     function setProjectId(string memory tokenId, bytes32 projectId ) public onlyRegistrant returns (bool) {
+     function setProjectId(bytes32 tokenId, bytes32 projectId ) public onlyRegistrant returns (bool) {
         registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setProjectId(tokenId , projectId);
-        registerContract.addDeviceToProject(tokenId,projectId);
+        registerContract.addDocumentToProject(tokenId,projectId);
         return true;
     }
     
-     function MintWithDetailsAndProjectId (address to, string memory tokenId,string memory encryptedData, string memory encryptedPassword,  bytes32 projectId) public onlyRegistrant returns (bool){
+     function MintWithDetailsAndProjectId (address to, bytes32 tokenId,string memory encryptedData, string memory encryptedPassword,  bytes32 projectId) public onlyRegistrant returns (bool){
         _setDocumentDetails(tokenId, encryptedData, encryptedPassword);
         mint(to, tokenId); 
         registerContract = Consortium(s.getRegisteredContractAddress("Consortium"));
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _setProjectId(tokenId , projectId);
-        registerContract.addDeviceToProject(tokenId,projectId);
+        registerContract.addDocumentToProject(tokenId,projectId);
         return true;
     }
     
-    function updateDetails(string memory tokenId,string memory encryptedData, string memory encryptedPassword ) public onlyRegistrant returns (bool) {
+    function updateDetails(bytes32 tokenId,string memory encryptedData, string memory encryptedPassword ) public onlyRegistrant returns (bool) {
         require(ownerOf(tokenId) == msg.sender, "ERC721: can not set metadata of token that is not own");
         _updateDocumentDetails(tokenId, encryptedData, encryptedPassword);
         return true;
     }
 
-    function MintWithDetails(address to, string memory tokenId,string memory encryptedData, string memory encryptedPassword ) public onlyRegistrant returns (bool) {
+    function MintWithDetails(address to, bytes32 tokenId,string memory encryptedData, string memory encryptedPassword ) public onlyRegistrant returns (bool) {
         _setDocumentDetails(tokenId, encryptedData, encryptedPassword);
          mint(to, tokenId);
         // registerContract.addDeviceToProject(tokenId, (projectId));

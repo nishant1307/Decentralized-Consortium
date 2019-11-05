@@ -34,12 +34,12 @@ contract Consortium is StorageDefinition {
 
     modifier userExists() {
         require(!compareStrings(s.getUserDetails().organizationID, ""));
-        _;
+        _; 
     }
 
     // modifer belongsToProject(bytes32 projectID) {
     //     require()
-    // }
+    // }s
 
     modifier uniqueEmail(string memory email) {
         require(s.getAddress(keccak256(abi.encodePacked("EmailToPKMapping", email))) == address(0x0));
@@ -160,9 +160,9 @@ contract Consortium is StorageDefinition {
         return s.getMyProjectsCount();
     }
 
-    function getConsortiumMembers(bytes32 projectID) public view returns (User[] memory) {
-        return s.getConsortiumMembers(projectID);
-    }
+    // function getConsortiumMembers(bytes32 projectID) public view returns (User[] memory) {
+    //     return s.getConsortiumMembers(projectID);
+    // }
 
     function getAllUsers() public view returns (User[] memory) {
         return s.getAllUsers();
@@ -209,7 +209,7 @@ contract Consortium is StorageDefinition {
         return s.updateUserKYC(kycHash);
     }
 
-    function addDocumentToProject(string calldata docID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
+    function addDocumentToProject(bytes32 docID, bytes32 _projectID) external onlyRegisteredContract returns (bool) {
         emit DocumentAdded(_projectID,  s.getOrganizationDetails().name, docID, now);
         return true;
     }
@@ -238,14 +238,13 @@ contract Consortium is StorageDefinition {
         return s.getAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)));
     }
 
-
     // function confirmPartnershipStatus(string calldata organizationID, string calldata partnershipType) external onlyOwner {
     //     s.confirmPartnershipStatus(organizationID, partnershipType);
     // }
 
-    function getPartnersByType(string calldata orgType) external view returns (Organization[] memory) {
-        return s.getPartnersByType(orgType);
-    }
+    // function getPartnersByType(string calldata orgType) external view returns (Organization[] memory) {
+    //     return s.getPartnersByType(orgType);
+    // }
 
     function getOrganizationAdminEmail(string calldata organizationID) external view returns (string memory) {
         return s.getString(keccak256(abi.encodePacked("OrganizationAdmin", organizationID)));

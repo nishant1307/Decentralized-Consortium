@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const certificationAddress = '0x79b1fc98eff3e83b8641ff73f17f751b84460bab';
+export const certificationAddress = '0x6d73e540afbc947f0f3fe03dcdecf345b1ff3059';
 export const certificationABI = [
 	{
 		"constant": false,

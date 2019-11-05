@@ -238,11 +238,14 @@ contract EternalStorage is StorageDefinition {
             users[tokenIndex] = lastTokenId; 
             userIndex[lastTokenId.publicKey] = tokenIndex;
         }
+        delete userDirectory[userAddress];
         users.length--;
+        this.deleteAddress(keccak256(abi.encodePacked("EmailToPKMapping", orgEmployees[organizationID][orgEmployeeIndex[userAddress]-1].email)));
         if( orgEmployees[organizationID][orgEmployeeIndex[userAddress]-1].role == roles.admin){
             deleteOrganization(organizationID);
+        }else{
+            orgEmployees[organizationID][orgEmployeeIndex[userAddress]-1].status = KYCStatus.suspended;
         }
-        orgEmployees[organizationID][orgEmployeeIndex[userAddress]-1].status = KYCStatus.suspended;
     }
     
     function deleteOrganization(string memory organizationID) internal {
@@ -255,6 +258,9 @@ contract EternalStorage is StorageDefinition {
             organizationIndex[lastTokenId.organizationID] = tokenIndex;
         }
         organizations.length--;
+        delete orgEmployees[organizationID];
+        delete organizationDirectory[organizationID];
+        this.deleteBool(keccak256(abi.encodePacked("organizationExists", organizationID)));
     }
     
     function deleteOrganizationExt(string calldata organizationID) external onlyRegisteredContract  {
@@ -317,9 +323,9 @@ contract EternalStorage is StorageDefinition {
         userDirectory[externalKey].role = newRole;
     }
 
-    function getPartnersByType(string calldata orgType) external onlyRegisteredContract view returns (Organization[] memory) {
-        return partners[orgType];
-    }
+    // function getPartnersByType(string calldata orgType) external onlyRegisteredContract view returns (Organization[] memory) {
+    //     return partners[orgType];
+    // }
 
     function updateUserKYC(string calldata kycHash) external onlyRegisteredContract returns (bool) {
         userDirectory[tx.origin].status =  KYCStatus.kycPending;
