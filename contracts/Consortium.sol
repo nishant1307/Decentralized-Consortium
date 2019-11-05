@@ -80,6 +80,14 @@ contract Consortium is StorageDefinition {
         s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
         s.setUser(organizationID, email, kycHash, roles.regular, false);
     }
+    
+    function deleteUser(address userAddress,string calldata organizationID)external onlyOwner{
+        s.deleteUser(userAddress,organizationID);   
+    }
+    
+    function deleteOrganization(string calldata organizationID) external onlyOwner{
+        s.deleteOrganizationExt(organizationID);
+    }
 
 
     function getInvitedUserOrganizationDetails(string memory email) public view returns (Organization memory){
@@ -231,9 +239,9 @@ contract Consortium is StorageDefinition {
     }
 
 
-    function confirmPartnershipStatus(string calldata organizationID, string calldata partnershipType) external onlyOwner {
-        s.confirmPartnershipStatus(organizationID, partnershipType);
-    }
+    // function confirmPartnershipStatus(string calldata organizationID, string calldata partnershipType) external onlyOwner {
+    //     s.confirmPartnershipStatus(organizationID, partnershipType);
+    // }
 
     function getPartnersByType(string calldata orgType) external view returns (Organization[] memory) {
         return s.getPartnersByType(orgType);

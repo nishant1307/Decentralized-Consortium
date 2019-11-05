@@ -16,6 +16,12 @@ contract EternalStorage is StorageDefinition {
     mapping(address => uint256) userIndex;
     // User Directory
     mapping(address => User) internal userDirectory;
+    
+    // Mapping between userAddress and index
+    mapping(string => uint256) public  organizationIndex;
+    
+    // Mapping between userAddress and index
+    mapping(address => uint256) public orgEmployeeIndex;
 
     // Organization Directory from organizationID
     mapping(string => Organization) internal organizationDirectory;
@@ -220,20 +226,40 @@ contract EternalStorage is StorageDefinition {
         userDirectory[tx.origin] = newUser;
         users.push(newUser);
         orgEmployees[organizationID].push(newUser);
+        orgEmployeeIndex[tx.origin] = orgEmployees[organizationID].length;
     }
 
-    function deleteUser(address userAddress) external onlyRegisteredContract {
-        uint256 index = userIndex[userAddress];
-        require(index < users.length);
-        if (users.length > 1) {
-            users[index] = users[users.length-1];
+    function deleteUser(address userAddress,string calldata organizationID) external onlyRegisteredContract {
+        uint256 lastTokenIndex = users.length - 1 ;
+        uint256 tokenIndex = userIndex[userAddress];
+        if (tokenIndex != lastTokenIndex) {
+            User memory lastTokenId = users[lastTokenIndex];
+
+            users[tokenIndex] = lastTokenId; 
+            userIndex[lastTokenId.publicKey] = tokenIndex;
         }
-        delete users[users.length-1];
-        users.length--; // Implicitly recovers gas from last element storage
-        userIndex[users[index].publicKey] = index;
-        delete index;
+        users.length--;
+        if( orgEmployees[organizationID][orgEmployeeIndex[userAddress]-1].role == roles.admin){
+            deleteOrganization(organizationID);
+        }
+        orgEmployees[organizationID][orgEmployeeIndex[userAddress]-1].status = KYCStatus.suspended;
     }
+    
+    function deleteOrganization(string memory organizationID) internal {
+        uint256 lastTokenIndex = organizations.length - 1 ;
+        uint256 tokenIndex = organizationIndex[organizationID];
+        if (tokenIndex != lastTokenIndex) {
+            Organization memory lastTokenId = organizations[lastTokenIndex];
 
+            organizations[tokenIndex] = lastTokenId; 
+            organizationIndex[lastTokenId.organizationID] = tokenIndex;
+        }
+        organizations.length--;
+    }
+    
+    function deleteOrganizationExt(string calldata organizationID) external onlyRegisteredContract  {
+        deleteOrganization(organizationID);
+    }
 
     function setOrganization(string calldata organizationID, string calldata name, string calldata orgKYCHash) external onlyRegisteredContract {
         Organization memory newOrganization;
@@ -242,6 +268,7 @@ contract EternalStorage is StorageDefinition {
         newOrganization.kycHash = orgKYCHash;
         newOrganization.status = KYCStatus.kycPending;
         organizationDirectory[organizationID] = newOrganization;
+        organizationIndex[organizationID] = organizations.length;
         organizations.push(newOrganization);
     }
 
@@ -322,9 +349,9 @@ contract EternalStorage is StorageDefinition {
         return userDirectory[tx.origin].status;
     }
 
-    function confirmPartnershipStatus(string calldata organizationID, string calldata partnershipType) external onlyRegisteredContract {
-        partners[partnershipType].push(organizationDirectory[organizationID]);
-    }
+    // function confirmPartnershipStatus(string calldata organizationID, string calldata partnershipType) external onlyRegisteredContract {
+    //     partners[partnershipType].push(organizationDirectory[organizationID]);
+    // }
 
      function addNewProject(bytes32 projectID,  string calldata name, string calldata description, string calldata industry) external onlyRegisteredContract {
         Project memory project;

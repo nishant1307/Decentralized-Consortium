@@ -252,7 +252,7 @@ function KYCComponent(props) {
           setActiveStep(5);
         }
       }).on('error', async function (error) {
-        // console.log(error);
+        console.log(error);
         setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
         setTimeout(() => {
           setSnackbar({ open: false, message: "" });
@@ -295,6 +295,7 @@ function KYCComponent(props) {
   };
 
   function handleDoc(data) {
+    setLoader(true);
     console.log(data, "data is called at the end");
     let tempIpfsCompanyHash = ipfsCompanyHash;
     for (let index = 0; index < data.companyDoc.length; index++) {
@@ -378,6 +379,7 @@ function KYCComponent(props) {
     //     });
     //   }
     // }
+    setLoader(false);
   }
 
   function getStepContent(step) {

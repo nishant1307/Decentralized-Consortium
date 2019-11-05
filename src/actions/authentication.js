@@ -32,7 +32,7 @@ export const loginUser = (user, history) => dispatch => {
     registryContract.methods.getUserOrganizationDetails().call({
         from: user.address
     }).then(res => {
-        // console.log(res,"res");
+        console.log(res,"res");
         fetch("https://api.arthanium.org/api/v1/faucet/" + user.address).then(res => res.json()).then((result) => {
             console.log(result);
         }, (error) => {

@@ -28,6 +28,7 @@ contract StorageDefinition {
         string documentHash;
         bool status;
         uint256 timeStamp;
+        string organizationID;
     }
 
     enum roles {regular, admin, registrant}
