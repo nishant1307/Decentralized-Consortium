@@ -10,3 +10,23 @@ export const artRoles = [
   "Conservators",
   "Consulting services","Financiers","Forensic authentication services","Framers","Gallerists","Handlers","Lawyers","Lenders","Online sales and auction platforms","Primary Dealers","Private Seller","Property & casualty insurance companies","Qualified appraisers","Security firms"
 ];
+
+export const certification = [
+  "Applicant",
+  "Certification Agency",
+]
+
+export const shipping = [
+  "Agent",
+  "Bank",
+  "Buyer",
+  "Certification Agency",
+  "Customs / Authorities",
+  "Government",
+  "Insurance",
+  "Logistics",
+  "Ports / Terminals",
+  "Seller",
+  "Warehousing",
+  "Freight Forwarder",
+]

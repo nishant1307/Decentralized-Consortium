@@ -321,7 +321,7 @@ export const joinProjectRequest = invitationDetails => async (dispatch) => {
   })
 };
 
-export const addReview = (tokenId, remark) => async dispatch => {  
+export const addReview = (tokenId, remark) => async dispatch => {
   privateKey = await sessionStorage.getItem('privateKey');
   var transaction = {
     "to": docAddress,
@@ -426,13 +426,24 @@ export const addNewDoc = docDetails => async dispatch => {
     if (balance > 1000000000000000000) {
       var transaction = {
         "to": docAddress,
-        "data": docContract.methods.MintWithDetails(
+      };
+
+      if (docDetails.projectID !== null) {
+        transaction["data"] = docContract.methods.MintWithDetailsAndProjectId(
+          address,
+          uuid,
+          docDetails.encryptData,
+          docDetails.encryptedPassword,
+          docDetails.projectID
+        ).encodeABI()
+      } else {
+        transaction["data"] = docContract.methods.MintWithDetails(
           address,
           uuid,
           docDetails.encryptData,
           docDetails.encryptedPassword
         ).encodeABI()
-      };
+      }
       // web3.eth.estimateGas(transaction).then(gasLimit => {
       transaction["gasLimit"] = 4700000;
       web3.eth.accounts.signTransaction(transaction, privateKey)

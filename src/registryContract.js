@@ -1,5 +1,5 @@
 import web3 from './web3';
-export const registryAddress = '0x7b8ab38d5075e27275cbc99108f414fd15e68570';
+export const registryAddress = '0x1eebc5b1b33e09d739a1b2968881a51467edd114';
 export const registryABI = [
 	{
 		"constant": false,
@@ -642,6 +642,64 @@ export const registryABI = [
 		"constant": true,
 		"inputs": [],
 		"name": "getAllUsers",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "publicKey",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "organizationID",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.KYCStatus",
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"internalType": "string",
+						"name": "kycHash",
+						"type": "string"
+					},
+					{
+						"internalType": "enum StorageDefinition.roles",
+						"name": "role",
+						"type": "uint8"
+					},
+					{
+						"internalType": "bool",
+						"name": "adminApprovalStatus",
+						"type": "bool"
+					}
+				],
+				"internalType": "struct StorageDefinition.User[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "projectID",
+				"type": "bytes32"
+			}
+		],
+		"name": "getConsortiumMembers",
 		"outputs": [
 			{
 				"components": [

@@ -25,7 +25,7 @@ import {
 import GridItem from "components/Grid/GridItem";
 import CustomLoader from "components/Loaders/CustomLoader";
 import { makeStyles } from '@material-ui/core/styles';
-import {artRoles} from "dataset/projectRoles";
+import { artRoles, certification, shipping } from "dataset/projectRoles";
 
 const useStyles = makeStyles(theme => ({
   progress: {
@@ -139,7 +139,9 @@ function ProjectFormModal(props) {
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                       >
-                        {renderFromArray(artRoles)}
+                        {industry ==="Art & Collectibles" && renderFromArray(artRoles)}
+                        {industry ==="Certification" && renderFromArray(certification)}
+                        {industry ==="Shipping" && renderFromArray(shipping)}
                       </Select>
                       <FormHelperText color="muted">Select your role for project?</FormHelperText>
                     </FormControl>

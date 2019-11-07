@@ -19,7 +19,8 @@ import MaterialTable, { MTableToolbar } from 'material-table';
 import { encryptMessage, decryptMessage } from 'utils'
 import ipfs from '../../../ipfs';
 import { seaPorts } from 'assets/data/seaPort'
-
+import { registryContract } from "registryContract";
+import { partnerContract } from 'partnersContract';
 import {
     Dialog,
     DialogActions,
@@ -32,6 +33,7 @@ import {
     Select,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import AssignProject from "views/Products/AssignProject";
 
 
 const Ipfs = require('ipfs-http-client')
@@ -60,8 +62,6 @@ const styles = theme => ({
 });
 
 const ProformaInvoice = props => {
-    // console.log(props);
-
     const { classes } = props;
     const [struture, setStruture] = useState({});
     const [password, setPassword] = useState("");
@@ -81,8 +81,30 @@ const ProformaInvoice = props => {
         ],
     });
 
+    const [partnersListRender, setPartnersListRender] = useState([]);
+    const [selectedProject, setSelectedProject] = useState(null);
+    function fetchPartners(projectId) {
+        registryContract.methods.getConsortiumMembers(projectId).call({
+            from: props.auth.user.publicKey
+        }).then(res => {
+            res.forEach(partner => {
+                partnerContract.methods.getPartnerRole(projectId, partner.publicKey).call({
+                    from: props.auth.user.publicKey
+                }).then(role => {
+                    partner.role = role === "" ? "Role Unassigned" : role
+                    setPartnersListRender(partnersListRender => [
+                        ...partnersListRender,
+                        <MenuItem key={Math.random()} name={role} value={role + " " + partner.organizationID}>{role} | {partner.organizationID}</MenuItem>
+                    ]);
+                })
+            })
+        })
+
+
+
+    }
+
     useEffect(() => {
-        console.log(props);
         if (props.data.hash !== undefined) {
             console.log("Hey");
             setIsNew(false);
@@ -115,7 +137,7 @@ const ProformaInvoice = props => {
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash,  "DocType": "Sales", "subDocType": "Proforma Invoice", "type": "structured" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "DocType": "Sales", "subDocType": "Proforma Invoice", "type": "structured" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         props.history.push("/dashboard/home")
@@ -155,7 +177,7 @@ const ProformaInvoice = props => {
 
             ],
         });
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: props.data.projectID });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID:selectedProject});
         props.history.push("/dashboard/home")
 
     }
@@ -177,18 +199,36 @@ const ProformaInvoice = props => {
                             <p className={classes.cardCategoryWhite}></p>
                         </CardHeader>
                         <CardBody>
+                        {isNew &&  <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+                                fetchPartners(e.target.value);
+                                setSelectedProject(e.target.value);
+                            }}
+                                selectedProject={selectedProject}
+                        /> }
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={5}>
-                                    <CustomInput
-                                        labelText="Seller"
-                                        id="seller"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.seller}
 
-                                    />
+                                    {selectedProject === null ?
+                                        <CustomInput
+                                            labelText="Seller"
+                                            id="seller"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            onChangeValue={handleChangeValue}
+                                            value={struture.seller}
+
+                                        /> : <FormControl className={"CustomInput-formControl-197"}  >
+                                            <InputLabel htmlFor="age-helper">Seller</InputLabel>
+                                            <Select
+                                                style={{ width: 250 }}
+                                                value={struture.seller}
+                                                onChange={(e) => setStruture({ ...struture, ["seller"]: e.target.value })}
+                                            >
+                                                {partnersListRender}
+                                            </Select>
+                                        </FormControl>
+                                    }
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
                                     <CustomInput
@@ -234,17 +274,25 @@ const ProformaInvoice = props => {
                             </GridContainer>
                             <GridContainer>
                                 <GridItem xs={12} sm={6} md={4}>
-                                    <FormControl className={"CustomInput-formControl-197"}  >
-                                        <InputLabel htmlFor="age-helper">Buyer</InputLabel>
-                                        <Select
-                                            style={{ width: 250 }}
-                                            value={struture.buyer}
-                                            onChange={(e) => setStruture({ ...struture, ["buyer"]: e.target.value })}
-                                        >
-                                            <MenuItem value={"Air"}>Air</MenuItem>
+                                    {selectedProject === null ? <CustomInput
+                                        labelText="Buyer"
+                                        id="buyer"
+                                        formControlProps={{
+                                            fullWidth: true
+                                        }}
+                                        onChangeValue={handleChangeValue}
+                                        value={struture.buyer}
 
-                                        </Select>
-                                    </FormControl>
+                                    /> :
+                                        <FormControl className={"CustomInput-formControl-197"}  > <InputLabel htmlFor="age-helper">Buyer</InputLabel>
+                                            <Select
+                                                style={{ width: 250 }}
+                                                value={struture.buyer}
+                                                onChange={(e) => setStruture({ ...struture, ["buyer"]: e.target.value })}
+                                            >
+                                                {partnersListRender}
+                                            </Select>   </FormControl>}
+
                                 </GridItem>
                                 <GridItem xs={12} sm={6} md={4} />
                                 <GridItem xs={12} sm={6} md={4} style={{ marginTop: 27 }}>
@@ -602,11 +650,12 @@ const ProformaInvoice = props => {
                     }
                 </DialogActions>
             </Dialog>
-        </div>
+        </div >
     );
 };
 
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     user: state.user,
     errors: state.errors
 });
