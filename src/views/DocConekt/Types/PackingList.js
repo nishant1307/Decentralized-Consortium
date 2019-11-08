@@ -23,6 +23,9 @@ import { encryptMessage, decryptMessage } from 'utils'
 import { addNewDoc, updateDoc } from 'actions/userActions';
 import { connect } from 'react-redux';
 import ipfs from '../../../ipfs';
+import { registryContract } from "registryContract";
+import { partnerContract } from 'partnersContract';
+import AssignProject from "views/Products/AssignProject";
 
 import {
     Dialog,
@@ -84,13 +87,34 @@ const PackingList = props => {
 
         ],
     });
+
+    const [partnersListRender, setPartnersListRender] = useState([]);
+    const [selectedProject, setSelectedProject] = useState(null);
+    function fetchPartners(projectId) {
+        registryContract.methods.getConsortiumMembers(projectId).call({
+            from: props.auth.user.publicKey
+        }).then(res => {
+            res.forEach(partner => {
+                partnerContract.methods.getPartnerRole(projectId, partner.publicKey).call({
+                    from: props.auth.user.publicKey
+                }).then(role => {
+                    partner.role = role === "" ? "Role Unassigned" : role
+                    setPartnersListRender(partnersListRender => [
+                        ...partnersListRender,
+                        <MenuItem key={Math.random()} name={role} value={role + " " + partner.organizationID}>{role} | {partner.organizationID}</MenuItem>
+                    ]);
+                })
+            })
+        })
+    }
+
     async function handleUpdate() {
         setIsSubmitted(true)
         let privateKey = await sessionStorage.getItem('privateKey');
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture, tableData: maintable.data }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash,  "DocType": "Shipping", "subDocType": "Packing List", "type": "structured" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "DocType": "Shipping", "subDocType": "Packing List", "type": "structured" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         props.history.push("/dashboard/home")
@@ -130,7 +154,7 @@ const PackingList = props => {
 
             ],
         });
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: props.data.projectID });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: selectedProject });
         props.history.push("/dashboard/home")
 
     }
@@ -181,6 +205,18 @@ const PackingList = props => {
                             <p className={classes.cardCategoryWhite}></p>
                         </CardHeader>
                         <CardBody>
+                            {isNew &&
+                                <GridContainer>
+                                    <GridItem xs={12} sm={12} md={12}>
+                                        <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+                                            fetchPartners(e.target.value);
+                                            setSelectedProject(e.target.value);
+                                        }}
+                                            selectedProject={selectedProject}
+                                        />
+                                    </GridItem>
+                                </GridContainer>
+                            }
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={3}>
 
@@ -259,7 +295,7 @@ const PackingList = props => {
 
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
+                                    {selectedProject === null ? <CustomInput
                                         labelText="Buyer (If not Consignee)"
                                         id="buyer"
                                         formControlProps={{
@@ -267,7 +303,16 @@ const PackingList = props => {
                                         }}
                                         onChangeValue={handleChangeValue}
                                         value={struture.buyer}
-                                    />
+
+                                    /> :
+                                        <FormControl className={"CustomInput-formControl-197"} style={{ marginTop: 27 }}  > <InputLabel htmlFor="age-helper">Buyer (If not Consignee)</InputLabel>
+                                            <Select
+                                                style={{ width: 250 }}
+                                                value={struture.buyer}
+                                                onChange={(e) => setStruture({ ...struture, ["buyer"]: e.target.value })}
+                                            >
+                                                {partnersListRender}
+                                            </Select>   </FormControl>}
                                 </GridItem>
                             </GridContainer>
 
@@ -594,6 +639,7 @@ const PackingList = props => {
 
 
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     user: state.user,
     errors: state.errors
 });

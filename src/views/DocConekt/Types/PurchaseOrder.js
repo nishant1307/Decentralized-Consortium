@@ -32,7 +32,9 @@ import {
     Select,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-
+import { registryContract } from "registryContract";
+import { partnerContract } from 'partnersContract';
+import AssignProject from "views/Products/AssignProject";
 
 const Ipfs = require('ipfs-http-client')
 
@@ -80,6 +82,26 @@ const PurchaseOrder = props => {
 
         ],
     });
+
+    const [partnersListRender, setPartnersListRender] = useState([]);
+    const [selectedProject, setSelectedProject] = useState(null);
+    function fetchPartners(projectId) {
+        registryContract.methods.getConsortiumMembers(projectId).call({
+            from: props.auth.user.publicKey
+        }).then(res => {
+            res.forEach(partner => {
+                partnerContract.methods.getPartnerRole(projectId, partner.publicKey).call({
+                    from: props.auth.user.publicKey
+                }).then(role => {
+                    partner.role = role === "" ? "Role Unassigned" : role
+                    setPartnersListRender(partnersListRender => [
+                        ...partnersListRender,
+                        <MenuItem key={Math.random()} name={role} value={role + " " + partner.organizationID}>{role} | {partner.organizationID}</MenuItem>
+                    ]);
+                })
+            })
+        })
+    }
 
     useEffect(() => {
         console.log(props);
@@ -155,7 +177,7 @@ const PurchaseOrder = props => {
 
             ],
         });
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: props.data.projectID });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: selectedProject });
         props.history.push("/dashboard/home")
 
     }
@@ -177,9 +199,21 @@ const PurchaseOrder = props => {
                             <p className={classes.cardCategoryWhite}></p>
                         </CardHeader>
                         <CardBody>
+                            {isNew &&
+                                <GridContainer>
+                                    <GridItem xs={12} sm={12} md={12}>
+                                        <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+                                            fetchPartners(e.target.value);
+                                            setSelectedProject(e.target.value);
+                                        }}
+                                            selectedProject={selectedProject}
+                                        />
+                                    </GridItem>
+                                </GridContainer>
+                            }
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={5}>
-                                    <CustomInput
+                                    {selectedProject === null ? <CustomInput
                                         labelText="Buyer"
                                         id="buyer"
                                         formControlProps={{
@@ -188,7 +222,15 @@ const PurchaseOrder = props => {
                                         onChangeValue={handleChangeValue}
                                         value={struture.buyer}
 
-                                    />
+                                    /> :
+                                        <FormControl className={"CustomInput-formControl-197"} style={{ marginTop: 27 }}  > <InputLabel htmlFor="age-helper">Buyer (If not Consignee)</InputLabel>
+                                            <Select
+                                                style={{ width: 250 }}
+                                                value={struture.buyer}
+                                                onChange={(e) => setStruture({ ...struture, ["buyer"]: e.target.value })}
+                                            >
+                                                {partnersListRender}
+                                            </Select>   </FormControl>}
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={3}>
                                     <CustomInput
@@ -220,15 +262,27 @@ const PurchaseOrder = props => {
                             </GridContainer>
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
-                                        labelText="Seller"
-                                        id="seller"
-                                        formControlProps={{
-                                            fullWidth: true
-                                        }}
-                                        onChangeValue={handleChangeValue}
-                                        value={struture.seller}
-                                    />
+                                    {selectedProject === null ?
+                                        <CustomInput
+                                            labelText="Seller"
+                                            id="seller"
+                                            formControlProps={{
+                                                fullWidth: true
+                                            }}
+                                            onChangeValue={handleChangeValue}
+                                            value={struture.seller}
+
+                                        /> : <FormControl className={"CustomInput-formControl-197"}  >
+                                            <InputLabel htmlFor="age-helper">Seller</InputLabel>
+                                            <Select
+                                                style={{ width: 250 }}
+                                                value={struture.seller}
+                                                onChange={(e) => setStruture({ ...struture, ["seller"]: e.target.value })}
+                                            >
+                                                {partnersListRender}
+                                            </Select>
+                                        </FormControl>
+                                    }   
                                 </GridItem>
                                 <GridItem xs={12} sm={12} md={6}>
                                     <CustomInput
@@ -572,6 +626,7 @@ const PurchaseOrder = props => {
 };
 
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     user: state.user,
     errors: state.errors
 });

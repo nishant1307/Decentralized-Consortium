@@ -177,7 +177,7 @@ const ProformaInvoice = props => {
 
             ],
         });
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID:selectedProject});
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: selectedProject });
         props.history.push("/dashboard/home")
 
     }
@@ -199,12 +199,16 @@ const ProformaInvoice = props => {
                             <p className={classes.cardCategoryWhite}></p>
                         </CardHeader>
                         <CardBody>
-                        {isNew &&  <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
-                                fetchPartners(e.target.value);
-                                setSelectedProject(e.target.value);
-                            }}
-                                selectedProject={selectedProject}
-                        /> }
+                            {isNew &&
+                                <GridItem xs={12} sm={12} md={12}>
+                                    <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+                                        fetchPartners(e.target.value);
+                                        setSelectedProject(e.target.value);
+                                    }}
+                                        selectedProject={selectedProject}
+                                    />
+                                </GridItem>
+                            }
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={5}>
 
@@ -218,7 +222,7 @@ const ProformaInvoice = props => {
                                             onChangeValue={handleChangeValue}
                                             value={struture.seller}
 
-                                        /> : <FormControl className={"CustomInput-formControl-197"}  >
+                                        /> : <FormControl className={"CustomInput-formControl-197"} style={{ marginTop: 27 }} >
                                             <InputLabel htmlFor="age-helper">Seller</InputLabel>
                                             <Select
                                                 style={{ width: 250 }}
@@ -284,7 +288,7 @@ const ProformaInvoice = props => {
                                         value={struture.buyer}
 
                                     /> :
-                                        <FormControl className={"CustomInput-formControl-197"}  > <InputLabel htmlFor="age-helper">Buyer</InputLabel>
+                                        <FormControl className={"CustomInput-formControl-197"} style={{ marginTop: 27 }}  > <InputLabel htmlFor="age-helper">Buyer</InputLabel>
                                             <Select
                                                 style={{ width: 250 }}
                                                 value={struture.buyer}

@@ -24,6 +24,10 @@ import { connect } from 'react-redux';
 import { encryptMessage, decryptMessage } from 'utils'
 import { addNewDoc, updateDoc } from 'actions/userActions';
 import ipfs from '../../../ipfs';
+import { registryContract } from "registryContract";
+import { partnerContract } from 'partnersContract';
+import AssignProject from "views/Products/AssignProject";
+
 
 import {
     Dialog,
@@ -86,6 +90,27 @@ const CommercialInvoice = props => {
 
         ],
     });
+
+    const [partnersListRender, setPartnersListRender] = useState([]);
+    const [selectedProject, setSelectedProject] = useState(null);
+    function fetchPartners(projectId) {
+        registryContract.methods.getConsortiumMembers(projectId).call({
+            from: props.auth.user.publicKey
+        }).then(res => {
+            res.forEach(partner => {
+                partnerContract.methods.getPartnerRole(projectId, partner.publicKey).call({
+                    from: props.auth.user.publicKey
+                }).then(role => {
+                    partner.role = role === "" ? "Role Unassigned" : role
+                    setPartnersListRender(partnersListRender => [
+                        ...partnersListRender,
+                        <MenuItem key={Math.random()} name={role} value={role + " " + partner.organizationID}>{role} | {partner.organizationID}</MenuItem>
+                    ]);
+                })
+            })
+        })
+    }
+
     async function handleUpdate() {
         setIsSubmitted(true)
         let privateKey = await sessionStorage.getItem('privateKey');
@@ -132,7 +157,7 @@ const CommercialInvoice = props => {
 
             ],
         });
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: props.data.projectID });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: selectedProject });
         props.history.push("/dashboard/home")
 
     }
@@ -183,6 +208,18 @@ const CommercialInvoice = props => {
                             <p className={classes.cardCategoryWhite}></p>
                         </CardHeader>
                         <CardBody>
+                            {isNew &&
+                                <GridContainer>
+                                    <GridItem xs={12} sm={12} md={12}>
+                                        <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+                                            fetchPartners(e.target.value);
+                                            setSelectedProject(e.target.value);
+                                        }}
+                                            selectedProject={selectedProject}
+                                        />
+                                    </GridItem>
+                                </GridContainer>
+                            }
                             <GridContainer>
                                 <GridItem xs={12} sm={12} md={3}>
                                     <CustomInput
@@ -281,8 +318,8 @@ const CommercialInvoice = props => {
                                 <GridItem xs={12} sm={12} md={2}>
 
                                 </GridItem>
-                                <GridItem xs={12} sm={12} md={4}>
-                                    <CustomInput
+                                <GridItem xs={12} sm={12} md={4} >
+                                    {selectedProject === null ? <CustomInput
                                         labelText="Buyer (If not Consignee)"
                                         id="buyer"
                                         formControlProps={{
@@ -290,7 +327,16 @@ const CommercialInvoice = props => {
                                         }}
                                         onChangeValue={handleChangeValue}
                                         value={struture.buyer}
-                                    />
+
+                                    /> :
+                                        <FormControl className={"CustomInput-formControl-197"} style={{ marginTop: 27 }}  > <InputLabel htmlFor="age-helper">Buyer (If not Consignee)</InputLabel>
+                                            <Select
+                                                style={{ width: 250 }}
+                                                value={struture.buyer}
+                                                onChange={(e) => setStruture({ ...struture, ["buyer"]: e.target.value })}
+                                            >
+                                                {partnersListRender}
+                                            </Select>   </FormControl>}
                                 </GridItem>
                             </GridContainer>
                             <GridContainer style={{ marginTop: 27 }}>
@@ -806,6 +852,7 @@ const CommercialInvoice = props => {
 
 
 const mapStateToProps = (state) => ({
+    auth: state.auth,
     user: state.user,
     errors: state.errors
 });
