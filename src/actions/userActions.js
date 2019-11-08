@@ -68,23 +68,23 @@ export const currentUserInfo = clientToken => dispatch => {
 };
 
 export const fetchUserSubscriptionInfo = () => dispatch => {
-  creditContract.methods.getMyCredits().call({
-    from: localStorage.getItem("address")
-  }).then(res => {
-    dispatch({
-      type: "USER_SUBSCRIPTION_INFO",
-      payload: {
-        credits: res.credits,
-        startDate: res.startDate,
-        endDate: res.endDate
-      }
-    });
-  }).catch(error => {
-    dispatch({
-      type: GET_ERRORS,
-      payload: error
-    });
-  })
+  // creditContract.methods.getMyCredits().call({
+  //   from: localStorage.getItem("address")
+  // }).then(res => {
+  //   dispatch({
+  //     type: "USER_SUBSCRIPTION_INFO",
+  //     payload: {
+  //       credits: res.credits,
+  //       startDate: res.startDate,
+  //       endDate: res.endDate
+  //     }
+  //   });
+  // }).catch(error => {
+  //   dispatch({
+  //     type: GET_ERRORS,
+  //     payload: error
+  //   });
+  // })
 }
 export const openProjectModal = () => dispatch => {
   dispatch({
