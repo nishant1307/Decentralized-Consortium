@@ -138,8 +138,8 @@ export default function PricingPage() {
             // Enterprise card is full width at sm breakpoint
             <GridItem key={tier.title} xs={12} sm={12} md={4}>
               <Card>
-                <CardHeader plain style={{margin: 0}}>
-                  <img src={tier.cardImage} height="100%" width="100%"/>
+                <CardHeader plain style={{ margin: 0 }}>
+                  <img src={tier.cardImage} height="100%" width="100%" />
                 </CardHeader>
                 <CardBody >
                   <div className={classes.cardPricing}>
@@ -158,8 +158,8 @@ export default function PricingPage() {
                     ))}
                   </ul>
                 </CardBody>
-                <CardActions style={{justifyContent: "center"}}>
-                  <Button variant={tier.buttonVariant} style={{marginBottom: "50px"}} round color="warning" onClick={(e) => paymentHandler(tier.title, tier.price)}>
+                <CardActions style={{ justifyContent: "center" }}>
+                  <Button variant={tier.buttonVariant} style={{ marginBottom: "50px" }} round color="warning" onClick={(e) => paymentHandler(tier.title, tier.price)}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -168,7 +168,7 @@ export default function PricingPage() {
           ))}
         </GridContainer>
       </Container>
-      <Container>
+      <Container maxWidth="md" component="main">
         <div className="wrapper">
           <div className="row">
             <div className="columns-2 w-row">
@@ -188,7 +188,8 @@ export default function PricingPage() {
                 <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
                   <Table className="tg">
                     <TableRow>
-                      <TableHead className="tg-rnhl" colspan="4">Credit Chart</TableHead>
+                      <TableHead className="tg-rnhl" colspan="4"> <h2 className="heading-2">Credit Chart</h2></TableHead>
+                      <TableHead className="tg-rnhl" colspan="4"></TableHead>
                     </TableRow>
                     <TableRow>
                       <TableCell className="tg-rnhl">Action</TableCell>

@@ -71,7 +71,7 @@ const classes = useStyles();
     thingDescription: '',
     thingBrand: '',
     thingStory: '',
-    thingCurrencyCode: 'INR',
+    thingCurrencyCode: 'USD',
     thingValue: '',
     quantity: '1'
   };

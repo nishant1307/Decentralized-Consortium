@@ -21,6 +21,7 @@ import { parseJSONFromIPFSHash } from "utils";
 import axios from "axios";
 import { withStyles } from '@material-ui/core/styles';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import Fab from '@material-ui/core/Fab';
 import {
   Dialog,
@@ -29,6 +30,7 @@ import {
   DialogTitle,
   TextField
 } from '@material-ui/core';
+var QRCode = require('qrcode.react');
 const styles = {
   cardCategoryWhite: {
     color: "rgba(255,255,255,.62)",
@@ -67,6 +69,10 @@ const UserProfile = props => {
   const [email, setEmail] = useState('');
   const [open, setOpen] = React.useState(false);
   const [password, setPassword] = React.useState('');
+  const [privateKey, setPrivateKey] = React.useState(null);
+  const [isQRcodeOpen, setIsQRcodeOpen] = useState(false);
+  const [isQRcode, setIsQRcode] = useState(false);
+
   useEffect(() => {
     // registryContract.methods.getUserOrganizationDetails().call({
     //   from : localStorage.getItem("address")
@@ -79,22 +85,33 @@ const UserProfile = props => {
     //   console.log();
     //
     // })
-    parseJSONFromIPFSHash(props.user.user[4]).then(data => {
+
+    parseJSONFromIPFSHash(props.user.user[4]).then(async data => {
       // console.log(data);
       setUserDetails(data.info);
     });
   }, []);
+
+  function handleOpen(purpose) {
+    setOpen(true);
+    setIsQRcode(purpose === "QR" ? true : false);
+  }
 
   const { classes } = props;
 
   const handleDownload = () => {
     let temp = localStorage.getItem("data");
     passworder.decrypt(password, JSON.parse(temp))
-      .then(function (result) {
-        let dataToPrint = JSON.parse(result).mnemonic ? JSON.parse(result).mnemonic : JSON.parse(result).privateKey        
-        var doc = new jsPDF()
-        doc.text(JSON.stringify(dataToPrint), 20, 20) 
-        doc.save('recovery key.pdf')
+      .then(async function (result) {
+        if (isQRcode) {
+          setPrivateKey(await sessionStorage.getItem('privateKey'));
+          setIsQRcodeOpen(true);
+        } else {
+          let dataToPrint = JSON.parse(result).mnemonic ? JSON.parse(result).mnemonic : JSON.parse(result).privateKey
+          var doc = new jsPDF()
+          doc.text(JSON.stringify(dataToPrint), 20, 20)
+          doc.save('recovery key.pdf')
+        }
         setOpen(false);
         setPassword("");
       }).catch((reason) => {
@@ -155,8 +172,8 @@ const UserProfile = props => {
                     />
                   }
                 </GridItem>
-              </GridContainer>
-              <GridContainer>
+                {/* </GridContainer>
+              <GridContainer> */}
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
                     labelText="Full Name"
@@ -214,10 +231,20 @@ const UserProfile = props => {
                 </React.Fragment>
               )
             }
-            <Fab onClick={() => { setOpen(true) }} variant="extended" aria-label="delete" className={classes2.fab} onClick={() => setOpen(true)}>
-              <SaveAltIcon className={classes2.extendedIcon} />
-              Save Access key
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={3}>
+                <Fab onClick={() => { handleOpen("seed") }} variant="extended" aria-label="delete" className={classes2.fab} >
+                  <SaveAltIcon className={classes2.extendedIcon} />
+                  Save Access key
                         </Fab>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={3}>
+                <Fab onClick={() => { handleOpen("QR") }} variant="extended" aria-label="delete" className={classes2.fab}>
+                <VisibilityIcon className={classes2.extendedIcon} />
+                  Private Key
+                        </Fab>
+              </GridItem>
+            </GridContainer>
           </Card>
         </GridItem>
       </GridContainer>
@@ -257,7 +284,28 @@ const UserProfile = props => {
             </Button>
         </DialogActions>
       </Dialog>
-    </div>
+      <Dialog
+        open={isQRcodeOpen}
+        onClose={() => setIsQRcodeOpen(false)}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Scan for Privatekey"}</DialogTitle>
+        <DialogContent>
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+              {privateKey !== null && <QRCode
+                id={privateKey}
+                value={privateKey}
+                size={290}
+                level={"H"}
+                includeMargin={true}
+              />}
+            </GridItem>
+          </GridContainer>
+        </DialogContent>
+      </Dialog>
+    </div >
   );
 };
 

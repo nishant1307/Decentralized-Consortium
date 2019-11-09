@@ -1,6 +1,6 @@
 export const industryList = [
   // 'Aerospace',
-  // 'Agriculture',
+  'Agriculture',
   'Art & Collectibles',
   // 'Forestry & Fishing',
   // 'Automotive',
