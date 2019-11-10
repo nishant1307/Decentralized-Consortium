@@ -7,7 +7,7 @@ import { industryList } from '../dataset/industries';
 import { functionalRoles } from '../dataset/functionalRoles';
 import { renderFromArray } from '../utils';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { useForm } from './validator';
 import {
   Button,
   TextField,
@@ -53,6 +53,12 @@ function ProjectFormModal(props) {
   const [industry, setIndustry] = useState('');
   const [role, setRole] = useState('');
   const [isLoading, setLoading] = useState(false);
+  const { values, useInput, isValid } = useForm({
+    projectName: '',
+    projectDescription: '',
+    industry: '',
+    role: ''
+  });
 
   const toggle = () => {
     setProjectName('');
@@ -66,8 +72,9 @@ function ProjectFormModal(props) {
 
   const { isReadyForProject } = state;
   const submitProject = () => {
+    // console.log(values, "values");
     // console.log({ name: projectName, description: projectDescription, industry: industry, partnerRole: role });
-    props.createNewProject({ name: projectName, description: projectDescription, industry: industry, partnerRole: role, passcode: projectPasscode });
+    props.createNewProject({ name: values.projectName, description: values.projectDescription, industry: values.industry, partnerRole: values.role, passcode: projectPasscode });
     setLoading(true)
   }
 
@@ -89,8 +96,9 @@ function ProjectFormModal(props) {
                       name="name"
                       fullWidth
                       required
-                      value={projectName}
-                      onChange={(e => setProjectName(e.target.value))}
+                      // value={projectName}
+                      {...useInput('projectName', 'isRequired')}
+                      // onChange={(e => setProjectName(e.target.value))}
                     />
                     <FormHelperText color="muted">Enter a name for your Project (For example: TestProject)</FormHelperText><br />
                   </GridItem>
@@ -103,8 +111,9 @@ function ProjectFormModal(props) {
                       fullWidth
                       multiline
                       rows="4"
-                      value={projectDescription}
-                      onChange={(e => setProjectDescription(e.target.value))}
+                      {...useInput('projectDescription', 'isRequired')}
+                    // value={projectDescription}
+                    // onChange={(e => setProjectDescription(e.target.value))}
                     />
                     <FormHelperText color="muted">Describe your project</FormHelperText>
                   </GridItem>
@@ -119,8 +128,9 @@ function ProjectFormModal(props) {
                         fullWidth
                         labelWidth={110}
                         input={<OutlinedInput name="industry" id="indList" />}
-                        value={industry}
-                        onChange={(e) => setIndustry(e.target.value)}
+                        // value={industry}
+                        {...useInput('industry', 'isRequired')}
+                      // onChange={(e) => setIndustry(e.target.value)}
                       >
                         {renderFromArray(industryList)}
                       </Select>
@@ -136,13 +146,14 @@ function ProjectFormModal(props) {
                         fullWidth
                         labelWidth={80}
                         input={<OutlinedInput name="role" id="indList" />}
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
+                        // value={role}
+                        {...useInput('role', 'isRequired')}
+                      // onChange={(e) => setRole(e.target.value)}
                       >
-                        {industry === "Art & Collectibles" && renderFromArray(artRoles)}
-                        {industry === "Certification" && renderFromArray(certification)}
-                        {industry === "Shipping" && renderFromArray(shipping)}
-                        {industry === "Agriculture" && renderFromArray(agriculture)}
+                        {values.industry === "Art & Collectibles" && renderFromArray(artRoles)}
+                        {values.industry === "Certification" && renderFromArray(certification)}
+                        {values.industry === "Shipping" && renderFromArray(shipping)}
+                        {values.industry === "Agriculture" && renderFromArray(agriculture)}
                       </Select>
                       <FormHelperText color="muted">Select your role for project?</FormHelperText>
                     </FormControl>
@@ -153,7 +164,8 @@ function ProjectFormModal(props) {
             }
             action={
               <>
-                {!isLoading ? <Button color="primary" type="button" onClick={submitProject}>Create Project</Button> : <CustomLoader />}
+                {!isLoading ? <Button disabled={!isValid}
+                  color="primary" type="button" onClick={submitProject}>Create Project</Button> : <CustomLoader />}
               </>
             }
             {...props}

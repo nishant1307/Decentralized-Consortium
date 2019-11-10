@@ -24,6 +24,7 @@ import {
 } from '@material-ui/core';
 import GridItem from "components/Grid/GridItem";
 import { makeStyles } from '@material-ui/core/styles';
+import { useForm } from './validator';
 
 const useStyles = makeStyles(theme => ({
  
@@ -38,12 +39,12 @@ const classes = useStyles();
     e.preventDefault();
     setLoading(true);
     props.createNewThing({
-      thingName: state.thingName,
-      thingDescription: state.thingDescription,
-      thingBrand: state.thingBrand,
-      thingStory: state.thingStory,
-      thingValue: state.thingCurrencyCode + " " + state.thingValue,
-      quantity: state.quantity,
+      thingName: values.thingName,
+      thingDescription: values.thingDescription,
+      thingBrand: values.thingBrand,
+      thingStory: values.thingStory,
+      thingValue: values.thingCurrencyCode + " " + values.thingValue,
+      quantity: values.quantity,
       claims: claims,
       certificateURLs: [],
       ipfsHash: ipfsHash,
@@ -75,6 +76,7 @@ const classes = useStyles();
     thingValue: '',
     quantity: '1'
   };
+  const { values, useInput, isValid } = useForm(initialState);
 
   const [state, setState] = useState(initialState)
   let helperspan = null;
@@ -256,7 +258,9 @@ const classes = useStyles();
                     label="Product Name"
                     fullWidth
                     name="thingName"
-                    onChange={handleFormChange} />
+                    // onChange={handleFormChange}
+                    {...useInput('thingName', 'isRequired')}
+                     />
                   <FormHelperText color="muted">Enter Product Name</FormHelperText>
                 </GridItem>
                 <GridItem xs="12" md="6">
@@ -266,7 +270,9 @@ const classes = useStyles();
                     label="Product Brand"
                     fullWidth
                     name="thingBrand"
-                    onChange={handleFormChange} />
+                    // onChange={handleFormChange}
+                    {...useInput('thingBrand', 'isRequired')}
+                     />
                   <FormHelperText color="muted">Enter Product Brand</FormHelperText>
                 </GridItem>
               </FormGroup><br />
@@ -280,7 +286,9 @@ const classes = useStyles();
                     multiline
                     rows="4"
                     name="thingDescription"
-                    onChange={handleFormChange} />
+                    {...useInput('thingDescription', 'isRequired')}
+                    // onChange={handleFormChange}
+                     />
                   <FormHelperText color="muted">Enter Product Description</FormHelperText>
                 </GridItem>
                 <GridItem xs="12" md="6">
@@ -292,7 +300,9 @@ const classes = useStyles();
                     multiline
                     rows="4"
                     name="thingStory"
-                    onChange={handleFormChange} />
+                    {...useInput('thingStory', 'isRequired')}
+                    // onChange={handleFormChange}
+                     />
                   <FormHelperText color="muted">Enter Product Description</FormHelperText>
                 </GridItem>
               </FormGroup><br />
@@ -302,11 +312,12 @@ const classes = useStyles();
                     <InputLabel htmlFor="industryList">Currency Code</InputLabel>
                     <Select
                       name="thingCurrencyCode"
-                      value={state.thingCurrencyCode}
+                      // value={state.thingCurrencyCode}
                       required
                       labelWidth={50}
                       input={<OutlinedInput />}
-                      onChange={handleFormChange}
+                      // onChange={handleFormChange}
+                      {...useInput('thingCurrencyCode', 'isRequired')}
                     >
                       {renderFromArray(currencyCode)}
                     </Select>
@@ -317,7 +328,9 @@ const classes = useStyles();
                     type="number"
                     placeholder="Price of the product (if applicable)?"
                     name="thingValue"
-                    onChange={handleFormChange} />
+                    // onChange={handleFormChange}
+                    {...useInput('thingValue', 'isRequired')}
+                     />
                 </GridItem>
                 <GridItem xs="12" md="6">
                   <TextField
@@ -326,7 +339,9 @@ const classes = useStyles();
                     type="number"
                     min={1} defaultValue={1}
                     name="quantity"
-                    onChange={handleFormChange} />
+                    // onChange={handleFormChange}
+                    {...useInput('quantity', 'isRequired')}
+                     />
                 </GridItem>
               </FormGroup>
               <FormGroup row>
@@ -463,7 +478,7 @@ const classes = useStyles();
           }
           action={
             <>
-              {!isLoading ? <Button color="primary" type="button" onClick={onSubmit}>Create Product</Button> : <CircularProgress />}
+              {!isLoading ? <Button disabled={!isValid} color="primary" type="button" onClick={onSubmit}>Create Product</Button> : <CircularProgress />}
             </>
           }
         />

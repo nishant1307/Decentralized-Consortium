@@ -21,6 +21,7 @@ import {
 import GridItem from "components/Grid/GridItem";
 import SnackbarContent from "components/Snackbar/SnackbarContent";
 import { makeStyles } from '@material-ui/core/styles';
+import { useForm } from './validator';
 
 const useStyles = makeStyles(theme => ({
   progress: {
@@ -60,6 +61,9 @@ const RegisterDeviceModal = (props) => {
   }
   const [state, setState] = useState(initialState);
 
+  const { values, useInput, isValid } = useForm(initialState);
+
+
   useEffect(() => {
     if (props.errors.message !== undefined) {
       setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
@@ -85,11 +89,11 @@ const RegisterDeviceModal = (props) => {
     let deviceURNArray = Array.isArray(deviceURN) ? deviceURN : [deviceURN]
     props.createNewDevice({
       deviceURN: deviceURNArray,
-      communicationProtocol: state.communicationProtocol,
+      communicationProtocol: values.communicationProtocol,
       selectedProject: selectedProject,
-      dataProtocol: state.dataProtocol,
-      deviceType: state.deviceType,
-      sensor: state.sensor,
+      dataProtocol: values.dataProtocol,
+      deviceType: values.deviceType,
+      sensor: values.sensor,
       tokenURI: "",
       number: deviceURNArray.length,
       projectId: props.projectId
@@ -131,15 +135,16 @@ const RegisterDeviceModal = (props) => {
                   name="number"
                   fullWidth
                   variant="outlined"
-                  value={state.number}
-                  onChange={handleChange}
+                  // value={state.number}
+                  // onChange={handleChange}
+                  {...useInput('number', 'isRequired')}
                   label="Number of Devices" />
                 <FormHelperText color="muted">How many devices do you wish to register?</FormHelperText>
               </GridItem>
             </FormGroup>
             <FormGroup row>
               <GridItem xs="12" md="6">
-                {state.number == 1 ?
+                {values.number == 1 ?
                   <React.Fragment>
                     <TextField type="text"
                       name="deviceURN"
@@ -165,11 +170,12 @@ const RegisterDeviceModal = (props) => {
               <InputLabel htmlFor="industryList">Select Device Type</InputLabel>
               <Select
                 name="deviceType"
-                value={state.deviceType}
+                // value={state.deviceType}
                 required
                 labelWidth={150}
                 input={<OutlinedInput />}
-                onChange={handleChange}
+                // onChange={handleChange}
+                {...useInput('deviceType', 'isRequired')}
               >
                 {renderFromArray(deviceList)}
               </Select>
@@ -178,11 +184,12 @@ const RegisterDeviceModal = (props) => {
               <InputLabel htmlFor="industryList">Select Sensor</InputLabel>
               <Select
                 name="sensor"
-                value={state.sensor}
+                // value={state.sensor}
                 required
                 labelWidth={100}
                 input={<OutlinedInput />}
-                onChange={handleChange}
+                // onChange={handleChange}
+                {...useInput('sensor', 'isRequired')}
               >
                 {renderFromArray(sensorList)}
               </Select>
@@ -192,11 +199,13 @@ const RegisterDeviceModal = (props) => {
               <InputLabel htmlFor="industryList">Select Communication Protocol</InputLabel>
               <Select
                 name="communicationProtocol"
-                value={state.communicationProtocol}
+                // value={state.communicationProtocol}
                 required
                 labelWidth={230}
                 input={<OutlinedInput />}
-                onChange={handleChange}
+                // onChange={handleChange}
+                {...useInput('communicationProtocol', 'isRequired')}
+
               >
                 {renderFromArray(protocolList)}
               </Select>
@@ -205,11 +214,12 @@ const RegisterDeviceModal = (props) => {
               <InputLabel htmlFor="industryList">Select Data Protocol</InputLabel>
               <Select
                 name="dataProtocol"
-                value={state.dataProtocol}
+                // value={state.dataProtocol}
                 required
                 labelWidth={150}
                 input={<OutlinedInput />}
-                onChange={handleChange}
+                // onChange={handleChange}
+                {...useInput('dataProtocol', 'isRequired')}
               >
                 {renderFromArray(dataProtocolList)}
               </Select>
@@ -221,7 +231,7 @@ const RegisterDeviceModal = (props) => {
           <div>
             {isLoading === true ? <CircularProgress className={classes.progress} /> :
 
-              <Button color="primary" type="button" onClick={onSubmit}>Register new device</Button>
+              <Button disabled={!isValid} color="primary" type="button" onClick={onSubmit}>Register new device</Button>
             }
             {props.errors.deviceError && (
               <FormGroup>
