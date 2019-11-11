@@ -78,7 +78,7 @@ export default function Header(props) {
                             <Link to="/aboutus#ourteam" className="nav-link-2 w-nav-link">Our Team</Link>
                             <Link to="/aboutus#careersandculture" className="nav-link-2 w-nav-link">Careers & Culture</Link>
                             <Link to="/aboutus#media" className="nav-link-2 w-nav-link">Media</Link>
-                            <Link to="/aboutus#latest" className="nav-link-2 w-nav-link">News & Blogs</Link>
+                            <a href="https://medium.com/arthanium" target="_blank" className="nav-link-2 w-nav-link">News & Blogs</a>
                             <Link to="/aboutus#contact" className="nav-link-2 w-nav-link">Contact </Link>
                         </div>
                     </div>

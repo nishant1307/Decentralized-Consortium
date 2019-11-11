@@ -42,7 +42,7 @@ const Modules = props => {
                 </GridItem>
                 <GridItem xs={12} sm={4} md={4}>
                     <Link to={{
-                        pathname: "/dashboard/documentsByType/shipping",
+                        pathname: "/dashboard/modules/shipping",
                         state: { documentType: "Shipping" }
                     }} >
                         <Card onClick={toggleModal}>

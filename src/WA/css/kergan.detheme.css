@@ -1419,6 +1419,8 @@ a {
 
 .footer-link:hover {
   opacity: 1;
+  border-radius: 50px;
+  border-color: #fff;
 }
 
 .footer-link.w--current {
@@ -1514,10 +1516,14 @@ a {
   font-weight: 300;
   text-decoration: none;
   cursor: pointer;
+  border-radius: 50px;
+  border-color: #fff;
 }
 
 .footer-link-2:hover {
   opacity: 1;
+  border-radius: 50px;
+  border-color: #fff;
 }
 
 .footer-link-2.w--current {

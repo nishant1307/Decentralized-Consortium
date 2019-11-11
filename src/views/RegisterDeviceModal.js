@@ -16,8 +16,8 @@ import {
   FormHelperText,
   FormGroup,
   FormControl,
-  Button
 } from '@material-ui/core';
+import Button from "components/CustomButtons/Button"
 import GridItem from "components/Grid/GridItem";
 import SnackbarContent from "components/Snackbar/SnackbarContent";
 import { makeStyles } from '@material-ui/core/styles';
@@ -66,6 +66,7 @@ const RegisterDeviceModal = (props) => {
 
   useEffect(() => {
     if (props.errors.message !== undefined) {
+      console.log(props.errors.message);
       setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
       setTimeout(() => {
         setSnackbar({ open: false, message: "" });
@@ -151,6 +152,7 @@ const RegisterDeviceModal = (props) => {
                       fullWidth
                       variant="outlined"
                       value={deviceURN}
+                      // {...useInput('deviceURN', 'isRequired')}
                       onChange={(e) => { setDeviceURN(e.target.value) }}
                       label="DeviceURN" />
                     <FormHelperText color="muted">Enter Device URN</FormHelperText>
@@ -231,7 +233,7 @@ const RegisterDeviceModal = (props) => {
           <div>
             {isLoading === true ? <CircularProgress className={classes.progress} /> :
 
-              <Button disabled={!isValid} color="primary" type="button" onClick={onSubmit}>Register new device</Button>
+              <Button disabled={!isValid} color="info" round type="button" onClick={onSubmit}>Register new device</Button>
             }
             {props.errors.deviceError && (
               <FormGroup>

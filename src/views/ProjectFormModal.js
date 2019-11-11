@@ -9,7 +9,6 @@ import { renderFromArray } from '../utils';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useForm } from './validator';
 import {
-  Button,
   TextField,
   Select,
   OutlinedInput,
@@ -22,6 +21,7 @@ import {
   FormLabel,
   FormControlLabel
 } from '@material-ui/core';
+import Button from "components/CustomButtons/Button"
 import GridItem from "components/Grid/GridItem";
 import CustomLoader from "components/Loaders/CustomLoader";
 import { makeStyles } from '@material-ui/core/styles';
@@ -165,7 +165,7 @@ function ProjectFormModal(props) {
             action={
               <>
                 {!isLoading ? <Button disabled={!isValid}
-                  color="primary" type="button" onClick={submitProject}>Create Project</Button> : <CustomLoader />}
+                  color="info" round type="button" onClick={submitProject}>Create Project</Button> : <CustomLoader />}
               </>
             }
             {...props}

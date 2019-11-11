@@ -20,14 +20,14 @@ import {
   FormHelperText,
   FormControl,
   FormGroup,
-  Button
 } from '@material-ui/core';
+import Button from "components/CustomButtons/Button"
 import GridItem from "components/Grid/GridItem";
 import { makeStyles } from '@material-ui/core/styles';
 import { useForm } from './validator';
 
 const useStyles = makeStyles(theme => ({
- 
+
   margin: {
     margin: theme.spacing(1)
   },
@@ -478,7 +478,7 @@ const classes = useStyles();
           }
           action={
             <>
-              {!isLoading ? <Button disabled={!isValid} color="primary" type="button" onClick={onSubmit}>Create Product</Button> : <CircularProgress />}
+              {!isLoading ? <Button disabled={!isValid} color="info" type="button" round onClick={onSubmit}>Create Product</Button> : <CircularProgress />}
             </>
           }
         />

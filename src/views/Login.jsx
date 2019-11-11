@@ -103,6 +103,11 @@ function Login(props) {
       })
   }
 
+  useEffect(() => {
+    if(props.errors.message)
+      setLoader(false);
+  }, [props.errors.message])
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />

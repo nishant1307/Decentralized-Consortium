@@ -616,7 +616,7 @@ export const createNewDevice = deviceDetails => async (dispatch) => {
                   payload: 1
                 });
               }).on('error', async function (error) {
-                // console.log(error, "err");
+                console.log(error, "Device error");
                 dispatch({
                   type: GET_ERRORS,
                   payload: { message: "Error occured! Please try again later." }

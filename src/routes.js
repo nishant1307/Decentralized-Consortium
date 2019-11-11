@@ -33,6 +33,7 @@ const Modules = React.lazy(() => import('views/Modules/Modules'))
 const UnstrucutredDoc = React.lazy(() => import('views/DocConekt/UnstructuredDoc'));
 const ProjectInvites = React.lazy(() => import('views/Projects/ProjectInvites'));
 const ViewDocumentsByType = React.lazy(() => import('views/DocConekt/ViewDocumentsByType'))
+const Shipping = React.lazy(() => import('views/Modules/Shipping'))
 // import StructuredDoc from 'views/DocConekt/StructuredDoc';
 const dashboardRoutes = [
   {
@@ -117,6 +118,12 @@ const dashboardRoutes = [
     path: "/documentsByType/:docType",
     name: "Documents",
     component: ViewDocumentsByType,
+    layout: "/dashboard"
+  },
+  {
+    path: "/modules/shipping",
+    name: "Shipping",
+    component: Shipping,
     layout: "/dashboard"
   },
   {

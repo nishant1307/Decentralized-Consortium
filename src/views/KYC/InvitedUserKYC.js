@@ -475,9 +475,12 @@ function Invitation(props) {
                     setActiveStep(activeStep + 1);
                 })
             }
+            else{
+              setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Invalid Passcode" />)
+            }
 
         } catch (err) {
-            console.error(err);
+            setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Invalid Passcode" />)
         }
 
     };
