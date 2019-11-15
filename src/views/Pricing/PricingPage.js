@@ -7,7 +7,8 @@ import {
   Table,
   TableHead,
   TableCell,
-  TableRow
+  TableRow,
+  Divider
 } from '@material-ui/core';
 import basic from "assets/images/basic.png";
 import enterprise from "assets/images/enterprise.png";
@@ -20,6 +21,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardIcon from "components/Card/CardIcon.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button";
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -172,58 +174,56 @@ export default function PricingPage() {
         <div className="wrapper">
           <div className="row">
             <div className="columns-2 w-row">
-              <div className="column-2 w-col w-col-7">
-                <div className="margin-bottom">
-                  <h2 className="heading-2">Note</h2>
-                  <ul className="landing-bullet">
-                    <li className="tab-class-inner">Setup and customization charges could be applicable for certain customers.</li>
-                    <li className="tab-class-inner"> For larger customized plans contact us directly.</li>
-                    <li className="tab-class-inner"> Additional monthly credits packs can be purchased at $ 49 for 400 Credits.</li>
-                    <li className="tab-class-inner"> Validity of plan & credits is one month and it cannot be carried forward.</li>
-                    <li className="tab-class-inner"> Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</li>
-                  </ul>
-                </div>
-              </div>
+              <br/><Divider/><br/>
               <div className=" w-col w-col-5" style={{ textAlign: "-webkit-center", paddingTop: "50", paddingBottom: "50" }}>
                 <div data-animation="slide" data-duration={500} data-infinite={1} className="carousel">
+                <h3 className="heading-2">Credit Chart</h3>
                   <Table className="tg">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="center" className="tg-rnhl">Action</TableCell>
+                        <TableCell align="center" className="tg-rnhl">Cost per action</TableCell>
+                        <TableCell align="center" className="tg-rnhl">Quantity</TableCell>
+                        <TableCell align="center" className="tg-rnhl" colspan="2">Credit Calculator</TableCell>
+                      </TableRow>
+                    </TableHead>
                     <TableRow>
-                      <TableHead className="tg-rnhl" colspan="4"> <h2 className="heading-2">Credit Chart</h2></TableHead>
-                      <TableHead className="tg-rnhl" colspan="4"></TableHead>
+                      <TableCell align="center" className="tg-rnhl">Projects</TableCell>
+                      <TableCell align="center" className="tg-rnhl">75</TableCell>
+                      <TableCell align="center" className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
+                      <TableCell align="center" className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="tg-rnhl">Action</TableCell>
-                      <TableCell className="tg-rnhl">Cost per action</TableCell>
-                      <TableCell className="tg-rnhl">Quantity</TableCell>
-                      <TableCell className="tg-rnhl" colspan="2">Credit Calculator</TableCell>
+                      <TableCell align="center" className="tg-rnhl">Partners</TableCell>
+                      <TableCell align="center" className="tg-rnhl">15</TableCell>
+                      <TableCell align="center" className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
+                      <TableCell align="center" className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="tg-rnhl">Projects</TableCell>
-                      <TableCell className="tg-rnhl">75</TableCell>
-                      <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects} onChange={(e) => { setProjects(e.target.value) }} placeholder="Enter no. of project" /></TableCell>
-                      <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects) * 75} readOnly /></TableCell>
+                      <TableCell align="center" className="tg-rnhl">Products / Docs / Devices</TableCell>
+                      <TableCell align="center" className="tg-g2pk">1</TableCell>
+                      <TableCell align="center" className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></TableCell>
+                      <TableCell align="center" className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="tg-rnhl">Partners</TableCell>
-                      <TableCell className="tg-rnhl">15</TableCell>
-                      <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners} onChange={(e) => { setPartners(e.target.value) }} placeholder="Enter no. of partners" /></TableCell>
-                      <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={partners === NaN ? 0 : parseInt(partners) * 15} readOnly /></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="tg-rnhl">Products / Docs / Devices</TableCell>
-                      <TableCell className="tg-g2pk">1</TableCell>
-                      <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} onChange={(e) => { setProducts(e.target.value) }} placeholder="Enter no. of products / docs / devices" /></TableCell>
-                      <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={products} readOnly /></TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell className="tg-g2pk" colspan="1"></TableCell>
-                      <TableCell className="tg-g2pk" colspan="2">Total</TableCell>
-                      <TableCell className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
+                      <TableCell align="center" className="tg-g2pk" colspan="1"></TableCell>
+                      <TableCell align="center" className="tg-g2pk" colspan="2">Total</TableCell>
+                      <TableCell align="center" className="tg-rnhl"><OutlinedInput type="number" style={{ width: "50" }} value={projects === NaN ? 0 : parseInt(projects * 75) + parseInt(partners * 15) + (products === NaN ? 0 : parseInt(products))} readOnly placeholder="Total" /></TableCell>
                     </TableRow>
 
                   </Table>
                   {/* </div> */}
                 </div>
+              </div>
+              <div className="column-2 w-col w-col-7">
+                  <h3>Note</h3>
+                  <ul className="landing-bullet">
+                    <li className="tab-class-inner"><FiberManualRecordIcon fontSize="small"/> Setup and customization charges could be applicable for certain customers.</li>
+                    <li className="tab-class-inner"><FiberManualRecordIcon fontSize="small"/> For larger customized plans contact us directly.</li>
+                    <li className="tab-class-inner"><FiberManualRecordIcon fontSize="small"/> Additional monthly credits packs can be purchased at $ 49 for 400 Credits.</li>
+                    <li className="tab-class-inner"><FiberManualRecordIcon fontSize="small"/> Validity of plan & credits is one month and it cannot be carried forward.</li>
+                    <li className="tab-class-inner"><FiberManualRecordIcon fontSize="small"/> Currently we don’t charge any transaction based fee, but in future we might move to a transaction based fee model.</li>
+                  </ul>
               </div>
             </div>
           </div>

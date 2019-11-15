@@ -454,7 +454,7 @@ const Partners = (props) => {
                     </GridItem>
                   ))}
                   <ListItem>
-                    {isLoading ? <CircularProgress className={classes.progress} /> : <Button onClick={HandleSubmit}>Submit</Button>}
+                    {isLoading ? <CircularProgress className={classes.progress} /> : <Button color="primary" onClick={HandleSubmit}>Submit</Button>}
                   </ListItem>
                 </GridContainer>
               </>

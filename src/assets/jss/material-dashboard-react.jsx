@@ -70,7 +70,7 @@ const defaultFont = {
   lineHeight: "1.5em"
 };
 
-const primaryColor = ["#999",
+const primaryColor = ["#0000FF",
   "#777",
   "#3C4858",
   "#AAAAAA",
