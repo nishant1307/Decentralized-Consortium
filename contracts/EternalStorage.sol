@@ -12,6 +12,8 @@ contract EternalStorage is StorageDefinition {
     // All users
     User[] internal users;
 
+    mapping (bytes32 => address) private _projectOwner;
+
     // Mapping between userAddress and index
     mapping(address => uint256) userIndex;
     // User Directory
@@ -87,6 +89,10 @@ contract EternalStorage is StorageDefinition {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
     }
 
+ function _exists(bytes32 projectID) internal view returns (bool) {
+        address owner = _projectOwner[projectID];
+        return owner != address(0);
+    }
 
   /**
    * @dev Allows the current owner to transfer control of the contract to a
@@ -338,6 +344,9 @@ contract EternalStorage is StorageDefinition {
     }
 
     function setOrganizationKYCStatus(string calldata organizationID, KYCStatus status) external onlyRegisteredContract returns (bool) {
+        // if(status == KYCStatus.kycComplete){
+        // this.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
+        // }
         organizationDirectory[organizationID].status = status;
         return true;
     }
@@ -347,6 +356,9 @@ contract EternalStorage is StorageDefinition {
     }
 
     function setUserKYCStatus(address userAddress, KYCStatus status) external onlyRegisteredContract returns (bool) {
+        // if(status == KYCStatus.kycComplete){
+        // this.setAddress(keccak256(abi.encodePacked("EmailToPKMapping",  userDirectory[userAddress].email)), userAddress);
+        // }
         userDirectory[userAddress].status = status;
         return true;
     }
@@ -360,6 +372,8 @@ contract EternalStorage is StorageDefinition {
     // }
 
      function addNewProject(bytes32 projectID,  string calldata name, string calldata description, string calldata industry) external onlyRegisteredContract {
+        require(!_exists(projectID), "Name already exists!");
+        _projectOwner[projectID] = msg.sender;
         Project memory project;
         project.projectID = projectID;
         project.name = name;

@@ -157,7 +157,8 @@ export const createNewProject = projectDetails => async (dispatch) => {
       var transaction = {
         "to": registryAddress,
         "data": registryContract.methods.addNewProject(
-          web3.utils.randomHex(32),
+          // web3.utils.randomHex(32),
+          web3.utils.toHex(projectDetails.name),
           projectDetails.name,
           projectDetails.description,
           projectDetails.industry,
