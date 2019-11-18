@@ -2,16 +2,22 @@ import React, {useState, useEffect, useRef} from "react";
 import {
   TextField,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  OutlinedInput,
+  Select,
+  MenuItem
 } from '@material-ui/core';
 import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import Modal from "components/CustomModal/Modal";
 import moment from "moment";
 import "WA/css/custom.css"
 import { DropzoneArea } from 'material-ui-dropzone'
 import { connect } from 'react-redux';
 const TemplateCertificate = () => {
+  const [modalOpen, setModalOpen] = useState(true);
+  const [templateID, setTemplateID] = useState('');
 
   const [certificateFiles, setCertificateFiles] = useState([]);
   const [certificateHash, setCertificateHash] = useState();
@@ -125,9 +131,36 @@ const TemplateCertificate = () => {
       })
     })
   }
+  const handleTemplateChange = (e) => {
+    setTemplateID(e.target.value)
+    setModalOpen(false);
+  }
+
   return (
     <>
-    <div id="printTemplate">
+    <Modal
+      open={modalOpen}
+      onClose={() => setModalOpen(false)}
+      title={"Template Certification"}
+      content={
+        <Select
+          name="role"
+          required
+          fullWidth
+          labelWidth={80}
+          value={templateID}
+          input={<OutlinedInput name="type" />}
+          onChange={(e) => handleTemplateChange(e)}
+          >
+          <MenuItem key={Math.random()} name={"Authenticity"} value={"Authenticity"}>Authenticity</MenuItem>
+        // onChange={(e) => setRole(e.target.value)}
+        >
+        </Select>
+      }
+      />
+    {templateID &&
+      <>
+      <div id="printTemplate">
       <div style={{width: '100%', height: '100%', padding: '20px', textAlign: 'center', border: '10px ridge #787878'}}>
         <div style={{width: '100%', height: '100%', padding: '20px', textAlign: 'center', border: '5px ridge #787878'}}>
           <span style={{fontSize: '50px', fontWeight: 'bold'}}><i>Certificate of Authenticity</i></span>
@@ -276,6 +309,8 @@ const TemplateCertificate = () => {
       />} label="I confirm that the information being shared on the platform is true to the best of my understanding" />
       <Button onClick={print} color="info" round disabled={!infoConfirmation}>Submit Certification Claim</Button>
       <iframe id="ifmcontentstoprint" height="0px" width="0px"></iframe>
+      </>
+    }
     </>
   )
 }
