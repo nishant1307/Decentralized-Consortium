@@ -48,6 +48,7 @@ export default function companyInfo(props) {
                         id="email"
                         name="email"
                         label="Email"
+                        type="email"
                         fullWidth
                         onChange={handleChange}
                         autoComplete="lname"

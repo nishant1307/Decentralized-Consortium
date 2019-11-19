@@ -419,7 +419,7 @@ export const updateDoc = (docDetails, tokenId, remark) => async dispatch => {
 };
 
 export const addNewDoc = docDetails => async dispatch => {
-  // console.log(docDetails,"docDetails");
+  // console.log(docDetails, "docDetails");
   privateKey = await sessionStorage.getItem('privateKey');
   let uuid = web3.utils.randomHex(32);  //uuidv1();
   web3.eth.getBalance(address).then((balance) => {
