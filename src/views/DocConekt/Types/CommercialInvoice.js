@@ -175,6 +175,16 @@ const CommercialInvoice = props => {
     }
 
 
+    useEffect(() => {
+        let temp = 0;
+        for (let index = 0; index < maintable.data.length; index++) {
+            temp = temp + parseInt(maintable.data[index].price) * parseInt(maintable.data[index].unitQuantity)
+
+        }
+        setStruture({ ...struture, consignmentTotal: temp })
+    }, [maintable])
+
+
 
     useEffect(() => {
         if (props.data.hash !== undefined) {

@@ -135,6 +135,15 @@ const SeawayBill = props => {
     }
 
 
+    useEffect(() => {
+        let temp = 0;
+        for (let index = 0; index < maintable.data.length; index++) {
+            temp = temp + parseInt(maintable.data[index].price) * parseInt(maintable.data[index].unitQuantity)
+
+        }
+        setStruture({ ...struture, consignmentTotal: temp })
+    }, [maintable])
+
     const handleChangeValue = e => {
         const { id, value } = e.target;
         // console.log(id, value);
