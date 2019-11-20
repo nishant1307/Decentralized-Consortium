@@ -77,7 +77,7 @@ const ShippingInstructions = props => {
         let password = await decryptMessage(props.data.password, privateKey)
         const content = Ipfs.Buffer.from(JSON.stringify({ formData: struture }))
         const cid = await ipfs.add(content);
-        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash,  "DocType": "Shipping", "subDocType": "Shipping Instruction", "type": "structured" }), password)
+        let encryptData = await encryptMessage(JSON.stringify({ "hash": cid[0].hash, "DocType": "Shipping", "subDocType": "Shipping Instruction", "type": "structured" }), password)
         props.updateDoc(encryptData, props.data.tokenId, struture.remark);
         setIsSubmitted(false)
         props.history.push("/dashboard/home")
@@ -118,6 +118,14 @@ const ShippingInstructions = props => {
     }
 
 
+    useEffect(() => {
+        let temp = 0;
+        for (let index = 0; index < maintable.data.length; index++) {
+            temp = temp + parseInt(maintable.data[index].price) * parseInt(maintable.data[index].unitQuantity)
+
+        }
+        setStruture({ ...struture, consignmentTotal: temp })
+    }, [maintable])
 
     useEffect(() => {
         if (props.data.hash !== undefined) {

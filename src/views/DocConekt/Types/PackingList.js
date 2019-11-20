@@ -77,7 +77,7 @@ const PackingList = props => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [maintable, setMainTable] = React.useState({
         columns: [
-            { title: 'Unit Quantity', field: 'unitQuantity' },
+            { title: 'Unit Quantity', field: 'unitQuantity', type: 'numeric' },
             { title: 'Kind & No of Packages', field: 'noOfPackages' },
             { title: `Net Weight of Package (Kg)`, field: 'weightOfPackage' },
             { title: `Gross Weight of Package (Kg)`, field: 'grossWeightOfPackage' },
@@ -143,12 +143,11 @@ const PackingList = props => {
         setStruture({});
         setMainTable({
             columns: [
-                { title: 'Product Code', field: 'productCode' },
-                { title: 'Description of Goods', field: 'descriptionOfGoods' },
-                { title: 'Unit Quantity', field: 'unitQuantity' },
-                { title: 'Unit Type', field: 'unitType' },
-                { title: 'Price', field: 'price' },
-                { title: 'Amount', field: 'amount' },
+                { title: 'Unit Quantity', field: 'unitQuantity', type: 'numeric' },
+                { title: 'Kind & No of Packages', field: 'noOfPackages' },
+                { title: `Net Weight of Package (Kg)`, field: 'weightOfPackage' },
+                { title: `Gross Weight of Package (Kg)`, field: 'grossWeightOfPackage' },
+                { title: `Measurements of Package (m³)`, field: 'measurementsOfPackages' },
             ],
             data: [
 

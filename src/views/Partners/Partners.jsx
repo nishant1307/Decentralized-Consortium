@@ -487,7 +487,7 @@ const Partners = (props) => {
                             }} src={url} height="auto" width="auto"></iframe>
                           </CardBody>
                           <CardFooter>
-                            {element.status ? <DoneAllIcon /> : <HourglassEmptyIcon />}
+                            {element.status ? <><DoneAllIcon /><h3 style={{textAlign:'center',verticalAlign:'center'}}>Approved</h3></> : <><HourglassEmptyIcon /><h3 style={{textAlign:'center',verticalAlign:'center'}}>Pending</h3></>}
                           </CardFooter>
                         </Card>
                       </GridItem>

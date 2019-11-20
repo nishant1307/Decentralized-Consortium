@@ -271,14 +271,14 @@ function PaymentForm(params) {
     const [subDocRender, setSubDocRender] = useState("");
     const [locked, setLocked] = useState(false);
     useEffect(() => {
-      try{
-        if(params.match.params.docType){
-          lockDocType();
+        try {
+            if (params.match.params.docType) {
+                lockDocType();
+            }
         }
-      }
-      catch(err) {
-        console.log("Error", err);
-      }
+        catch (err) {
+            console.log("Error", err);
+        }
         setSubDocRender(getUnstructureTypeSubContent(DocType));
     }, [DocType])
 
@@ -300,14 +300,14 @@ function PaymentForm(params) {
     }
 
     const lockDocType = () => {
-      switch(params.match.params.docType) {
-        case "sales": setDocType(0)
-        setLocked(true);
-                      break;
-        case "shipping": setDocType(1)
-        setLocked(true);
-                      break;
-      }
+        switch (params.match.params.docType) {
+            case "sales": setDocType(0)
+                setLocked(true);
+                break;
+            case "shipping": setDocType(1)
+                setLocked(true);
+                break;
+        }
     }
 
     return (
@@ -409,27 +409,27 @@ const UploadFileComponent = (props) => {
         };
     }, []);
     useEffect(() => {
-      try{
-        if(props.match.params.docType){
-          lockDocType();
+        try {
+            if (props.match.params.docType) {
+                lockDocType();
+            }
         }
-      }
-      catch(err) {
-        console.log("Error", err);
-      }
+        catch (err) {
+            console.log("Error", err);
+        }
 
         setSubDocRender(getSubContent(DocType));
     }, [DocType])
 
     const lockDocType = () => {
-      switch(props.match.params.docType) {
-        case "sales": setDocType(0)
-        setLocked(true);
-                      break;
-        case "shipping": setDocType(1)
-        setLocked(true);
-                      break;
-      }
+        switch (props.match.params.docType) {
+            case "sales": setDocType(0)
+                setLocked(true);
+                break;
+            case "shipping": setDocType(1)
+                setLocked(true);
+                break;
+        }
     }
 
     const handleNext = () => {
@@ -479,7 +479,7 @@ const UploadFileComponent = (props) => {
             case 0:
                 return <AddressForm parentCallback={callback} />;
             case 1:
-                return <PaymentForm name={fileName} infoCallback={handleInfo} {...props}/>;
+                return <PaymentForm name={fileName} infoCallback={handleInfo} {...props} />;
             case 2:
                 return (<div className={classes.progress2}>
                     <CircularProgress className={classes.progress} variant="determinate" value={progress} />
@@ -499,7 +499,7 @@ const UploadFileComponent = (props) => {
         const file = await ipfs.add(bufferData);
         let encryptData = await encryptMessage(JSON.stringify({ "hash": file[0].hash, "DocType": unstructuredTypes[DocType], "subDocType": subDocType, "type": "unstructured" }), filePassword)
         let encryptedPassword = await encryptMessage(filePassword, privateKey)
-        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword });
+        props.addNewDoc({ encryptData: encryptData, encryptedPassword: encryptedPassword, projectID: null });
         props.closeDocModal();
     }
 

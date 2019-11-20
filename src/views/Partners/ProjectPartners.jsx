@@ -15,6 +15,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import axios from "axios";
 import { renderFromArray } from '../../utils';
 import { parseJSONFromIPFSHash } from "utils";
+import { industryList } from '../../dataset/industries';
 const styles = theme => ({
   root: {
     margin: 0,
@@ -47,6 +48,7 @@ import {
   FormHelperText
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { artRoles, agriculture, certification, shipping } from "dataset/projectRoles";
 
 const ProjectPartners = (props) => {
   const roleCategory = [
@@ -107,6 +109,7 @@ const ProjectPartners = (props) => {
   const [partnerRoles, setPartnerRoles] = useState([]);
   const [role, setRole] = useState("Buyer");
   const [invitationStatus, setInvitationStatus] = useState(false);
+  const [industry, setIndustry] = useState('');
   const checkForUser = () => {
     // fetchPasscode();
     registryContract.methods.getPublicKeyFromEmail(inviteEmail).call({
@@ -156,7 +159,7 @@ const ProjectPartners = (props) => {
       email: inviteEmail,
       projectID: props.projectID,
       passcode: revealedPasscode,
-      role: role
+      role: industry + " | " + role
     }).then(res => {
       console.log(res);
       if (res.status = 200)
@@ -167,7 +170,7 @@ const ProjectPartners = (props) => {
       partnerOrganizationID: inviteOrg.organizationID,
       projectID: props.projectID,
       // inviteAddress: invitePublicKey,
-      partnerRole: role
+      partnerRole:  industry + " | " + role
     })
   }
 
@@ -229,9 +232,25 @@ const ProjectPartners = (props) => {
                     </FormControl>
                     &nbsp;&nbsp;&nbsp;
                     <FormControl variant="outlined">
-                      <InputLabel htmlFor="industryList">Select Role</InputLabel>
+                      <InputLabel htmlFor="industryList">Select Industry</InputLabel>
                       <Select
                         name="industry"
+                        required
+                        fullWidth
+                        labelWidth={110}
+                        input={<OutlinedInput name="industry" id="indList" />}
+                        value={industry}
+                        onChange={(e) => setIndustry(e.target.value)}
+                      >
+                        {renderFromArray(industryList)}
+                      </Select>
+                      <FormHelperText color="muted">What industry does your partner cover in project?</FormHelperText>
+                    </FormControl>
+                    &nbsp;&nbsp;&nbsp;
+                    <FormControl variant="outlined">
+                      <InputLabel htmlFor="industryList">Select Role</InputLabel>
+                      <Select
+                        name="role"
                         required
                         fullWidth
                         labelWidth={80}
@@ -239,9 +258,12 @@ const ProjectPartners = (props) => {
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                       >
-                        {renderFromArray(roleCategory)}
+                        {industry === "Art & Collectibles" && renderFromArray(artRoles)}
+                        {industry === "Certification" && renderFromArray(certification)}
+                        {industry === "Shipping" && renderFromArray(shipping)}
+                        {industry === "Agriculture" && renderFromArray(agriculture)}
                       </Select>
-                      <FormHelperText color="muted">Select user's role for project?</FormHelperText>
+                      <FormHelperText color="muted">Select partner's role for project?</FormHelperText>
                     </FormControl>
                   </>
 
@@ -250,7 +272,7 @@ const ProjectPartners = (props) => {
                   <div>
 
                     {!inviteOrg && <Button onClick={checkForUser}>Check for user </Button>}
-                    {inviteOrg && <p>Invite {inviteOrg.name} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
+                    {inviteOrg && !invitationStatus && <p>Invite {inviteOrg.name} to your consortium? <Button type="button" onClick={inviteUser}>Yes</Button></p>}
                     {invitationStatus && "Invitation sent successsfully"}
                   </div>
                 }

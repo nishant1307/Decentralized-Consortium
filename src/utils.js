@@ -10,7 +10,7 @@ export const renderFromArray = array => {
   return render;
 }
 
-export const eternalStorageAddress = "0x9630cdcb65e770c0992f3d6a8e8de321d07d058a";
+export const eternalStorageAddress = "0x2c4050af1a7efb15b96813e6bc9859b9a6e890e0";
 
 export const parseJSONFromIPFSHash = async (ipfsHash) => {
   let res =  await axios.get("https://gateway.arthanium.org/ipfs/"+ipfsHash, {});

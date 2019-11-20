@@ -104,6 +104,16 @@ const ProformaInvoice = props => {
 
     }
 
+
+    useEffect(() => {
+        let temp = 0;
+        for (let index = 0; index < maintable.data.length; index++) {
+            temp = temp + parseInt(maintable.data[index].price) * parseInt(maintable.data[index].unitQuantity)
+
+        }
+        setStruture({ ...struture, consignmentTotal: temp })
+    }, [maintable])
+
     useEffect(() => {
         if (props.data.hash !== undefined) {
             console.log("Hey");
@@ -168,10 +178,10 @@ const ProformaInvoice = props => {
             columns: [
                 { title: 'Product Code', field: 'productCode' },
                 { title: 'Description of Goods', field: 'descriptionOfGoods' },
-                { title: 'Unit Quantity', field: 'unitQuantity' },
+                { title: 'Unit Quantity', field: 'unitQuantity', type: 'numeric' },
                 { title: 'Unit Type', field: 'unitType' },
-                { title: 'Price', field: 'price' },
-                { title: 'Amount', field: 'amount' },
+                { title: 'Price', field: 'price', type: 'numeric' },
+                { title: 'Amount', field: 'amount', type: 'numeric' },
             ],
             data: [
 
@@ -405,7 +415,18 @@ const ProformaInvoice = props => {
                                     <MaterialTable
                                         style={{ margin: '30px 0 0 0' }}
                                         title=""
-                                        columns={maintable.columns}
+                                        columns={[
+                                            { title: 'Product Code', field: 'productCode' },
+                                            { title: 'Description of Goods', field: 'descriptionOfGoods' },
+                                            { title: 'Unit Quantity', field: 'unitQuantity', type: 'numeric' },
+                                            { title: 'Unit Type', field: 'unitType' },
+                                            { title: 'Price', field: 'price', type: 'numeric' },
+                                            {
+                                                title: 'Amount', field: 'amount', type: 'numeric', readonly: true, render: rowData => {
+                                                    return rowData.unitQuantity * rowData.price
+                                                }
+                                            }
+                                        ]}
                                         data={maintable.data}
                                         components={{
                                             Toolbar: props => (
