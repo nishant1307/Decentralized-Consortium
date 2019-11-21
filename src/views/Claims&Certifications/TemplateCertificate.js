@@ -5,12 +5,18 @@ import {
   Checkbox,
   OutlinedInput,
   Select,
-  MenuItem
+  MenuItem,
+  FormGroup,
+  FormControl,
+  FormHelperText,
+  InputLabel
 } from '@material-ui/core';
 import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Modal from "components/CustomModal/Modal";
+import { renderFromArray } from 'utils';
+import { industryList } from 'dataset/industries';
 import moment from "moment";
 import "WA/css/custom.css"
 import { DropzoneArea } from 'material-ui-dropzone'
@@ -18,7 +24,7 @@ import { connect } from 'react-redux';
 const TemplateCertificate = () => {
   const [modalOpen, setModalOpen] = useState(true);
   const [templateID, setTemplateID] = useState('');
-
+  const [industry, setIndustry] = useState('');
   const [certificateFiles, setCertificateFiles] = useState([]);
   const [certificateHash, setCertificateHash] = useState();
   const [infoConfirmation, setInformationConfirmed] = useState(false);
@@ -143,19 +149,42 @@ const TemplateCertificate = () => {
       onClose={() => setModalOpen(false)}
       title={"Template Certification"}
       content={
-        <Select
-          name="role"
-          required
-          fullWidth
-          labelWidth={80}
-          value={templateID}
-          input={<OutlinedInput name="type" />}
-          onChange={(e) => handleTemplateChange(e)}
-          >
-          <MenuItem key={Math.random()} name={"Authenticity"} value={"Authenticity"}>Authenticity</MenuItem>
-        // onChange={(e) => setRole(e.target.value)}
-        >
-        </Select>
+        <FormGroup row>
+          <GridItem xs="12" md="6">
+            <FormControl variant="outlined">
+              <InputLabel htmlFor="industryList">Select Industry</InputLabel>
+              <Select
+                name="industry"
+                required
+                fullWidth
+                labelWidth={110}
+                input={<OutlinedInput name="industry" />}
+                value={industry}
+              onChange={(e) => setIndustry(e.target.value)}
+              >
+                {renderFromArray(industryList)}
+              </Select>
+              <FormHelperText color="muted">What industry does your project cover?</FormHelperText>
+            </FormControl>
+          </GridItem>
+          <GridItem xs="12" md="6">
+                {industry === "Art & Collectibles" &&
+                <Select
+                  name="role"
+                  required
+                  fullWidth
+                  labelWidth={80}
+                  value={templateID}
+                  input={<OutlinedInput name="type" />}
+                  onChange={(e) => handleTemplateChange(e)}
+                  >
+                  <MenuItem key={Math.random()} name={"Authenticity"} value={"Authenticity"}>Authenticity</MenuItem>
+                // onChange={(e) => setRole(e.target.value)}
+                >
+                </Select>}
+          </GridItem>
+        </FormGroup>
+
       }
       />
     {templateID &&
