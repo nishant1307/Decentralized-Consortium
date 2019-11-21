@@ -80,7 +80,7 @@ export default function Eula(props) {
         <React.Fragment>
             <div style={{ textAlign: 'justify', overflowY: 'scroll', height: 450, fontSize: 14, fontWeight: 300, padding: 10, width: "100%", border: "1px solid #DDD", padding: 10 }}>
                 This Arthanium Platform Users Agreement ( “Agreement”) is made and
-      entered into on {date} 2019 (the “Effective Date”), between
+      entered into on {date} (the “Effective Date”), between
                                     Arthanium Networks Private Limited (“Arthanium”) a privately
                                     incorporated entity under the laws of India with registered office at D /
                                     303, Silver Gardens, Near Kanti Nagar Ganesh Mandir, J.B. Nagar Andheri

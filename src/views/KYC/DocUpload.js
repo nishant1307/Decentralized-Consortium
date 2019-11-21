@@ -1,11 +1,6 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import Dropzone from 'react-dropzone'
-
-
-
 import { Grid, TextField } from '@material-ui/core';
-
-
 
 const DocUpload = forwardRef((props, ref) => {
     const [companyDoc, setCompanyDoc] = useState([]);
@@ -23,6 +18,14 @@ const DocUpload = forwardRef((props, ref) => {
             }
         }
     }
+
+    useEffect(() => {
+        if (companyDoc.length === 0 || ownerDoc.length === 0) {
+            props.error(true)
+        } else {
+            props.error(false)
+        }
+    })
 
     useImperativeHandle(ref, () => ({
         getDocs() {
@@ -50,7 +53,7 @@ const DocUpload = forwardRef((props, ref) => {
         <React.Fragment>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                    <TextField disabled required id="cardName" defaultValue="Company Document" fullWidth />
+                    <TextField disabled required id="cardName" defaultValue="Company KYC Document" fullWidth />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Dropzone
@@ -92,7 +95,7 @@ const DocUpload = forwardRef((props, ref) => {
                     </div> : null}
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <TextField disabled required id="expDate" defaultValue="Owner Document" fullWidth />
+                    <TextField disabled required id="expDate" defaultValue="User KYC Document (Admin)" fullWidth />
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <Dropzone
