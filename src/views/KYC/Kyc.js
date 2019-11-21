@@ -251,18 +251,18 @@ function KYCComponent(props) {
     // web3.eth.estimateGas(transaction).then(gasLimit => {
     transaction["gasLimit"] = 4700000;
     web3.eth.accounts.signTransaction(transaction, privateKey).then(res => {
-      // web3.eth.sendSignedTransaction(res.rawTransaction).on('receipt', async function (receipt) {
-      //   // console.log(receipt);
-      //   if (receipt.status) {
-      //     setActiveStep(5);
-      //   }
-      // }).on('error', async function (error) {
-      //   console.log(error);
-      //   setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
-      //   setTimeout(() => {
-      //     setSnackbar({ open: false, message: "" });
-      //   }, 10000)
-      // })
+      web3.eth.sendSignedTransaction(res.rawTransaction).on('receipt', async function (receipt) {
+        // console.log(receipt);
+        if (receipt.status) {
+          setActiveStep(5);
+        }
+      }).on('error', async function (error) {
+        console.log(error);
+        setSnackbar({ open: true, message: "Network error Occured! Please try again later." });
+        setTimeout(() => {
+          setSnackbar({ open: false, message: "" });
+        }, 10000)
+      })
     })
   }
 
