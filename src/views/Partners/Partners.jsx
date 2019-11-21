@@ -26,6 +26,10 @@ import { connect } from 'react-redux';
 import ipfs from 'ipfs.js';
 const IPFS = require('ipfs-http-client')
 import web3 from '../../web3';
+import { industryList } from 'dataset/industries';
+import { functionalRoles } from 'dataset/functionalRoles';
+import { artRoles, agriculture, certification, shipping } from "dataset/projectRoles";
+import { renderFromArray } from 'utils';
 import moment from "moment";
 import {
   List,
@@ -35,7 +39,13 @@ import {
   Menu,
   Paper,
   Chip,
-  CircularProgress
+  CircularProgress,
+  FormGroup,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  Select,
+  OutlinedInput
 } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone'
 import { withStyles } from '@material-ui/core/styles';
@@ -43,7 +53,8 @@ import Divider from '@material-ui/core/Divider';
 
 const Partners = (props) => {
   const { classes } = props;
-
+  const [industry, setIndustry] = useState('');
+  const [role, setRole] = useState('');
   const [partners, setPartners] = useState([]);
   const [allPartners, setAllPartners] = useState([]);
   const [loader, setLoader] = useState(false);
@@ -54,49 +65,7 @@ const Partners = (props) => {
   const [selectedCategoryIndices, setSelectedCategoryIndices] = useState([]);
   const [fetchedCategories, setFetchedCategories] = useState([]);
   const [certificateFiles, setCertificateFiles] = useState([]);
-  const [options, setOptions] = useState(["Agent",
-    "Bank",
-    "Brand",
-    "Buyer",
-    "Certification Agency",
-    "Consumer",
-    "Customs / Authorities",
-    "Distributor",
-    "Environmental Health & Safety",
-    "Facility Maintenance",
-    "Field Services",
-    "Government",
-    "Hardware Integrator",
-    "Human Resources",
-    "Infrastructure",
-    "Insurance",
-    "Logistics",
-    "Logistics - 3PL",
-    "Logistics - Intermodal",
-    "Logistics - Ocean Carriers",
-    "Maintenance",
-    "Marketing",
-    "Material Supplier",
-    "Municipal / Local Body",
-    "Ports / Terminals",
-    "Power / Energy",
-    "Procurement & Sourcing",
-    "Product Development",
-    "Production - Manufacturing",
-    "Production - Natural Resources",
-    "Quality Assurance",
-    "Real Estate / Property Management",
-    "Recycling",
-    "Research & Development",
-    "Seller",
-    "Software Integrator",
-    "Telecom",
-    "Traffic Management",
-    "Transportation",
-    "Utility",
-    "Warehouse Management",
-    "Warehousing",
-    "Waste Management"])
+  const [options, setOptions] = useState([])
   const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
   let options2 = [
     'Select Here',
@@ -183,7 +152,7 @@ const Partners = (props) => {
   function handleMultiMenuItemClick(event, index) {
     setSelectedCategoryIndices(selectedCategoryIndices => [
       ...selectedCategoryIndices,
-      options[index]
+      index
     ]);
     setAnchorEl(null);
   }
@@ -286,6 +255,36 @@ const Partners = (props) => {
         }
       });
     });
+  }
+
+  const renderSubMenu = (roleList) => {
+    let render =[];
+    roleList.map((option, index) => {
+      console.log("LOLOL", index);
+      render.push(<MenuItem
+        key={option}
+        disabled={selectedCategoryIndices.indexOf(option) != -1}
+        onClick={event => handleMultiMenuItemClick(event, option)}
+        value={option}
+      >
+        {option}
+      </MenuItem>)
+    })
+    return render;
+  }
+
+  const onSelectIndustry = (e) => {
+    setIndustry(e.target.value)
+    // forceUpdate(n => !n)
+    // if(industry === "Art & Collectibles")
+    //   setOptions(artRoles);
+    // else if(industry === "Certification")
+    //   setOptions(certification)
+    // else if(industry === "Shipping")
+    //   setOptions(shipping)
+    //   else if(industry === "Agriculture")
+    //     setOptions(agriculture)
+    // forceUpdate(n => !n)
   }
 
 
@@ -396,6 +395,25 @@ const Partners = (props) => {
               <>
                 <Paper>
                   <List component="nav">
+                  <FormGroup row>
+                    <GridItem xs="12" md="12">
+                      <FormControl variant="outlined">
+                        <InputLabel htmlFor="industryList">Select Industry</InputLabel>
+                        <Select
+                          name="industry"
+                          required
+                          fullWidth
+                          labelWidth={110}
+                          input={<OutlinedInput name="industry" id="indList" />}
+                          value={industry}
+                        onChange={onSelectIndustry}
+                        >
+                          {renderFromArray(industryList)}
+                        </Select>
+                        <FormHelperText color="muted">What industry does your project cover?</FormHelperText>
+                      </FormControl>
+                    </GridItem>
+                  </FormGroup>
                     <ListItem
                       button
                       aria-haspopup="true"
@@ -427,15 +445,10 @@ const Partners = (props) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {options.map((option, index) => (
-                    <MenuItem
-                      key={option}
-                      disabled={selectedCategoryIndices.indexOf(option) != -1}
-                      onClick={event => handleMultiMenuItemClick(event, index)}
-                    >
-                      {option}
-                    </MenuItem>
-                  ))}
+                {industry === "Art & Collectibles" && renderSubMenu(artRoles)}
+                {industry === "Certification" && renderSubMenu(certification)}
+                {industry === "Shipping" && renderSubMenu(shipping)}
+                {industry === "Agriculture" && renderSubMenu(agriculture)}
                 </Menu>
                 <br />
                 <GridContainer>
