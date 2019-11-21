@@ -60,59 +60,14 @@ const Partners = (props) => {
   const [loader, setLoader] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState('');
   const [, forceUpdate] = useState();
   const [selectedCategoryIndices, setSelectedCategoryIndices] = useState([]);
   const [fetchedCategories, setFetchedCategories] = useState([]);
   const [certificateFiles, setCertificateFiles] = useState([]);
   const [options, setOptions] = useState([])
   const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
-  let options2 = [
-    'Select Here',
-    "Agent",
-    "Bank",
-    "Brand",
-    "Buyer",
-    "Certification Agency",
-    "Consumer",
-    "Customs / Authorities",
-    "Distributor",
-    "Environmental Health & Safety",
-    "Facility Maintenance",
-    "Field Services",
-    "Government",
-    "Hardware Integrator",
-    "Human Resources",
-    "Infrastructure",
-    "Insurance",
-    "Logistics",
-    "Logistics - 3PL",
-    "Logistics - Intermodal",
-    "Logistics - Ocean Carriers",
-    "Maintenance",
-    "Marketing",
-    "Material Supplier",
-    "Municipal / Local Body",
-    "Ports / Terminals",
-    "Power / Energy",
-    "Procurement & Sourcing",
-    "Product Development",
-    "Production - Manufacturing",
-    "Production - Natural Resources",
-    "Quality Assurance",
-    "Real Estate / Property Management",
-    "Recycling",
-    "Research & Development",
-    "Seller",
-    "Software Integrator",
-    "Telecom",
-    "Traffic Management",
-    "Transportation",
-    "Utility",
-    "Warehouse Management",
-    "Warehousing",
-    "Waste Management"
-  ];
+
   function handleDelete(category) {
     // console.log(selectedCategoryIndices);
     // console.log(category, "to be removed");
@@ -139,7 +94,7 @@ const Partners = (props) => {
     setLoader(true);
     let tempData = []
     allPartners.forEach(element => {
-      if (element.category === options2[index]) {
+      if (element.category === index) {
         tempData.push(element);
         setPartners(tempData);
       }
@@ -273,6 +228,21 @@ const Partners = (props) => {
     return render;
   }
 
+  const renderSubMenu2 = (roleList) => {
+    let render =[];
+    roleList.map((option, index) => {
+      console.log("LOLOL", index);
+      render.push(<MenuItem
+        key={option}
+        onClick={event => handleMenuItemClick(event, option)}
+        value={option}
+      >
+        {option}
+      </MenuItem>)
+    })
+    return render;
+  }
+
   const onSelectIndustry = (e) => {
     setIndustry(e.target.value)
     // forceUpdate(n => !n)
@@ -324,13 +294,30 @@ const Partners = (props) => {
             tabContent: (
               <>
                 <Paper>
+                <GridItem xs="12" md="12">
+                  <FormControl variant="outlined">
+                    <InputLabel htmlFor="industryList">Select Industry</InputLabel>
+                    <Select
+                      name="industry"
+                      required
+                      fullWidth
+                      labelWidth={110}
+                      input={<OutlinedInput name="industry" id="indList" />}
+                      value={industry}
+                    onChange={onSelectIndustry}
+                    >
+                      {renderFromArray(industryList)}
+                    </Select>
+                    <FormHelperText color="muted">What industry does your project cover?</FormHelperText>
+                  </FormControl>
+                </GridItem>
                   <List component="nav" aria-label="Device settings">
                     <ListItem
                       button
                       aria-haspopup="true"
                       onClick={handleClickListItem}
                     >
-                      <ListItemText primary="Select Organization Type &#8681;" secondary={options2[selectedIndex]} />
+                      <ListItemText primary="Select Organization Type &#8681;" secondary={selectedIndex} />
                     </ListItem>
                   </List>
                 </Paper>
@@ -341,15 +328,10 @@ const Partners = (props) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {options2.map((option, index) => (
-                    <MenuItem
-                      key={option}
-                      selected={index === selectedIndex}
-                      onClick={event => handleMenuItemClick(event, index)}
-                    >
-                      {option}
-                    </MenuItem>
-                  ))}
+                {industry === "Art & Collectibles" && renderSubMenu2(artRoles)}
+                {industry === "Certification" && renderSubMenu2(certification)}
+                {industry === "Shipping" && renderSubMenu2(shipping)}
+                {industry === "Agriculture" && renderSubMenu2(agriculture)}
                 </Menu>
                 <GridItem xs={12} sm={12} md={12}>
                   {!loader ?
@@ -394,7 +376,6 @@ const Partners = (props) => {
             tabContent: (
               <>
                 <Paper>
-                  <List component="nav">
                   <FormGroup row>
                     <GridItem xs="12" md="12">
                       <FormControl variant="outlined">
@@ -414,6 +395,7 @@ const Partners = (props) => {
                       </FormControl>
                     </GridItem>
                   </FormGroup>
+                  <List component="nav">
                     <ListItem
                       button
                       aria-haspopup="true"
