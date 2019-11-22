@@ -43,7 +43,12 @@ const Partners = (props) => {
     registryContract.methods.getAllUsers().call().then((fetchedData) => {
       fetchedData.map(async (e, i) => {
         let dataFromIPFS = await axios.get('https://gateway.arthanium.org/ipfs/' + e.kycHash)
-        let KYCStatus = await registryContract.methods.getUserKYCStatus().call({ from: e.publicKey })
+        let KYCStatus = "4"
+        try {
+          KYCStatus = await registryContract.methods.getUserKYCStatus().call({ from: e.publicKey })
+        } catch (error) {
+          // console.log(error,"errorrrr");
+        }
         let mainData = {}
         mainData.userAddress = e.publicKey
         mainData.docs = dataFromIPFS.data.Docs
@@ -58,10 +63,11 @@ const Partners = (props) => {
           ? "KYC Pending"
           : KYCStatus === "1"
             ? "KYC Complete"
-            : "Banned"
-        mainData.email = e.email
+            : KYCStatus === "3"
+              ? "Banned" : "User Deleted"
+        mainData.email = dataFromIPFS.data.info.email
         mainData.fullName = dataFromIPFS.data.info.fullName
-        mainData.address = dataFromIPFS.data.info.address1 + dataFromIPFS.data.info.address + dataFromIPFS.data.info.city + dataFromIPFS.data.info.state + dataFromIPFS.data.info.country + dataFromIPFS.data.info.zip
+        mainData.address = dataFromIPFS.data.info.address1 + " " + dataFromIPFS.data.info.address + " " + dataFromIPFS.data.info.city + " " + dataFromIPFS.data.info.state + " " + dataFromIPFS.data.info.country + " " + dataFromIPFS.data.info.zipcode
         await data.push(mainData)
         if (i === fetchedData.length - 1) {
           console.log(data, "data");
@@ -69,6 +75,7 @@ const Partners = (props) => {
           setLoader(false);
           forceUpdate();
         }
+
       })
     })
     setLoading(false);
@@ -170,7 +177,7 @@ const Partners = (props) => {
                     title: "KYC Status",
                     field: "status",
                     render: rowData => {
-                      return (rowData.status === "KYC Complete" ? <DoneAllIcon /> : rowData.status === "KYC Pending" ? <HourglassEmptyIcon /> : <BlockIcon />)
+                      return (rowData.status === "KYC Complete" ? <DoneAllIcon /> : rowData.status === "KYC Pending" ? <HourglassEmptyIcon /> : rowData.status === "KYC Pending" ? <BlockIcon /> : "User Deleted")
                     }
                   },
                   {
@@ -230,21 +237,25 @@ const Partners = (props) => {
         }
         action={
           !isLoading ? <div>
-            {modalData.status !== "KYC Complete" && <Button onClick={updateStatus(modalData, 1)} color="primary" variant="contained" style={{
-              textTransform: 'none', margin: 10
-            }} size="sm">
-              Accept
+            { modalData.status !== "User Deleted" &&
+              <>
+                {modalData.status !== "KYC Complete" && <Button onClick={updateStatus(modalData, 1)} color="primary" variant="contained" style={{
+                  textTransform: 'none', margin: 10
+                }} size="sm">
+                  Accept
           </Button>}
-            {modalData.status !== "KYC Pending" && < Button onClick={updateStatus(modalData, 0)} color="primary" variant="contained" style={{
-              textTransform: 'none', margin: 10
-            }} size="sm">
-              On Hold
+                {modalData.status !== "KYC Pending" && < Button onClick={updateStatus(modalData, 0)} color="primary" variant="contained" style={{
+                  textTransform: 'none', margin: 10
+                }} size="sm">
+                  On Hold
                             </Button>}
-            {modalData.status !== "Banned" && <Button onClick={updateStatus(modalData, 2)} color="primary" variant="contained" style={{
-              textTransform: 'none', margin: 10
-            }} size="sm">
-              Reject
+                {modalData.status !== "Banned" && <Button onClick={updateStatus(modalData, 2)} color="primary" variant="contained" style={{
+                  textTransform: 'none', margin: 10
+                }} size="sm">
+                  Reject
                             </Button>}
+              </>
+            }
           </div> : <CircularProgress />
         }
 

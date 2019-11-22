@@ -6,14 +6,14 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { Grid, TextField } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
-  icon: {
-    color: theme.palette.text.secondary,
-    marginRight: theme.spacing(2),
-  },
+    icon: {
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(2),
+    },
 }));
 
 export default function companyInfo(props) {
-    const { state, handleChange, handleAddressChange, handleSelect } = props;
+    const { state, handleChange, handleAddressChange, useInput, handleSelect } = props;
     const classes = useStyles();
     return (
         <React.Fragment>
@@ -25,9 +25,10 @@ export default function companyInfo(props) {
                         name="companyName"
                         label="Company Name"
                         fullWidth
-                        onChange={handleChange}
+                        // onChange={handleChange}
                         autoComplete="companyName"
-                        value={state.companyName}
+                        {...useInput('companyName', 'isRequired')}
+                    // value={state.companyName}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -37,9 +38,10 @@ export default function companyInfo(props) {
                         name="fullName"
                         label="Full name"
                         fullWidth
-                        onChange={handleChange}
+                        {...useInput('fullName', 'isRequired')}
+                        // onChange={handleChange}
                         autoComplete="fname"
-                        value={state.fullName}
+                    // value={state.fullName}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -50,9 +52,10 @@ export default function companyInfo(props) {
                         label="Email"
                         type="email"
                         fullWidth
-                        onChange={handleChange}
+                        {...useInput('email', 'isRequired,isEmail')}
+                        // onChange={handleChange}
                         autoComplete="lname"
-                        value={state.email}
+                    // value={state.email}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -81,21 +84,21 @@ export default function companyInfo(props) {
                                             ? { backgroundColor: '#fafafa', cursor: 'pointer' }
                                             : { backgroundColor: '#ffffff', cursor: 'pointer' };
                                         return (
-                                          <Grid container alignItems="center">
-                                            <Grid item>
-                                              <LocationOnIcon className={classes.icon} />
+                                            <Grid container alignItems="center">
+                                                <Grid item>
+                                                    <LocationOnIcon className={classes.icon} />
+                                                </Grid>
+                                                <Grid item xs>
+                                                    <div
+                                                        {...getSuggestionItemProps(suggestion, {
+                                                            className,
+                                                            style,
+                                                        })}
+                                                    >
+                                                        <span>{suggestion.description}</span>
+                                                    </div>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item xs>
-                                            <div
-                                                {...getSuggestionItemProps(suggestion, {
-                                                    className,
-                                                    style,
-                                                })}
-                                            >
-                                                <span>{suggestion.description}</span>
-                                            </div>
-                                            </Grid>
-                  </Grid>
                                         );
                                     })}
                                 </div>
@@ -129,10 +132,10 @@ export default function companyInfo(props) {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField id="state"
-                    name="stateName"
-                    label="State/Province/Region"
-                    onChange={handleChange}
-                    value={state.stateName} fullWidth />
+                        name="stateName"
+                        label="State/Province/Region"
+                        onChange={handleChange}
+                        value={state.stateName} fullWidth />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField

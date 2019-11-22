@@ -72,24 +72,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Eula(props) {
-    let { state } = props
-    console.log(state,"state");
-    
+    let { state, values } = props
+    console.log(state, "state");
+
     const date = moment(new Date()).format("Do MMMM YYYY")
     return (
         <React.Fragment>
             <div style={{ textAlign: 'justify', overflowY: 'scroll', height: 450, fontSize: 14, fontWeight: 300, padding: 10, width: "100%", border: "1px solid #DDD", padding: 10 }}>
                 This Arthanium Platform Users Agreement ( “Agreement”) is made and
       entered into on {date} (the “Effective Date”), between
-                                    Arthanium Networks Private Limited (“Arthanium”) a privately
-                                    incorporated entity under the laws of India with registered office at D /
-                                    303, Silver Gardens, Near Kanti Nagar Ganesh Mandir, J.B. Nagar Andheri
-      East, Mumbai – 400059, India and {state.companyName}  (‘the user”) with
+                                              Arthanium Networks Private Limited (“Arthanium”) a privately
+                                              incorporated entity under the laws of India with registered office at D /
+                                              303, Silver Gardens, Near Kanti Nagar Ganesh Mandir, J.B. Nagar Andheri
+      East, Mumbai – 400059, India and {values.companyName}  (‘the user”) with
       registered office at {state.address} represented by its
-      authorized representative {state.fullName} .  {state.fullName}  with email id as &nbsp;
-      {state.email}  affirms that he is
-                                    authorized to represent the user &amp; all know your customer (“KYC”)
-                                    documents submitted and / or to be submitted by him / her are authentic
+      authorized representative {values.fullName} .  {values.fullName}  with email id as &nbsp;
+      {values.email}  affirms that he is
+                                              authorized to represent the user &amp; all know your customer (“KYC”)
+                                              documents submitted and / or to be submitted by him / her are authentic
       &amp; in his / her lawful possession at the time of submission.<br /><br />
                 Arthanium has developed a technology platform (“Arthanium Platform”)
           which includes both web &amp; mobile phone interface’s and building an

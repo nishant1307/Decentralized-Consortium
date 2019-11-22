@@ -54,7 +54,7 @@ const Partners = (props) => {
           : KYCStatus === "1"
             ? "KYC Complete"
             : "Banned"
-        mainData.address = dataFromIPFS.data.info.address1 + dataFromIPFS.data.info.address + dataFromIPFS.data.info.city + dataFromIPFS.data.info.state + dataFromIPFS.data.info.country + dataFromIPFS.data.info.zip
+        mainData.address = dataFromIPFS.data.info.address1 +" "+ dataFromIPFS.data.info.address +" "+ dataFromIPFS.data.info.city +" "+ dataFromIPFS.data.info.state +" "+ dataFromIPFS.data.info.country +" "+ dataFromIPFS.data.info.zipcode
         await data.push(mainData)
         if (i === fetchedData.length - 1) {
           console.log(data, "data");
