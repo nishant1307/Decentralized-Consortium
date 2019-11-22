@@ -236,7 +236,7 @@ function KYCComponent(props) {
     const eulaHash = await ipfs.add(eulaBuffer);
     console.log(eulaHash);
     const privateKey = await sessionStorage.getItem('privateKey')
-    const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsCompanyHash, info: { ...state, password: "", confirmPassword: "", email: values.email, companyName: values.companyName, fullName: values.fullName } }))
+    const orgBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsCompanyHash, eula: eulaHash[0].hash, info: { ...state, password: "", confirmPassword: "", email: values.email, companyName: values.companyName, fullName: values.fullName } }))
     const orgHash = await ipfs.add(orgBuffer);
     const userBuffer = Ipfs.Buffer.from(JSON.stringify({ Docs: ipfsOwnerHash, info: { ...state, password: "", confirmPassword: "", email: values.email, companyName: values.companyName, fullName: values.fullName } }))
     const userHash = await ipfs.add(userBuffer);
@@ -246,7 +246,7 @@ function KYCComponent(props) {
     //     state.email, "j");
     var transaction = {
       "to": registryAddress,
-      "data": registryContract.methods.setOrganizationAdmin(uuidv1(), values.companyName, orgHash[0].hash, userHash[0].hash, JSON.stringify({ email: values.email, eula: eulaHash[0].hash })).encodeABI()
+      "data": registryContract.methods.setOrganizationAdmin(uuidv1(), values.companyName, orgHash[0].hash, userHash[0].hash, values.email).encodeABI()
     };
 
     // web3.eth.estimateGas(transaction).then(gasLimit => {

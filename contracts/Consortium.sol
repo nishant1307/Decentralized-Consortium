@@ -63,9 +63,14 @@ contract Consortium is StorageDefinition {
     function compareStrings (string memory a, string memory b) internal pure returns (bool) {
         return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))) );
     }
+    
+     function isUniqueAddress (address _address) internal view returns (bool) {
+        return (s.getUserDetails().publicKey != _address);
+    }
 
     function setOrganizationAdmin(string memory organizationID, string memory name, string memory orgKYCHash, string memory userKYCHash, string memory email) public uniqueEmail(email) {
         require(!s.getBoolean(keccak256(abi.encodePacked("organizationExists", organizationID))));
+        require(isUniqueAddress(msg.sender),"Unique Email Required!");
         s.setOrganization(organizationID, name, orgKYCHash);
         s.setBoolean(keccak256(abi.encodePacked("organizationExists", organizationID)), true);
         s.setAddress(keccak256(abi.encodePacked("EmailToPKMapping", email)), msg.sender);
@@ -160,9 +165,9 @@ contract Consortium is StorageDefinition {
         return s.getMyProjectsCount();
     }
 
-    // function getConsortiumMembers(bytes32 projectID) public view returns (User[] memory) {
-    //     return s.getConsortiumMembers(projectID);
-    // }
+    function getConsortiumMembers(bytes32 projectID) public view returns (User[] memory) {
+        return s.getConsortiumMembers(projectID);
+    }
 
     function getAllUsers() public view returns (User[] memory) {
         return s.getAllUsers();

@@ -24,11 +24,11 @@ contract StorageDefinition {
     }
     
     struct CategoryDetail {
+        string organizationID;
         string category;
         string documentHash;
         bool status;
         uint256 timeStamp;
-        string organizationID;
     }
 
     enum roles {regular, admin, registrant}
@@ -55,7 +55,7 @@ contract StorageDefinition {
 
     event ProjectCreated(bytes32 indexed _projectID, string name, string _by, uint256 timestamp);
     event PartnerAddedToConsortium(bytes32 indexed _projectID, string _by, string partnerOrganization, string partnerRole, uint256 timestamp);
-    event DocumentAdded(bytes32 indexed _projectID, string _by, string itemID, uint256 timestamp);
+    event DocumentAdded(bytes32 indexed _projectID, string _by, bytes32 indexed itemID, uint256 timestamp);
     event DeviceAdded(bytes32 indexed _projectID, string _by, string itemID, uint256 timestamp);
     event ProductAdded(bytes32 indexed _projectID, string _by, string itemID, uint256 timestamp);
 
