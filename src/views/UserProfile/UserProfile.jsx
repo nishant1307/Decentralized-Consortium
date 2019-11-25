@@ -22,6 +22,7 @@ import axios from "axios";
 import { withStyles } from '@material-ui/core/styles';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import Fab from '@material-ui/core/Fab';
 import {
   Dialog,
@@ -87,8 +88,10 @@ const UserProfile = props => {
     // })
 
     parseJSONFromIPFSHash(props.user.user[4]).then(async data => {
-      // console.log(data);
       setUserDetails(data.info);
+    });
+    parseJSONFromIPFSHash(props.user.organization[2]).then(async data => {
+      setOrganizationDetails(data);
     });
   }, []);
 
@@ -240,8 +243,14 @@ const UserProfile = props => {
               </GridItem>
               <GridItem xs={12} sm={12} md={3}>
                 <Fab onClick={() => { handleOpen("QR") }} variant="extended" aria-label="delete" className={classes2.fab}>
-                <VisibilityIcon className={classes2.extendedIcon} />
+                  <VisibilityIcon className={classes2.extendedIcon} />
                   Private Key
+                        </Fab>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={3}>
+                <Fab onClick={() => { window.open("https://gateway.arthanium.org/ipfs/" + organizationDetails.eula, "_blank") }} variant="extended" aria-label="delete" className={classes2.fab}>
+                  <AssignmentIcon className={classes2.extendedIcon} />
+                  EULA Agreement
                         </Fab>
               </GridItem>
             </GridContainer>
