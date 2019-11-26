@@ -102,7 +102,7 @@ const Partners = (props) => {
       if (element.category === index) {
         tempData.push(element);
         setPartners(tempData);
-         setRole(index);
+        setRole(index);
       }
     });
     setLoader(false)
@@ -283,6 +283,7 @@ const Partners = (props) => {
         partnerRole: industry + " | " + role
       })
     })
+    window.location.reload();
   }
 
   useEffect(() => {
