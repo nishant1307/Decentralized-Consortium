@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
@@ -50,6 +50,9 @@ import {
 import { DropzoneArea } from 'material-ui-dropzone'
 import { withStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
+import AssignProject from "views/Products/AssignProject";
+import Modal from "components/CustomModal/Modal";
+import { inviteUserToConsortium } from "actions/userActions";
 
 const Partners = (props) => {
   const { classes } = props;
@@ -67,6 +70,9 @@ const Partners = (props) => {
   const [certificateFiles, setCertificateFiles] = useState([]);
   const [options, setOptions] = useState([])
   const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
+  const [assignProjectModal, setAssignProjectModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState('');
+  const [selectedItems, setSelectedItems] = useState([]);
 
   function handleDelete(category) {
     // console.log(selectedCategoryIndices);
@@ -90,13 +96,13 @@ const Partners = (props) => {
 
   function handleMenuItemClick(event, index) {
     setPartners([]);
-    // console.log(index);
     setLoader(true);
     let tempData = []
     allPartners.forEach(element => {
       if (element.category === index) {
         tempData.push(element);
         setPartners(tempData);
+         setRole(index);
       }
     });
     setLoader(false)
@@ -213,7 +219,7 @@ const Partners = (props) => {
   }
 
   const renderSubMenu = (roleList) => {
-    let render =[];
+    let render = [];
     roleList.map((option, index) => {
       console.log("LOLOL", index);
       render.push(<MenuItem
@@ -229,7 +235,7 @@ const Partners = (props) => {
   }
 
   const renderSubMenu2 = (roleList) => {
-    let render =[];
+    let render = [];
     roleList.map((option, index) => {
       console.log("LOLOL", index);
       render.push(<MenuItem
@@ -261,6 +267,23 @@ const Partners = (props) => {
   // useEffect(() => {
 
   // }, [selectedIndex]);
+
+  const addCompnayToProject = (data1) => {
+    setAssignProjectModal(true);
+    setSelectedItems(data1);
+  }
+
+  async function assignCompnayToProject() {
+    setLoading(true);
+    selectedItems.forEach(element => {
+      props.inviteUserToConsortium({
+        partnerOrganizationID: element[0],
+        projectID: selectedProject,
+        // inviteAddress: invitePublicKey,
+        partnerRole: industry + " | " + role
+      })
+    })
+  }
 
   useEffect(() => {
     fetchPartnerList();
@@ -294,23 +317,23 @@ const Partners = (props) => {
             tabContent: (
               <>
                 <Paper>
-                <GridItem xs="12" md="12">
-                  <FormControl variant="outlined">
-                    <InputLabel htmlFor="industryList">Select Industry</InputLabel>
-                    <Select
-                      name="industry"
-                      required
-                      fullWidth
-                      labelWidth={110}
-                      input={<OutlinedInput name="industry" id="indList" />}
-                      value={industry}
-                    onChange={onSelectIndustry}
-                    >
-                      {renderFromArray(industryList)}
-                    </Select>
-                    <FormHelperText color="muted">What industry does your project cover?</FormHelperText>
-                  </FormControl>
-                </GridItem>
+                  <GridItem xs="12" md="12">
+                    <FormControl variant="outlined">
+                      <InputLabel htmlFor="industryList">Select Industry</InputLabel>
+                      <Select
+                        name="industry"
+                        required
+                        fullWidth
+                        labelWidth={110}
+                        input={<OutlinedInput name="industry" id="indList" />}
+                        value={industry}
+                        onChange={onSelectIndustry}
+                      >
+                        {renderFromArray(industryList)}
+                      </Select>
+                      <FormHelperText color="muted">What industry does your project cover?</FormHelperText>
+                    </FormControl>
+                  </GridItem>
                   <List component="nav" aria-label="Device settings">
                     <ListItem
                       button
@@ -328,10 +351,10 @@ const Partners = (props) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                {industry === "Art & Collectibles" && renderSubMenu2(artRoles)}
-                {industry === "Certification" && renderSubMenu2(certification)}
-                {industry === "Shipping" && renderSubMenu2(shipping)}
-                {industry === "Agriculture" && renderSubMenu2(agriculture)}
+                  {industry === "Art & Collectibles" && renderSubMenu2(artRoles)}
+                  {industry === "Certification" && renderSubMenu2(certification)}
+                  {industry === "Shipping" && renderSubMenu2(shipping)}
+                  {industry === "Agriculture" && renderSubMenu2(agriculture)}
                 </Menu>
                 <GridItem xs={12} sm={12} md={12}>
                   {!loader ?
@@ -346,13 +369,22 @@ const Partners = (props) => {
                         title="Partners in the selected category"
                         options={{
                           search: true,
-                          exportButton: true
+                          exportButton: true,
+                          selection: true
                         }}
                         localization={{
                           body: {
                             emptyDataSourceMessage: "No organizations in the selected Category"
                           }
                         }}
+                        actions={
+                          [
+                            {
+                              tooltip: 'Add Selected Organization To Project',
+                              icon: 'link',
+                              onClick: (evt, data) => { addCompnayToProject(data) }
+                            }
+                          ]}
                       />
                     </Card> :
                     <React.Fragment>
@@ -387,7 +419,7 @@ const Partners = (props) => {
                           labelWidth={110}
                           input={<OutlinedInput name="industry" id="indList" />}
                           value={industry}
-                        onChange={onSelectIndustry}
+                          onChange={onSelectIndustry}
                         >
                           {renderFromArray(industryList)}
                         </Select>
@@ -427,10 +459,10 @@ const Partners = (props) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                {industry === "Art & Collectibles" && renderSubMenu(artRoles)}
-                {industry === "Certification" && renderSubMenu(certification)}
-                {industry === "Shipping" && renderSubMenu(shipping)}
-                {industry === "Agriculture" && renderSubMenu(agriculture)}
+                  {industry === "Art & Collectibles" && renderSubMenu(artRoles)}
+                  {industry === "Certification" && renderSubMenu(certification)}
+                  {industry === "Shipping" && renderSubMenu(shipping)}
+                  {industry === "Agriculture" && renderSubMenu(agriculture)}
                 </Menu>
                 <br />
                 <GridContainer>
@@ -482,7 +514,7 @@ const Partners = (props) => {
                             }} src={url} height="auto" width="auto"></iframe>
                           </CardBody>
                           <CardFooter>
-                            {element.status ? <><DoneAllIcon /><h3 style={{textAlign:'center',verticalAlign:'center'}}>Approved</h3></> : <><HourglassEmptyIcon /><h3 style={{textAlign:'center',verticalAlign:'center'}}>Pending</h3></>}
+                            {element.status ? <><DoneAllIcon /><h3 style={{ textAlign: 'center', verticalAlign: 'center' }}>Approved</h3></> : <><HourglassEmptyIcon /><h3 style={{ textAlign: 'center', verticalAlign: 'center' }}>Pending</h3></>}
                           </CardFooter>
                         </Card>
                       </GridItem>
@@ -496,6 +528,24 @@ const Partners = (props) => {
           }
         ]}
       />
+      <Suspense>
+        <Modal
+          open={assignProjectModal}
+          onClose={() => setAssignProjectModal(false)}
+          title="Assign to Project"
+          content={
+            <AssignProject userPublicKey={props.auth.user.publicKey} onSelectProject={(e) => {
+              setSelectedProject(e.target.value);
+            }}
+              selectedProject={selectedProject}
+            />
+          }
+          action={
+            !isLoading ? <Button onClick={assignCompnayToProject}>Assign {selectedItems.length} devices to Project</Button> : <CircularProgress />
+          }
+
+        />
+      </Suspense>
     </>
   );
 }
@@ -510,4 +560,4 @@ const mapStateToProps = (state) => ({
   user: state.user
 })
 
-export default connect(mapStateToProps)(withStyles(dashboardStyle)(Partners));
+export default connect(mapStateToProps, { inviteUserToConsortium })(withStyles(dashboardStyle)(Partners));
