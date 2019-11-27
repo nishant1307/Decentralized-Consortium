@@ -49,12 +49,13 @@ const Partners = (props) => {
         mainData.userAddress = e.externalKey
         mainData.organizationID = e.organizationID;
         mainData.name = e.name;
+        mainData.eula = dataFromIPFS.data.eula;
         mainData.status = KYCStatus === "0"
           ? "KYC Pending"
           : KYCStatus === "1"
             ? "KYC Complete"
             : "Banned"
-        mainData.address = dataFromIPFS.data.info.address1 +" "+ dataFromIPFS.data.info.address +" "+ dataFromIPFS.data.info.city +" "+ dataFromIPFS.data.info.state +" "+ dataFromIPFS.data.info.country +" "+ dataFromIPFS.data.info.zipcode
+        mainData.address = dataFromIPFS.data.info.address1 + " " + dataFromIPFS.data.info.address + " " + dataFromIPFS.data.info.city + " " + dataFromIPFS.data.info.state + " " + dataFromIPFS.data.info.country + " " + dataFromIPFS.data.info.zipcode
         await data.push(mainData)
         if (i === fetchedData.length - 1) {
           console.log(data, "data");
@@ -129,7 +130,7 @@ const Partners = (props) => {
           <Card plain>
             <CardHeader plain color="primary">
               <h4 className={classes.cardTitleWhite}>
-                Category List
+                Organization List
                             </h4>
             </CardHeader>
             {loader ?
@@ -168,6 +169,16 @@ const Partners = (props) => {
                       return (
                         <>
                           <Button onClick={openKYCmodal(rowData)} variant="contained" color="primary">View Documents </Button>
+                        </>)
+                    }
+                  },
+                  {
+                    field: 'eula',
+                    title: 'EULA Agreement',
+                    render: rowData => {
+                      return (
+                        <>
+                          <Button onClick={() => window.open("https://gateway.arthanium.org/ipfs/" + rowData.eula)} variant="contained" color="primary">EULA Agreement </Button>
                         </>)
                     }
                   },

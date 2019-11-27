@@ -128,7 +128,7 @@ const Partners = (props) => {
                     <Card plain>
                         <CardHeader plain color="primary">
                             <h4 className={classes.cardTitleWhite}>
-                                Category List
+                                Partner List
                             </h4>
                         </CardHeader>
                         {loader ?
