@@ -12,6 +12,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import Button from "components/CustomButtons/Button";
 import Modal from "components/CustomModal/Modal";
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import Snackbar from '../../components/Snackbar/Snackbar.jsx'
 import axios from "axios";
 import { renderFromArray } from '../../utils';
 import { parseJSONFromIPFSHash } from "utils";
@@ -104,21 +105,25 @@ const ProjectPartners = (props) => {
   const [inviteOrg, setInviteOrg] = useState('');
   const [invitePublicKey, setInvitePublicKey] = useState('');
   const [modal, setModal] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
   const [revealedPasscode, setRevealedPasscode] = useState('');
   const [partnerRoles, setPartnerRoles] = useState([]);
   const [role, setRole] = useState("Buyer");
   const [invitationStatus, setInvitationStatus] = useState(false);
   const [industry, setIndustry] = useState('');
+  const [snackbar, setSnackbar] = useState({ color: 'danger', open: false, message: '' })
   const checkForUser = () => {
     // fetchPasscode();
     registryContract.methods.getPublicKeyFromEmail(inviteEmail).call({
       from: props.auth.user.publicKey
     })
       .then(userAddress => {
-
         if (userAddress == "0x0000000000000000000000000000000000000000") {
-          setError("No user found with the Entered email")
+          setModal(false);
+          setSnackbar({ color: "danger", open: true, message: "No user found with the entered email." });
+          setTimeout(() => {
+            setSnackbar({ color: "success", open: false, message: "" });
+          }, 10000)
         } else {
           setInvitePublicKey(userAddress);
           registryContract.methods.getOrganizationDetails().call({
@@ -170,7 +175,7 @@ const ProjectPartners = (props) => {
       partnerOrganizationID: inviteOrg.organizationID,
       projectID: props.projectID,
       // inviteAddress: invitePublicKey,
-      partnerRole:  industry + " | " + role
+      partnerRole: industry + " | " + role
     })
   }
 
@@ -281,6 +286,7 @@ const ProjectPartners = (props) => {
           </Card>
         </GridItem>
       </GridContainer>
+      <Snackbar color={snackbar.color} open={snackbar.open} place="br" className={classes.margin} message={snackbar.message} />
     </div>
   );
 }

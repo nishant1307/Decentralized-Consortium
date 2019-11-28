@@ -26,6 +26,7 @@ const AboutUs = React.lazy(() => import("views/LandingPagev1/AboutUs"));
 const OurTeam = React.lazy(() => import("views/LandingPagev1/OurTeam"));
 const Verify = React.lazy(() => import("views/Claims&Certifications/GlobalVerify"));
 const SignupGoogleForm = React.lazy(() => import("views/SignupGoogleForm"));
+const ErrorBoundary = React.lazy(() => import('./ErrorBoundary'))
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "pagetransition.css";
 const loading = <LinearProgress />;
@@ -34,6 +35,7 @@ ReactDOM.render(
     <PersistGate loading={null} persistor={persistor}>
       <Suspense fallback={loading}>
         <BrowserRouter>
+          <ErrorBoundary>
             <Switch>
               <Route exact path="/" component={Landing} />
               <Route exact path="/platform" component={Platform} />
@@ -52,10 +54,11 @@ ReactDOM.render(
               <Route path="/recover" component={RecoverAccount} />
               <Route component={Page404} />
             </Switch>
-
+          </ErrorBoundary>
         </BrowserRouter>
       </Suspense>
     </PersistGate>
-  </Provider>,
+  </Provider>
+  ,
   document.getElementById("root")
 );

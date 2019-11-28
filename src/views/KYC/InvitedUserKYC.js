@@ -283,7 +283,15 @@ function Invitation(props) {
                     sessionStorage.setItem('timestamp', Date.now())
                     setActiveStep(activeStep + 1);
                 }).catch((reason) => {
-                    console.error(reason)
+                    setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Incorrect Password." />
+                    );
+                    setTimeout(
+                        function () {
+                            setAlert('');
+                        }
+                            .bind(this),
+                        10000
+                    );
                 })
             } else {
                 if (state.password === "" || state.confirmPassword === "" || state.password !== state.confirmPassword) {
@@ -338,16 +346,16 @@ function Invitation(props) {
                         setActiveStep(4);
                     })
                     .on('error', function (error) {
-                        setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Error Occured! email already exists." />
-                        );
+                        setActiveStep(0);
+                        setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Error Occured! email already exists." />);
                         setTimeout(
                             function () {
+                               
                                 setAlert('');
                             }
                                 .bind(this),
-                            10000
+                            30000
                         );
-                        setActiveStep(0);
                     })
             })
     }
@@ -442,7 +450,7 @@ function Invitation(props) {
             case 3:
                 return <KYCDocuments setDoc={handleDoc} />;
             case 4:
-                return <Eula state={state} />;
+                return <Eula state={state} values={state} />;
             default:
                 throw new Error('Unknown step');
         }
@@ -475,8 +483,8 @@ function Invitation(props) {
                     setActiveStep(activeStep + 1);
                 })
             }
-            else{
-              setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Invalid Passcode" />)
+            else {
+                setAlert(<Snackbar color="danger" open={true} place="bl" className={classes.margin} message="Invalid Passcode" />)
             }
 
         } catch (err) {
