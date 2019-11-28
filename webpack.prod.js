@@ -2,7 +2,7 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const path = require("path");
 const webpack = require("webpack");
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // var CompressionPlugin = require('compression-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -16,12 +16,18 @@ module.exports = merge(common, {
   mode: "production",
   optimization: {
     minimizer: [
-      new TerserPlugin(),
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
       new OptimizeCSSAssetsPlugin({
 
       })
     ]
-	},
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
@@ -40,9 +46,9 @@ module.exports = merge(common, {
     new DynamicCdnWebpackPlugin()
   ],
   output: {
-		path: path.join(__dirname, 'dist'),
-		filename: '[name].[chunkhash].bundle.js',
-		chunkFilename: '[name].[chunkhash].bundle.js',
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].[chunkhash].bundle.js',
+    chunkFilename: '[name].[chunkhash].bundle.js',
     publicPath: ASSET_PATH
-	},
+  },
 });
