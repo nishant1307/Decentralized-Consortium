@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { RemoveRedEye } from '@material-ui/icons';
-import { InputAdornment, Grid, TextField } from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { InputAdornment, Grid, TextField, Link } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     eye: {
@@ -70,6 +70,11 @@ export default function companyInfo(props) {
                         // autoComplete="fname"
                         value={state.confirmPassword}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    <Link href="/recover" variant="body2">
+                        Already have a account ?
+                </Link>
                 </Grid>
             </Grid>
         </React.Fragment>
