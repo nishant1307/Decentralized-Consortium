@@ -195,7 +195,7 @@ function Login(props) {
             <Grid container>
               <Grid item xs>
                 <Link href="/recover" variant="body2">
-                  Forgot password?
+                  Unable to login? Restore account
                 </Link>
               </Grid>
               <Grid item>
