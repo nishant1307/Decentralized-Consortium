@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from "react";
-import MaterialTable, { MTableToolbar }  from "material-table";
+import React, { useState, useEffect } from "react";
+import MaterialTable, { MTableToolbar } from "material-table";
 import { makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import { certificationContract, certificationAddress } from 'certificationContract';
 import { SpeedDial, SpeedDialIcon, SpeedDialAction } from '@material-ui/lab';
-
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import IconButton from '@material-ui/core/IconButton';
 import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import PublishIcon from '@material-ui/icons/Publish';
 import GridItem from "components/Grid/GridItem.jsx";
@@ -57,76 +58,80 @@ const ViewCertifications = (props) => {
     setOpen(true);
   };
 
-
   return (
-      <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card plain>
-            <CardHeader plain color="primary" style={{display: "flex"}}>
-              <h4 className={classes.cardTitleWhite}>
-                My Certificates
+    <GridContainer>
+      <GridItem xs={12} sm={12} md={12}>
+        <Card plain>
+          <CardHeader plain color="primary" style={{ display: "flex" }}>
+            <h4 className={classes.cardTitleWhite}>
+              My Certificates
               </h4>
-              <SpeedDial
-            ariaLabel="SpeedDial example"
-            icon={<SpeedDialIcon />}
-            onClose={()=> {setOpen(false)}}
-            onOpen={handleOpen}
-            open={open}
-            direction={'left'}
-            style={{float: "right", width: "90%"}}
-          >
-            {actions.map(action => (
-              <SpeedDialAction
-                key={action.name}
-                icon={action.icon}
-                tooltipTitle={action.name}
-                onClick={() => {props.history.push(action.goTo)}}
-              />
-            ))}
-          </SpeedDial>
-            </CardHeader>
-        {loading ?
-          <React.Fragment>
-                <Skeleton width="100%"/>
-                <Skeleton width="60%" />
-                <Skeleton width="100%" />
-                <Skeleton width="60%" />
-                <Skeleton width="100%" />
-                <Skeleton width="60%" />
-                <Skeleton width="100%" />
-          </React.Fragment> :
-          <MaterialTable
-            columns={[
-              { title: "Certification ID", field: "certificateID" },
-              { title: "Title", field: "title" },
-              { title: "Type", field: "type" },
-              { title: "Certification Claim", field: "properties.name" },
-              { title: "Certificate Image", render: rowData => <img src={"https://gateway.arthanium.org/ipfs/"+rowData.properties.image} height="50px" width="50px"/>},
-              { title: "Approval Status", fieldBy: "approvedBy", render: rowData => (rowData.approvedBy.length>0) ? <VerifiedUserIcon/>: <VerifiedUserIcon color="disabled"/>}
-            ]}
-            data={certificationList}
-            title="Certificates"
-            options={{
-              search: true,
-              exportButton: true
-            }}
-            localization={{
-              body: {
-                emptyDataSourceMessage: "No certificates for your organization yet"
-              }
-            }}
-            actions={[
-          {
-            icon: 'assessment',
-            tooltip: 'Apply for approval to Certification Agency(s)',
-            onClick: (event, rowData) => alert("Thanks for applying")
+            <SpeedDial
+              ariaLabel="SpeedDial example"
+              icon={<SpeedDialIcon />}
+              onClose={() => { setOpen(false) }}
+              onOpen={handleOpen}
+              open={open}
+              direction={'left'}
+              style={{ float: "right", width: "90%" }}
+            >
+              {actions.map(action => (
+                <SpeedDialAction
+                  key={action.name}
+                  icon={action.icon}
+                  tooltipTitle={action.name}
+                  onClick={() => { props.history.push(action.goTo) }}
+                />
+              ))}
+            </SpeedDial>
+          </CardHeader>
+          {loading ?
+            <React.Fragment>
+              <Skeleton width="100%" />
+              <Skeleton width="60%" />
+              <Skeleton width="100%" />
+              <Skeleton width="60%" />
+              <Skeleton width="100%" />
+              <Skeleton width="60%" />
+              <Skeleton width="100%" />
+            </React.Fragment> :
+            <MaterialTable
+              columns={[
+                { title: "Certification ID", field: "certificateID" },
+                { title: "Title", field: "title" },
+                { title: "Type", field: "type" },
+                { title: "Certification Claim", field: "properties.name" },
+                { title: "Certificate Image", render: rowData => rowData.documentType === "Template" ? "-" : <img src={"https://gateway.arthanium.org/ipfs/" + rowData.properties.image} height="50px" width="50px" alt="not a valid certificate type" /> },
+                {
+                  title: "Action", render: rowData => rowData.documentType === "Template" && <IconButton onClick={() => props.history.push("/dashboard/modules/certifications/template", { data: rowData })} aria-label="View document">
+                    <VisibilityIcon />
+                  </IconButton>
+                },
+                { title: "Approval Status", fieldBy: "approvedBy", render: rowData => (rowData.approvedBy.length > 0) ? <VerifiedUserIcon /> : <VerifiedUserIcon color="disabled" /> }
+              ]}
+              data={certificationList}
+              title="Certificates"
+              options={{
+                search: true,
+                exportButton: true
+              }}
+              localization={{
+                body: {
+                  emptyDataSourceMessage: "No certificates for your organization yet"
+                }
+              }}
+              actions={[
+                {
+                  icon: 'assessment',
+                  tooltip: 'Apply for approval to Certification Agency(s)',
+                  onClick: (event, rowData) => alert("Thanks for applying")
+                }
+              ]}
+            />
           }
-        ]}
-          />
-        }
         </Card>
-        </GridItem>
-      </GridContainer>
+      </GridItem>
+    </GridContainer>
   )
 };
 

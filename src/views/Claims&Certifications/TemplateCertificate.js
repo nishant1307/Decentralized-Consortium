@@ -9,8 +9,11 @@ import {
   FormGroup,
   FormControl,
   FormHelperText,
-  InputLabel
+  InputLabel,
+  CircularProgress
 } from '@material-ui/core';
+import uuidv1 from 'uuid/v1';
+import { certificationContract, certificationAddress } from 'certificationContract';
 import Button from "components/CustomButtons/Button.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -21,7 +24,11 @@ import moment from "moment";
 import "WA/css/custom.css"
 import { DropzoneArea } from 'material-ui-dropzone'
 import { connect } from 'react-redux';
-const TemplateCertificate = () => {
+import ipfs from 'ipfs.js';
+import web3 from '../../web3';
+const IPFS = require('ipfs-http-client');
+const TemplateCertificate = (props) => {
+  // console.log(props,"props")
   const [modalOpen, setModalOpen] = useState(true);
   const [templateID, setTemplateID] = useState('');
   const [industry, setIndustry] = useState('');
@@ -29,10 +36,14 @@ const TemplateCertificate = () => {
   const [certificateHash, setCertificateHash] = useState();
   const [infoConfirmation, setInformationConfirmed] = useState(false);
   const [claimName, setClaimName] = useState('');
-  const [success, setSuccess]= useState(false);
   const [certificateID, setCertificateID] = useState('');
   const [loading, setLoading] = useState(false);
+  const [struture, setStruture] = useState({});
+  const [image, setImage] = useState({});
+  const [isExist, setIsExist] = useState(false);
+
   const componentRef = useRef();
+
   const handleDropzone = (file) => {
     setCertificateFiles([...certificateFiles, { "file": file, "category": "Certificate" }])
   }
@@ -63,7 +74,7 @@ const TemplateCertificate = () => {
   const handleSubmit = async () => {
     setLoading(true);
     uploadOnIPFS().then(async (result, error) => {
-      console.log(result);
+      // console.log(result)
       if (error) {
         console.log(error);
         setLoading(false);
@@ -87,9 +98,11 @@ const TemplateCertificate = () => {
       transaction["gasLimit"] = 4700000;
       web3.eth.accounts.signTransaction(transaction, privateKey)
         .then(res => {
+          // console.log(res.rawTransaction,"res.rawTransaction")
           web3.eth.sendSignedTransaction(res.rawTransaction)
             .on('receipt', async function (receipt) {
-              setSuccess(true)
+              setLoading(false);
+              props.history.goBack()
             })
             .on('error', async function (error) {
               console.log(error);
@@ -111,29 +124,29 @@ const TemplateCertificate = () => {
       certificateFiles.forEach(element => {
         let reader = new window.FileReader();
         reader.readAsArrayBuffer(element.file);
-        reader.onloadend = (res) => {
-          let content = IPFS.Buffer.from(res.target.result);
+        reader.onloadend = async (res) => {
+          let _image = await ipfs.add(IPFS.Buffer.from(res.target.result));
+          let content = IPFS.Buffer.from( JSON.stringify({image:_image[0].hash ,  data: {...struture,date:moment(new Date()).format("Do MMMM YYYY")} }))
           ipfs.add(content, (err, newHash) => {
             if (err) {
+              console.log(err)
               reject();
             }
-            _documentHash.push(newHash[0].hash)
-            _category.push(element.category)
             i++;
             if (certificateFiles.length === i) {
               resolve({
                 title: "Certification",
                 type: "Self Attested",
+                documentType:"Template",
+                templateType:templateID,
+                industry:industry,
                 properties: {
-                  name: claimName,
-                  description: claimName,
-                  image: _documentHash[0]
+                  data: newHash[0].hash,
                 }
               })
             }
           })
         }
-
       })
     })
   }
@@ -141,6 +154,24 @@ const TemplateCertificate = () => {
     setTemplateID(e.target.value)
     setModalOpen(false);
   }
+
+  useEffect(() => {
+    if(typeof props.history.location.state !== "undefined"){
+      setLoading(true);
+      const {data } = props.history.location.state
+     setIndustry(data.industry);
+     setTemplateID(data.templateType);
+     setModalOpen(false)
+     setIsExist(true)
+     ipfs.get(data.properties.data, function (err, files) {
+        let data = JSON.parse(files[0].content.toString('utf8'))
+        console.log(data.data)
+        setStruture(data.data)
+       setImage("https://gateway.arthanium.org/ipfs/" + data.image);
+       setLoading(false);
+     })
+    }
+ }, [])
 
   return (
     <>
@@ -187,8 +218,8 @@ const TemplateCertificate = () => {
 
       }
       />
-    {templateID &&
-      <>
+    {
+     loading ? <CircularProgress style={{position: "absolute",top:"50%",left:"50%"}} /> : templateID && <> 
       <div id="printTemplate">
       <div style={{width: '100%', height: '100%', padding: '20px', textAlign: 'center', border: '10px ridge #787878'}}>
         <div style={{width: '100%', height: '100%', padding: '20px', textAlign: 'center', border: '5px ridge #787878'}}>
@@ -200,15 +231,17 @@ const TemplateCertificate = () => {
         <GridContainer>
           <GridItem xs={12} sm={6} md={6}>
           <TextField
+          defaultValue=" "
+          disabled={isExist}
           type="text"
-
+          onChange={e => setStruture({ ...struture, ["titleOfTheCertificate"]: e.target.value })}
+          value={struture["titleOfTheCertificate"]}
           fullWidth
           variant="standard"
-
-
           label="Title of the Certificate" />
           </GridItem>
           <GridItem xs={12} sm={6} md={6}>
+         { isExist? <img src={image} height="200px" width="200px" /> :
           <DropzoneArea
             dropzoneText={"Artwork Image. Ideally, your COA should include a high-resolution image of your work within the document. This ensures ease in archiving the document for both you and the buyer."}
             // onSave={(file) => { console.log(file);}}
@@ -219,72 +252,87 @@ const TemplateCertificate = () => {
             acceptedFiles={['image/jpeg', 'image/png', 'image/bmp', 'application/pdf']}
             maxFileSize={5000000}
             filesLimit={1}
-          />
+    /> }
           </GridItem>
         </GridContainer>
           <br /><br />
           <i><TextField
+                    defaultValue=" "
+                    disabled={isExist}
+
             type="text"
             fullWidth
             variant="standard"
-
-
+            onChange={e => setStruture({ ...struture, ["certifiedBy"]: e.target.value })}
+            value={struture["certifiedBy"]}
             label="Certified by" /></i>
             <br/><br/>
           <GridContainer>
             <GridItem xs={12} sm={6} md={6}>
               <TextField
-                type="text"
+                        defaultValue=" "
+                        disabled={isExist}
 
+                type="text"
                 fullWidth
                 variant="standard"
-
-
+                onChange={e => setStruture({ ...struture, ["artistName"]: e.target.value })}
+                value={struture["artistName"]}
                 label="Artist name" />
             </GridItem>
             <GridItem xs={12} sm={6} md={6}>
             <TextField
-            type="text"
+                      defaultValue=" "
+                      disabled={isExist}
 
+            type="text"
             fullWidth
             variant="standard"
-
-
+            onChange={e => setStruture({ ...struture, ["yearOfCompletion"]: e.target.value })}
+            value={struture["yearOfCompletion"]}
             label="Year of completion" />
             </GridItem>
           </GridContainer>
           <br /><br />
           <span style={{fontSize: '20px'}}><b><TextField
-          type="text"
+                    defaultValue=" "
+                    disabled={isExist}
 
+          type="text"
           fullWidth
           variant="standard"
-
-
+          onChange={e => setStruture({ ...struture, ["dimensions1"]: e.target.value })}
+          value={struture["dimensions1"]}
           label="Dimensions" /></b></span> <br /><br /><br /><br />
           <span style={{fontSize: '25px'}}><i><TextField
-          type="text"
+                    defaultValue=" "
+                    disabled={isExist}
 
+          type="text"
           fullWidth
           variant="standard"
-
-
+          onChange={e => setStruture({ ...struture, ["medium"]: e.target.value })}
+          value={struture["medium"]}
           label="Medium" /></i></span><br /><br/>
           <span style={{fontSize: '20px'}}><b><TextField
-          type="text"
+                    defaultValue=" "
+                    disabled={isExist}
 
+          type="text"
           fullWidth
           variant="standard"
-
-
+          onChange={e => setStruture({ ...struture, ["dimensions2"]: e.target.value })}
+          value={struture["dimensions2"]}
           label="Dimensions" /></b></span> <br /><br /><br /><br />
           <span style={{fontSize: '25px'}}><i><TextField
-          type="text"
+                    defaultValue=" "
+                    disabled={isExist}
 
+          type="text"
           fullWidth
           variant="standard"
-
-
+          onChange={e => setStruture({ ...struture, ["editionNumber"]: e.target.value })}
+          value={struture["editionNumber"]}
           label="Edition number, if applicable." /></i></span><br /><br/>
           <GridContainer>
             <GridItem xs={12} sm={6} md={3}>
@@ -292,13 +340,15 @@ const TemplateCertificate = () => {
             </GridItem>
             <GridItem xs={12} sm={6} md={9}>
             <TextField
+          disabled={isExist}
+
             type="text"
             rows="2"
             multiline
             fullWidth
             variant="outlined"
-
-
+            onChange={e => setStruture({ ...struture, ["statementOfAuthenticity"]: e.target.value })}
+            value={struture["statementOfAuthenticity"]}
             placeholder="This should consist of a short, one to two sentence statement declaring the authenticity of your work, as well as a statement that your work is copyrighted by you, and you alone." />
             </GridItem>
           </GridContainer>
@@ -309,6 +359,10 @@ const TemplateCertificate = () => {
             </GridItem>
             <GridItem xs={12} sm={6} md={9}>
             <TextField
+          disabled={isExist}
+
+            onChange={e => setStruture({ ...struture, ["specialInstruction"]: e.target.value })}
+            value={struture["specialInstruction"]}
             type="text"
             rows="2"
             multiline
@@ -320,11 +374,11 @@ const TemplateCertificate = () => {
             </GridItem>
           </GridContainer>
           <br/><br/><br/>
-          <b><i>Dated: {moment(new Date()).format("Do MMMM YYYY")}</i></b>
+          <b><i>Dated: {isExist ? struture.date : moment(new Date()).format("Do MMMM YYYY")} </i></b>
         </div>
       </div>
       </div>
-      <FormControlLabel control={<Checkbox
+     {! isExist && <FormControlLabel control={<Checkbox
         checked={
           infoConfirmation
         }
@@ -335,8 +389,8 @@ const TemplateCertificate = () => {
         inputProps={{
           'aria-label': 'primary checkbox',
         }}
-      />} label="I confirm that the information being shared on the platform is true to the best of my understanding" />
-      <Button onClick={print} color="info" round disabled={!infoConfirmation}>Submit Certification Claim</Button>
+      />} label="I confirm that the information being shared on the platform is true to the best of my understanding" /> }
+      {! isExist && <Button onClick={handleSubmit} color="info" round disabled={!infoConfirmation}>Submit Certification Claim</Button>}
       <iframe id="ifmcontentstoprint" height="0px" width="0px"></iframe>
       </>
     }
